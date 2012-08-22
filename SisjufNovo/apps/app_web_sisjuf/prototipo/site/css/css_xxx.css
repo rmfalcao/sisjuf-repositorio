@@ -1,0 +1,303 @@
+body{margin:0px; background-color:#003366;}
+
+h1{font-size:17px; margin:0px 0px 0px 0px;}
+h2{font-size:11px; margin:0px 0px 5px 0px; 
+background:url(../images/bg_h2.gif) no-repeat left;
+padding-left:10px;
+}
+
+input{font-family:Verdana, Arial, Helvetica, sans-serif; color:#666666;}
+button{font-family:Verdana, Arial, Helvetica, sans-serif;}
+select{font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#666666;}
+textarea{font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#666666;}
+a{text-decoration:none;}
+/* --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------- */
+#geral{
+width:770px;
+position:relative;
+left:50%;
+margin-left:-385px;
+background-color:#EEEEEE;
+min-height:580px;
+_height:580px;
+border:1px solid #CCCCCC;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/* --------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------- login e senha ------- */
+#login{
+width:770px;
+background:url(../images/login02.gif) no-repeat;
+height:85px;
+_margin-top:-4px;
+}
+
+#tabela_login input{
+font-size:11px;
+height:11px;
+}
+#tabela_login img{margin-bottom:-3px; border:0px;}
+#tabela_login{
+font-size:9px;
+color:#EEEEEE;
+margin-top:30px;
+_margin-bottom:-30px;
+}
+/* --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------- */
+#topo{
+width:770px;
+height:130px;
+background:url(../images/topo.gif) no-repeat;
+}
+#sair img{margin-bottom:-3px; border:0px;}
+#sair{
+float:right;
+width:750px;
+margin-right:5px;
+text-align:right;
+color:#EEEEEE;
+font-size:10px;
+font-weight:bold;
+margin-top:54px;
+}
+#voltar img{margin-bottom:-3px; border:0px;}
+#voltar{
+float:right;
+width:750px;
+margin-right:5px;
+text-align:right;
+font-size:10px;
+font-weight:bold;
+margin-top:20px;
+color:#003366;
+}
+/* --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- MENU ------ */
+#menu{
+width:160px;
+min-height:450px;
+_height:450px;
+background-color:#CCCCCC;
+float:left;
+font-size:11px;
+padding-top:5px;
+}
+#menu span{font-size:17px; margin-left:2px; font-weight:bold; color:#003366;}
+
+.divisoria{
+display:block;
+width:156px;
+min-height:15px;
+_height:15px; 
+padding:2px;
+color:#003366; 
+text-decoration:none;
+}
+.divisoria:hover{
+background-color:#DDDDDD;
+color:#003366;
+text-decoration:none;
+border-bottom:1px solid #EEEEEE;
+border-left:1px solid #EEEEEE;
+width:155px; 
+height:14px;
+}
+.submenu{
+display:block;
+width:156px; 
+height:13px; 
+padding:2px;
+color:#003366; 
+text-decoration:none;
+border-bottom:1px solid #DDDDDD;
+}
+.submenu:hover{
+background-color:#DDDDDD;
+color:#003366;
+text-decoration:none;
+color:#006699;
+}
+#submenu1 a, #submenu2 a{font-size:10px;}
+#submenu1, #submenu2{display:none;}
+
+#menu_senha2, #menu_adm2, #menu_financ2{
+display:none;
+background-color:#DDDDDD;
+font-weight:bold;
+}
+/* --------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- MIOLO ------ */
+#miolo{
+/*width:587px;*/
+width:590px;
+min-height:435px;
+_height:435px;
+float:left;
+padding-left:10px;
+padding-right:10px;
+font-size:11px;
+color:#003366;
+}
+/* --------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------- TABELA LISTAGEM ----------- */
+.tab_lista{
+width:587px;
+border:1px solid #CCCCCC;
+font-size:10px;
+margin-top:10px;
+float:left;
+}
+.tab_lista th{background-color:#CCCCCC;text-align:left;}
+.tab_lista td{background-color:#FFFFFF;}
+.tab_lista td a{color:#006699;text-decoration:none;}
+.tab_lista td a:hover{font-weight:bold; background-color:#EEEEEE;}
+
+.tab_lista tfoot td{background-color:#CCCCCC;text-align:left;}
+/*.tab_lista tfoot td{background-color:#FFFFFF;font-weight:bold;}*/
+
+.valor_negativo{color:#CC0000;}
+/* --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------- BOTOES -------- */
+.botao_novo span{visibility:hidden;}
+.botao_novo{
+display:block;
+width:50px;
+height:15px;
+background:url(../images/botao_novo.gif) no-repeat;
+float:left;
+font-size:1px;
+}
+.botao_salvar span{visibility:hidden;}
+.botao_salvar{
+display:block;
+width:60px;
+height:15px;
+background:url(../images/botao_salvar.gif) no-repeat;
+float:right;
+font-size:1px;
+margin-top:10px;
+}
+.botao_filtrar span{visibility:hidden;}
+.botao_filtrar{
+display:block;
+width:60px;
+height:15px;
+background:url(../images/botao_filtrar.gif) no-repeat;
+float:right;
+font-size:1px;
+margin-top:5px;
+}
+.botao_senha span{visibility:hidden;}
+.botao_senha{
+display:block;
+width:90px;
+height:15px;
+background:url(../images/botao_senha.gif) no-repeat;
+float:right;
+font-size:1px;
+}
+/* --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------ BOTOES LISTA ------- */
+/*
+.botao_editar span{visibility:hidden;}
+.botao_editar{
+display:block;
+width:15px;
+height:15px;
+background:url(../images/botao_editar.gif) no-repeat;
+float:left;
+font-size:1px;
+margin-left:1px;
+}
+*/
+.botao_excluir span{visibility:hidden;}
+.botao_excluir{
+display:block;
+width:15px;
+height:15px;
+background:url(../images/botao_excluir.gif) no-repeat;
+font-size:1px;
+text-decoration:none;
+}
+.botao_imprimir span{visibility:hidden;}
+.botao_imprimir{
+display:block;
+width:15px;
+height:12px;
+background:url(../images/ico_imprimir.gif) no-repeat;
+font-size:1px;
+text-decoration:none;
+}
+.botao_baixar span{visibility:hidden;}
+.botao_baixar{
+display:block;
+width:15px;
+height:15px;
+background:url(../images/botao_baixar.gif) no-repeat;
+font-size:1px;
+text-decoration:none;
+}
+/*.botao_acima span{visibility:hidden;}*/
+.botao_acima:hover{color:#003366;}
+.botao_acima{
+display:block;
+width:15px;
+height:15px;
+float:left;
+background:url(../images/botao_acima.gif) no-repeat;
+background-position:left;
+padding-left:20px;
+padding-top:3px;
+font-size:10px;
+color:#006699;
+text-decoration:none;
+}
+/* --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ TABELA CADASTRO ---------- */
+.tab_cadastro input{color:#666666; font-size:10px;}
+.tab_cadastro{
+width:590px;
+border:1px solid #CCCCCC;
+font-size:10px;
+margin-top:10px;
+float:left;
+}
+.tab_cadastro thead th{background-color:#003366;;text-align:right; font-size:11px; color:#EEEEEE;}
+.tab_cadastro tbody th{background-color:#DDDDDD;text-align:right;}
+.tab_cadastro td{background-color:#FFFFFF;}
+
+/* *************************** Mudanças de Fernando *************************** */
+
+.baseTabela{
+	background-color:#CCCCCC;
+	text-align:left;
+}
+
+.textoMsgErro{
+	color: red;
+	font-size: 10px;
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	line-height: 20px;
+	text-align: left;
+	padding: 10px; 
+}
+
+.textoMsgInfo{
+	color: blue;
+	font-size: 10px;
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	line-height: 20px;
+	text-align: left;
+	padding: 10px; 
+}

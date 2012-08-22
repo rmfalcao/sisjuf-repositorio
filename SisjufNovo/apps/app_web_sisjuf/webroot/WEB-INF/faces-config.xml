@@ -1,0 +1,1635 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<faces-config>
+	<managed-bean>
+		<managed-bean-name>BancoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.BancoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>ContaBancoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.ContaBancoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>TipoLancamentoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.TipoLancamentoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>OrigemLancamentoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.OrigemLancamentoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>ExtratoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.ExtratoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>LancamentoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.LancamentoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>MovimentarBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.MovimentarPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>SaldoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.financeiro.web.bean.SaldoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>AssociadoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.cliente.web.bean.AssociadoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>entidadesComunsDelegate</property-name>
+			<value>#{entidadesComunsDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>financeiroDelegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{associadoDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>utilDelegate</property-name>
+			<value>#{utilDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>convenioDelegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<!-- managed-bean>
+		<managed-bean-name>BeneficiarioBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.cliente.web.bean.BeneficiarioPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>associadoDelegate</property-name>
+			<value>#{associadoDelegate}</value>
+		</managed-property>
+	</managed-bean-->
+	
+	<managed-bean>
+		<managed-bean-name>ConvenioBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.ConvenioPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>utilDelegate</property-name>
+			<value>#{utilDelegate}</value>
+		</managed-property>				
+		<managed-property>
+			<property-name>financeiroDelegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>FaturaBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.FaturaPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>utilDelegate</property-name>
+			<value>#{utilDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>AtividadeConvenioBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.AtividadeConvenioPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>utilDelegate</property-name>
+			<value>#{utilDelegate}</value>
+		</managed-property>		
+	</managed-bean>
+	
+	<!-- managed-bean>
+		<managed-bean-name>VinculacaoPlanoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.cliente.web.bean.VinculacaoPlanoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>associadoDelegate</property-name>
+			<value>#{associadoDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>convenioDelegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+	</managed-bean-->
+	
+	<!-- managed-bean>
+		<managed-bean-name>PlanoConvenioBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.PlanoConvenioPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>convenioDelegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+	</managed-bean-->
+	
+	<!-- SEGURANCA -->
+	<managed-bean>
+		<managed-bean-name>UsuarioBean</managed-bean-name>
+		<managed-bean-class>com.vortice.seguranca.cliente.bean.UsuarioBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{segurancaDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>LinkBean</managed-bean-name>
+		<managed-bean-class>com.vortice.seguranca.cliente.bean.LinkBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{segurancaDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>FuncaoBean</managed-bean-name>
+		<managed-bean-class>com.vortice.seguranca.cliente.bean.FuncaoBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{segurancaDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>FuncionalidadeBean</managed-bean-name>
+		<managed-bean-class>com.vortice.seguranca.cliente.bean.FuncionalidadeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{segurancaDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>PerfilBean</managed-bean-name>
+		<managed-bean-class>com.vortice.seguranca.cliente.bean.PerfilBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{segurancaDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	<!-- SEGURANCA -->
+	
+<!--CONVENIO-->
+
+	<navigation-rule>
+		<description>Navegação de Fatura</description>
+		<from-view-id>/associados/convenio/faturaPesquisa.jsp</from-view-id>
+					
+		<navigation-case>
+			<from-action>#{FaturaBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/faturaDetalhada.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{FaturaBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/faturaDetalhada.jsp</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{FaturaBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/faturaPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{FaturaBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/faturaPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<description>Navegação de Pesquisa</description>
+		<from-view-id>/associados/convenio/convenioPesquisa.jsp</from-view-id>
+
+		<navigation-case>
+			<from-action>#{ConvenioBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{ConvenioBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+					
+		<navigation-case>
+			<from-action>#{ConvenioBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ConvenioBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{ConvenioBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ConvenioBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+		<!--DETALHE-->
+	
+	<navigation-rule>
+		<description>Navegação de Convenio Print.</description>
+		<from-view-id>/associados/convenio/convenioPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/convenioPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<!--CONVENIO-->
+
+
+	
+<!--ATIVIDADE-->
+
+	<navigation-rule>
+		<description>Navegação de Pesquisa</description>
+		<from-view-id>/associados/convenio/atividade/atividadePesquisa.jsp</from-view-id>
+			<!--CARREGAR-->
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadeForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadePesquisa.jsp</to-view-id>
+		</navigation-case>
+
+		
+			<!--EXCLUIR-->
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.remover}</from-action>
+			<to-view-id>/associados/convenio/atividade/atividadePesquisa.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+		<!--DETALHE-->
+	
+	<navigation-rule> 
+		<description>Navegação de Cadastro</description>
+		<from-view-id>/associados/convenio/atividade/atividadeForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadeForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadeForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<description>Navegação de Atividade Print.</description>
+		<from-view-id>/associados/convenio/atividade/atividadePesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadePrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadePrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<!--ATIVIDADE-->
+
+<!--ASSOCIADO-->
+<!--Associado-->
+
+	<navigation-rule>
+		<description>Navegação de Importacao do Nucre.</description>
+		<from-view-id>/associados/associadoImportarNucre.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.importarArquivo}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoFaltantes.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.importarArquivo}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoImportarNucre.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<description>Navegação de Associado Print Aniversariantes.</description>
+		<from-view-id>/associados/associadoEventos.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printEventos}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoEventosPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printEventos}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoEventosPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Enviar Email.</description>
+		<from-view-id>/associados/associadoEnviaEmail.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarEmail}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoEnviaEmail.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarEmail}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoEnviaEmail.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Aniversariante Email.</description>
+		<from-view-id>/associados/associadoAniversariantes.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarEmailAniversariantes}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoEnviaEmail.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Email.</description>
+		<from-view-id>/associados/associadoPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarEmail}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoEnviaEmail.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Print Aniversariantes.</description>
+		<from-view-id>/associados/associadoAniversariantes.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printAniversariantes}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoAniversariantesPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printAniversariantes}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoAniversariantesPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Print.</description>
+		<from-view-id>/associados/associadoPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Remover.</description>
+		<from-view-id>/associados/associadoPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoPesquisa.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoPesquisa.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Carregar.</description>
+		<from-view-id>/associados/associadoPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoPesquisa.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- navigation-rule>
+		<description>Navegação de Associado Salvar.</description>
+		<from-view-id>/associados/associadoForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule-->
+	
+	<navigation-rule>
+		<description>Navegação de Outros Benficiaveis Print.</description>
+		<from-view-id>/associados/associadoForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printOutrosBeneficiaveis}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoBeneficiavelPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printOutrosBeneficiaveis}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoBeneficiavelPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Vinculacao Print.</description>
+		<from-view-id>/associados/associadoForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printVinculacoes}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/beneficiario/vinculacaoPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.printVinculacoes}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/beneficiario/vinculacaoPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Web Salvar.</description>
+		<from-view-id>/associados/associadoWebForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoWebFormSucesso.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoWebForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Cancelar.</description>
+		<from-view-id>/associados/associadoForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.cancelarAssociado}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.cancelarAssociado}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Reativar.</description>
+		<from-view-id>/associados/associadoForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.reativarAssociado}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.reativarAssociado}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Associado Pesquisar.</description>
+		<from-view-id>/associados/associadoPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoPesquisa.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoPesquisa.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<description>Navegação de Associado Outros Beneficiaveis Remover.</description>
+		<from-view-id>/associados/associadoBeneficiarioPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.removerBeneficiario}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoBeneficiarioPesquisa.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.removerBeneficiario}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoBeneficiarioPesquisa.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarOutroBeneficiaro}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/associadoBeneficiarioForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarOutroBeneficiaro}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/associadoBeneficiarioPesquisa.jsp</to-view-id>
+		</navigation-case>		
+		
+		
+	</navigation-rule>	
+	
+	<!--Associado-->
+	<!--ASSOCIADO-->
+
+	<!-- FINANCEIRO -->
+	<!-- Movimentacao -->
+	<navigation-rule>
+		<description>Navegação de Movimentação Salvar.</description>
+		<from-view-id>/financeiro/movimentarForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{MovimentarBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/movimentarForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{MovimentarBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/movimentarForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Movimentação -->
+	
+	<!-- Lançamento -->
+	<navigation-rule>
+		<description>Navegação de Lançamento Consultar.</description>
+		<from-view-id>/financeiro/lancamentoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.baixar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/baixarForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.baixar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Executar Baixa de Lançamento.</description>
+		<from-view-id>/financeiro/baixarForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.salvarBaixa}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.salvarBaixa}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/baixarForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Lançamento -->
+	
+	<!-- Extrato -->
+	<navigation-rule>
+		<description>Navegação de Extrato Consultar.</description>
+		<from-view-id>/financeiro/extratoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{ExtratoBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/extratoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{ExtratoBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/extratoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Extrato -->
+	
+	<!-- OrigemLancamentoBean -->
+	<navigation-rule>
+		<description>Navegação de Origem Lançamento Remover.</description>
+		<from-view-id>/financeiro/origemLacamentoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{OrigemLancamentoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/origemLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{OrigemLancamentoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/origemLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Origem Lançamento Carregar.</description>
+		<from-view-id>/financeiro/origemLancamentoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{OrigemLancamentoBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/origemLancamentoForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{OrigemLancamentoBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/origemLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Origem Lançamento Salvar.</description>
+		<from-view-id>/financeiro/origemLancamentoForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{OrigemLancamentoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/origemLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{OrigemLancamentoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/origemLancamentoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- OrigemLancamentoBean -->
+	
+	<!-- TipoLancamentoBean -->
+	<navigation-rule>
+		<description>Navegação de Tipo Lançamento Remover.</description>
+		<from-view-id>/financeiro/tipoLacamentoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{TipoLancamentoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/tipoLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{TipoLancamentoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/tipoLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Tipo Lançamento Carregar.</description>
+		<from-view-id>/financeiro/tipoLancamentoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{TipoLancamentoBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/tipoLancamentoForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{TipoLancamentoBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/tipoLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Tipo Lançamento Salvar.</description>
+		<from-view-id>/financeiro/tipoLancamentoForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{TipoLancamentoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/tipoLancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{TipoLancamentoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/tipoLancamentoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- TipoLancamentoBean -->
+	
+	<!-- ContaBancoBean -->
+	<navigation-rule>
+		<description>Navegação de Conta Banco Remover.</description>
+		<from-view-id>/financeiro/contaConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{ContaBancoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/contaConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{ContaBancoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/contaConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Conta Banco Carregar.</description>
+		<from-view-id>/financeiro/contaConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{ContaBancoBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/contaForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{ContaBancoBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/contaConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Conta Banco Salvar.</description>
+		<from-view-id>/financeiro/contaForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{ContaBancoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/contaConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{ContaBancoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/contaForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- ContaBancoBean -->
+	
+	<!-- BancoBean -->
+	<navigation-rule>
+		<description>Navegação de Banco Remover.</description>
+		<from-view-id>/financeiro/bancoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{BancoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/bancoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{BancoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/bancoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Banco Carregar.</description>
+		<from-view-id>/financeiro/bancoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{BancoBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/bancoForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{BancoBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/bancoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Banco Salvar.</description>
+		<from-view-id>/financeiro/bancoForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{BancoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/bancoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{BancoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/bancoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- BancoBean -->
+	<!-- FINANCEIRO -->
+	
+	<!-- SEGURANCA -->
+	
+	<!-- LINK -->
+	<navigation-rule>
+		<description>Navegacao do Popup de Link.</description>
+		<from-view-id>/seguranca/linkPopup.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkPopup.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/linkPopup.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkPopup.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/linkPopup.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.reset}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkPopup.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao da Consulta de Link.</description>
+		<from-view-id>/seguranca/linkConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.reset}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao do Formulario de Link.</description>
+		<from-view-id>/seguranca/linkForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{LinkBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/linkForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LinkBean.reset}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/linkConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- LINK -->
+	
+	<!-- FUNCAO -->
+	<navigation-rule>
+		<description>Navegacao do Formulario de Funcao.</description>
+		<from-view-id>/seguranca/funcaoForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcaoConsulta.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{FuncaoBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcaoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao da Consulta de Funcao.</description>
+		<from-view-id>/seguranca/funcaoConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcaoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcaoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcaoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcaoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcaoForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncaoBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcaoConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FUNCAO -->
+	
+	<!-- FUNCIONALIDADE -->
+	<navigation-rule>
+		<description>Navegacao do Formulario de Funcionalidade.</description>
+		<from-view-id>/seguranca/funcionalidadeForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeConsulta.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao da Consulta de Funcionalidade.</description>
+		<from-view-id>/seguranca/funcionalidadeConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FuncionalidadeBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/funcionalidadeConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FUNCIONALIDADE -->
+	
+	<!-- PERFIL -->
+	<navigation-rule>
+		<description>Navegacao do Formulario de Perfil.</description>
+		<from-view-id>/seguranca/perfilForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{PerfilBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.adicionarFuncionalidade}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{PerfilBean.adicionarFuncionalidade}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.removerFuncionalidade}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{PerfilBean.removerFuncionalidade}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao da Consulta de Perfil.</description>
+		<from-view-id>/seguranca/perfilConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.reset}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.reset}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/perfilForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{PerfilBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/perfilConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- PERFIL -->
+	
+	<!-- USUARIO -->
+	<navigation-rule>
+		<description>Navegacao do Formulario de Login.</description>
+		<from-view-id>/login.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.logar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/index.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{UsuarioBean.logar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/login.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao do Formulario de Mudar Senha do Usuário.</description>
+		<from-view-id>/seguranca/alterarSenha.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.mudarSenha}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{UsuarioBean.mudarSenha}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/alterarSenha.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao do Formulario de Usuario.</description>
+		<from-view-id>/seguranca/usuarioForm.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{UsuarioBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.adicionarPerfil}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{UsuarioBean.adicionarPerfil}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.removerPerfil}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-action>#{UsuarioBean.removerPerfil}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegacao da Consulta de Usuario.</description>
+		<from-view-id>/seguranca/usuarioConsulta.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.consultar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.reset}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.reset}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.remover}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/seguranca/usuarioForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{UsuarioBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/seguranca/usuarioConsulta.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- USUARIO -->
+	<!-- SEGURANCA -->
+	
+<!--PLANO-->
+	<navigation-rule>
+		<description>Navegação de Pesquisa</description>
+		<from-view-id>/associados/convenio/plano/planoConvenioPesquisa.jsp</from-view-id>
+			<!--CARREGAR-->
+		<navigation-case>
+			<from-action>#{ConvenioBean.carregarPlano}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ConvenioBean.carregarPlano}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+		
+			<!--INSERIR-->
+		<navigation-case>
+			<from-action>#{ConvenioBean.salvarPlano}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ConvenioBean.salvarPlano}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioForm.jsp</to-view-id>
+		</navigation-case>		
+		
+			<!--EXCLUIR-->
+		<navigation-case>
+			<from-action>#{ConvenioBean.removerPlano}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{ConvenioBean.removerPlano}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioPesquisa.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+
+	<!--DETALHE-->
+	
+	<navigation-rule>
+		<description>Navegação de Cadastro</description>
+		<from-view-id>/associados/convenio/plano/planoConvenioForm.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{PlanoConvenioBean.salvar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/atividade/atividadePesquisa.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{PlanoConvenioBean.salvar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/plano/planoConvenioForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+<!--PLANO-->
+
+
+
+<!--BENEFICIARIO-->
+
+	<navigation-rule>
+		<description>Navegação de Pesquisa</description>
+		<from-view-id>/associados/convenio/convenioPesquisa.jsp</from-view-id>
+
+		<navigation-case>
+			<from-action>#{ConvenioBean.consultar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{ConvenioBean.remover}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+					
+		<navigation-case>
+			<from-action>#{ConvenioBean.carregar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioForm.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ConvenioBean.carregar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{ConvenioBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ConvenioBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/convenioPesquisa.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+		<!--DETALHE-->
+
+	<navigation-rule>
+		<description>Navegação de Convenio Print.</description>
+		<from-view-id>/associados/convenio/convenioPesquisa.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/convenioPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{AtividadeConvenioBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/convenioPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<!--BENEFICIARIO-->
+
+
+
+	
+	<converter>
+		<converter-id>CurrencyConverter</converter-id>
+		<converter-class>com.vortice.util.converter.CurrencyConverter</converter-class>
+	</converter>
+	  
+	<converter>
+		<converter-id>DecimalConverter</converter-id>
+		<converter-class>com.vortice.util.converter.DecimalConverter</converter-class>
+	</converter>
+	  
+	<converter>
+		<converter-id>IntegerConverter</converter-id>
+		<converter-class>com.vortice.util.converter.IntegerConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>DoubleConverter</converter-id>
+		<converter-class>com.vortice.util.converter.DoubleConverter</converter-class>
+	</converter>
+	
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
+		<message-bundle>sisjuf</message-bundle>
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+	</application>
+	
+ 	<lifecycle/>
+ 	
+	<factory/>
+</faces-config>

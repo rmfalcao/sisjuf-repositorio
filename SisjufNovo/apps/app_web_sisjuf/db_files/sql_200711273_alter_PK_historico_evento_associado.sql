@@ -1,0 +1,4 @@
+ALTER TABLE historico_evento_associado DROP CONSTRAINT pk_historico_evento_associado;
+
+ALTER TABLE historico_evento_associado
+  ADD CONSTRAINT pk_historico_evento_associado PRIMARY KEY(seq_historico_evento_associado);

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>SISJUF - Sistema ASSERJUF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../css/estilo.css" type="text/css" rel="stylesheet" />
+<link rel="Shortcut Icon" type="image/png" href="../imagens/icone.png">
+<style type="text/css">
+<!--
+.style1 {color: #006699}
+-->
+</style>
+</head>
+<body>
+
+	<div id="geral">
+		<div id="topo">
+			<div id="sair">
+				sair <a href="../index.htm"><img src="../imagens/botao_x.gif" /></a>
+			</div>
+			<div id="voltar">
+				voltar <a href="#"><img src="../imagens/setinhavoltar.gif" /></a>
+			</div>
+		</div>
+
+		<?php
+		include("menu.htm");
+		?>
+
+		<div id="miolo">
+			<h1>Módulo de Conv&ecirc;nios</h1>
+			<h2>Conv&ecirc;nios</h2>
+			<a class="botao_novo" href="../seg_cad_usuario.php"><span>novo</span></a>
+			<br /><br />
+			
+			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th>Filtro</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Categoria:</th>
+						<td colspan="3">
+							<select>
+							  <option>Gera Fatura</option>
+							  <option>N&atilde;o Gera Fatura</option>
+						    </select>
+						</td>
+					</tr>
+                    <tr>
+						<th width="130">Nome Fantasia:</th>
+						<td width="230"><input name="" type="text" size="35" /></td>
+						<th width="120">Atividade:</th>
+						<td width="110"><select name="select">
+						  <option>Fitiness</option>
+						  <option>Odontologica</option>
+						  <option>Taxi</option>
+						</select></td>
+				  </tr>
+				</tbody>
+			</table>
+			<a class="botao_filtrar" href="#"><span>filtrar</span></a>
+			
+			<br /><br />
+			
+			<table class="tab_lista" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th width="91">Categoria</th>
+					  <th width="171">Nome Fantasia</th>
+					  <th width="68">Atividade</th>
+					  <th width="67" align="left">Cidade</th>
+				      <th width="47" align="left">Estado</th>
+				      <th width="88" align="left">Telefone</th>
+				      <th width="20"></th>
+				  </tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#"><span class="style1">N&atilde;o Gera Fatura</span></a></td>
+						<td><span class="style1"><a href="#">Academia da Praia</a></span></td>
+						<td align="left" class="style1">Fitiness</td>
+					  <td align="left"><span class="style1">Salvador</span></td>
+				      <td align="left" class="style1">Bahia</td>
+				      <td align="left" class="style1">(71) 8853-3194</td>
+					    <td align="center"><a class="botao_excluir" title="Excluir" href="#"><span>excluir</span></a></td>
+					</tr>
+					<tr>
+						<td><a href="#"><span class="style1">Gera Fatura</span></a></td>
+						<td><span class="style1"><a href="#">Odonto System</a></span></td>
+						<td align="left" class="style1">Odontologia</td>
+					  <td align="left" class="style1">Salvador</td>
+					  <td align="left" class="style1">Bahia</td>
+					  <td align="left" class="style1">(71) 8853-3194</td>
+					  <td align="center"><a class="botao_excluir" title="Excluir" href="#"><span>excluir</span></a></td>
+					</tr>
+					<tr>
+						<td><a href="#"><span class="style1">Gera Fatura</span></a></td>
+						<td><span class="style1"><a href="#">Ligue Taxi</a></span></td>
+						<td align="left" class="style1">Taxi</td>
+					  <td align="left" class="style1">Salvador</td>
+					  <td align="left" class="style1">Bahia</td>
+					  <td align="left" class="style1">(71)</td>
+					  <td align="center"><a class="botao_excluir" title="Excluir" href="#"><span>excluir</span></a></td>
+					</tr>
+					<tr>
+						<th colspan="7">
+							<a class="botao_imprimir" title="Imprimir" href="#"><span>imprimir</span></a>						</th>
+					</tr>
+				</tbody>
+			</table>
+	  </div>
+	</div>
+
+</body>
+</html>

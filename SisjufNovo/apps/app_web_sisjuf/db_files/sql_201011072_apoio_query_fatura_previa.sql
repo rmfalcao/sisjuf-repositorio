@@ -1,0 +1,38 @@
+SELECT 	A.SEQ_ASSOCIADO AS MATRICULA, 
+	A.NOM_ASSOCIADO,
+	A.NUM_CPF_ASSOCIADO,
+	A.NUM_RG_ASSOCIADO,
+	B.NOM_BENEFICIARIO,
+	B.NUM_CPF_BENEFICIARIO,
+	B.NUM_RG_BENEFICIARIO,
+	C.NOM_FANTASIA,
+	P.NOM_PLANO,
+	P.VAL_PLANO,
+	VP.DAT_VINCULACAO,
+	VP.DAT_DESVINCULACAO
+FROM 	VW_ASSOCIADO A, 
+	VINCULACAO_PLANO VP,
+	VW_BENEFICIARIO B,
+	CONVENIO C,
+	PLANO_CONVENIO P
+WHERE 	A.SEQ_ASSOCIADO = VP.SEQ_ASSOCIADO
+AND	VP.SEQ_PESSOA 	= B.SEQ_BENEFICIARIO
+AND 	VP.SEQ_PLANO 	= P.SEQ_PLANO
+AND 	P.SEQ_CONVENIO 	= C.SEQ_CONVENIO
+AND	VP.DAT_DESVINCULACAO IS NULL
+-- os filtros aplicados serão:
+-- 1) o convênio...
+AND	C.SEQ_CONVENIO = 1
+-- 2) o período (início da fatura e fim da fatura)...
+AND	VP.DAT_VINCULACAO <= '06/27/2010'
+AND	(VP. DAT_DESVINCULACAO IS NULL OR VP.DAT_DESVINCULACAO >= '07/26/2010')
+
+--select * from pessoa order by 1 desc
+
+--select current_date
+
+--select now()
+
+--select * from vinculacao_plano where seq_pessoa = 3754
+
+--select * from hist_vinculacao_plano where seq_vinculacao = 10

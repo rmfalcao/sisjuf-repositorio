@@ -1,0 +1,7 @@
+-- Role: "admin_asserjuf"
+
+-- DROP ROLE admin_asserjuf;
+
+CREATE ROLE admin_asserjuf LOGIN
+  ENCRYPTED PASSWORD 'md552cc36391747fbb1c62b0adee96e29df'
+  NOSUPERUSER NOINHERIT CREATEDB NOCREATEROLE;

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>SISJUF - Sistema ASSERJUF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="css/estilo.css" type="text/css" rel="stylesheet" />
+<link rel="Shortcut Icon" type="image/png" href="imagens/icone.png">
+</head>
+<body>
+
+	<div id="geral">
+		<div id="topo">
+			<div id="sair">
+				sair <a href="index.htm"><img src="imagens/botao_x.gif" /></a>
+			</div>
+			<div id="voltar">
+				voltar <a href="#"><img src="imagens/setinhavoltar.gif" /></a>
+			</div>
+		</div>
+
+<!-- MANU TEMPORÁRIO -->		
+		<div id="menu"></div>
+<!--
+		<?php
+		include("menu.htm");
+		?>
+-->
+
+		<div id="miolo">
+			<h1>Módulo Associados</h1>
+			<h2>Histórico de Eventos</h2>
+			
+			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th width="190">Filtro</th>
+						<th width="400"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Tipo de Evento:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>Tipo 1</option>
+								<option>Tipo 2</option>
+								<option>Tipo 3</option>
+								<option>Tipo 4</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Data do Evento:</th>
+						<td>
+							<input name="dia_data1" type="text" size="12" />
+							à
+							<input name="dia_data1" type="text" size="12" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<a class="botao_filtrar" href="#"><span>filtrar</span></a>
+			
+			<br /><br /><br /><br />
+			
+			<table class="tab_lista" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th width="60">Matrícula</th>
+						<th width="250">Nome do Associado</th>
+						<th width="220">Tipo de evento</th>
+						<th width="60">Data</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>02424</td>
+						<td>Paulo Gomes de Prado da Silva Andrade</td>
+						<td>Tipo 3</td>
+						<td>27/06/07</td>
+					</tr>
+					<tr>
+						<td>05488</td>
+						<td>Antonio da Silva Fagundes</td>
+						<td>Tipo 2</td>
+						<td>20/04/07</td>
+					</tr>
+					<tr>
+						<td>02228</td>
+						<td>Raphaelly Farini Tavares</td>
+						<td>Tipo 4</td>
+						<td>11/02/07</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

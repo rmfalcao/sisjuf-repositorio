@@ -1,0 +1,1 @@
+ALTER TABLE parametros OWNER TO admin_asserjuf;

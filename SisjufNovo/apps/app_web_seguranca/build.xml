@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="deployDir" name="Seguranca">
+
+    <description>Seguranca</description>
+
+	<import file="${basedir}/props-projeto.xml"/>
+	
+	<!--
+	####CRIANDO DIRETORIOS####
+	-->
+
+	<target name="criarDiretorios">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.dir}/seguranca.war"/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${deploy.dir}"/>
+	</target>
+	
+	<!--
+	####COMPILAR AS CLASSES####
+	-->
+	<target name="compilar" depends="criarDiretorios">
+        <echo message=":: Compilando o pacote ::"/>
+        <javac source="1.5" classpathref="classPath" srcdir="${sourceDir}" destdir="${classes.dir}" debug="on" optimize="true"/>
+		
+		<copy todir="${classes.dir}" verbose="true">
+			<fileset file="${sourceDir}/*.xml"/>
+		</copy>
+		
+		<copy todir="${classes.dir}" verbose="true">
+			<fileset file="${sourceDir}/*.properties"/>
+		</copy>
+    </target>
+
+	<target name="make.build" depends="compilar">
+		<echo message=":: Construindo o build ::"></echo>
+		<echo message=": Copiando web.dir :"></echo>
+		<copy todir="${build.dir}/seguranca.war" verbose="true">
+			<fileset dir="${web.dir}"/>
+		</copy>
+		
+		<echo message=": Copiando classes.dir :"></echo>
+		<copy todir="${build.dir}/seguranca.war/WEB-INF/classes" verbose="true">
+			<fileset dir="${classes.dir}"/>
+		</copy>
+			
+		<echo message=": Copiando projeto.dir :"></echo>
+		<copy todir="${webinf.lib.dir}" verbose="true" flatten="true">
+			<fileset refid="projeto.lib" />
+		</copy>
+	</target>
+
+	<target name="deployDir" depends="make.build">
+		<echo message=":: Copiando arquivos modificados ::"></echo>
+		
+		<mkdir dir="${server.dir}/seguranca.war"/>
+		
+		<copy todir="${server.dir}/seguranca.war" verbose="true">
+			<fileset dir="${build.dir}/seguranca.war"></fileset>
+		</copy>
+	</target>
+
+	
+	<target name="removeProjeto">
+		<echo message=":: Removendo o projeto do Servidor ::"/>
+		<delete file="${build.dir}/seguranca.war"></delete>
+	</target>
+	
+	<target name="zip" depends="make.build">
+		<echo message=":: Compactando Diretorios ::"></echo>
+		<jar destfile="${deploy.dir}/seguranca.war" >
+			<fileset dir="${build.dir}/seguranca.war"></fileset>
+		</jar>
+	</target>
+	
+	<target name="jar" depends="compilar">
+			<echo message=":: Gerando Jar ::"></echo>
+			<jar destfile="${lib.dir}/seguranca.jar" >
+				<fileset dir="${classes.dir}"></fileset>
+			</jar>
+		</target>
+	
+	<target name="copy-classes-to-webinf-do-sisjuf" depends="zip">
+		<copy todir="${SISJUF_HOME}/webRoot/WEB-INF/classes">
+			<fileset dir="${projectDir}/classes">
+				<!--include name="**/cliente/**/*.class"/-->
+			</fileset>
+		</copy>
+	</target>
+</project>

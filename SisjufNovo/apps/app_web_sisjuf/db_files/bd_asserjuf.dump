@@ -1,0 +1,989 @@
+--
+-- PostgreSQL database dump
+--
+
+SET client_encoding = 'SQL_ASCII';
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'Standard public schema';
+
+
+--
+-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: 
+--
+
+CREATE PROCEDURAL LANGUAGE plpgsql;
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: consolidar_historico_saldo(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION consolidar_historico_saldo() RETURNS boolean
+    AS $$
+DECLARE
+
+	row_conta conta%ROWTYPE;
+	ultima_data date;
+	--hoje date;
+	val_ultima_data numeric(14,2) := 0;
+	soma_lancamentos numeric(14,2) DEFAULT 0;
+  
+BEGIN
+	--SELECT INTO hoje CURRENT_DATE;
+
+	--INICIO: Percorre toda a tabela conta
+	FOR row_conta IN SELECT * FROM conta LOOP
+
+		--Busca a última data que tem em historico saldo para a conta[i] (ultima_data) 
+		SELECT INTO ultima_data MAX(dat_historico_saldo) FROM historico_saldo WHERE seq_conta = row_conta.seq_conta;
+
+		IF ultima_data IS NULL THEN
+		
+			--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+			SELECT INTO soma_lancamentos SUM(bl.val_baixa_lancamento) 
+				FROM baixa_lancamento bl NATURAL INNER JOIN lancamento l 
+				WHERE l.seq_conta = row_conta.seq_conta AND bl.dat_baixa_lancamento < CURRENT_DATE;
+
+			IF soma_lancamentos IS NULL THEN
+				soma_lancamentos := 0;
+			END IF;
+
+			INSERT INTO historico_saldo (seq_conta, dat_historico_saldo, val_historico_saldo)
+				VALUES (row_conta.seq_conta, CURRENT_DATE, soma_lancamentos);
+
+
+		ELSE
+
+			--INICIO: Loop de última_data+1 (i) até hoje
+			WHILE ultima_data + 1 <= CURRENT_DATE LOOP
+	
+				--busca valor em historico_saldo onde data = ultima_data e conta = conta[i] (val_ultima_data)
+				SELECT INTO val_ultima_data val_historico_saldo FROM historico_saldo 
+					WHERE seq_conta = row_conta.seq_conta AND dat_historico_saldo = ultima_data;
+	
+				--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+				SELECT SUM(bl.val_baixa_lancamento) FROM baixa_lancamento bl NATURAL INNER JOIN lancamento l
+					WHERE l.seq_conta = row_conta.seq_conta AND bl.dat_baixa_lancamento = ultima_data;
+	
+				IF soma_lancamentos IS NULL THEN
+					soma_lancamentos := 0;
+				END IF;
+	
+				--val_ultima_data + soma_lancamento (val_setar)
+				--insere um registro em historico_saldo com data = i e valor = val_setar e conta = seq_conta
+				INSERT INTO historico_saldo (seq_conta, dat_historico_saldo, val_historico_saldo)
+					VALUES (row_conta.seq_conta, ultima_data + 1, val_ultima_data + soma_lancamentos);
+	
+	
+				--última_data = última_data + 1
+				ultima_data := ultima_data + 1;
+	
+			END LOOP;
+	
+		END IF;
+	
+	END LOOP;
+	
+	RETURN TRUE;
+
+END;
+
+$$
+    LANGUAGE plpgsql;
+
+
+ALTER FUNCTION public.consolidar_historico_saldo() OWNER TO postgres;
+
+--
+-- Name: obter_extrato(smallint, date, date, refcursor); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION obter_extrato(smallint, date, date, refcursor) RETURNS refcursor
+    AS $_$
+DECLARE
+	id_conta ALIAS FOR $1;
+	dat_inicial ALIAS FOR $2;
+	dat_final ALIAS FOR $3;
+
+	ultima_data date;
+	saldo numeric(14,2) := 0;
+	val_ultima_data numeric(14,2) DEFAULT 0;
+  
+BEGIN
+
+	--Busca a última data que tem em historico saldo para a conta[i] (ultima_data) 
+	SELECT INTO ultima_data MAX(dat_historico_saldo) FROM historico_saldo 
+		WHERE seq_conta = id_conta AND dat_historico_saldo <= dat_inicial;
+
+	IF ultima_data IS NULL THEN
+	
+		--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+		SELECT INTO saldo SUM(val_pago_lancamento) FROM lancamento
+			WHERE seq_conta = id_conta AND dat_efetivacao_lancamento < dat_inicial;
+
+		IF saldo IS NULL THEN
+			saldo := 0;
+		END IF;
+
+		OPEN $4 FOR SELECT seq_origem_lancamento, val_lancamento FROM lancamento 
+			WHERE seq_conta = id_conta AND dat_efetivacao_lancamento BETWEEN dat_inicial AND dat_final;
+
+	ELSE
+
+		--busca valor em historico_saldo onde data = ultima_data e conta = conta[i] (val_ultima_data)
+		SELECT INTO val_ultima_data val_historico_saldo FROM historico_saldo 
+			WHERE seq_conta = id_conta AND dat_historico_saldo = ultima_data;
+
+		--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+		SELECT INTO saldo SUM(val_pago_lancamento) FROM lancamento
+			WHERE seq_conta = id_conta AND dat_efetivacao_lancamento >= ultima_data 
+			  AND dat_efetivacao_lancamento < dat_inicial;
+
+		IF saldo IS NULL THEN
+			saldo := 0;
+		END IF;
+
+		saldo := saldo + val_ultima_data;
+
+		OPEN $4 FOR SELECT seq_origem_lancamento, val_lancamento FROM lancamento 
+			WHERE seq_conta = id_conta AND dat_efetivacao_lancamento BETWEEN dat_inicial AND dat_final;
+
+	END IF;
+
+	RETURN $4;
+
+END;
+
+$_$
+    LANGUAGE plpgsql;
+
+
+ALTER FUNCTION public.obter_extrato(smallint, date, date, refcursor) OWNER TO postgres;
+
+--
+-- Name: obter_saldo(smallint); Type: FUNCTION; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE FUNCTION obter_saldo(smallint) RETURNS numeric
+    AS $_$
+DECLARE
+	id_conta ALIAS FOR $1;
+
+	ultima_data date;
+	--hoje date;
+	saldo numeric(14,2) := 0;
+	val_ultima_data numeric(14,2) DEFAULT 0;
+  
+BEGIN
+
+	--Busca a última data que tem em historico saldo para a conta[i] (ultima_data) 
+	SELECT INTO ultima_data MAX(dat_historico_saldo) FROM historico_saldo WHERE seq_conta = id_conta;
+
+	IF ultima_data IS NULL THEN
+	
+		--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+		SELECT INTO saldo SUM(bl.val_baixa_lancamento) FROM baixa_lancamento bl
+			NATURAL INNER JOIN lancamento l	WHERE l.seq_conta = id_conta;
+
+		IF saldo IS NULL THEN
+			saldo := 0;
+		END IF;
+
+	ELSE
+
+		--busca valor em historico_saldo onde data = ultima_data e conta = conta[i] (val_ultima_data)
+		SELECT INTO val_ultima_data val_historico_saldo FROM historico_saldo 
+			WHERE seq_conta = id_conta AND dat_historico_saldo = ultima_data;
+
+		--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+		SELECT INTO saldo SUM(bl.val_baixa_lancamento) FROM baixa_lancamento bl NATURAL INNER JOIN lancamento l
+			WHERE l.seq_conta = id_conta AND bl.dat_baixa_lancamento >= ultima_data;
+
+		IF saldo IS NULL THEN
+			saldo := 0;
+		END IF;
+
+		saldo := saldo + val_ultima_data;
+
+	END IF;
+
+	RETURN saldo;
+
+END;
+
+$_$
+    LANGUAGE plpgsql;
+
+
+ALTER FUNCTION public.obter_saldo(smallint) OWNER TO admin_asserjuf;
+
+--
+-- Name: obter_saldo(smallint, date); Type: FUNCTION; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE FUNCTION obter_saldo(smallint, date) RETURNS numeric
+    AS $_$
+DECLARE
+	id_conta ALIAS FOR $1;
+	data_base ALIAS FOR $2;
+
+	ultima_data date;
+	saldo numeric(14,2) := 0;
+	val_ultima_data numeric(14,2) DEFAULT 0;
+  
+BEGIN
+
+	--Busca a última data que tem em historico saldo para a conta[i] (ultima_data) 
+	SELECT INTO ultima_data MAX(dat_historico_saldo) FROM historico_saldo 
+		WHERE seq_conta = id_conta AND dat_historico_saldo <= data_base;
+
+	IF ultima_data IS NULL THEN
+	
+		--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+		SELECT INTO saldo SUM(bl.val_baixa_lancamento) FROM baixa_lancamento bl NATURAL INNER JOIN lancamento l	
+			WHERE l.seq_conta = id_conta AND bl.dat_baixa_lancamento < data_base;
+
+		IF saldo IS NULL THEN
+			saldo := 0;
+		END IF;
+
+	ELSE
+
+		--busca valor em historico_saldo onde data = ultima_data e conta = conta[i] (val_ultima_data)
+		SELECT INTO val_ultima_data val_historico_saldo FROM historico_saldo 
+			WHERE seq_conta = id_conta AND dat_historico_saldo = ultima_data;
+
+		--busta soma de todos os valores de lancamento onde data = última_data e conta = seq_conta (soma_lancamentos)
+			SELECT INTO saldo SUM(bl.val_baixa_lancamento) FROM baixa_lancamento bl 
+			NATURAL INNER JOIN lancamento l WHERE l.seq_conta = id_conta 
+			AND bl.dat_baixa_lancamento >= ultima_data AND bl.dat_baixa_lancamento < data_base;
+
+		IF saldo IS NULL THEN
+			saldo := 0;
+		END IF;
+
+		saldo := saldo + val_ultima_data;
+
+	END IF;
+
+	RETURN saldo;
+
+END;
+
+$_$
+    LANGUAGE plpgsql;
+
+
+ALTER FUNCTION public.obter_saldo(smallint, date) OWNER TO admin_asserjuf;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: baixa_lancamento; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE baixa_lancamento (
+    seq_baixa_lancamento bigint NOT NULL,
+    seq_lancamento bigint NOT NULL,
+    dat_baixa_lancamento date NOT NULL,
+    val_baixa_lancamento numeric(14,2) NOT NULL
+);
+
+
+ALTER TABLE public.baixa_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: banco; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE banco (
+    seq_banco smallint NOT NULL,
+    num_banco character(3),
+    nom_banco character varying(30) NOT NULL,
+    sig_banco character(6) NOT NULL
+);
+
+
+ALTER TABLE public.banco OWNER TO admin_asserjuf;
+
+--
+-- Name: TABLE banco; Type: COMMENT; Schema: public; Owner: admin_asserjuf
+--
+
+COMMENT ON TABLE banco IS 'Bancos da Asserjuf.';
+
+
+--
+-- Name: COLUMN banco.num_banco; Type: COMMENT; Schema: public; Owner: admin_asserjuf
+--
+
+COMMENT ON COLUMN banco.num_banco IS 'Número do banco.';
+
+
+--
+-- Name: COLUMN banco.nom_banco; Type: COMMENT; Schema: public; Owner: admin_asserjuf
+--
+
+COMMENT ON COLUMN banco.nom_banco IS 'Nome do banco.';
+
+
+--
+-- Name: COLUMN banco.sig_banco; Type: COMMENT; Schema: public; Owner: admin_asserjuf
+--
+
+COMMENT ON COLUMN banco.sig_banco IS 'Sigla do banco.';
+
+
+--
+-- Name: conta; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE conta (
+    seq_conta smallint NOT NULL,
+    nom_conta character varying(30)
+);
+
+
+ALTER TABLE public.conta OWNER TO admin_asserjuf;
+
+--
+-- Name: COLUMN conta.nom_conta; Type: COMMENT; Schema: public; Owner: admin_asserjuf
+--
+
+COMMENT ON COLUMN conta.nom_conta IS 'Nome da conta.';
+
+
+--
+-- Name: conta_banco; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE conta_banco (
+    seq_conta smallint NOT NULL,
+    seq_banco smallint NOT NULL,
+    num_agencia_conta character(4) NOT NULL,
+    dig_agencia_conta character(1),
+    num_conta character varying(10) NOT NULL,
+    dig_conta character(1),
+    cod_operacao_conta character(3),
+    seq_tipo_conta smallint NOT NULL,
+    nom_titular_conta character varying(60),
+    cpf_cnpj_titular_conta character varying(14)
+);
+
+
+ALTER TABLE public.conta_banco OWNER TO admin_asserjuf;
+
+--
+-- Name: historico_saldo; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE historico_saldo (
+    seq_conta smallint NOT NULL,
+    dat_historico_saldo date NOT NULL,
+    val_historico_saldo numeric(14,2) NOT NULL
+);
+
+
+ALTER TABLE public.historico_saldo OWNER TO admin_asserjuf;
+
+--
+-- Name: lancamento; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE lancamento (
+    seq_lancamento bigint NOT NULL,
+    seq_conta smallint NOT NULL,
+    seq_origem_lancamento smallint NOT NULL,
+    seq_tipo_lancamento smallint,
+    seq_tipo_operacao smallint NOT NULL,
+    dat_previsao_lancamento date,
+    val_lancamento numeric(14,2) NOT NULL,
+    des_lancamento character varying(160),
+    tabela_x character varying(30),
+    nom_campo_x character varying(30),
+    val_campo_x character varying(30)
+);
+
+
+ALTER TABLE public.lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: origem_lancamento; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE origem_lancamento (
+    seq_origem_lancamento smallint NOT NULL,
+    nom_origem_lancamento character varying(20) NOT NULL,
+    flg_ativo_origem_lancamento boolean
+);
+
+
+ALTER TABLE public.origem_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_baixa_lancamento; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_baixa_lancamento
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_baixa_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_baixa_lancamento; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_baixa_lancamento', 22, true);
+
+
+--
+-- Name: seq_banco; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_banco
+    INCREMENT BY 1
+    MAXVALUE 32767
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_banco OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_banco; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_banco', 2, true);
+
+
+--
+-- Name: seq_conta; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_conta
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 32767
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_conta OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_conta; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_conta', 1, false);
+
+
+--
+-- Name: seq_lancamento; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_lancamento
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_lancamento; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_lancamento', 20, true);
+
+
+--
+-- Name: seq_origem_lancamento; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_origem_lancamento
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 32767
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_origem_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_origem_lancamento; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_origem_lancamento', 1, false);
+
+
+--
+-- Name: seq_tipo_conta; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_tipo_conta
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 32767
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_tipo_conta OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_tipo_conta; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_tipo_conta', 1, false);
+
+
+--
+-- Name: seq_tipo_lancamento; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_tipo_lancamento
+    INCREMENT BY 1
+    MAXVALUE 32767
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_tipo_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_tipo_lancamento; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_tipo_lancamento', 5, true);
+
+
+--
+-- Name: seq_tipo_operacao; Type: SEQUENCE; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE SEQUENCE seq_tipo_operacao
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 32767
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_tipo_operacao OWNER TO admin_asserjuf;
+
+--
+-- Name: seq_tipo_operacao; Type: SEQUENCE SET; Schema: public; Owner: admin_asserjuf
+--
+
+SELECT pg_catalog.setval('seq_tipo_operacao', 1, false);
+
+
+--
+-- Name: tipo_conta; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE tipo_conta (
+    seq_tipo_conta smallint NOT NULL,
+    des_tipo_conta character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.tipo_conta OWNER TO admin_asserjuf;
+
+--
+-- Name: tipo_lancamento; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE tipo_lancamento (
+    seq_tipo_lancamento smallint NOT NULL,
+    nom_tipo_lancamento character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.tipo_lancamento OWNER TO admin_asserjuf;
+
+--
+-- Name: tipo_operacao; Type: TABLE; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+CREATE TABLE tipo_operacao (
+    seq_tipo_operacao smallint NOT NULL,
+    nom_tipo_operacao character varying(20) NOT NULL,
+    sig_tipo_operacao character(2) NOT NULL,
+    flg_previsao_tipo_operacao bit(1),
+    flg_debito_tipo_opracao bit(1)
+);
+
+
+ALTER TABLE public.tipo_operacao OWNER TO admin_asserjuf;
+
+--
+-- Name: vw_conta; Type: VIEW; Schema: public; Owner: admin_asserjuf
+--
+
+CREATE VIEW vw_conta AS
+    SELECT c.seq_conta, c.nom_conta, cb.seq_banco, cb.num_agencia_conta, cb.dig_agencia_conta, cb.num_conta, cb.dig_conta, cb.cod_operacao_conta, cb.seq_tipo_conta, cb.nom_titular_conta, cb.cpf_cnpj_titular_conta FROM (conta c NATURAL LEFT JOIN conta_banco cb);
+
+
+ALTER TABLE public.vw_conta OWNER TO admin_asserjuf;
+
+--
+-- Data for Name: baixa_lancamento; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY baixa_lancamento (seq_baixa_lancamento, seq_lancamento, dat_baixa_lancamento, val_baixa_lancamento) FROM stdin;
+1	1	2006-09-09	18.00
+2	2	2006-09-09	-11.00
+3	4	2006-09-06	-40.00
+4	3	2006-09-08	90.00
+5	3	2006-09-09	10.00
+6	7	2006-09-10	15.00
+7	8	2006-09-20	3.00
+8	9	2006-09-22	-12.00
+9	12	2006-09-27	-20.00
+10	6	2006-09-09	-20.00
+11	5	2006-09-15	30.00
+12	11	2006-09-16	-30.00
+13	10	2006-09-17	35.00
+14	13	2006-09-25	25.00
+15	14	2006-09-25	-80.00
+16	15	2006-09-28	25.00
+17	16	2006-09-29	-10.00
+18	17	2006-09-28	15.00
+19	17	2006-09-30	17.00
+20	18	2006-09-30	-12.00
+21	19	2006-10-05	200.00
+22	20	2006-09-30	100.00
+\.
+
+
+--
+-- Data for Name: banco; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY banco (seq_banco, num_banco, nom_banco, sig_banco) FROM stdin;
+1	019	Banco do Brasil	BB    
+2	237	Banco Bradesco	BRADES
+\.
+
+
+--
+-- Data for Name: conta; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY conta (seq_conta, nom_conta) FROM stdin;
+1	caixa
+2	Principal
+3	Caixa 2
+\.
+
+
+--
+-- Data for Name: conta_banco; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY conta_banco (seq_conta, seq_banco, num_agencia_conta, dig_agencia_conta, num_conta, dig_conta, cod_operacao_conta, seq_tipo_conta, nom_titular_conta, cpf_cnpj_titular_conta) FROM stdin;
+2	1	0705	\N	29627	5	001	1	Paulo Gomes de Prado	96477130530
+\.
+
+
+--
+-- Data for Name: historico_saldo; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY historico_saldo (seq_conta, dat_historico_saldo, val_historico_saldo) FROM stdin;
+3	2006-09-09	0.00
+3	2006-09-10	-20.00
+3	2006-09-11	-20.00
+3	2006-09-12	-20.00
+3	2006-09-13	-20.00
+3	2006-09-14	-20.00
+3	2006-09-15	-20.00
+3	2006-09-16	10.00
+3	2006-09-17	-20.00
+3	2006-09-18	15.00
+3	2006-09-19	15.00
+3	2006-09-20	15.00
+3	2006-09-21	15.00
+3	2006-09-22	15.00
+3	2006-09-23	15.00
+3	2006-09-24	15.00
+3	2006-09-25	15.00
+3	2006-09-26	15.00
+3	2006-09-27	15.00
+3	2006-09-28	15.00
+3	2006-09-29	40.00
+3	2006-09-30	40.00
+1	2006-09-05	0.00
+1	2006-09-06	0.00
+1	2006-09-07	-40.00
+1	2006-09-08	-40.00
+1	2006-09-09	50.00
+1	2006-09-10	67.00
+1	2006-09-11	82.00
+1	2006-09-12	82.00
+1	2006-09-13	82.00
+1	2006-09-14	82.00
+1	2006-09-15	82.00
+1	2006-09-16	82.00
+1	2006-09-17	82.00
+1	2006-09-18	82.00
+1	2006-09-19	82.00
+1	2006-09-20	82.00
+1	2006-09-21	85.00
+1	2006-09-22	85.00
+1	2006-09-23	73.00
+1	2006-09-24	73.00
+1	2006-09-25	73.00
+1	2006-09-26	18.00
+1	2006-09-27	18.00
+1	2006-09-28	-2.00
+1	2006-09-29	-2.00
+1	2006-09-30	-2.00
+2	2006-09-30	5.00
+\.
+
+
+--
+-- Data for Name: lancamento; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY lancamento (seq_lancamento, seq_conta, seq_origem_lancamento, seq_tipo_lancamento, seq_tipo_operacao, dat_previsao_lancamento, val_lancamento, des_lancamento, tabela_x, nom_campo_x, val_campo_x) FROM stdin;
+1	1	1	1	1	\N	18.00	\N	\N	\N	\N
+2	1	1	1	2	\N	-11.00	\N	\N	\N	\N
+5	3	1	1	1	\N	30.00	\N	\N	\N	\N
+6	3	1	1	2	\N	-20.00	\n	\N	\N	\N
+7	1	1	1	1	\N	15.00	\N	\N	\N	\N
+8	1	1	1	1	\N	3.00	\N	\N	\N	\N
+9	1	1	1	2	\N	-12.00	\N	\N	\N	\N
+10	3	1	1	1	\N	35.00	\N	\N	\N	\N
+4	1	1	1	2	\N	-40.00	\N	\N	\N	\N
+12	1	1	1	2	\N	-20.00	\N	\N	\N	\N
+3	1	1	1	1	2006-09-08	103.00	\N	\N	\N	\N
+11	3	1	1	1	2006-09-17	-50.00	\N	\N	\N	\N
+13	1	1	1	1	\N	25.00	\N	\N	\N	\N
+14	1	1	1	2	\N	-80.00	\N	\N	\N	\N
+15	3	1	1	1	\N	25.00	\N	\N	\N	\N
+16	2	1	1	1	\N	-10.00	\N	\N	\N	\N
+17	2	1	1	1	2006-09-30	32.00	\N	\N	\N	\N
+18	2	1	1	2	\N	-12.00	\N	\N	\N	\N
+19	1	1	1	1	\N	200.00	\N	\N	\N	\N
+20	1	1	1	1	\N	100.00	teste	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: origem_lancamento; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY origem_lancamento (seq_origem_lancamento, nom_origem_lancamento, flg_ativo_origem_lancamento) FROM stdin;
+1	USUÁRIO	t
+\.
+
+
+--
+-- Data for Name: tipo_conta; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY tipo_conta (seq_tipo_conta, des_tipo_conta) FROM stdin;
+1	Conta Corrente
+\.
+
+
+--
+-- Data for Name: tipo_lancamento; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY tipo_lancamento (seq_tipo_lancamento, nom_tipo_lancamento) FROM stdin;
+1	tipo1
+4	tipo4
+5	tipo5
+\.
+
+
+--
+-- Data for Name: tipo_operacao; Type: TABLE DATA; Schema: public; Owner: admin_asserjuf
+--
+
+COPY tipo_operacao (seq_tipo_operacao, nom_tipo_operacao, sig_tipo_operacao, flg_previsao_tipo_operacao, flg_debito_tipo_opracao) FROM stdin;
+1	Crédito	C 	0	0
+2	Débito	D 	0	1
+3	A Creditar	AC	1	0
+4	A Debitar	AD	1	1
+\.
+
+
+--
+-- Name: pk_baixa_lancamento; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY baixa_lancamento
+    ADD CONSTRAINT pk_baixa_lancamento PRIMARY KEY (seq_baixa_lancamento);
+
+
+--
+-- Name: pk_banco; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY banco
+    ADD CONSTRAINT pk_banco PRIMARY KEY (seq_banco);
+
+
+--
+-- Name: pk_conta; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY conta
+    ADD CONSTRAINT pk_conta PRIMARY KEY (seq_conta);
+
+
+--
+-- Name: pk_conta_banco; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY conta_banco
+    ADD CONSTRAINT pk_conta_banco PRIMARY KEY (seq_conta);
+
+
+--
+-- Name: pk_historico_saldo; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY historico_saldo
+    ADD CONSTRAINT pk_historico_saldo PRIMARY KEY (seq_conta, dat_historico_saldo);
+
+
+--
+-- Name: pk_lancamento; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY lancamento
+    ADD CONSTRAINT pk_lancamento PRIMARY KEY (seq_lancamento);
+
+
+--
+-- Name: pk_origem_lancamento; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY origem_lancamento
+    ADD CONSTRAINT pk_origem_lancamento PRIMARY KEY (seq_origem_lancamento);
+
+
+--
+-- Name: pk_tipo_conta; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY tipo_conta
+    ADD CONSTRAINT pk_tipo_conta PRIMARY KEY (seq_tipo_conta);
+
+
+--
+-- Name: pk_tipo_lancamento; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY tipo_lancamento
+    ADD CONSTRAINT pk_tipo_lancamento PRIMARY KEY (seq_tipo_lancamento);
+
+
+--
+-- Name: pk_tipo_operacao; Type: CONSTRAINT; Schema: public; Owner: admin_asserjuf; Tablespace: 
+--
+
+ALTER TABLE ONLY tipo_operacao
+    ADD CONSTRAINT pk_tipo_operacao PRIMARY KEY (seq_tipo_operacao);
+
+
+--
+-- Name: fk_baixa_lancamento_lancamento; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY baixa_lancamento
+    ADD CONSTRAINT fk_baixa_lancamento_lancamento FOREIGN KEY (seq_lancamento) REFERENCES lancamento(seq_lancamento);
+
+
+--
+-- Name: fk_conta_banco_conta; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY conta_banco
+    ADD CONSTRAINT fk_conta_banco_conta FOREIGN KEY (seq_conta) REFERENCES conta(seq_conta);
+
+
+--
+-- Name: fk_conta_tipo_conta; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY conta_banco
+    ADD CONSTRAINT fk_conta_tipo_conta FOREIGN KEY (seq_tipo_conta) REFERENCES tipo_conta(seq_tipo_conta);
+
+
+--
+-- Name: fk_historico_saldo_conta; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY historico_saldo
+    ADD CONSTRAINT fk_historico_saldo_conta FOREIGN KEY (seq_conta) REFERENCES conta(seq_conta);
+
+
+--
+-- Name: fk_lancamento_conta; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY lancamento
+    ADD CONSTRAINT fk_lancamento_conta FOREIGN KEY (seq_conta) REFERENCES conta(seq_conta);
+
+
+--
+-- Name: fk_lancamento_origem_lancamento; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY lancamento
+    ADD CONSTRAINT fk_lancamento_origem_lancamento FOREIGN KEY (seq_origem_lancamento) REFERENCES origem_lancamento(seq_origem_lancamento);
+
+
+--
+-- Name: fk_lancamento_tipo_lancamento; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY lancamento
+    ADD CONSTRAINT fk_lancamento_tipo_lancamento FOREIGN KEY (seq_tipo_lancamento) REFERENCES tipo_lancamento(seq_tipo_lancamento);
+
+
+--
+-- Name: fk_lancamento_tipo_operacao; Type: FK CONSTRAINT; Schema: public; Owner: admin_asserjuf
+--
+
+ALTER TABLE ONLY lancamento
+    ADD CONSTRAINT fk_lancamento_tipo_operacao FOREIGN KEY (seq_tipo_operacao) REFERENCES tipo_operacao(seq_tipo_operacao);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,40 @@
+select * from banco;
+
+select * from vw_associado;
+select * from parentesco;
+select * from pessoa;
+select * from vw_dependente;
+select * from vw_FILHO;
+select * from dependente;
+
+
+
+delete from historico_evento_associado;
+
+DELETE FROM DEPENDENTE;
+
+DELETE FROM FILHO;
+
+delete from associado ;
+
+delete from pessoa;
+
+
+
+
+DELETE FROM PARENTESCO;
+
+INSERT INTO PARENTESCO VALUES (1, 'FILHO(A)');
+INSERT INTO PARENTESCO VALUES (2, 'IRMÃO(Ã)');
+INSERT INTO PARENTESCO VALUES (3, 'PRIMO(A)');
+INSERT INTO PARENTESCO VALUES (4, 'TIO(A)');
+INSERT INTO PARENTESCO VALUES (5, 'AVÔ(Ó)');
+INSERT INTO PARENTESCO VALUES (6, 'CUNHADO(A)');
+INSERT INTO PARENTESCO VALUES (7, 'MARIDO');
+INSERT INTO PARENTESCO VALUES (8, 'ESPOSA');
+INSERT INTO PARENTESCO VALUES (9, 'ENTEADO(A)');
+INSERT INTO PARENTESCO VALUES (10, 'NORA');
+INSERT INTO PARENTESCO VALUES (11, 'GENRO');
+INSERT INTO PARENTESCO VALUES (12, 'SOGRO(A)');
+INSERT INTO PARENTESCO VALUES (13, 'PAI');
+INSERT INTO PARENTESCO VALUES (14, 'MÃE');

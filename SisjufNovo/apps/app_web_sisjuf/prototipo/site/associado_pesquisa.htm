@@ -1,0 +1,526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>SISJUF - Sistema ASSERJUF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="css/estilo.css" type="text/css" rel="stylesheet" />
+<link rel="Shortcut Icon" type="image/png" href="imagens/icone.png">
+
+<script type="text/JavaScript">
+<!--
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_changeProp(objName,x,theProp,theValue) { //v6.0
+  var obj = MM_findObj(objName);
+  if (obj && (theProp.indexOf("style.")==-1 || obj.style)){
+    if (theValue == true || theValue == false)
+      eval("obj."+theProp+"="+theValue);
+    else eval("obj."+theProp+"='"+theValue+"'");
+  }
+}
+//-->
+</script>
+
+</head>
+<body>
+
+	<div id="geral">
+		<div id="topo">
+			<div id="sair">
+				sair <a href="index.htm"><img src="imagens/botao_x.gif" /></a>
+			</div>
+			<div id="voltar">
+				voltar <a href="#"><img src="imagens/setinhavoltar.gif" /></a>
+			</div>
+		</div>
+
+<!-- MANU TEMPORÁRIO -->		
+		<div id="menu"></div>
+<!--
+		<?php
+		include("menu.htm");
+		?>
+-->
+
+		<div id="miolo">
+			<h1>Módulo Associados</h1>
+			<h2>Pesquisa de Associado</h2>
+			<a class="botao_novo" href="associado_cadastro.htm"><span>novo</span></a>
+			<br /><br />
+			
+			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th>Filtro</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Nome completo:</th>
+						<td colspan="3"><input name="nome_associado" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th width="140">Data de associação:</th>
+						<td width="230">
+							<input name="data_associacao1" type="text" size="12" /> - 
+							<input name="data_associacao2" type="text" size="12" />
+						</td>
+						<th width="100">Nº. Matrícula:</th>
+						<td width="120"><input name="matricula_associado" type="text" size="8" /></td>
+					</tr>
+					<tr>
+						<th>Possui Dependentes:</th>
+						<td><input type="checkbox" name="possui_dependentes" /></td>
+						<th>Possui Filhos:</th>
+						<td><input type="checkbox" name="possui_filhos" /></td>
+					</tr>
+					<tr>
+						<th>Incluir Inativos:</th>
+						<td colspan="3"><input type="checkbox" name="incluir_inativos" /></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<br /><br />
+			<div id="pesquisa_avancada1">
+			<a href="javascript:void(0)" class="link_h2" onfocus="MM_changeProp('pesquisa_avancada2','','style.display','inline','DIV'); MM_changeProp('pesquisa_avancada1','','style.display','none','DIV'); ">
+				<h2>Pesquisa Avançada</h2>
+			</a>
+			</div>
+			
+			<div id="pesquisa_avancada2">
+			<a href="javascript:void(0)" class="link_h2" onfocus="MM_changeProp('pesquisa_avancada1','','style.display','inline','DIV'); MM_changeProp('pesquisa_avancada2','','style.display','none','DIV');">
+				<h2>Pesquisa Avançada</h2>
+			</a>
+			
+			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th>Endereço</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>Logradouro:</th>
+						<td><input name="logradouro" type="text" size="40" /></td>
+						<th>Número:</th>
+						<td><input name="numero" type="text" size="3" /></td>
+					</tr>
+					<tr>
+						<th>Complemento:</th>
+						<td colspan="3"><input name="complemento" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Bairro:</th>
+						<td><input name="bairro" type="text" size="30" /></td>
+						<th>CEP:</th>
+						<td><input name="cep" type="text" size="12" /></td>
+					</tr>
+					<tr>
+						<th>Estado:</th>
+						<td colspan="3">
+							<select>
+								<option></option>
+								<option>Bahia</option>
+								<option>Maranhão</option>
+								<option>Rio de Janeiro</option>
+								<option>São Paulo</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Cidade:</th>
+						<td colspan="3"><input name="cidade" type="text" size="30" /></td>
+					</tr>
+				</tbody>
+				
+				<thead>
+					<tr>
+						<th>Contatos</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>E-mail:</th>
+						<td><input name="email" type="text" size="40" /></td>
+						<th>Tel. Celular:</th>
+						<td><input name="tel_celular" type="text" size="15" /></td>
+					</tr>
+					<tr>
+						<th>Tel. Residencial:</th>
+						<td><input name="tel_residencial" type="text" size="15" /></td>
+						<th>Tel. Comercial:</th>
+						<td><input name="tel_comercial" type="text" size="15" /></td>
+					</tr>
+				</tbody>
+				
+				<thead>
+					<tr>
+						<th>Mais Informações</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>R.G.:</th>
+						<td><input name="rg_associado" type="text" size="20" /></td>
+						<th>C.P.F.:</th>
+						<td><input name="cpf_associado" type="text" size="15" /></td>
+					</tr>
+					<tr>
+						<th>Data de Nasc.:</th>
+						<td>
+							<input name="data_nascimento1" type="text" size="12" /> - 
+							<input name="data_nascimento2" type="text" size="12" />
+						</td>
+						<th>Sexo:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>Maculino</option>
+								<option>Feminino</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Estado (Naturalidade):</th>
+						<td colspan="3">
+							<select>
+								<option></option>
+								<option>Bahia</option>
+								<option>Maranhão</option>
+								<option>Rio de Janeiro</option>
+								<option>São Paulo</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Naturalidade:</th>
+						<td colspan="3"><input name="naturalidade" type="text" size="30" /></td>
+					</tr>
+					<tr>
+						<th>Estado Civil:</th>
+						<td colspan="3">
+							<select>
+								<option></option>
+								<option>Solteiro</option>
+								<option>Casado</option>
+								<option>Desquitado</option>
+								<option>Divorciado</option>
+								<option>Viúvo</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Profissão:</th>
+						<td colspan="3"><input name="profissao_associado" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Grupo Sangüíneo:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>O</option>
+								<option>A</option>
+								<option>B</option>
+								<option>AB</option>
+							</select>
+						</td>
+						<th>Fator Rh:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>(+) Positivo</option>
+								<option>(-) Negativo</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Nome do Pai:</th>
+						<td colspan="3"><input name="pai_associado" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Nome da Mãe:</th>
+						<td colspan="3"><input name="mae_associado" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Nome do Cônjugue:</th>
+						<td colspan="3"><input name="conjugue_associado" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Nome da Mãe:</th>
+						<td colspan="3"><input name="mae_associado" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Calçado nº.:</th>
+						<td colspan="3">
+							<input name="calcado_associado1" type="text" size="5" /> - 
+							<input name="calcado_associado2" type="text" size="5" />
+						</td>
+					</tr>
+				</tbody>
+				
+				<thead>
+					<tr>
+						<th>Situação na Justiça</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>Órgão:</th>
+						<td><input name="orgao" type="text" size="40" /></td>
+						<th>Status:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>Ativo</option>
+								<option>Inativo</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Endereço do Órgão:</th>
+						<td colspan="3"><input name="endereco_orgao" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Setor:</th>
+						<td colspan="3"><input name="setor" type="text" size="30" /></td>
+					</tr>
+					<tr>
+						<th>Estado do Setor:</th>
+						<td colspan="3">
+							<select>
+								<option></option>
+								<option>Bahia</option>
+								<option>Maranhão</option>
+								<option>Rio de Janeiro</option>
+								<option>São Paulo</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Município do Setor:</th>
+						<td colspan="3"><input name="municipio_setor" type="text" size="30" /></td>
+					</tr>
+					<tr>
+						<th>Tel. do Setor:</th>
+						<td><input name="telefone_setor" type="text" size="15" /></td>
+						<th>Ramal do Setor:</th>
+						<td><input name="ramal_setor" type="text" size="5" /></td>
+					</tr>
+					<tr>
+						<th>Categoria:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>Sócio-Contribuinte</option>
+								<option>Sócio-Usuário</option>
+							</select>
+						</td>
+						<th>Recebe Jornal:</th>
+						<td><input type="checkbox" name="recebe_jornal" /></td>
+					</tr>
+					<tr>
+						<th>Nome Contribuinte:</th>
+						<td colspan="3"><input name="nome_contribuinte" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Mensalidade (R$):</th>
+						<td colspan="3">
+							<input name="valor1_mensalidade" type="text" size="10" /> - 
+							<input name="valor2_mensalidade" type="text" size="10" />
+						</td>
+					</tr>
+					<tr>
+						<th>Banco:</th>
+						<td colspan="3">
+							<select name="banco">
+								<option></option>
+								<option>Banco do Brasil</option>
+								<option>Bradesco</option>
+								<option>Banco Real</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Nº Agência:</th>
+						<td>
+							<input name="numero_agencia" type="text" size="5" maxlength="5"> - 
+							<input name="digito_agencia" type="text" size="1" maxlength="1">
+						</td>
+						<th>Nº Conta:</th>
+						<td>
+							<input name="numero_conta" type="text" size="5" maxlength="5"> - 
+							<input name="digito_conta" type="text" size="1" maxlength="1">
+						</td>
+					</tr>
+				</tbody>
+
+				<thead>
+					<tr>
+						<th>Dados Dependente</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>Nome completo:</th>
+						<td><input name="nome_dependente" type="text" size="40" /></td>
+						<th>R.G:</th>
+						<td><input name="rg_dependente" type="text" size="20" /></td>
+					</tr>
+					<tr>
+						<th>Data de Nasc.:</th>
+						<td>
+							<input name="data_nascimento_dependente1" type="text" size="12" /> - 
+							<input name="data_nascimento_dependente2" type="text" size="12" />
+						</td>
+						<th>Sexo:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>Maculino</option>
+								<option>Feminino</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Parentesco:</th>
+						<td colspan="3">
+							<select>
+								<option></option>
+								<option>Avô</option>
+								<option>Pai</option>
+								<option>Irmão</option>
+								<option>Sobrinho</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+
+				<thead>
+					<tr>
+						<th>Dados do Filho (a)</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>Nome completo:</th>
+						<td colspan="3"><input name="nome_filho" type="text" size="40" /></td>
+					</tr>
+					<tr>
+						<th>Data de Nasc.:</th>
+						<td>
+							<input name="data_nascimento_filho1" type="text" size="12" /> - 
+							<input name="data_nascimento_filho2" type="text" size="12" />
+						</td>
+						<th>Sexo:</th>
+						<td>
+							<select>
+								<option></option>
+								<option>Maculino</option>
+								<option>Feminino</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+				
+				<thead>
+					<tr>
+						<th>Eventos</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<th>Tipo de Evento:</th>
+						<td colspan="3">
+							<select>
+								<option></option>
+								<option>O que ele fez</option>
+								<option>Mais outra coisa feita</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Data do Evento:</th>
+						<td colspan="3">
+							<input name="data_evento1" type="text" size="12" /> - 
+							<input name="data_evento2" type="text" size="12" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			
+			<a class="botao_filtrar" href="#"><span>salvar</span></a>
+			
+			<br /><br />
+			<h2>Lista de Associados</h2>
+			
+			<table class="tab_lista" cellpadding="2" cellspacing="1">
+				<thead>
+					<tr>
+						<th width="140">Matrícula</th>
+						<th width="230">Nome Completo</th>
+						<th width="100">Associado em</th>
+						<th width="100">Setor/Órgão</th>
+						<th width="20"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>02424</td>
+						<td>Paulo Gomes Prado</td>
+						<td>24/12/2001</td>
+						<td>CPD/Informática</td>
+						<td align="center">
+							<a class="botao_excluir" title="Excluir" href="#"><span>excluir</span></a>
+						</td>
+					</tr>
+					<tr>
+						<td>01547</td>
+						<td>Rodrigo Falcão Cruz de Andrade</td>
+						<td>05/08/1965</td>
+						<td>CPD/Informática</td>
+						<td align="center">
+							<a class="botao_excluir" title="Excluir" href="#"><span>excluir</span></a>
+						</td>
+					</tr>
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<th colspan="5" align="left">
+							<a class="botao_imprimir" title="Imprimir" href="impressao_associado.htm" target="_blank">
+								<span>imprimir</span>
+							</a>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+			<br /><br /><br /><br /><br />
+		</div>
+	</div>
+
+</body>
+</html>

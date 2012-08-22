@@ -1,0 +1,61 @@
+body{}
+h1{font-size:17px; margin-top:5px; margin-bottom:5px;}
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+#logo_impressao{
+float:left;
+width:160px;
+height:100px;
+}
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+#topo_impressao span{color:#333333;}
+#topo_impressao{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+color:#000000;
+}
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+.tabela_impressao tbody td{border-bottom:1px dashed #666666;}
+.tabela_impressao thead th{
+text-align:left;
+font-size:11px;
+background-color:#DDDDDD;
+padding:5px;
+}
+.tabela_impressao{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+clear:left;
+width:700px;
+}
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------- */
+.tabela_extrato tbody td{border-bottom:1px dashed #CCCCCC;}
+.tabela_extrato tbody th{background-color:#DDDDDD;}
+
+.tabela_extrato thead th{
+text-align:left;
+background-color:#DDDDDD;
+border-bottom:1px dashed #000000;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+padding:5px;
+}
+.tabela_extrato{
+font-family:"Courier New", Courier, mono;
+font-size:13px;
+clear:left;
+width:700px;
+}
+.tabela_extrato tfoot td{background-color:#DDDDDD; font-weight:bold;}
+.tabela_extrato tfoot th{
+text-align:left;
+}
+
+

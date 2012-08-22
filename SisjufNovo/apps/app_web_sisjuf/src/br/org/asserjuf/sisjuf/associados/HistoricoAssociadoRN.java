@@ -1,0 +1,42 @@
+package br.org.asserjuf.sisjuf.associados;
+
+import java.util.Collection;
+
+import br.com.falc.smartFW.exception.SmartAppException;
+import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.dados.HistoricoAssociadoDAO;
+import br.org.asserjuf.sisjuf.util.DataRN;
+
+public class HistoricoAssociadoRN {
+
+	private HistoricoAssociadoDAO 	historicoAssociadoDAO;
+	private DataRN					dataRN;
+	
+	
+	public HistoricoAssociadoVO insert(HistoricoAssociadoVO historicoAssociado) throws SmartEnvException, SmartAppException {
+		
+		if (historicoAssociado.getData() == null) {
+			historicoAssociado.setData(dataRN.getCurrentDate());
+
+		}
+		
+		return historicoAssociadoDAO.insert(historicoAssociado);
+		
+	}
+	
+	public Collection<HistoricoAssociadoVO> findByFilter(HistoricoFiltroAssembler assembler) throws SmartEnvException, SmartAppException {
+		
+		return historicoAssociadoDAO.findByFilter(assembler);
+		
+		
+	}
+
+	public void setDataRN(DataRN dataRN) {
+		this.dataRN = dataRN;
+	}
+
+	public void setHistoricoAssociadoDAO(HistoricoAssociadoDAO historicoAssociadoDAO) {
+		this.historicoAssociadoDAO = historicoAssociadoDAO;
+	}
+	
+}

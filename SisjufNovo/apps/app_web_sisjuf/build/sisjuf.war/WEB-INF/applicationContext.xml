@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>	
+	<bean id="convenioDelegate" class="br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate">
+		<property name="convenioBean"><ref bean="convenioBean"/></property>
+		<property name="entidadesComunsBean"><ref bean="entidadesComunsBean"/></property>		
+	</bean>
+
+	<bean id="associadoDelegate" class="br.org.asserjuf.sisjuf.associados.cliente.AssociadoDelegate">
+		<property name="associadoBean"><ref bean="associadoBean"/></property>
+	</bean>
+	
+	<bean id="entidadesComunsDelegate" class="br.org.asserjuf.sisjuf.entidadesComuns.cliente.EntidadesComunsDelegate">
+		<property name="entidadesComunsBean"><ref bean="entidadesComunsBean"/></property>
+	</bean>
+	
+	<bean id="financeiroDelegate" class="br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate">
+		<property name="financeiroBean"><ref bean="financeiroBean"/></property>
+	</bean>
+	
+	<bean id="utilDelegate" class="br.org.asserjuf.sisjuf.util.web.UtilDelegate">
+		<property name="utilBean"><ref bean="utilBean"/></property>
+	</bean>
+
+	<bean id="convenioBean" class="br.org.asserjuf.sisjuf.associados.convenio.facade.ConvenioFacade">
+		<property name="convenioRN"><ref bean="convenioRN"/></property>
+		<property name="atividadeConvenioRN"><ref bean="atividadeConvenioRN"/></property>
+
+		<property name="vinculacaoPlanoRN"><ref bean="vinculacaoPlanoRN"/></property>
+		<property name="planoConvenioRN"><ref bean="planoConvenioRN"/></property>	
+		<property name="beneficiarioRN"><ref bean="beneficiarioRN"/></property>		
+		<property name="faturaRN"><ref bean="faturaRN"/></property>					
+		<property name="faturaVariavelRN"><ref bean="faturaVariavelRN"/></property>	
+		<property name="faturaFixaRN"><ref bean="faturaFixaRN"/></property>	
+		<property name="statusFaturaRN"><ref bean="statusFaturaRN"/></property>							
+	</bean>
+
+	<bean id="associadoBean" class="br.org.asserjuf.sisjuf.associados.facade.AssociadoFacade">
+		<property name="associadoRN"><ref bean="associadoRN"/></property>
+		<property name="emailRN"><ref bean="emailRN"/></property>
+		<property name="historicoAssociadoRN"><ref bean="historicoAssociadoRN"/></property>
+		<property name="parentescoRN"><ref bean="parentescoRN"/></property>
+		<property name="tipoEventoRN"><ref bean="tipoEventoRN"/></property>
+		<property name="outrosBeneficiaveisRN"><ref bean="outrosBeneficiaveisRN"/></property>
+		<property name="vinculacaoPlanoRN"><ref bean="vinculacaoPlanoRN"/></property>		
+	</bean>
+
+	<bean id="entidadesComunsBean" class="br.org.asserjuf.sisjuf.entidadesComuns.facade.EntidadesComunsFacade">
+		<property name="estadoRN"><ref bean="estadoRN"/></property>
+	</bean>
+
+	<bean id="financeiroBean" class="br.org.asserjuf.sisjuf.financeiro.facade.FinanceiroFacade">
+		<property name="contaRN"><ref bean="contaRN"/></property>
+		<property name="bancoRN"><ref bean="bancoRN"/></property>
+		<property name="tipoLancamentoRN"><ref bean="tipoLancamentoRN"/></property>
+		<property name="origemLancamentoRN"><ref bean="origemLancamentoRN"/></property>
+		<property name="tipoOperacaoRN"><ref bean="tipoOperacaoRN"/></property>
+		<property name="tipoContaRN"><ref bean="tipoContaRN"/></property>
+		<property name="lancamentoRN"><ref bean="lancamentoRN"/></property>
+		<property name="diretorFinanceiroRN"><ref bean="diretorFinanceiroRN"/></property>
+		<property name="formaPagamentoRN"><ref bean="formaPagamentoRN"/></property>
+	</bean>
+
+	<bean id="utilBean" class="br.org.asserjuf.sisjuf.util.facade.UtilFacade">
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+		<property name="dataRN"><ref bean="dataRN"/></property>
+	</bean>
+
+	<bean id="faturaVariavelRN" class="br.org.asserjuf.sisjuf.associados.convenio.FaturaVariavelRN">
+		<property name="faturaDAO"><ref bean="faturaDAO"/></property>
+		<property name="convenioRN"><ref bean="convenioRN"/></property>
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+		<property name="lancamentoFaturaRN"><ref bean="lancamentoFaturaRN"/></property>
+	</bean>
+	
+	<bean id="faturaFixaRN" class="br.org.asserjuf.sisjuf.associados.convenio.FaturaFixaRN">
+		<property name="faturaDAO"><ref bean="faturaDAO"/></property>
+		<property name="convenioRN"><ref bean="convenioRN"/></property>
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+		<property name="lancamentoFaturaRN"><ref bean="lancamentoFaturaRN"/></property>
+	</bean>
+
+	<bean id="convenioRN" class="br.org.asserjuf.sisjuf.associados.convenio.ConvenioRN">
+		<property name="planoConvenioRN"><ref bean="planoConvenioRN"/></property>
+		<property name="convenioDAO"><ref bean="convenioDAO"/></property>
+	</bean>
+	
+	<bean id="beneficiarioRN" class="br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioRN">
+		<property name="beneficiarioDAO"><ref bean="beneficiarioDAO"/></property>
+	</bean>
+	
+	<bean id="faturaRN" class="br.org.asserjuf.sisjuf.associados.convenio.FaturaRN">
+		<property name="faturaDAO"><ref bean="faturaDAO"/></property>
+		<property name="convenioRN"><ref bean="convenioRN"/></property>
+	</bean>
+	
+	<bean id="statusFaturaRN" class="br.org.asserjuf.sisjuf.associados.convenio.StatusFaturaRN">
+		<property name="statusFaturaDAO"><ref bean="statusFaturaDAO"/></property>
+	</bean>
+	
+	<bean id="atividadeConvenioRN" class="br.org.asserjuf.sisjuf.associados.convenio.AtividadeConvenioRN">
+		<property name="atividadeConvenioDAO"><ref bean="atividadeConvenioDAO"/></property>
+	</bean>	
+
+	<bean id="vinculacaoPlanoRN" class="br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoRN">
+		<property name="vinculacaoPlanoDAO"><ref bean="vinculacaoPlanoDAO"/></property>
+	</bean>	
+	
+	<bean id="planoConvenioRN" class="br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioRN">
+		<property name="planoConvenioDAO"><ref bean="planoConvenioDAO"/></property>
+	</bean>		
+		
+	<bean id="estadoRN" class="br.org.asserjuf.sisjuf.entidadesComuns.EstadoRN">
+		<property name="estadoDAO"><ref bean="estadoDAO"/></property>
+	</bean>
+	
+	<bean id="associadoRN" class="br.org.asserjuf.sisjuf.associados.AssociadoRN">
+		<property name="associadoDAO"><ref bean="associadoDAO"/></property>
+		<property name="historicoAssociadoRN"><ref bean="historicoAssociadoRN"/></property>
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+		<property name="pessoaRN"><ref bean="pessoaRN"/></property>
+		<property name="filhoRN"><ref bean="filhoRN"/></property>
+		<property name="dependenteRN"><ref bean="dependenteRN"/></property>
+		<property name="lancamentoRN"><ref bean="lancamentoRN"/></property>
+		<property name="conjugeRN"><ref bean="conjugeRN"/></property>
+	</bean>
+	
+	<bean id="emailRN" class="br.org.asserjuf.sisjuf.associados.EmailRN">
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+	</bean>
+	
+	<bean id="historicoAssociadoRN" class="br.org.asserjuf.sisjuf.associados.HistoricoAssociadoRN">
+		<property name="historicoAssociadoDAO"><ref bean="historicoAssociadoDAO"/></property>
+		<property name="dataRN"><ref bean="dataRN"/></property>
+	</bean>
+
+	<bean id="parentescoRN" class="br.org.asserjuf.sisjuf.associados.ParentescoRN">
+		<property name="parentescoDAO"><ref bean="parentescoDAO"/></property>
+	</bean>	
+	
+	<bean id="tipoEventoRN" class="br.org.asserjuf.sisjuf.associados.TipoEventoRN">
+		<property name="tipoEventoDAO"><ref bean="tipoEventoDAO"/></property>
+	</bean>	
+
+	<bean id="outrosBeneficiaveisRN" class="br.org.asserjuf.sisjuf.associados.convenio.OutrosBeneficiaveisRN">
+		<property name="outrosBeneficiaveisDAO"><ref bean="outrosBeneficiaveisDAO"/></property>
+		<property name="pessoaDAO"><ref bean="pessoaDAO"/></property>
+	</bean>		
+	
+	<bean id="contaRN" class="br.org.asserjuf.sisjuf.financeiro.ContaRN">
+		<property name="contaDAO"><ref bean="contaDAO"/></property>
+		<property name="dataRN"><ref bean="dataRN"/></property>
+		<property name="diretorFinanceiroRN"><ref bean="diretorFinanceiroRN"/></property>
+	</bean>	
+	
+	<bean id="bancoRN" class="br.org.asserjuf.sisjuf.financeiro.BancoRN">
+		<property name="bancoDAO"><ref bean="bancoDAO"/></property>
+	</bean>		
+	
+	<bean id="tipoLancamentoRN" class="br.org.asserjuf.sisjuf.financeiro.TipoLancamentoRN">
+		<property name="tipoLancamentoDAO"><ref bean="tipoLancamentoDAO"/></property>
+	</bean>		
+	
+	<bean id="origemLancamentoRN" class="br.org.asserjuf.sisjuf.financeiro.OrigemLancamentoRN">
+		<property name="origemLancamentoDAO"><ref bean="origemLancamentoDAO"/></property>
+	</bean>		
+
+	<bean id="tipoOperacaoRN" class="br.org.asserjuf.sisjuf.financeiro.TipoOperacaoRN">
+		<property name="tipoOperacaoDAO"><ref bean="tipoOperacaoDAO"/></property>
+	</bean>
+	
+	<bean id="tipoContaRN" class="br.org.asserjuf.sisjuf.financeiro.TipoContaRN">
+		<property name="tipoContaDAO"><ref bean="tipoContaDAO"/></property>
+	</bean>		
+
+	<bean id="lancamentoRN" class="br.org.asserjuf.sisjuf.financeiro.LancamentoRN">
+		<property name="lancamentoDAO"><ref bean="lancamentoDAO"/></property>
+		<property name="tipoOperacaoRN"><ref bean="tipoOperacaoRN"/></property>
+		<property name="contaRN"><ref bean="contaRN"/></property>
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+		<property name="dataRN"><ref bean="dataRN"/></property>
+		<property name="diretorFinanceiroRN"><ref bean="diretorFinanceiroRN"/></property>
+	</bean>
+	
+	
+	<bean id="lancamentoFaturaRN" class="br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaRN">
+		<property name="lancamentoDAO"><ref bean="lancamentoDAO"/></property>
+		<property name="tipoOperacaoRN"><ref bean="tipoOperacaoRN"/></property>
+		<property name="contaRN"><ref bean="contaRN"/></property>
+		<property name="parametroRN"><ref bean="parametroRN"/></property>
+		<property name="dataRN"><ref bean="dataRN"/></property>
+		<property name="diretorFinanceiroRN"><ref bean="diretorFinanceiroRN"/></property>
+	</bean>		
+
+	<bean id="diretorFinanceiroRN" class="br.org.asserjuf.sisjuf.financeiro.DiretorFinanceiroRN">
+		<property name="diretorFinanceiroDAO"><ref bean="diretorFinanceiroDAO"/></property>
+	</bean>
+
+	<bean id="formaPagamentoRN" class="br.org.asserjuf.sisjuf.financeiro.FormaPagamentoRN">
+		<property name="formaPagamentoDAO"><ref bean="formaPagamentoDAO"/></property>
+	</bean>
+
+	<bean id="parametroRN" class="br.org.asserjuf.sisjuf.util.ParametroRN">
+		<property name="parametroDAO"><ref bean="parametroDAO"/></property>
+	</bean>
+
+	<bean id="dataRN" class="br.org.asserjuf.sisjuf.util.DataRN">
+		<property name="dataDAO"><ref bean="dataDAO"/></property>
+	</bean>
+
+	<bean id="pessoaRN" class="br.org.asserjuf.sisjuf.associados.PessoaRN">
+		<property name="pessoaDAO"><ref bean="pessoaDAO"/></property>
+	</bean>
+	
+	<bean id="filhoRN" class="br.org.asserjuf.sisjuf.associados.FilhoRN">
+		<property name="filhoDAO"><ref bean="filhoDAO"/></property>
+		<property name="pessoaRN"><ref bean="pessoaRN"/></property>
+	</bean>
+	
+	<bean id="dependenteRN" class="br.org.asserjuf.sisjuf.associados.DependenteRN">
+		<property name="dependenteDAO"><ref bean="dependenteDAO"/></property>
+		<property name="pessoaRN"><ref bean="pessoaRN"/></property>
+	</bean>
+	
+	<bean id="conjugeRN" class="br.org.asserjuf.sisjuf.associados.ConjugeRN">
+		<property name="conjugeDAO"><ref bean="conjugeDAO"/></property>
+		<property name="pessoaRN"><ref bean="pessoaRN"/></property>
+	</bean>
+	
+	<bean id="convenioDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.ConvenioDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="beneficiarioDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.BeneficiarioDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="faturaDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.FaturaDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="statusFaturaDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="atividadeConvenioDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.AtividadeConvenioDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+
+	<bean id="vinculacaoPlanoDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.VinculacaoPlanoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="planoConvenioDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.PlanoConvenioDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>		
+	
+	<bean id="estadoDAO" class="br.org.asserjuf.sisjuf.entidadesComuns.dados.EstadoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+
+	<bean id="associadoDAO" class="br.org.asserjuf.sisjuf.associados.dados.AssociadoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+
+	<bean id="historicoAssociadoDAO" class="br.org.asserjuf.sisjuf.associados.dados.HistoricoAssociadoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="parentescoDAO" class="br.org.asserjuf.sisjuf.associados.dados.ParentescoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="tipoEventoDAO" class="br.org.asserjuf.sisjuf.associados.dados.TipoEventoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	
+	<bean id="outrosBeneficiaveisDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.OutrosBeneficiaveisDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="contaDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.ContaDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+
+	<bean id="bancoDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.BancoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="tipoLancamentoDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.TipoLancamentoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="origemLancamentoDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.OrigemLancamentoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+
+	<bean id="tipoOperacaoDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.TipoOperacaoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="tipoContaDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.TipoContaDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="lancamentoDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.LancamentoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="diretorFinanceiroDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.DiretorFinanceiroDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="formaPagamentoDAO" class="br.org.asserjuf.sisjuf.financeiro.dados.FormaPagamentoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="parametroDAO" class="br.org.asserjuf.sisjuf.util.dados.ParametroDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="dataDAO" class="br.org.asserjuf.sisjuf.util.dados.DataDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="pessoaDAO" class="br.org.asserjuf.sisjuf.associados.dados.PessoaDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="filhoDAO" class="br.org.asserjuf.sisjuf.associados.dados.FilhoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="dependenteDAO" class="br.org.asserjuf.sisjuf.associados.dados.DependenteDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<bean id="conjugeDAO" class="br.org.asserjuf.sisjuf.associados.dados.ConjugeDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>	
+	
+	<!-- SEGURANCA -->
+	<bean id="segurancaDelegate" class="com.vortice.seguranca.abstracao.cliente.SegurancaDelegateRN">
+		<property name="usuarioRN"><ref bean="usuarioRN"/></property>
+		<property name="perfilRN"><ref bean="perfilRN"/></property>
+		<property name="funcaoRN"><ref bean="funcaoRN"/></property>
+		<property name="funcionalidadeRN"><ref bean="funcionalidadeRN"/></property>
+		<property name="linkRN"><ref bean="linkRN"/></property>
+	</bean>
+	
+	<bean id="usuarioRN" class="com.vortice.seguranca.rn.UsuarioRN">
+		<property name="dao"><ref bean="usuarioDAO"/></property>
+		<property name="funcionalidadeDAO"><ref bean="funcionalidadeDAO"/></property>
+		<property name="perfilDAO"><ref bean="perfilDAO" /></property>
+	</bean>
+	
+	<bean id="perfilRN" class="com.vortice.seguranca.rn.PerfilRN">
+		<property name="dao"><ref bean="perfilDAO"/></property>
+	</bean>
+	
+	<bean id="funcaoRN" class="com.vortice.seguranca.rn.FuncaoRN">
+		<property name="dao"><ref bean="funcaoDAO"/></property>
+	</bean>
+	
+	<bean id="funcionalidadeRN" class="com.vortice.seguranca.rn.FuncionalidadeRN">
+		<property name="dao"><ref bean="funcionalidadeDAO"/></property>
+	</bean>
+	
+	<bean id="linkRN" class="com.vortice.seguranca.rn.LinkRN">
+		<property name="dao"><ref bean="linkDAO"/></property>
+	</bean>
+	
+	<bean id="usuarioDAO" class="com.vortice.seguranca.dao.postgresql.UsuarioDAOPostgreSql">
+		<property name="tipoConexao"><ref bean="conexao"/></property>
+	</bean>
+	
+	<bean id="perfilDAO" class="com.vortice.seguranca.dao.postgresql.PerfilDAOPostgreSql">
+		<property name="tipoConexao"><ref bean="conexao"/></property>
+	</bean>
+	
+	<bean id="funcaoDAO" class="com.vortice.seguranca.dao.postgresql.FuncaoDAOPostgreSql">
+		<property name="tipoConexao"><ref bean="conexao"/></property>
+	</bean>
+	
+	<bean id="funcionalidadeDAO" class="com.vortice.seguranca.dao.postgresql.FuncionalidadeDAOPostgreSql">
+		<property name="tipoConexao"><ref bean="conexao"/></property>
+	</bean>
+	
+	<bean id="linkDAO" class="com.vortice.seguranca.dao.postgresql.LinkDAOPostgreSql">
+		<property name="tipoConexao"><ref bean="conexao"/></property>
+	</bean>
+	
+	<bean id="conexao" class="com.vortice.persistencia.conexao.ConexaoSpring">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	<!-- SEGURANCA -->
+	
+	<!-- CONEXAO COM O BANCO DE DADOS -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/juriweb_sisjuf" />
+		
+		<!-- DESENV -->
+		<property name="username" value="postgres" />
+		<property name="password" value="elefante10" />
+		
+		<!--  PROD -->
+		<!-- property name="username" value="asserjuf" />
+		<property name="password" value="elefante10" / -->
+	</bean>
+	
+</beans>
