@@ -455,6 +455,10 @@ public class FinanceiroFacade {
 	public Collection findAllFormaPagamento() throws SmartEnvException, SmartAppException {
 		return formaPagamentoRN.findAll();
 	}
+	
+	public void removeLancamentosDuplicados() throws SmartEnvException {
+		lancamentoRN.removeDuplicados();
+	}
 
 
 	public void setBancoRN(BancoRN bancoRN) {

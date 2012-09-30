@@ -2,6 +2,7 @@ package br.org.asserjuf.sisjuf.financeiro;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Iterator;
 
 import br.com.falc.smartFW.exception.SmartAppException;
@@ -602,6 +603,17 @@ public class LancamentoRN {
 		Double retorno = lancamentoDAO.obterSaldoLancamento(vo);
 		
 		return retorno < 0 ? retorno * (-1 ) :retorno;
+	}
+	
+	/**
+	 * Remove lançamentos duplicados (inconsistentes) da base de dados.
+	 * @throws SmartEnvException
+	 */
+	public void removeDuplicados() throws SmartEnvException {
+		
+		Collection<LancamentoVO> lancamentosDuplicados = lancamentoDAO.findDuplicadosInconsistentes();
+		
+		// TODO
 	}
 
 	public void setContaRN(ContaRN contaRN) {

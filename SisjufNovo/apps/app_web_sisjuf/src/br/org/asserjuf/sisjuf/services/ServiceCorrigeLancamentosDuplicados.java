@@ -1,41 +1,43 @@
 package br.org.asserjuf.sisjuf.services;
 
+
+
+import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 
 public class ServiceCorrigeLancamentosDuplicados extends Thread {
 
+	private FinanceiroDelegate financeiroDelegate;
+	
+	public ServiceCorrigeLancamentosDuplicados(FinanceiroDelegate delegate) {
+		this.financeiroDelegate = delegate;
+	}
+	
 	public void run() {
-		while (true) {
+		
+		try {
+		
+		
 			
-			FinanceiroDelegate financeiroDelegate	= new FinanceiroDelegate();
-			
-			//TODO
-			/*
-				financeiroDelegate.removeLancamentosDuplicados();
-			
-			  no RN terá algo do tipo:
-			    
-			    coll = findLancamentosDuplicados();
-			    
-				for (int i=0; i < coll.size(); i++) {
+			while (true) {
 				
-					this.removeBaixaLancamento();
-					this.removeLancamento();
-					this.removeHistoricoSaldo(data_referencia);
+				
+				
+					System.out.println("loop service...");
+					financeiroDelegate.removeLancamentosDuplicados();	
+				
+					sleep(10000);
 					
-					sysout "encontrado algo para remover. sysdate".
-				
+		
+					
 				}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 			
-			
-			*/
-			try {
-				sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (SmartEnvException e) {
+			e.printStackTrace();	
 		}
+	
 	}
 	
 }

@@ -411,6 +411,10 @@ public class FinanceiroDelegate {
 	public Collection findAllFormaPagamento() throws SmartEnvException, SmartAppException {
 		return financeiroBean.findAllFormaPagamento();
 	}
+	
+	public void removeLancamentosDuplicados() throws SmartEnvException {
+		financeiroBean.removeLancamentosDuplicados();
+	}
 
 	public void setFinanceiroBean(FinanceiroFacade financeiroBean) {
 		this.financeiroBean = financeiroBean;

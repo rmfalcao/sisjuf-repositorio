@@ -733,4 +733,44 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		
 	}
 	
+	
+	
+	/**
+	 * Obtém a coleção de lançamentos duplicados (registros inconsistentes) da base. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO   
+	 * @return Coleção de lançamentos, encapsulados da classe LancamentoVO.
+	 * @throws SmartEnvException
+	 */
+	public Collection<LancamentoVO> findDuplicadosInconsistentes() throws SmartEnvException {
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+
+		StringBuffer sql = new StringBuffer(" SELECT L.SEQ_LANCAMENTO ")
+									.append(" from lancamento l, baixa_lancamento bl where l.seq_lancamento = bl.seq_lancamento and dat_efetivacao_lancamento is null ");
+										
+		try {
+			
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			return sRs.getJavaBeans(LancamentoVO.class, new String[] {"codigo"});
+			
+		
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+
+		} finally {
+
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+
+		}
+		
+	}
+	
+	
 }
