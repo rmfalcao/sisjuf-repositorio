@@ -614,6 +614,20 @@ public class LancamentoRN {
 		Collection<LancamentoVO> lancamentosDuplicados = lancamentoDAO.findDuplicadosInconsistentes();
 		
 		// TODO
+		
+		for (LancamentoVO lancamento : lancamentosDuplicados) {
+			
+			try {
+				this.estornarLancamento(lancamento);
+				
+				
+			} catch (SmartAppException e) {
+				
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 
 	public void setContaRN(ContaRN contaRN) {

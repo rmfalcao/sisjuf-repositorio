@@ -746,7 +746,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		SmartPreparedStatement 	sStmt 	= null;
 		SmartResultSet			sRs		= null;
 
-		StringBuffer sql = new StringBuffer(" SELECT L.SEQ_LANCAMENTO ")
+		StringBuffer sql = new StringBuffer(" SELECT L.SEQ_LANCAMENTO, L.SEQ_CONTA ")
 									.append(" from lancamento l, baixa_lancamento bl where l.seq_lancamento = bl.seq_lancamento and dat_efetivacao_lancamento is null ");
 										
 		try {
@@ -756,7 +756,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
-			return sRs.getJavaBeans(LancamentoVO.class, new String[] {"codigo"});
+			return sRs.getJavaBeans(LancamentoVO.class, new String[] {"codigo", "contaVO.codigo"});
 			
 		
 		} catch (SQLException e) {

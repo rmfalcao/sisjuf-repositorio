@@ -33,7 +33,7 @@ public class CorrigeLancamentosDuplicadosAC extends FrameworkServlet {
 	@Override
 	protected void doService(HttpServletRequest arg0, HttpServletResponse arg1)
 			throws Exception {
-		System.out.println("teste");
+
 		
 	}
 
