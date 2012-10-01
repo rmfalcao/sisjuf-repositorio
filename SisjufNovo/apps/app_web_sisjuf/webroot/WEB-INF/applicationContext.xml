@@ -399,15 +399,17 @@
 	<!-- CONEXAO COM O BANCO DE DADOS -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/juriweb_sisjuf" />
+		
 		
 		<!-- DESENV -->
+		<!-- property name="url" value="jdbc:postgresql://localhost:5432/juriweb_sisjuf" />
 		<property name="username" value="postgres" />
-		<property name="password" value="elefante10" />
+		<property name="password" value="elefante10" / -->
 		
 		<!--  PROD -->
-		<!-- property name="username" value="asserjuf" />
-		<property name="password" value="elefante10" / -->
+		<property name="url" value="jdbc:postgresql://localhost:5432/juriwebsisjuf" />
+		<property name="username" value="juriwebsisjuf" />
+		<property name="password" value="gkug976f" />
 	</bean>
 	
 </beans>
