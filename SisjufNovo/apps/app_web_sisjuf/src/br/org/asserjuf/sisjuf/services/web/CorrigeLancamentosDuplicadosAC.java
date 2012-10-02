@@ -23,7 +23,7 @@ public class CorrigeLancamentosDuplicadosAC extends FrameworkServlet {
 		
 		WebApplicationContext context = getWebApplicationContext();
 		
-		ServiceCorrigeLancamentosDuplicados thread = new ServiceCorrigeLancamentosDuplicados((FinanceiroDelegate)context.getBean("financeiroDelegate"));
+		ServiceCorrigeLancamentosDuplicados thread = ServiceCorrigeLancamentosDuplicados.getInstance((FinanceiroDelegate)context.getBean("financeiroDelegate"));
 		
 		thread.start();
 		

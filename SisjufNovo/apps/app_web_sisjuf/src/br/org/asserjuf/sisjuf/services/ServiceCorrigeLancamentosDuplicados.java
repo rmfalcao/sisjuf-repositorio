@@ -7,9 +7,18 @@ import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 
 public class ServiceCorrigeLancamentosDuplicados extends Thread {
 
-	private FinanceiroDelegate financeiroDelegate;
+	private 		FinanceiroDelegate 						financeiroDelegate;
+	private static 	ServiceCorrigeLancamentosDuplicados 	instance = null;
 	
-	public ServiceCorrigeLancamentosDuplicados(FinanceiroDelegate delegate) {
+	public static ServiceCorrigeLancamentosDuplicados getInstance(FinanceiroDelegate delegate) {
+		if (instance != null) {
+			return instance;
+		}
+		
+		return new ServiceCorrigeLancamentosDuplicados(delegate);
+	}
+	
+	private ServiceCorrigeLancamentosDuplicados(FinanceiroDelegate delegate) {
 		this.financeiroDelegate = delegate;
 	}
 	
@@ -17,20 +26,24 @@ public class ServiceCorrigeLancamentosDuplicados extends Thread {
 		
 		try {
 		
-		
+			int i = 0;
 			
 			while (true) {
 				
-				
-				
-					System.out.println("loop service...");
+					if (i%10 == 0) {
+						System.out.println("[ServiceCorrigeLancamentosDuplicados RUNNING...]");
+					}
+					
+					
 					financeiroDelegate.removeLancamentosDuplicados();	
 				
 					sleep(10000);
-					
+		
+					i++;
 		
 					
-				}
+			}
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			

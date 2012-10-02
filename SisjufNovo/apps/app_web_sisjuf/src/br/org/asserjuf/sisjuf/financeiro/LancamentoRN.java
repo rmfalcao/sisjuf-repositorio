@@ -3,6 +3,7 @@ package br.org.asserjuf.sisjuf.financeiro;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 import br.com.falc.smartFW.exception.SmartAppException;
@@ -613,10 +614,10 @@ public class LancamentoRN {
 		
 		Collection<LancamentoVO> lancamentosDuplicados = lancamentoDAO.findDuplicadosInconsistentes();
 		
-		// TODO
+
 		
 		for (LancamentoVO lancamento : lancamentosDuplicados) {
-			
+			System.out.println((new Date()) + " - ENCONTRADO(S) " + lancamentosDuplicados.size() + " LANCAMENTO(S) DUPLICADO(S).");
 			try {
 				this.estornarLancamento(lancamento);
 				
