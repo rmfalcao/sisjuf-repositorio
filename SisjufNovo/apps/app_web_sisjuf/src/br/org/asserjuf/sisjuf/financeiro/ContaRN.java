@@ -378,6 +378,18 @@ public class ContaRN {
 		
 		contaDAO.removeHistoricoSaldoByLancamento(new HistoricoSaldoAssembler(contaVO, lancamentoVO));
 	}
+	
+	
+	/**
+	 * Remove todos os registros de histórico de saldo de uma conta.
+	 * @param contaVO Representa a conta que terá os registros de histórico de saldo removidos 
+	 * @throws SmartEnvException
+	 * @throws SmartAppException
+	 */	
+	public void removeHistoricoSaldo(ContaVO contaVO) throws SmartEnvException, SmartAppException {
+		
+		contaDAO.removeHistoricoSaldo(contaVO);
+	}
 
 	/**
 	 * Consolida os históricos de saldo de todas as contas até a data atual

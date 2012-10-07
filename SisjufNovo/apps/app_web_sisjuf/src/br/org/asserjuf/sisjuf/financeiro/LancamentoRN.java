@@ -619,7 +619,23 @@ public class LancamentoRN {
 		for (LancamentoVO lancamento : lancamentosDuplicados) {
 			System.out.println((new Date()) + " - ENCONTRADO(S) " + lancamentosDuplicados.size() + " LANCAMENTO(S) DUPLICADO(S).");
 			try {
-				this.estornarLancamento(lancamento);
+				
+				
+				System.out.print("---- ESTORNANDO LANCAMENTO " + lancamento.getCodigo() + ": ");
+				
+				lancamentoDAO.estornarLancamento(lancamento);
+				
+				System.out.println("OK");
+				System.out.print("---- REMOVENDO HISTORICO DE SALDO... ");
+				
+				contaRN.removeHistoricoSaldo(lancamento.getContaVO());
+				
+				System.out.println("OK");
+				System.out.print("---- CONSOLIDANDO SALDO... ");
+				
+				contaRN.consolidarHistoricoSaldo();
+				
+				System.out.println("OK");
 				
 				
 			} catch (SmartAppException e) {

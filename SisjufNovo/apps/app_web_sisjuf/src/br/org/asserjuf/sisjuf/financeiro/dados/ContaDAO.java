@@ -639,6 +639,43 @@ public class ContaDAO extends SisjufDAOPostgres {
 		}
 		
 	}
+	
+	/**
+	 * Exclui o histórico do saldo de uma conta no banco de dados a partir de uma lançamento determinado.
+	 * @param assembler Instância da classe HistoricoSaldoAssembler com a conta e o lançamento a serem usados para efetuar a exclusão.
+	 * @throws SmartEnvException
+	 */
+	public void removeHistoricoSaldo(ContaVO conta) throws SmartEnvException {
+		
+		StringBuffer sql = new StringBuffer("DELETE FROM HISTORICO_SALDO WHERE SEQ_CONTA = ? ");
+		
+
+	
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));			
+	
+			sStmt.setInteger(1, conta.getCodigo());
+								
+			sStmt.getMyPreparedStatement().execute();
+							
+		} catch (SQLException e) {
+
+			throw new SmartEnvException(e);
+
+		} finally {
+
+		
+			sStmt.close();
+			sConn.close();
+
+		}
+		
+	}
 
 	/**
 	 * Obtém o saldo de uma conta do banco de dados até uma determinada data através da procedure "obter_saldo(int2, date)".

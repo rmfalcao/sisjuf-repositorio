@@ -402,6 +402,7 @@
 		
 		
 		<!-- DESENV -->
+
 		<!--
 		<property name="url" value="jdbc:postgresql://localhost:5432/juriweb_sisjuf" />
 		<property name="username" value="postgres" />
@@ -409,9 +410,11 @@
 		-->
 		
 		<!--  PROD -->
+		
 		<property name="url" value="jdbc:postgresql://localhost:5432/juriwebsisjuf" />
 		<property name="username" value="juriwebsisjuf" />
 		<property name="password" value="gkug976f" />
+
 		
 
 	</bean>
