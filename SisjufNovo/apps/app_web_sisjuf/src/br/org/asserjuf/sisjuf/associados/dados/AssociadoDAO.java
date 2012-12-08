@@ -90,7 +90,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" a.nom_orgao_associado, a.des_endereco_setor_associado, a.nom_setor_associado, a.seq_estado_setor_associado, ")
 		.append(" a.nom_municipio_setor_associado, a.num_telefone_setor_associado, a.num_ramal_setor_associado, a.num_matricula_justica_associado, ")
 		.append(" a.sts_recebe_jornal_associado, a.sts_categoria_associado, a.seq_contribuinte_associado, a.seq_banco, a.num_agencia_associado, ")
-		.append(" a.dig_agencia_associado, a.num_conta_associado, a.dig_conta_associado, h.dat_historico_evento_associado, a.seq_tipo_evento, a.nom_tipo_evento, a.dat_historico_evento_associado as data_ultimo_evento ")
+		.append(" a.dig_agencia_associado, a.num_conta_associado, a.dig_conta_associado, h.dat_historico_evento_associado, a.seq_tipo_evento, a.nom_tipo_evento, a.dat_historico_evento_associado as data_ultimo_evento, a.str_vitalmed ")
 		.append(" from vw_associado a inner join historico_evento_associado h on a.seq_associado = h.seq_associado ")
 		.append(" left join vw_conjuge c on c.seq_associado = a.seq_associado ")
 		.append(" where h.seq_tipo_evento = (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CADASTRO') and a.seq_associado = ? ");
@@ -121,7 +121,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 					"numeroCalcado", "statusJustica", "setor.orgao.nome","setor.endereco.logradouro", "setor.nome", 
 					"setor.endereco.municipio.estado.codigo", "setor.endereco.municipio.nome", "setor.telefone", "setor.ramal", "matriculaJustica",
 					"statusRecebeJornal", "statusCategoria", "contribuinte.codigo", "conta.bancoVO.codigo", "conta.numAgencia", "conta.digAgencia", 
-					"conta.numConta", "conta.digConta", "dataAssociacao", "ultimoEvento.tipoEvento.codigo", "ultimoEvento.tipoEvento.nome", "ultimoEvento.data"} );
+					"conta.numConta", "conta.digConta", "dataAssociacao", "ultimoEvento.tipoEvento.codigo", "ultimoEvento.tipoEvento.nome", "ultimoEvento.data", "codigoVitalmed"} );
 		
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
@@ -209,7 +209,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" nom_orgao_associado = ?, des_endereco_setor_associado = ?, nom_setor_associado = ?, seq_estado_setor_associado = ?, ")
 		.append(" nom_municipio_setor_associado = ?, num_telefone_setor_associado = ?, num_ramal_setor_associado = ?, num_matricula_justica_associado = ?, ")
 		.append(" sts_recebe_jornal_associado = ?, sts_categoria_associado = ?, seq_contribuinte_associado = ?, seq_banco = ?, num_agencia_associado = ?, ")
-		.append(" dig_agencia_associado = ?, num_conta_associado = ?, dig_conta_associado = ?, num_rg_associado = ?, num_cpf_associado = ? ")
+		.append(" dig_agencia_associado = ?, num_conta_associado = ?, dig_conta_associado = ?, num_rg_associado = ?, num_cpf_associado = ?, str_vitalmed = ? ")
 		.append(" where seq_pessoa = ? ");
 
 		SmartConnection 		sConn 	= null;
@@ -259,6 +259,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 														"conta.digConta", 
 														"rg", 
 														"cpf",
+														"codigoVitalmed",
 														"codigo"});
 			
 			sStmt.getMyPreparedStatement().execute();
@@ -287,8 +288,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" nom_orgao_associado, des_endereco_setor_associado, nom_setor_associado, seq_estado_setor_associado, ")
 		.append(" nom_municipio_setor_associado, num_telefone_setor_associado, num_ramal_setor_associado, num_matricula_justica_associado, ")
 		.append(" sts_recebe_jornal_associado, sts_categoria_associado, seq_contribuinte_associado, seq_banco, num_agencia_associado, ")
-		.append(" dig_agencia_associado, num_conta_associado, dig_conta_associado, num_cpf_associado, num_rg_associado,sts_pre_cadastro_associado) ")
-		.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+		.append(" dig_agencia_associado, num_conta_associado, dig_conta_associado, num_cpf_associado, num_rg_associado,sts_pre_cadastro_associado, str_vitalmed) ")
+		.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -338,7 +339,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 															"conta.digConta",
 															"cpf", 
 															"rg",
-															"statusPreCadastro"															
+															"statusPreCadastro",
+															"strVitalmed"
 															});
 			
 			sStmt.getMyPreparedStatement().execute();

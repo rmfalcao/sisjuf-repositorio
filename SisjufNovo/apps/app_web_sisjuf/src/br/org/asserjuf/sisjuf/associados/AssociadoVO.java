@@ -44,6 +44,8 @@ public class AssociadoVO extends PessoaVO {
 	private Date							dataAssociacao;
 	private Integer							matriculaJustica;
 	private String							statusPreCadastro;
+	private String							codigoVitalmed;
+	
 	
 	private Collection<DependenteVO> 		dependentes;
 	private Collection<FilhoVO>				filhos;
@@ -288,6 +290,14 @@ public class AssociadoVO extends PessoaVO {
 	}
 	public void setBeneficiarios(Collection<OutroBeneficiavelVO> beneficiarios) {
 		this.beneficiarios = beneficiarios;
+	}
+
+
+	public String getCodigoVitalmed() {
+		return codigoVitalmed;
+	}
+	public void setCodigoVitalmed(String codigoVitalmed) {
+		this.codigoVitalmed = codigoVitalmed;
 	}
 	
 }
