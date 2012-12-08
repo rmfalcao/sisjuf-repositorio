@@ -340,7 +340,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 															"cpf", 
 															"rg",
 															"statusPreCadastro",
-															"strVitalmed"
+															"codigoVitalmed"
 															});
 			
 			sStmt.getMyPreparedStatement().execute();
