@@ -189,5 +189,19 @@ public class ConvenioRN {
 	}
 	
 	
+	public Collection<ReportVitalmedVO> findReportVitalmed(ReportVitalmedVO report) throws SmartEnvException, SmartAppException {
+		
+		Collection<ReportVitalmedVO> dadosAssociadosVitalmed = convenioDAO.findReportVitalmed(report);
+		
+		convenioDAO.removeReportVitalmed();
+		
+		if (dadosAssociadosVitalmed != null && !dadosAssociadosVitalmed.isEmpty()) {
+			for (ReportVitalmedVO dado : dadosAssociadosVitalmed) {
+				convenioDAO.insert(dado);
+			}
+		}		
+		
+		return dadosAssociadosVitalmed;
+	}
 
 }
