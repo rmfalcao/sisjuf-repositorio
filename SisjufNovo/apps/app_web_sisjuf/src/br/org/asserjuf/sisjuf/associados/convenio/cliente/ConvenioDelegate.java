@@ -295,4 +295,8 @@ public class ConvenioDelegate {
 		return convenioBean.findReportVitalmed(report);
 	}
 	
+	public void cancelarFatura(FaturaArquivoVO faturaArquivo) throws SmartEnvException, SmartAppException {
+		// TODO 
+	}
+	
 }
