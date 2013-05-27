@@ -168,6 +168,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" STATUS_FATURA SF, ")
 			.append(" CONVENIO C ")
 			.append(" WHERE	F.SEQ_STATUS_FATURA = SF.SEQ_STATUS_FATURA ")
+			.append(" AND	C.SEQ_CONVENIO = F.SEQ_CONVENIO ")
 			.append(" AND	F.SEQ_FATURA = ? ");	
 
 		SmartConnection 		sConn 	= null;
