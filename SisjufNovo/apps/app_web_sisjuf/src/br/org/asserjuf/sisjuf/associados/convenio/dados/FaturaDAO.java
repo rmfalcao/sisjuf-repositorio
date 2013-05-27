@@ -157,6 +157,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" SF.NOM_STATUS_FATURA, ")
 			.append(" F.SEQ_CONVENIO, ")
 			.append(" C.NOM_FANTASIA, ")
+			.append(" C.FLG_CATEGORIA, ")
 			.append(" F.FLG_PAGO, ")
 			.append(" F.FLG_RECEBIDO, ")
 			.append(" F.VAL_FATURA, ")
@@ -188,6 +189,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 																	"status.nome",
 																	"convenio.codigo",
 																	"convenio.nomeFantasia",
+																	"convenio.categoria",
 																	"statusPago",
 																	"statusRecebido",
 																	"valorFatura",
