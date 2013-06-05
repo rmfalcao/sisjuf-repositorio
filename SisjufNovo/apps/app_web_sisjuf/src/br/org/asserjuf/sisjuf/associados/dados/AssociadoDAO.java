@@ -526,6 +526,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		sql.append("group by a.seq_associado, a.nom_associado, a.nom_orgao_associado, a.nom_setor_associado, ")
 		   .append("e.dat_historico_evento_associado, a.des_email_associado, a.sts_pre_cadastro_associado ");
 
+		sql.append(" order by a.nom_associado ");
+		
 		try {
 			
 			sConn 	= new SmartConnection(this.getConn());
