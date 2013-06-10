@@ -20,7 +20,7 @@ import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 
 /**
  * Classe de acesso ao banco de dados da entidade "Fatura" do Sisjuf
- * @author Rodrigo Falcão
+ * @author Rodrigo Falcï¿½o
  *
  */
 public class FaturaDAO extends SisjufDAOPostgres {
@@ -28,8 +28,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	//private static transient Logger	LOG = Logger.getLogger(FaturaDAO.class);
 	
 	/**
-	 * Obtém todos as faturas de um determinado convênio.
-	 * @return Coleção de ConvenioVO (objeto que representa a entidade "Convenio")
+	 * Obtï¿½m todos as faturas de um determinado convï¿½nio.
+	 * @return Coleï¿½ï¿½o de ConvenioVO (objeto que representa a entidade "Convenio")
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByConvenio(ConvenioVO convenio) throws SmartEnvException {
@@ -70,8 +70,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obtém todos as faturas por filtro.
-	 * @return Coleção de FaturaVO (objeto que representa a entidade "Fatura")
+	 * Obtï¿½m todos as faturas por filtro.
+	 * @return Coleï¿½ï¿½o de FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByFilter(FaturaFiltroAssembler fatura) throws SmartEnvException {
@@ -145,7 +145,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obtém fatura por chave primária.
+	 * Obtï¿½m fatura por chave primï¿½ria.
 	 * @return FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
@@ -210,7 +210,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Insere uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Instância da classe FaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instï¿½ncia da classe FaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public FaturaVO insert(FaturaVO fatura) throws SmartEnvException {
@@ -243,7 +243,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Atualiza o status de uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Instância da classe FaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instï¿½ncia da classe FaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public void updateStatus(FaturaVO fatura) throws SmartEnvException {
@@ -274,7 +274,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Insere um item de fatura no banco de dados. Tabelas: ITEM_FATURA
-	 * @param fatura Instância da classe ItemFaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instï¿½ncia da classe ItemFaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public ItemFaturaVO insert(ItemFaturaVO item) throws SmartEnvException {
@@ -307,7 +307,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 
 	/**
 	 * Estorna uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Instância da classe FaturaVO com os valores do registro a ser atualizado.
+	 * @param fatura Instï¿½ncia da classe FaturaVO com os valores do registro a ser atualizado.
 	 * @throws SmartEnvException 
 	 * @throws SmartEnvException
 	 */
@@ -429,15 +429,15 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obtém todos os itens de fatura com inconsistências na validação.
-	 * @return Coleção de ItemFaturaValidacaoVO (objeto que representa a entidade "Item de Fatura Inconsistente")
+	 * Obtï¿½m todos os itens de fatura com inconsistï¿½ncias na validaï¿½ï¿½o.
+	 * @return Coleï¿½ï¿½o de ItemFaturaValidacaoVO (objeto que representa a entidade "Item de Fatura Inconsistente")
 	 * @throws SmartEnvException
 	 */
 	public Collection<ItemFaturaInconsistenteVO> findItensInconsistentesByFatura(FaturaVO fatura) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'NÃO ENCONTRADO NO ARQUIVO' AS TIPO_INCONSISTENCIA ")
+		sql.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'Nï¿½O ENCONTRADO NO ARQUIVO' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
@@ -451,7 +451,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" ) ")
 			.append(" AND 	F.SEQ_FATURA = ? ")
 			.append(" UNION ALL ")
-			.append(" SELECT 	FA.SEQ_FATURA_ARQUIVO, IFA.NUM_CPF_BENEFICIARIO, IFA.NOM_BENEFICIARIO, IFA.VAL_ITEM_FATURA_ARQUIVO, 'NÃO ENCONTRADO NA BASE' AS TIPO_INCONSISTENCIA ")
+			.append(" SELECT 	FA.SEQ_FATURA_ARQUIVO, IFA.NUM_CPF_BENEFICIARIO, IFA.NOM_BENEFICIARIO, IFA.VAL_ITEM_FATURA_ARQUIVO, 'Nï¿½O ENCONTRADO NA BASE' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM	FATURA_ARQUIVO FA, ITEM_FATURA_ARQUIVO IFA ")
 			.append(" WHERE 	FA.SEQ_FATURA_ARQUIVO = IFA.SEQ_FATURA_ARQUIVO ")
 			.append(" AND	IFA.NUM_CPF_BENEFICIARIO NOT IN ( ")
@@ -464,7 +464,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" ) ")
 			.append(" AND FA.SEQ_FATURA_ARQUIVO = ? ")
 			.append(" UNION ALL ")
-			.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'VALOR NÃO BATE' AS TIPO_INCONSISTENCIA ")
+			.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'VALOR Nï¿½O BATE' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B, ITEM_FATURA_ARQUIVO IFA ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
@@ -558,8 +558,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 
 	/**
-	 * Obtém todos as faturas por filtro.
-	 * @return Coleção de FaturaVO (objeto que representa a entidade "Fatura")
+	 * Obtï¿½m todos as faturas por filtro.
+	 * @return Coleï¿½ï¿½o de FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
 	public Collection<ItemFaturaVO> findItensByFatura(FaturaVO fatura) throws SmartEnvException {
@@ -637,7 +637,7 @@ import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 
 /**
  * Classe de acesso ao banco de dados da entidade "Fatura" do Sisjuf
- * @author Rodrigo Falcão
+ * @author Rodrigo Falcï¿½o
  *
  */
 public class FaturaDAO extends SisjufDAOPostgres {
@@ -645,8 +645,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	//private static transient Logger	LOG = Logger.getLogger(FaturaDAO.class);
 	
 	/**
-	 * Obtém todos as faturas de um determinado convênio.
-	 * @return Coleção de ConvenioVO (objeto que representa a entidade "Convenio")
+	 * Obtï¿½m todos as faturas de um determinado convï¿½nio.
+	 * @return Coleï¿½ï¿½o de ConvenioVO (objeto que representa a entidade "Convenio")
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByConvenio(ConvenioVO convenio) throws SmartEnvException {
@@ -687,8 +687,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obtém todos as faturas por filtro.
-	 * @return Coleção de FaturaVO (objeto que representa a entidade "Fatura")
+	 * Obtï¿½m todos as faturas por filtro.
+	 * @return Coleï¿½ï¿½o de FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByFilter(FaturaFiltroAssembler fatura) throws SmartEnvException {
@@ -762,7 +762,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obtém fatura por chave primária.
+	 * Obtï¿½m fatura por chave primï¿½ria.
 	 * @return FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
@@ -824,7 +824,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Insere uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Instância da classe FaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instï¿½ncia da classe FaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public FaturaVO insert(FaturaVO fatura) throws SmartEnvException {
@@ -857,7 +857,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Atualiza o status de uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Instância da classe FaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instï¿½ncia da classe FaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public void updateStatus(FaturaVO fatura) throws SmartEnvException {
@@ -888,7 +888,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Insere um item de fatura no banco de dados. Tabelas: ITEM_FATURA
-	 * @param fatura Instância da classe ItemFaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instï¿½ncia da classe ItemFaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public ItemFaturaVO insert(ItemFaturaVO item) throws SmartEnvException {
@@ -921,7 +921,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 
 	/**
 	 * Estorna uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Instância da classe FaturaVO com os valores do registro a ser atualizado.
+	 * @param fatura Instï¿½ncia da classe FaturaVO com os valores do registro a ser atualizado.
 	 * @throws SmartEnvException 
 	 * @throws SmartEnvException
 	 */
@@ -1043,15 +1043,15 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obtém todos os itens de fatura com inconsistências na validação.
-	 * @return Coleção de ItemFaturaValidacaoVO (objeto que representa a entidade "Item de Fatura Inconsistente")
+	 * Obtï¿½m todos os itens de fatura com inconsistï¿½ncias na validaï¿½ï¿½o.
+	 * @return Coleï¿½ï¿½o de ItemFaturaValidacaoVO (objeto que representa a entidade "Item de Fatura Inconsistente")
 	 * @throws SmartEnvException
 	 */
 	public Collection<ItemFaturaInconsistenteVO> findItensInconsistentesByFatura(FaturaVO fatura) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'NÃO ENCONTRADO NO ARQUIVO' AS TIPO_INCONSISTENCIA ")
+		sql.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'Nï¿½O ENCONTRADO NO ARQUIVO' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
@@ -1065,7 +1065,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" ) ")
 			.append(" AND 	F.SEQ_FATURA = ? ")
 			.append(" UNION ALL ")
-			.append(" SELECT 	FA.SEQ_FATURA_ARQUIVO, IFA.NUM_CPF_BENEFICIARIO, IFA.NOM_BENEFICIARIO, IFA.VAL_ITEM_FATURA_ARQUIVO, 'NÃO ENCONTRADO NA BASE' AS TIPO_INCONSISTENCIA ")
+			.append(" SELECT 	FA.SEQ_FATURA_ARQUIVO, IFA.NUM_CPF_BENEFICIARIO, IFA.NOM_BENEFICIARIO, IFA.VAL_ITEM_FATURA_ARQUIVO, 'Nï¿½O ENCONTRADO NA BASE' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM	FATURA_ARQUIVO FA, ITEM_FATURA_ARQUIVO IFA ")
 			.append(" WHERE 	FA.SEQ_FATURA_ARQUIVO = IFA.SEQ_FATURA_ARQUIVO ")
 			.append(" AND	IFA.NUM_CPF_BENEFICIARIO NOT IN ( ")
@@ -1078,7 +1078,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" ) ")
 			.append(" AND FA.SEQ_FATURA_ARQUIVO = ? ")
 			.append(" UNION ALL ")
-			.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'VALOR NÃO BATE' AS TIPO_INCONSISTENCIA ")
+			.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'VALOR Nï¿½O BATE' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B, ITEM_FATURA_ARQUIVO IFA ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
@@ -1172,8 +1172,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 
 	/**
-	 * Obtém todos as faturas por filtro.
-	 * @return Coleção de FaturaVO (objeto que representa a entidade "Fatura")
+	 * Obtï¿½m todos as faturas por filtro.
+	 * @return Coleï¿½ï¿½o de FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
 	public Collection<ItemFaturaVO> findItensByFatura(FaturaVO fatura) throws SmartEnvException {
