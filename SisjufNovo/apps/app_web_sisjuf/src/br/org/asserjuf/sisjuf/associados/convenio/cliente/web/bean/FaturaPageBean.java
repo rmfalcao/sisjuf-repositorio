@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.FaturaArquivoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
@@ -32,6 +33,8 @@ public class FaturaPageBean extends BasePageBean {
 	
 	private transient UtilDelegate utilDelegate;
 	
+	private FaturaArquivoVO				faturaArquivo;
+	
 	public FaturaPageBean()
 	{
 		faturaFiltro = new FaturaFiltroAssembler();
@@ -45,7 +48,7 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public String carregar(){
 		try {
-			System.out.println("VEIO CARREGAR!!!");
+			System.out.println("VEIO CARREGAR " + fatura.getCodigo());
 			fatura = delegate.findByPrimaryKey(fatura);
 			System.out.println("FATURA CONVENIO " + fatura.getConvenio().getNomeFantasia());
 			return getSucesso();
@@ -84,6 +87,25 @@ public class FaturaPageBean extends BasePageBean {
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
 			FacesContext.getCurrentInstance().addMessage(null, msgs);
 			return "falha";
+		}
+	}
+	
+	public void validarFatura(){
+		try {
+			delegate.validarFatura(faturaArquivo);
+		} catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
 		}
 	}
 	
@@ -148,5 +170,23 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public void setUtilDelegate(UtilDelegate utilDelegate) {
 		this.utilDelegate = utilDelegate;
+	}
+	
+	public Boolean getValidavel(){
+		//A FATURA TEM QUE EXISTIR.
+		System.out.println("fatura " + fatura);
+		if (fatura != null && fatura.getCodigo() != null && fatura.getCodigo() > 0){
+			System.out.println("fatura.codigo " + fatura.getCodigo());
+			//O CONVENIO TEM QUE SER DE CATEGORIA FIXA
+			System.out.println("fatura.getConvenio() " + fatura.getConvenio());
+			if (fatura.getConvenio() != null && "F".equals(fatura.getConvenio().getCategoria())){
+				System.out.println("fatura.getConvenio().getCategoria() " + fatura.getConvenio().getCategoria());
+				//A FATURA TEM QUE ESTAR COM O STATUS DE GERADA
+				if ((new Integer(1)).equals(fatura.getStatus().getCodigo())){
+					return true;
+				}
+			}
+		}
+		return true;
 	}
 }

@@ -78,7 +78,7 @@
 	<target name="deploy-zip" depends="zip">
 		<echo message=":: Apaga caches do servidor ::"></echo>
 		<delete dir="${server.deploy.dir}/sisjuf"/>
-		<delete dir="${server.cache}"/>
+		<!--delete dir="${server.cache}"/-->
 		<echo message=":: Copiando arquivos modificados ::"></echo>
 		<copy todir="${server.deploy.dir}/" verbose="true">
 			<fileset file="${deploy.dir}/sisjuf.war"></fileset>

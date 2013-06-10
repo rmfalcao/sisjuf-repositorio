@@ -31,6 +31,8 @@
 					<h1>Módulo Convênios</h1>
 					<h2>Gerar Faturas Fixas</h2>
 					<a class="botao_novo" href="<c:url value="/associados/convenio/gerarFaturas.jsf"/>"><span>novo</span></a>
+					<a4j:commandLink action="#{FaturaBean.consulta}" title="#{properties['lb_validar']}" 
+							styleClass="botao_validar" value="Validar" rendered="#{FaturaBean.validavel}"/>
 					<br /><br />
     				<h:form id="gerarFaturaForm" acceptcharset="ISO-8859-1">
     					<a4j:keepAlive beanName="FaturaBean" />
@@ -122,6 +124,7 @@
 						</t:div>
 						
 					</h:form>
+					<jsp:include page="validaFaturaForm.jsp"></jsp:include>
 					<br /><br /><br /><br /><br /><br /><hr>
 				</div>
 			</div>

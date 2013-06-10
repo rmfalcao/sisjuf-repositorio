@@ -217,6 +217,15 @@ float:left;
 
 /* --------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- BOTOES -------- */
+.botao_validar span{visibility:hidden;}
+.botao_validar{
+display:block;
+width:50px;
+height:15px;
+background:url(../imagens/botao_validar.gif) no-repeat;
+float:left;
+font-size:1px;
+}
 .botao_novo span{visibility:hidden;}
 .botao_novo{
 display:block;
@@ -382,7 +391,7 @@ padding-left:25px;
 }
 
 
-/* *************************** Mudanças de Fernando *************************** */
+/* *************************** Mudanï¿½as de Fernando *************************** */
 
 .baseTabela{
 	background-color:#CCCCCC;
