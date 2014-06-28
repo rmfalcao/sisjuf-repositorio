@@ -580,13 +580,7 @@
 								<h:outputText value="#{associados.setor.nome}/" /> <h:outputText value="#{associados.setor.orgao.nome}" />
 							</t:column>
 							
-							<t:column width="20">
-								<f:facet name="header"></f:facet>
-								<t:commandLink action="#{AssociadoBean.remover}" title="#{properties['lb_remover']}" immediate="true" 
-									id="remover" onclick="setAcao(document.forms[0], 'Remove_Associado')" styleClass="botao_excluir">
-									<t:updateActionListener property="#{AssociadoBean.associado.codigo}" value="#{associados.codigo}" />
-								</t:commandLink>
-							</t:column>
+							
 						</t:dataTable>
 						</h:form>
 						<br /><br /><br /><br /><br />

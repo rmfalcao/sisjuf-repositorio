@@ -103,15 +103,28 @@
 										<th>Nome completo:</th>
 										<td><t:inputText size="40" maxlength="60"  id="nome" value="#{AssociadoBean.associado.nome}" tabindex="2" /></td>
 										<th>
-											<h:outputText value="#{AssociadoPageBean.associado.ultimoEvento.tipoEvento.nome}" />
+											<c:if test="${AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 1 || AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 3}">
+													<h:outputText value="ASSOCIADO" style="visibility:visible}" />
+											</c:if>
+											<c:if test="${AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 2}">
+													<h:outputText value="DESSASSOCIADO" style="visibility:visible}" />
+														<h:outputText value="#{AssociadoBean.associado.ultimoEvento.tipoEvento.codigo}" style="visibility:#{(AssociadoBean.associado.ultimoEvento.tipoEvento.codigo==1 || AssociadoBean.associado.ultimoEvento.tipoEvento.codigo==3)?'visible':'hidden'}" />
+											</c:if>
 										</th>
-										<td >
-											<t:commandLink action="#{AssociadoBean.cancelarAssociado}"  title="Cancelar" 
+										<td align="right">
+											<c:if test="${AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 1 || AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 3}">
+												<h:outputText value="desassociar:" style="visibility:visible" />
+												<t:commandLink action="#{AssociadoBean.cancelarAssociado}"  title="Cancelar" 
 												styleClass="botao_cancelar_associado" 
 												style="visibility:#{(AssociadoBean.associado.ultimoEvento.tipoEvento.codigo==1 || AssociadoBean.associado.ultimoEvento.tipoEvento.codigo==3)?'visible':'hidden'}" />
-											<t:commandLink action="#{AssociadoBean.reativarAssociado}"  title="Reativar"  
+											</c:if>
+											<c:if test="${AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 2}">
+												<h:outputText value="reativar:" style="visibility:visible" />
+												<t:commandLink action="#{AssociadoBean.reativarAssociado}"  title="Reativar"  
 												styleClass="botao_reativar_associado" 
 												style="visibility:#{AssociadoBean.associado.ultimoEvento.tipoEvento.codigo==2?'visible':'hidden'}" />
+											</c:if>
+
 										</td>
 									</tr>
 								</tbody>
