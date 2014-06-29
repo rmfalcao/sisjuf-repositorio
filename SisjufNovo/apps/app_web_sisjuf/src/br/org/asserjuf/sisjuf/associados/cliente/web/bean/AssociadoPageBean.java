@@ -807,7 +807,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	}
 	
 	public boolean getStatusRecebeJornal(){
-		if (associado.getStatusRecebeJornal() == null || "".equals(associado.getStatusRecebeJornal())) return false;
+		if (associado.getStatusRecebeJornal() == null || "".equals(associado.getStatusRecebeJornal().trim())) return false;
 		else return true;
 	}
 	

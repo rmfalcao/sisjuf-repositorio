@@ -492,6 +492,11 @@ public class AssociadoRN {
 		
 		associado = associadoDAO.findByPrimaryKey(associado); 
 		
+		// solucao temporaria. por alguma razao consulta esta colocando um espaco apos o grupo sanguineo
+		if (associado.getGrupoSanguineo() != null) {
+			associado.setGrupoSanguineo(associado.getGrupoSanguineo().trim());
+		}
+		
 		associado.setFilhos(filhoRN.findByAssociado(associado));
 		associado.setDependentes(dependenteRN.findByAssociado(associado));
 		
