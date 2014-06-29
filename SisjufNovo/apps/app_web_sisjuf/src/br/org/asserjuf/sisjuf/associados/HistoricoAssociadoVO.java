@@ -10,9 +10,17 @@ public class HistoricoAssociadoVO extends SmartVO {
 	private AssociadoVO 	associado;
 	private TipoEventoVO 	tipoEvento;
 	private Date			data;
+	private Integer			codigo;
 	
 	
 	
+	
+	public Integer getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
 	public Date getData() {
 		return data;
 	}

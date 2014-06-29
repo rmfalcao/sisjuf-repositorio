@@ -38,5 +38,15 @@ public class HistoricoAssociadoRN {
 	public void setHistoricoAssociadoDAO(HistoricoAssociadoDAO historicoAssociadoDAO) {
 		this.historicoAssociadoDAO = historicoAssociadoDAO;
 	}
+
+	public HistoricoAssociadoVO findUltimoNaoCancelado(
+			AssociadoAssembler associado) throws SmartEnvException {
+		return historicoAssociadoDAO.findUltimoNaoCancelado(associado);
+	}
+
+	public void updateDate(HistoricoAssociadoVO historico) throws SmartEnvException {
+		historicoAssociadoDAO.updateDate(historico);
+		
+	}
 	
 }

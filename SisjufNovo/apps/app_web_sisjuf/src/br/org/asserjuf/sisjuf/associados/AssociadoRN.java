@@ -458,6 +458,8 @@ public class AssociadoRN {
 		
 		associadoDAO.update(associado);		
 		
+		updateDataAssociacao(associado);
+		
 		updateFilhos(associado);
 		
 		updateDependentes(associado);
@@ -465,6 +467,15 @@ public class AssociadoRN {
 		updateConjuge(associado);
 	}
 	
+	private void updateDataAssociacao(AssociadoAssembler associado) throws SmartEnvException {
+		HistoricoAssociadoVO historico	= historicoAssociadoRN.findUltimoNaoCancelado(associado);
+		
+		historico.setData(associado.getDataAssociacao());
+		
+		historicoAssociadoRN.updateDate(historico);
+		
+	}
+
 	public void remove(AssociadoVO associado) throws SmartEnvException, SmartAppException {
 
 		associadoDAO.remove(associado);

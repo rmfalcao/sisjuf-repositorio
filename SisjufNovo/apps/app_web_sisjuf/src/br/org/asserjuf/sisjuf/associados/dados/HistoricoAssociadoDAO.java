@@ -8,6 +8,7 @@ import br.com.falc.smartFW.exception.SmartEnvException;
 import br.com.falc.smartFW.persistence.SmartConnection;
 import br.com.falc.smartFW.persistence.SmartPreparedStatement;
 import br.com.falc.smartFW.persistence.SmartResultSet;
+import br.org.asserjuf.sisjuf.associados.AssociadoAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoFiltroAssembler;
@@ -98,5 +99,60 @@ public class HistoricoAssociadoDAO extends SisjufDAOPostgres {
 			sStmt.close();
 			sConn.close();
 		}
+	}
+
+	public HistoricoAssociadoVO findUltimoNaoCancelado(
+			AssociadoAssembler associado) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer(" select max(seq_historico_evento_associado) from historico_evento_associado ") 
+									.append(" where seq_associado = ? ")
+									.append(" and 	seq_tipo_evento in (1,3) ");
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setParameters(associado, new String[] {"codigo"});
+			
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			
+			return (HistoricoAssociadoVO) sRs.getJavaBean(new HistoricoAssociadoVO(), new String[] {"codigo"});
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+		}
+	}
+
+	public void updateDate(HistoricoAssociadoVO historico) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer(" update historico_evento_associado set dat_historico_evento_associado = ? where seq_historico_evento_associado = ?");
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+				
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+
+			sStmt.setParameters(historico, new String[] {"data", "codigo"});
+			
+			sStmt.getMyPreparedStatement().execute();
+			
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+
+			sStmt.close();
+			sConn.close();
+		}
+		
 	}
 }

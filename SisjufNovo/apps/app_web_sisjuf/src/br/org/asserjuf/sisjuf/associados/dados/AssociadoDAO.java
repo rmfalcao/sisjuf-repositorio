@@ -93,7 +93,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" a.dig_agencia_associado, a.num_conta_associado, a.dig_conta_associado, h.dat_historico_evento_associado, a.seq_tipo_evento, a.nom_tipo_evento, a.dat_historico_evento_associado as data_ultimo_evento ")
 		.append(" from vw_associado a inner join historico_evento_associado h on a.seq_associado = h.seq_associado ")
 		.append(" left join vw_conjuge c on c.seq_associado = a.seq_associado ")
-		.append(" where h.seq_tipo_evento = (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CADASTRO') and a.seq_associado = ? ");
+		.append(" where h.seq_historico_evento_associado = (select max(h2.seq_historico_evento_associado) from historico_evento_associado h2 where h2.seq_tipo_evento in (1,3) and h2.seq_associado = h.seq_associado) and a.seq_associado = ? ");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -428,7 +428,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 
 		StringBuffer sql = new StringBuffer("select a.seq_associado, ")
 		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(pré-cadastro)' else a.nom_associado end as nom_associado, ")
-		.append("a.nom_orgao_associado, a.nom_setor_associado, a.des_email_associado, e.dat_historico_evento_associado, a.sts_pre_cadastro_associado ")
+		.append("a.nom_orgao_associado, a.nom_setor_associado, a.des_email_associado, a.dat_historico_evento_associado, a.sts_pre_cadastro_associado ")
 		//.append("from vw_associado a ")
 		//.append("natural join historico_evento_associado e ")
 		.append(" from vw_associado a inner join historico_evento_associado e on a.seq_associado = e.seq_associado ")
@@ -524,7 +524,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		sql.append("and a.dat_exclusao_associado is null ");
 	
 		sql.append("group by a.seq_associado, a.nom_associado, a.nom_orgao_associado, a.nom_setor_associado, ")
-		   .append("e.dat_historico_evento_associado, a.des_email_associado, a.sts_pre_cadastro_associado ");
+		   .append("a.dat_historico_evento_associado, a.des_email_associado, a.sts_pre_cadastro_associado ");
 
 		sql.append(" order by a.nom_associado ");
 		
