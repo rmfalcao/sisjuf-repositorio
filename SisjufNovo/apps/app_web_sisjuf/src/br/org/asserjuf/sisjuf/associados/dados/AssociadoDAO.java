@@ -89,10 +89,11 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" a.num_calcado_associado, a.sts_situacao_justica_associado,  ")
 		.append(" a.nom_orgao_associado, a.des_endereco_setor_associado, a.nom_setor_associado, a.seq_estado_setor_associado, ")
 		.append(" a.nom_municipio_setor_associado, a.num_telefone_setor_associado, a.num_ramal_setor_associado, a.num_matricula_justica_associado, ")
-		.append(" a.sts_recebe_jornal_associado, a.sts_categoria_associado, a.seq_contribuinte_associado, a.seq_banco, a.num_agencia_associado, ")
+		.append(" a.sts_recebe_jornal_associado, a.sts_categoria_associado, a.seq_contribuinte_associado, co.nom_pessoa, a.seq_banco, a.num_agencia_associado, ")
 		.append(" a.dig_agencia_associado, a.num_conta_associado, a.dig_conta_associado, h.dat_historico_evento_associado, a.seq_tipo_evento, a.nom_tipo_evento, a.dat_historico_evento_associado as data_ultimo_evento ")
 		.append(" from vw_associado a inner join historico_evento_associado h on a.seq_associado = h.seq_associado ")
 		.append(" left join vw_conjuge c on c.seq_associado = a.seq_associado ")
+		.append(" left join pessoa co on co.seq_pessoa = a.seq_contribuinte_associado ")
 		.append(" where h.seq_historico_evento_associado = (select max(h2.seq_historico_evento_associado) from historico_evento_associado h2 where h2.seq_tipo_evento in (1,3) and h2.seq_associado = h.seq_associado) and a.seq_associado = ? ");
 
 		SmartConnection 		sConn 	= null;
@@ -120,7 +121,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 					"conjuge.cpf",
 					"numeroCalcado", "statusJustica", "setor.orgao.nome","setor.endereco.logradouro", "setor.nome", 
 					"setor.endereco.municipio.estado.codigo", "setor.endereco.municipio.nome", "setor.telefone", "setor.ramal", "matriculaJustica",
-					"statusRecebeJornal", "statusCategoria", "contribuinte.codigo", "conta.bancoVO.codigo", "conta.numAgencia", "conta.digAgencia", 
+					"statusRecebeJornal", "statusCategoria", "contribuinte.codigo", "contribuinte.nome", "conta.bancoVO.codigo", "conta.numAgencia", "conta.digAgencia", 
 					"conta.numConta", "conta.digConta", "dataAssociacao", "ultimoEvento.tipoEvento.codigo", "ultimoEvento.tipoEvento.nome", "ultimoEvento.data"} );
 		
 		} catch (SQLException e) {

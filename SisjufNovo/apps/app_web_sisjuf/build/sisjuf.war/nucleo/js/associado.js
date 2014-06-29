@@ -38,45 +38,47 @@ filhoTR = [function(filho){return filho.nome}, function(filho){return filho.data
 function incluirDependente(){
 	var form = document.forms[1];
 	if (form.nomeDependente.value != ""){
-		if (form.rgDependente.value != ""){
-			if (form.elements["associadoForm:dataNascimentoDependenteInputDate"].value != ""){
-				if (form.sexoDependente.value != ""){
-					if (form.parentesco.value != ""){
-						dependente = {
-							codigo:'',
-							nome:form.nomeDependente.value, 
-							rg:form.rgDependente.value, 
-							dataNascimento:form.elements["associadoForm:dataNascimentoDependenteInputDate"].value, 
-							sexo:form.sexoDependente.value,
-							cpf:form.cpfDependente.value,
-							parentesco:{
-								nome:form.parentesco.options[form.parentesco.selectedIndex].text, 
-								codigo:form.parentesco.value
-							}
-						};
-						
-						DWRUtil.removeAllRows('tb_parentesco');
-						dependenteArray[dependenteArray.length] = dependente;
-						
-						DWRUtil.addRows('tb_parentesco', dependenteArray, dependenteTR,
-							{
-							rowCreator:function(options)
-							{
-								var row = document.createElement("tr");
-								return row;
-							}
-							}
-						);
-						form.nomeDependente.value = "";
-						form.rgDependente.value = "";
-						form.elements["associadoForm:dataNascimentoDependenteInputDate"].value = "";
-						form.sexoDependente.value = "";
-						form.parentesco.value = "";
-						form.cpfDependente.value = "";
-					}else{alert("O parentesco do dependente não pode ser vazio.");}
-				}else{alert("O sexo do dependente não pode ser vazio.");}
-			}else{alert("A data de nascimento do dependente não pode ser vazio.");}
-		}else{alert("O rg do dependente não pode ser vazio.");}
+		if (form.cpfDependente.value != ""){
+			if (form.rgDependente.value != ""){
+				if (form.elements["associadoForm:dataNascimentoDependenteInputDate"].value != ""){
+					if (form.sexoDependente.value != ""){
+						if (form.parentesco.value != ""){
+							dependente = {
+								codigo:'',
+								nome:form.nomeDependente.value, 
+								rg:form.rgDependente.value, 
+								dataNascimento:form.elements["associadoForm:dataNascimentoDependenteInputDate"].value, 
+								sexo:form.sexoDependente.value,
+								cpf:form.cpfDependente.value,
+								parentesco:{
+									nome:form.parentesco.options[form.parentesco.selectedIndex].text, 
+									codigo:form.parentesco.value
+								}
+							};
+							
+							DWRUtil.removeAllRows('tb_parentesco');
+							dependenteArray[dependenteArray.length] = dependente;
+							
+							DWRUtil.addRows('tb_parentesco', dependenteArray, dependenteTR,
+								{
+								rowCreator:function(options)
+								{
+									var row = document.createElement("tr");
+									return row;
+								}
+								}
+							);
+							form.nomeDependente.value = "";
+							form.rgDependente.value = "";
+							form.elements["associadoForm:dataNascimentoDependenteInputDate"].value = "";
+							form.sexoDependente.value = "";
+							form.parentesco.value = "";
+							form.cpfDependente.value = "";
+						}else{alert("O parentesco do dependente não pode ser vazio.");}
+					}else{alert("O sexo do dependente não pode ser vazio.");}
+				}else{alert("A data de nascimento do dependente não pode ser vazio.");}
+			}else{alert("O rg do dependente não pode ser vazio.");}
+		}else{alert("O CPF do dependente não pode ser vazio.");}	
 	}else{alert("O nome do dependente não pode ser vazio.");}
 }
 
