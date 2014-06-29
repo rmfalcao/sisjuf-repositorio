@@ -111,7 +111,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 			return (AssociadoVO) sRs.getJavaBean(associado, new String[] {"codigo", "nome", "dataNascimento", "sexo", "cpf", "rg", "endereco.logradouro", 
 					"endereco.numero", "endereco.complemento","endereco.bairro","endereco.cep", "endereco.municipio.nome",
 					"endereco.municipio.estado.codigo", "telefoneResidencial", "telefoneComercial", "telefoneCelular", "email", "naturalidade.nome", 
-					"naturalidade.estado.codigo", "estadoCivil", "profissao", "grupoSanguineo", "fatorRh", "nomePai", "nomeMae",
+					"naturalidade.estado.codigo", "estadoCivil", "profissao.nome", "grupoSanguineo", "fatorRh", "nomePai", "nomeMae",
 					"conjuge.nome",
 					"conjuge.codigo",
 					"conjuge.dataNascimento",

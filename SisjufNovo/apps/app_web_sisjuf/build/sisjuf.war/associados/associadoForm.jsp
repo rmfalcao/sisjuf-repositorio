@@ -272,7 +272,7 @@
 										</td>
 									</tr>
 									<tr>
-										<th>Grupo Sangüíneo: .<h:outputText value="#{AssociadoBean.associado.grupoSanguineo}"/>.</th>
+										<th>Grupo Sangüíneo:</th>
 										<td>
 											<h:selectOneMenu tabindex="22" id="grupoSanguineo" value="#{AssociadoBean.associado.grupoSanguineo}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
