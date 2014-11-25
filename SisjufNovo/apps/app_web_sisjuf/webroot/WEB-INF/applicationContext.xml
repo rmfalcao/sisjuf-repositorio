@@ -412,7 +412,7 @@
 		<!--  PROD -->
 		
 		<property name="url" value="jdbc:postgresql://localhost:5432/juriwebsisjuf" />
-		<property name="username" value="juriwebsisjuf" />
+		<property name="username" value="juriwebsisjuf2" />
 		<property name="password" value="gkug976f" />
 		
 		
