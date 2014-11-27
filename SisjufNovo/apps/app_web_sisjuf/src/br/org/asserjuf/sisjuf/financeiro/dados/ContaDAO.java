@@ -735,7 +735,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 	public Collection<BaixaLancamentoVO> obterLancamentos(ExtratoFiltroAssembler assembler) throws SmartEnvException {
 		 
 		StringBuffer sql = new StringBuffer("select bl.dat_baixa_lancamento, bl.val_baixa_lancamento, ");
-		sql.append("(CASE  WHEN (ol.seq_origem_lancamento = (select str_val_parametro from parametros where nom_parametro ='ORIGEM_USUARIO')) THEN tl.nom_tipo_lancamento ELSE ol.nom_origem_lancamento END) as origem_tipo, ");
+		sql.append("(CASE  WHEN ((CAST(ol.seq_origem_lancamento as text)) = (select str_val_parametro from parametros where nom_parametro ='ORIGEM_USUARIO')) THEN tl.nom_tipo_lancamento ELSE ol.nom_origem_lancamento END) as origem_tipo, ");
 		sql.append("tl.nom_tipo_lancamento, top.sig_tipo_operacao, ");
 		sql.append("fp.nom_forma_pagamento, bl.des_banco_cheque_baixa_lancamento, bl.num_agencia_cheque_baixa_lancamento, bl.dig_agencia_cheque_baixa_lancamento, bl.num_conta_cheque_baixa_lancamento, bl.dig_conta_cheque_baixa_lancamento, bl.num_cheque_baixa_lancamento, ");
 		sql.append(" l.des_lancamento ");
