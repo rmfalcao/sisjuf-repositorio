@@ -388,7 +388,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		sql.append("ELSE (b.sig_banco || ' ' || c.num_agencia_conta || ");
 		sql.append(" (CASE WHEN (c.dig_agencia_conta IS NULL OR c.dig_agencia_conta = '') THEN ''  ");
 		sql.append("ELSE '-' || c.dig_agencia_conta END) || '/' || c.num_conta || '-' || c.dig_conta) END) as conta, ");
-		sql.append("(CASE  WHEN (ol.seq_origem_lancamento = (select str_val_parametro from parametros where nom_parametro ='ORIGEM_USUARIO')) THEN tl.nom_tipo_lancamento ELSE ol.nom_origem_lancamento END) as origem_tipo,  ");
+		sql.append("(CASE  WHEN ((CAST(ol.seq_origem_lancamento as text)) = (select str_val_parametro from parametros where nom_parametro ='ORIGEM_USUARIO')) THEN tl.nom_tipo_lancamento ELSE ol.nom_origem_lancamento END) as origem_tipo,  ");
 		sql.append("l.val_lancamento, COALESCE(sum(bl.val_baixa_lancamento), 0) as valor_efetivado, ");
 		sql.append("top.sig_tipo_operacao, l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento), l.des_lancamento ");
 		sql.append("FROM lancamento l NATURAL LEFT JOIN baixa_lancamento bl ");
