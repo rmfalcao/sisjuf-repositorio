@@ -483,6 +483,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		sql.append("c.num_conta, c.dig_conta, ol.seq_origem_lancamento, l.val_lancamento, ");
 		sql.append("tl.nom_tipo_lancamento, ol.nom_origem_lancamento, b.sig_banco, top.sig_tipo_operacao, "); 
 		sql.append("l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento),l.des_lancamento ");
+		sql.append(" ORDER BY l.seq_lancamento ");
 		
 		try {
 			
