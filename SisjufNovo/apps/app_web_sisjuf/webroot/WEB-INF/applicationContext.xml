@@ -403,11 +403,11 @@
 		
 		<!-- DESENV -->
 
-		<!--	
+	<!--		
 		<property name="url" value="jdbc:postgresql://localhost:5434/juriweb_sisjuf" />
 		<property name="username" value="postgres" />
 		<property name="password" value="elefante10" />
-		-->		
+	-->			
 		<!--  PROD -->
 
 			
