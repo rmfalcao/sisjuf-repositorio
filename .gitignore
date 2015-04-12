@@ -1,2 +1,5 @@
 *.class
 *.war
+build.xml
+props-projeto.xml
+SisjufNovo/apps/app_web_sisjuf/webroot/WEB-INF/classes/
