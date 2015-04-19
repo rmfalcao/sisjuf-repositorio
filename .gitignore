@@ -1,2 +1,6 @@
 *.class
 *.war
+SisjufNovo/apps/app_web_sisjuf/build/*.*
+SisjufNovo/apps/app_web_sisjuf/classes/*.*
+SisjufNovo/apps/app_web_seguranca/build/*.*
+SisjufNovo/apps/app_web_seguranca/classes/*.*
