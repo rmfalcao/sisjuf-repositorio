@@ -87,7 +87,7 @@
 								
 								<tbody>
 									<tr>
-										<th width="140">Data de associação:</th>
+										<th width="140">* Data de associação:</th>
 										<td width="230">
 											<rich:calendar id="dataAssociacao" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
 												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
@@ -99,9 +99,19 @@
 										<td width="120"><t:inputText size="8" onkeypress="return false;" id="codigo" value="#{AssociadoBean.associado.codigo}"/> 
 											<a href="javascript:void(0);" onclick="imprimirCarteirinha()"><img border="0" alt="Imprimir Carteirinha" src="<c:url value="/nucleo/images/carteirinha.png"/>"></a></td>
 									</tr>
+								</tbody>
+								
+								<thead>
 									<tr>
-										<th>Nome completo:</th>
-										<td><t:inputText size="40" maxlength="60"  id="nome" value="#{AssociadoBean.associado.nome}" tabindex="2" /></td>
+										<th>Dados Pessoais</th>
+										<th colspan="3"></th>
+									</tr>
+								</thead>
+								
+								<tbody>
+									<tr>
+										<th>* Nome Completo:</th>
+										<td><t:inputText size="40" maxlength="60"  id="nome" value="#{AssociadoBean.associado.nome}" tabindex="1" /></td>
 										<th>
 											<c:if test="${AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 1 || AssociadoBean.associado.ultimoEvento.tipoEvento.codigo == 3}">
 													<h:outputText value="ASSOCIADO" style="visibility:visible}" />
@@ -127,122 +137,93 @@
 
 										</td>
 									</tr>
-								</tbody>
-								
-								<thead>
 									<tr>
-										<th>Endereço</th>
-										<th colspan="3"></th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<th>Logradouro:</th>
+										<th>* Logradouro:</th>
 										<td>
-											<t:inputText tabindex="3" size="40" maxlength="80" id="enderecoLogradouro" 
+											<t:inputText tabindex="2" size="40" maxlength="80" id="enderecoLogradouro" 
 												value="#{AssociadoBean.associado.endereco.logradouro}"></t:inputText>
 										</td>
-										<th>Número:</th>
+										<th>* Número:</th>
 										<td>
-											<t:inputText tabindex="4" size="3" id="enderecoNumero" value="#{AssociadoBean.associado.endereco.numero}" 
+											<t:inputText tabindex="3" size="6" id="enderecoNumero" value="#{AssociadoBean.associado.endereco.numero}" 
 												maxlength="6" />
 										</td>
 									</tr>
 									<tr>
 										<th>Complemento:</th>
 										<td colspan="3">
-											<t:inputText size="40" maxlength="20" tabindex="5" id="enderecoComplemente" 
+											<t:inputText size="40" maxlength="20" tabindex="4" id="enderecoComplemente" 
 												value="#{AssociadoBean.associado.endereco.complemento}" />
 										</td>
 									</tr>
 									<tr>
-										<th>Bairro:</th>
+										<th>* Bairro:</th>
 										<td>
-											<t:inputText tabindex="6" size="30" maxlength="40" id="enderecoBairro" 
+											<t:inputText tabindex="5" size="30" maxlength="40" id="enderecoBairro" 
 												value="#{AssociadoBean.associado.endereco.bairro}" />
 										</td>
-										<th>CEP:</th>
+										<th>* CEP:</th>
 										<td>
-											<t:inputText tabindex="7" size="12" id="enderecoCEP" value="#{AssociadoBean.cep}" 
+											<t:inputText tabindex="6" size="12" id="enderecoCEP" value="#{AssociadoBean.cep}" 
 												onkeypress="return MaskCEP(this,event)"/>
 										</td>
 									</tr>
 									<tr>
-										<th>Estado:</th>
+										<th>* Estado:</th>
 										<td colspan="3">
-											<h:selectOneMenu tabindex="8" id="enderecoEstado" value="#{AssociadoBean.associado.endereco.municipio.estado.codigo}" >
+											<h:selectOneMenu tabindex="7" id="enderecoEstado" value="#{AssociadoBean.associado.endereco.municipio.estado.codigo}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItems id="sel_endEstados" value="#{AssociadoBean.estados}"/>
 											</h:selectOneMenu>
 										</td>
 									</tr>
 									<tr>
-										<th>Cidade:</th>
+										<th>* Cidade:</th>
 										<td colspan="3">
-											<t:inputText tabindex="9" size="50" maxlength="50" id="cidade" 
+											<t:inputText tabindex="8" size="50" maxlength="50" id="cidade" 
 												value="#{AssociadoBean.associado.endereco.municipio.nome}" />
 										</td>
 									</tr>
-								</tbody>
-								
-								<thead>
 									<tr>
-										<th>Contatos</th>
-										<th colspan="3"></th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<th>E-mail:</th>
-										<td><t:inputText tabindex="10" size="40" maxlength="50" id="email" value="#{AssociadoBean.associado.email}" /></td>
-										<th>Tel. Celular:</th>
-										<td><t:inputText tabindex="11" size="15" id="telefoneCelular" value="#{AssociadoBean.telefoneCelular}" onkeypress="return MaskTelefone(this,event)"/></td>
+										<th>* E-mail:</th>
+										<td><t:inputText tabindex="9" size="40" maxlength="50" id="email" value="#{AssociadoBean.associado.email}" /></td>
+										<th>* Tel. Celular:</th>
+										<td><t:inputText tabindex="10" size="15" id="telefoneCelular" value="#{AssociadoBean.telefoneCelular}" onkeypress="return MaskTelefone(this,event)"/></td>
 									</tr>
 									<tr>
-										<th>Tel. Residencial:</th>
+										<th>* Tel. Residencial:</th>
 										<td>
-											<t:inputText tabindex="12" size="15" id="telefoneResidencial" value="#{AssociadoBean.telefoneResidencial}" 
+											<t:inputText tabindex="11" size="15" id="telefoneResidencial" value="#{AssociadoBean.telefoneResidencial}" 
 												onkeypress="return MaskTelefone(this,event)"/>
 										</td>
-										<th>Tel. Comercial:</th>
+										<th>* Tel. Comercial:</th>
 										<td>
-											<t:inputText tabindex="13" size="15" id="telefoneComercial" value="#{AssociadoBean.telefoneComercial}" 
+											<t:inputText tabindex="12" size="15" id="telefoneComercial" value="#{AssociadoBean.telefoneComercial}" 
 												onkeypress="return MaskTelefone(this,event)"/>
 										</td>
 									</tr>
-								</tbody>
-								
-								<thead>
+							
 									<tr>
-										<th>Mais Informações</th>
-										<th colspan="3"></th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<th>R.G.:</th>
+										<th>* R.G.:</th>
 										<td>
-											<t:inputText tabindex="14" size="20" id="rg" value="#{AssociadoBean.associado.rg}" onkeypress="return justNumber(this,event)" 
+											<t:inputText tabindex="13" size="20" id="rg" value="#{AssociadoBean.associado.rg}" onkeypress="return justNumber(this,event)" 
 												maxlength="10"/>
 										</td>
-										<th>C.P.F.:</th>
-										<td><t:inputText tabindex="15" size="15" id="cpf" value="#{AssociadoBean.cpf}" onkeypress="return MaskCPF(this,event)"/></td>
+										<th>* C.P.F.:</th>
+										<td><t:inputText tabindex="14" size="15" id="cpf" value="#{AssociadoBean.cpf}" onkeypress="return MaskCPF(this,event)"/></td>
 									</tr>
 									<tr>
-										<th>Data de Nasc.:</th>
+										<th>* Data de Nascimento:</th>
 										<td>
 											<rich:calendar id="dataNascimento" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
 												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
 												value="#{AssociadoBean.associado.dataNascimento}" inputClass="inputCalendar" 
 												enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="16"/>
+												oninputkeypress="return maskDate(this,event);" zindex="15"/>
 										</td>
-										<th>Sexo:</th>
+										<th>* Sexo:</th>
 										<td>
-											<h:selectOneMenu tabindex="17" id="sexo" value="#{AssociadoBean.associado.sexo}" >
+											<h:selectOneMenu tabindex="16" id="sexo" value="#{AssociadoBean.associado.sexo}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_masculino']}" itemValue="M"/>
 												<f:selectItem itemLabel="#{properties['lb_feminino']}" itemValue="F"/>
@@ -250,24 +231,24 @@
 										</td>
 									</tr>
 									<tr>
-										<th>Estado (Naturalidade):</th>
+										<th>* Estado (Naturalidade):</th>
 										<td colspan="3">
-											<h:selectOneMenu tabindex="18" id="naturalidadeEstado" value="#{AssociadoBean.associado.naturalidade.estado.codigo}" >
+											<h:selectOneMenu tabindex="17" id="naturalidadeEstado" value="#{AssociadoBean.associado.naturalidade.estado.codigo}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItems id="sel_natEstado" value="#{AssociadoBean.estados}"/>
 											</h:selectOneMenu>
 										</td>
 									</tr>
 									<tr>
-										<th>Naturalidade:</th>
+										<th>* Naturalidade:</th>
 										<td colspan="3">
-											<t:inputText tabindex="19" size="30" maxlength="50" id="naturalidade" value="#{AssociadoBean.associado.naturalidade.nome}" />
+											<t:inputText tabindex="18" size="30" maxlength="50" id="naturalidade" value="#{AssociadoBean.associado.naturalidade.nome}" />
 										</td>
 									</tr>
 									<tr>
-										<th>Estado Civil:</th>
+										<th>* Estado Civil:</th>
 										<td colspan="3">
-											<h:selectOneMenu tabindex="20" id="estadoCivil" value="#{AssociadoBean.associado.estadoCivil}" >
+											<h:selectOneMenu tabindex="19" id="estadoCivil" value="#{AssociadoBean.associado.estadoCivil}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_casado']}" itemValue="C"/>
 												<f:selectItem itemLabel="#{properties['lb_desquitado']}" itemValue="D"/>
@@ -280,14 +261,14 @@
 									<tr>
 										<th>Profissão:</th>
 										<td colspan="3">
-											<t:inputText tabindex="21" size="40" maxlength="50" id="profissao" 
+											<t:inputText tabindex="20" size="40" maxlength="50" id="profissao" 
 												value="#{AssociadoBean.associado.profissao.nome}" />
 										</td>
 									</tr>
 									<tr>
 										<th>Grupo Sangüíneo:</th>
 										<td>
-											<h:selectOneMenu tabindex="22" id="grupoSanguineo" value="#{AssociadoBean.associado.grupoSanguineo}" >
+											<h:selectOneMenu tabindex="21" id="grupoSanguineo" value="#{AssociadoBean.associado.grupoSanguineo}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_A']}" itemValue="A"/>
 												<f:selectItem itemLabel="#{properties['lb_B']}" itemValue="B"/>
@@ -297,7 +278,7 @@
 										</td>
 										<th>Fator Rh:</th>
 										<td>
-											<h:selectOneMenu tabindex="23" id="fatorRh" value="#{AssociadoBean.associado.fatorRh}" >
+											<h:selectOneMenu tabindex="22" id="fatorRh" value="#{AssociadoBean.associado.fatorRh}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="+" itemValue="+"/>
 												<f:selectItem itemLabel="-" itemValue="-"/>
@@ -305,51 +286,17 @@
 										</td>
 									</tr>
 									<tr>
-										<th>Nome do Pai:</th>
+										<th>* Nome do Pai:</th>
 										<td colspan="3">
-											<t:inputText tabindex="24" size="40" maxlength="50" id="nomePai" 
+											<t:inputText tabindex="23" size="40" maxlength="50" id="nomePai" 
 												value="#{AssociadoBean.associado.nomePai}" />
 										</td>
 									</tr>
 									<tr>
-										<th>Nome da Mãe:</th>
+										<th>* Nome da Mãe:</th>
 										<td colspan="3">
-											<t:inputText tabindex="25" size="40" maxlength="50" id="nomeMae" 
+											<t:inputText tabindex="24" size="40" maxlength="50" id="nomeMae" 
 												value="#{AssociadoBean.associado.nomeMae}" />
-										</td>
-									</tr>
-									<tr>
-										<th>Nome do Cônjuge:</th>
-										<td>
-											<t:inputText tabindex="26" size="40" maxlength="50" id="nomeConjuge" 
-												value="#{AssociadoBean.associado.conjuge.nome}" />
-										</td>
-										<th>C.P.F. do Cônjuge:</th>
-										<td><t:inputText tabindex="15" size="15" id="cpfConjugue" value="#{AssociadoBean.conjugeCpf}" onkeypress="return MaskCPF(this,event)"/></td>
-									</tr>
-									<tr>
-										<th>Data de Nasc. do Cônjuge:</th>
-										<td>
-											<rich:calendar id="dataNascimentoConjuge" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-												value="#{AssociadoBean.associado.conjuge.dataNascimento}" inputClass="inputCalendar" 
-												enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="16"/>
-										</td>
-										<th>Sexo do Cônjuge:</th>
-										<td>
-											<h:selectOneMenu tabindex="17" id="sexoConjuge" value="#{AssociadoBean.associado.conjuge.sexo}" >
-												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-												<f:selectItem itemLabel="#{properties['lb_masculino']}" itemValue="M"/>
-												<f:selectItem itemLabel="#{properties['lb_feminino']}" itemValue="F"/>
-											</h:selectOneMenu>
-										</td>
-									</tr>
-									<tr>
-										<th>Calçado nº.:</th>
-										<td colspan="3">
-											<t:inputText tabindex="27" size="5" maxlength="2" id="numeroInicioCalcado" 
-												value="#{AssociadoBean.associado.numeroCalcado}" onkeypress="return justNumber(this,event)"/>
 										</td>
 									</tr>
 								</tbody>
@@ -363,9 +310,9 @@
 								
 								<tbody>
 									<tr>
-										<th>Mátricula da Justica:</th>
+										<th>* Matrícula da Justica:</th>
 										<td>
-											<t:inputText tabindex="28" size="10" id="matriculaJustica" 
+											<t:inputText tabindex="25" size="10" id="matriculaJustica" 
 												value="#{AssociadoBean.associado.matriculaJustica}" maxlength="10" 
 												onkeypress="return justNumber(this,event)"/>
 										</td>
@@ -373,14 +320,14 @@
 										</td>
 									</tr>
 									<tr>
-										<th>Órgão:</th>
+										<th>* Órgão:</th>
 										<td>
-											<t:inputText tabindex="29" size="40" maxlength="30" id="orgaoNome" 
+											<t:inputText tabindex="26" size="40" maxlength="30" id="orgaoNome" 
 												value="#{AssociadoBean.associado.setor.orgao.nome}" />
 										</td>
-										<th>Status:</th>
+										<th>* Status:</th>
 										<td>
-											<h:selectOneMenu tabindex="30" id="statusJustica" value="#{AssociadoBean.associado.statusJustica}" >
+											<h:selectOneMenu tabindex="27" id="statusJustica" value="#{AssociadoBean.associado.statusJustica}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_ativo']}" itemValue="A"/>
 												<f:selectItem itemLabel="#{properties['lb_inativo']}" itemValue="I"/>
@@ -388,23 +335,23 @@
 										</td>
 									</tr>
 									<tr>
-										<th>Setor:</th>
+										<th>* Setor:</th>
 										<td colspan="3">
-											<t:inputText tabindex="31" size="40" maxlength="30" id="setor" 
+											<t:inputText tabindex="28" size="40" maxlength="30" id="setor" 
 												value="#{AssociadoBean.associado.setor.nome}" />
 										</td>
 									</tr>
 									<tr>
 										<th>Endereço do Setor:</th>
 										<td colspan="3">
-											<t:inputText tabindex="32" size="40" maxlength="100" id="setorEndereco" 
+											<t:inputText tabindex="29" size="40" maxlength="100" id="setorEndereco" 
 												value="#{AssociadoBean.associado.setor.endereco.logradouro}" />
 										</td>
 									</tr>
 									<tr>
 										<th>Estado do Setor:</th>
 										<td colspan="3">
-											<h:selectOneMenu tabindex="33" id="setorEstado" 
+											<h:selectOneMenu tabindex="30" id="setorEstado" 
 												value="#{AssociadoBean.associado.setor.endereco.municipio.estado.codigo}" >
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItems id="sel_setorEstado" value="#{AssociadoBean.estados}"/>
@@ -414,74 +361,37 @@
 									<tr>
 										<th>Município do Setor:</th>
 										<td colspan="3">
-											<t:inputText tabindex="34" size="30" maxlength="50" id="setorMunicipio" 
+											<t:inputText tabindex="31" size="30" maxlength="50" id="setorMunicipio" 
 											value="#{AssociadoBean.associado.setor.endereco.municipio.nome}" />
 										</td>
 									</tr>
 									<tr>
 										<th>Tel. do Setor:</th>
 										<td>
-											<t:inputText tabindex="35" size="15" id="setorTelefone" value="#{AssociadoBean.telefoneSetor}" 
+											<t:inputText tabindex="32" size="15" id="setorTelefone" value="#{AssociadoBean.telefoneSetor}" 
 											onkeypress="return MaskTelefone(this,event)"/>
 										</td>
 										<th>Ramal do Setor:</th>
-										<td><t:inputText tabindex="36" size="5" maxlength="5" id="setorRamal" value="#{AssociadoBean.associado.setor.ramal}" 
+										<td><t:inputText tabindex="33" size="5" maxlength="5" id="setorRamal" value="#{AssociadoBean.associado.setor.ramal}" 
 											onkeypress="return justNumber(this,event)"/></td>
 									</tr>
 									<tr>
 										<th>Categoria:</th>
 										<td>
-											<t:selectOneMenu tabindex="37" id="statusCategoria" value="#{AssociadoBean.associado.statusCategoria}" 
+											<t:selectOneMenu tabindex="34" id="statusCategoria" value="#{AssociadoBean.associado.statusCategoria}" 
 												onchange="setStatusCategoria()" forceId="true">
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_socioContribuinte']}" itemValue="C"/>
 												<f:selectItem itemLabel="#{properties['lb_socioUsuario']}" itemValue="U"/>
 											</t:selectOneMenu>
 										</td>
-										<th>Recebe Jornal:</th>
-										<td><t:selectBooleanCheckbox tabindex="38" id="statusRecebeJornal" value="#{AssociadoBean.statusRecebeJornal}"/></td>
-									</tr>
-									<tr>
-										<th>CPF do Contribuinte:</th>
-										<td colspan="3">
-											<t:inputText tabindex="39" size="40" maxlength="60" id="contribuinteCpf" value="#{AssociadoBean.associado.contribuinte.cpf}" 
-												forceId="true" onkeypress="return MaskCPF(this,event)" disabled="true"/>
-											<a href="javascript:buscarAssociadoPorCpf();" class="botao_adicionar"></a>
-										</td>
 									</tr>
 									<tr>
 										<th>Nome do Contribuinte:</th>
 										<td colspan="3">
-											<t:inputText tabindex="40" size="40" id="contribuinteNome" value="#{AssociadoBean.associado.contribuinte.nome}" 
+											<t:inputText tabindex="35" size="40" id="contribuinteNome" value="#{AssociadoBean.associado.contribuinte.nome}" 
 												readonly="true" forceId="true"/>
 											<t:inputHidden id="contribuinteCodigo" value="#{AssociadoBean.associado.contribuinte.codigo}" forceId="true"/>
-										</td>
-									</tr>
-									<tr>
-										<th>Banco:</th>
-										<td colspan="3">
-											<h:selectOneMenu tabindex="41" id="contaBanco" value="#{AssociadoBean.associado.conta.bancoVO.codigo}" >
-												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-												<f:selectItems id="sel_banco" value="#{AssociadoBean.bancos}"/>
-											</h:selectOneMenu>
-										</td>
-									</tr>
-									<tr>
-										<th>Nº Agência:</th>
-										<td>
-											<t:inputText tabindex="42" size="5" id="numAgencia" 
-												value="#{AssociadoBean.associado.conta.numAgencia}" maxlength="4" 
-												onkeypress="return justNumber(this,event)"/> - 
-											<t:inputText tabindex="43" size="1" id="digAgencia" 
-												value="#{AssociadoBean.associado.conta.digAgencia}" maxlength="1" 
-												onkeypress="return justNumberX(this,event)"/>
-										</td>
-										<th>Nº Conta:</th>
-										<td>
-											<t:inputText tabindex="44" size="5" id="numConta" value="#{AssociadoBean.associado.conta.numConta}" 
-												maxlength="10" onkeypress="return justNumber(this,event)"/> - 
-											<t:inputText tabindex="45" size="1" id="digConta" value="#{AssociadoBean.associado.conta.digConta}" 
-												maxlength="1" onkeypress="return justNumberX(this,event)"/>
 										</td>
 									</tr>
 								</tbody>
@@ -500,20 +410,20 @@
 								
 								<tbody>
 									<tr>
-										<th width="140">Nome completo:</th>
+										<th width="140">* Nome completo:</th>
 										<td width="230"><input tabindex="46" name="nomeDependente" type="text" size="40" maxlength="60" /></td>
-										<th width="100">R.G:</th>
+										<th width="100">* R.G:</th>
 										<td width="120"><input tabindex="47" name="rgDependente" type="text" size="20" maxlength="10" /></td>
 									</tr>
 									<tr>
-										<th>Data de Nasc.:</th>
+										<th>* Data de Nascimento:</th>
 										<td>
 											<rich:calendar id="dataNascimentoDependente" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
 												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
 												inputClass="inputCalendar" enableManualInput="true" oninputblur="checkDate(this)" 
 												oninputkeypress="return maskDate(this,event);" zindex="48"/>
 										</td>
-										<th>Sexo:</th>
+										<th>* Sexo:</th>
 										<td>
 											<select tabindex="49" name="sexoDependente">
 												<option></option>
@@ -523,14 +433,14 @@
 										</td>
 									</tr>
 									<tr>
-										<th>Parentesco:</th>
+										<th>* Parentesco:</th>
 										<td>
 											<t:selectOneMenu tabindex="50" id="parentesco" forceId="true">
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItems id="sel_parentesco" value="#{AssociadoBean.parentescos}"/>
 											</t:selectOneMenu>
 										</td>
-										<th width="100">CPF:</th>
+										<th width="100">* C.P.F.:</th>
 										<td width="120"><input tabindex="50" name="cpfDependente" type="text" size="20" maxlength="10" onkeypress="return justNumber(this,event)"/></td>
 									</tr>
 								</tbody>
@@ -605,103 +515,7 @@
 							</table>
 							
 							<br /><br /><br /><br />
-							<h2>Cadastro de Filhos</h2>
 							
-							<table class="tab_cadastro" cellpadding="2" cellspacing="1">
-								<thead>
-									<tr>
-										<th>Dados do Filho (a)</th>
-										<th colspan="3"></th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<th>Nome completo:</th>
-										<td width="230"><input tabindex="51" name="nomeFilho" type="text" size="40" maxlength="60" /></td>
-										<th width="100">CPF:</th>
-										<td width="120"><input tabindex="51" name="cpfFilho" type="text" size="20" maxlength="20" onkeypress="return justNumber(this,event)"/></td>
-									</tr>
-									<tr>
-										<th width="140">Data de Nasc.:</th>
-										<td width="230">
-											<rich:calendar id="dataNascimentoFilho" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-												inputClass="inputCalendar" enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="52"/>
-										</td>
-										<th width="100">Sexo:</th>
-										<td width="120">
-											<select tabindex="53" name="sexoFilho">
-												<option></option>
-												<option value="M">Masculino</option>
-												<option value="F">Feminino</option>
-											</select>
-										</td>
-									</tr>
-								</tbody>
-								
-								<tfoot>
-									<tr>
-										<th>Adicionar Filho (a)</th>
-										<td colspan="3">
-											<a class="botao_adicionar" title="Adicionar" href="javascript:incluirFilho();" onclick="">
-												<span>adicionar</span>
-											</a>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
-							
-							<br /><br />
-							<h2>Lista de Filhos</h2>
-							
-							<table class="tab_lista" cellpadding="2" cellspacing="1">
-								<thead>
-									<tr>
-										<th width="370">Nome do Filho (a)</th>
-										<th width="100">Data de Nasc.</th>
-										<th width="100">Sexo</th>
-										<th width="20"></th>
-									</tr>
-								</thead>
-								<tbody id="tb_filho">
-									<c:if test="${not empty requestScope.AssociadoBean.associado.filhos}">
-										<c:forEach var="filho" items="${requestScope.AssociadoBean.associado.filhos}">
-											<tr>
-												<td><c:out value="${filho.nome }"/></td>
-												<td><fmt:formatDate value="${filho.dataNascimento}" pattern="dd/MM/yyyy"/></td>
-												<td><c:out value="${filho.sexo}"/></td>
-												<td>
-													<a class='botao_excluir' href="javascript:removerFilho('<c:out value="${filho.nome}"/>');">
-														<span>excluir</span>
-													</a>
-													<input type='hidden' name='filho_codigo' value='<c:out value="${filho.codigo }"/>'>
-													<input type='hidden' name='filho_nome' value='<c:out value="${filho.nome }"/>'>
-													<input type='hidden' name='filho_dataNascimento' 
-														value='<fmt:formatDate value="${filho.dataNascimento }" pattern="dd/MM/yyyy"/>'/>
-													<input type='hidden' name='filho_sexo' value='<c:out value="${filho.sexo }"/>'/>
-													<input type='hidden' name='filho_cpf' value='<c:out value="${filho.cpf}"/>'/>
-												</td>
-											</tr>
-											
-											<script language="JavaScript">
-											filho = {
-												codigo:'<c:out value="${filho.codigo}"/>',
-												nome:'<c:out value="${filho.nome }"/>', 
-												dataNascimento:'<fmt:formatDate value="${filho.dataNascimento }" pattern="dd/MM/yyyy"/>', 
-												sexo:'<c:out value="${filho.sexo }"/>',
-												cpf:'<c:out value="${filho.cpf}"/>'
-											};
-											
-											filhoArray[filhoArray.length] = filho;
-											
-											</script>
-											
-										</c:forEach>
-									</c:if>
-								</tbody>
-							</table>
 							<a4j:commandButton  action="#{AssociadoBean.salvar}" onclick="if (!setAcao(document.forms[0], 'Salva_Associado')) return false;"
 								title="#{properties['lb_salvar']}" styleClass="botao_salvar" reRender="associadoMsgs, codigo, beneficiarioAssociadoCodigo"/>
 							<br /><br /><br /><br /><br /><br />
