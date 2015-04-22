@@ -89,9 +89,22 @@
 				</tbody>
 			</table>
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" 
+			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" onclick="#{rich:component('confirmation')}.show();return false"
 				oncomplete="closePlanoModal();" />
 		</t:div>
 		<h:inputHidden id="CConvenio" value="#{ConvenioBean.planoConvenio.convenio.codigo}"/>
+	
+		<rich:modalPanel id="confirmation" width="250" height="150">
+		   <f:facet name="header">Confirmação</f:facet>
+		   <h:panelGrid>
+		      <h:panelGrid columns="1">
+			 	<h:outputText value="Deseja confirmar a ação?" style="FONT-SIZE: large;" />
+		      </h:panelGrid>
+		      <h:panelGroup>
+		      		<a4j:commandButton  value="Salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" oncomplete="#{rich:component('confirmation')}.hide();closePlanoModal();" />
+		            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation')}.hide();return false" />
+			  </h:panelGroup>
+		   </h:panelGrid>
+		</rich:modalPanel>
 	</h:form>
 </rich:modalPanel>
