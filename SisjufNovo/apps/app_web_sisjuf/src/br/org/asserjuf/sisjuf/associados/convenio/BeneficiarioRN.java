@@ -16,6 +16,18 @@ public class BeneficiarioRN {
 	
 	public Collection<BeneficiarioVO> findByFilter(BeneficiarioVO beneficiario) throws SmartEnvException {
 
+		if(beneficiario.getNome() == ""){
+			beneficiario.setNome(null);
+		}
+		if(beneficiario.getTitular().getNome() == ""){
+			beneficiario.getTitular().setNome(null);
+		}
+		if(beneficiario.getPlano().getCodigo() == 0){
+			beneficiario.getPlano().setCodigo(null);
+		}
+		if(beneficiario.getTitular().getMatriculaJustica() == 0){
+			beneficiario.getTitular().setMatriculaJustica(null);
+		}
 		return beneficiarioDAO.findByFilter(beneficiario);
 		
 	}

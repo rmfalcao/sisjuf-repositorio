@@ -17,6 +17,8 @@ public class BeneficiarioVO extends PessoaVO{
 	
 	private VinculacaoPlanoVO				vinculacao;
 	
+	private Date dataInicioVinculacao;
+	private Date dataFimVinculacao;
 	
 	
 	public VinculacaoPlanoVO getVinculacao() {
@@ -48,6 +50,18 @@ public class BeneficiarioVO extends PessoaVO{
 	}
 	public void setTitular(AssociadoVO titular) {
 		this.titular = titular;
+	}
+	public Date getDataInicioVinculacao() {
+		return dataInicioVinculacao;
+	}
+	public void setDataInicioVinculacao(Date dataInicioVinculacao) {
+		this.dataInicioVinculacao = dataInicioVinculacao;
+	}
+	public Date getDataFimVinculacao() {
+		return dataFimVinculacao;
+	}
+	public void setDataFimVinculacao(Date dataFimVinculacao) {
+		this.dataFimVinculacao = dataFimVinculacao;
 	}
 	
 	

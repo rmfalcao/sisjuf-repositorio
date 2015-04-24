@@ -60,6 +60,9 @@ public class ConvenioPageBean extends BasePageBean {
 	private ItemFaturaVO					itemFatura;
 	
 	private static final transient Logger LOG = Logger.getLogger(ConvenioPageBean.class);
+	
+	private BeneficiarioVO beneficiario;
+	private Collection planos;
 
 	public ConvenioPageBean(){
 		try{ 
@@ -79,6 +82,10 @@ public class ConvenioPageBean extends BasePageBean {
 			itemFatura.setBeneficiario(new BeneficiarioVO());
 			itemFatura.setPlano(new PlanoConvenioVO());
 			itemFatura.setVinculacao(new VinculacaoPlanoVO());
+			
+			beneficiario = new BeneficiarioVO();
+			beneficiario.setTitular(new AssociadoVO());
+			beneficiario.setPlano(new PlanoConvenioVO());
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}
@@ -354,7 +361,7 @@ public class ConvenioPageBean extends BasePageBean {
 	}
 
 	/**
-	 * Grava no bean a informação se a conta é ativa ou não.
+	 * Grava no bean a informaï¿½ï¿½o se a conta ï¿½ ativa ou nï¿½o.
 	 * @param flgContaCaixa
 	 */
 	public void setFlgAtivo(boolean flgAtivo) {
@@ -566,6 +573,16 @@ public class ConvenioPageBean extends BasePageBean {
 		return new ArrayList<PlanoConvenioVO>();				
 	}
 	
+	public Collection getPlanosConvenioCombo() {
+		try {
+			 Collection collPlanos = getPlanosConvenio(); 
+			 return (collPlanos != null) ? getSelect(collPlanos, "codigo", "nome") : new ArrayList();
+		} catch (Exception e) {
+			LOG.error("erro no momento de carregar os estados", e);
+		}
+		return new ArrayList();
+	}
+	
 	public void setPlanosConvenio(Collection<PlanoConvenioVO> planosConvenio) {
 		this.planosConvenio = planosConvenio;
 	}	
@@ -696,7 +713,7 @@ public class ConvenioPageBean extends BasePageBean {
 					item.setNumero(count);
 					count++;
 				}
-				FacesMessage msgs = new FacesMessage("Fatura prévia gerada com sucesso.");
+				FacesMessage msgs = new FacesMessage("Fatura prï¿½via gerada com sucesso.");
 				FacesContext.getCurrentInstance().addMessage(null, msgs);		
 				return getSucesso();
 			}
@@ -823,21 +840,20 @@ public class ConvenioPageBean extends BasePageBean {
 	public void setUtilDelegate(UtilDelegate utilDelegate) {
 		this.utilDelegate = utilDelegate;
 	}
-
-	public Collection<BeneficiarioVO> getBeneficiariosConvenios() {
+	
+	public void carregarBeneficiarios(){
 		try{
 			if (convenio != null && convenio.getCodigo() != null){
-				BeneficiarioVO beneficiario = new BeneficiarioVO();
-				PlanoConvenioVO plano = new PlanoConvenioVO();
-				plano.setConvenio(this.convenio);
-				beneficiario.setPlano(plano);
+				beneficiario.getPlano().setConvenio(convenio);
 				beneficiariosConvenios = this.delegate.findBeneficiariosByFilter(beneficiario);
-				return beneficiariosConvenios;
 			}
-		} catch (Exception e) {
-			tratarExcecao(e);
-		}	
-		return new ArrayList<BeneficiarioVO>();
+		}catch(Exception appEx){
+			tratarExcecao(appEx);
+		}
+	}
+	
+	public Collection<BeneficiarioVO> getBeneficiariosConvenios() {
+		return beneficiariosConvenios;
 	}
 
 	public void setBeneficiariosConvenios(
@@ -881,5 +897,13 @@ public class ConvenioPageBean extends BasePageBean {
 
 	public void setItemFatura(ItemFaturaVO itemFatura) {
 		this.itemFatura = itemFatura;
+	}
+
+	public BeneficiarioVO getBeneficiario() {
+		return beneficiario;
+	}
+
+	public void setBeneficiario(BeneficiarioVO beneficiario) {
+		this.beneficiario = beneficiario;
 	}
 }

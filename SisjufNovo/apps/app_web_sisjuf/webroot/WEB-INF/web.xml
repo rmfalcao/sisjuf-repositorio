@@ -14,7 +14,8 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 	
 	<context-param>
 		<param-name>LINKS_LIBERADOS</param-name>
-		<param-value>richfaces;ajax4jsf;a4j_3_3_1-SNAPSHOTorg;a4j_3_3_1-SNAPSHOTcss;a4j_3_3_1-SNAPSHOTscripts;a4j_3_3_1-SNAPSHOTimages;a4j/s/3_3_1.GAcss;a4j/g/3_3_1.GAscripts;a4j/g/3_3_1.GAimages;a4j/s/3_3_1.GAcss/tabPanel.xcss;a4j/g/3_3_1.GAimages/spacer.gif.jsf;a4j_3_2_0-SNAPSHOTcss/table.xcss/DATB;/services/CorrigeLancamentosDuplicados</param-value>
+		<param-value>richfaces;ajax4jsf;a4j_3_3_1-SNAPSHOTorg;a4j_3_3_1-SNAPSHOTcss;a4j_3_3_1-SNAPSHOTscripts;a4j_3_3_1-SNAPSHOTimages;a4j/s/3_3_1.GAcss;a4j/g/3_3_1.GAscripts;a4j/g/3_3_1.GAimages;a4j/s/3_3_1.GAcss/tabPanel.xcss;a4j/g/3_3_1.GAimages/spacer.gif.jsf;a4j_3_2_0-SNAPSHOTcss/table.xcss/DATB;
+		/services/CorrigeLancamentosDuplicados;/associados/convenio/BeneficiarioImpressao</param-value>
 	</context-param>
 	
 	<context-param>
@@ -364,6 +365,16 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   	<servlet-mapping>
 		<servlet-name>CarteirinhaImpressaoAC</servlet-name>
 		<url-pattern>/Associados/ImprimirCarteirinha</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BeneficiarioImpressaoAC</servlet-name>
+		<servlet-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.BeneficiarioImpressaoAC</servlet-class>
+		<load-on-startup>-1</load-on-startup>
+	</servlet> 
+  	<servlet-mapping>
+		<servlet-name>BeneficiarioImpressaoAC</servlet-name>
+		<url-pattern>/associados/convenio/BeneficiarioImpressao</url-pattern>
 	</servlet-mapping>
 	
 	<!-- SERVICES -->

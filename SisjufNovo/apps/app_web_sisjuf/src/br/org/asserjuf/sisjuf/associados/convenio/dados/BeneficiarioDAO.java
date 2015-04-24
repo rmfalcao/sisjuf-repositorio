@@ -20,14 +20,14 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 	//private static transient Logger	LOG = Logger.getLogger(BeneficiarioDAO.class);
 	
 	/**
-	 * Obtém todos os beneficiarios de um convênio cadastrados na banco de dados.
-	 * @return Coleção de BeneficiarioVO (objeto que representa a entidade "Beneficiario")
+	 * Obtï¿½m todos os beneficiarios de um convï¿½nio cadastrados na banco de dados.
+	 * @return Coleï¿½ï¿½o de BeneficiarioVO (objeto que representa a entidade "Beneficiario")
 	 * @throws SmartEnvException
 	 */
 	public Collection<BeneficiarioVO> findByFilter(BeneficiarioVO beneficiario) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
-		
+	
 		sql.append(" SELECT 	C.NOM_FANTASIA, ")
 				.append(" PC.NOM_PLANO, ")
 				.append(" T.SEQ_PESSOA AS SEQ_TITULAR, ")
@@ -58,8 +58,15 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 				.append(" AND	(? is null OR upper(B.NOM_PESSOA) LIKE '%' || upper(?) || '%') ")
 				.append(" AND	(? is null OR upper(T.NOM_PESSOA) LIKE '%' || upper(?) || '%') ")
 				.append(" AND	(? IS NULL OR PC.SEQ_PLANO = ?) ")
-				.append(" AND	 VP.DAT_VINCULACAO <=  current_date ")
-				.append(" AND	VP.DAT_DESVINCULACAO is null ");	
+				.append(" AND	(? IS NULL OR A.NUM_MATRICULA_JUSTICA_ASSOCIADO = ?) ");
+		
+				if(beneficiario.getDataInicioVinculacao() == null && beneficiario.getDataFimVinculacao() == null){
+					sql.append(" AND	 VP.DAT_VINCULACAO <=  current_date ")
+					.append(" AND	VP.DAT_DESVINCULACAO is null ");	
+				}else{
+					sql.append(" AND	(? IS NULL OR VP.DAT_VINCULACAO >= ?) ")
+					.append(" AND	(? IS NULL OR VP.DAT_VINCULACAO < ?) ");
+				}
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -68,7 +75,14 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 		
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
-			sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo"});
+			if(beneficiario.getDataInicioVinculacao() == null && beneficiario.getDataFimVinculacao() == null){
+				sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo",
+						"titular.matriculaJustica","titular.matriculaJustica"});
+			}else{
+				sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo",
+						"titular.matriculaJustica","titular.matriculaJustica","dataInicioVinculacao","dataInicioVinculacao","dataFimVinculacao","dataFiminculacao"});	
+			}
+			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
 			return sRs.getJavaBeans(BeneficiarioVO.class, new String[]{
