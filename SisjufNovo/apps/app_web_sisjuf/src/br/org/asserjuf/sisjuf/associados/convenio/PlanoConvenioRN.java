@@ -7,14 +7,14 @@ import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.PlanoConvenioDAO;
 
 /**
- * Classe que encapsula os métodos de acesso a Banco de Plano
+ * Classe que encapsula os mï¿½todos de acesso a Banco de Plano
  * @author Paulo
  *
  */
 public class PlanoConvenioRN {
 
 	/**
-	 * Classe de acesso ao banco de dados da entidade "Plano Convênio" do Sisjuf.
+	 * Classe de acesso ao banco de dados da entidade "Plano Convï¿½nio" do Sisjuf.
 	 */
 	private PlanoConvenioDAO	planoConvenioDAO;
 	
@@ -24,8 +24,8 @@ public class PlanoConvenioRN {
 	}		
 	
 	/**
-	 * Obtém todos os planos.
-	 * @return Coleção de planos, encapsulados na classe PlanoConvenioVO.
+	 * Obtï¿½m todos os planos.
+	 * @return Coleï¿½ï¿½o de planos, encapsulados na classe PlanoConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -34,9 +34,9 @@ public class PlanoConvenioRN {
 	}
 	
 	/**
-	 * Obtém um plano por chave.
-	 * @param vo Instância de PlanoConvenioVO que encapsula o código do convênio que se deseja recuperar.
-	 * @return Convênio desejada.
+	 * Obtï¿½m um plano por chave.
+	 * @param vo Instï¿½ncia de PlanoConvenioVO que encapsula o cï¿½digo do convï¿½nio que se deseja recuperar.
+	 * @return Convï¿½nio desejada.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -92,9 +92,9 @@ public class PlanoConvenioRN {
 	}
 	
 	/**
-	 * Obtém os planos atraves de critérios de filtro.
-	 * @param vo PlanoConvenioVO com critérios de filtro preenchidos.
-	 * @return Coleção de planos, encapsulados na classe PlanoConvenioVO.
+	 * Obtï¿½m os planos atraves de critï¿½rios de filtro.
+	 * @param vo PlanoConvenioVO com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de planos, encapsulados na classe PlanoConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -103,7 +103,7 @@ public class PlanoConvenioRN {
 	}	
 	
 	/**
-	 * Verifica se os campos obrigatórios do "Plano" estão preenchidos.
+	 * Verifica se os campos obrigatï¿½rios do "Plano" estï¿½o preenchidos.
 	 * @param vo Plano cujos dados se deseja verificar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -120,17 +120,32 @@ public class PlanoConvenioRN {
 		}	
 		
 		if (vo.getDataInicio() == null) {
-			throw new SmartAppException("A data de início deve ser preenchido.");
+			throw new SmartAppException("A data de inÃ­cio deve ser preenchido.");
 		}				
 		
-		//Caso seja uma atualização
+		//Caso seja uma atualizaï¿½ï¿½o
 		if (vo.getCodigo() != null){
 			PlanoConvenioVO planoVelho =this.findByPrimaryKey(vo);
-			//Caso a dataInicio seja mudada então a nova deve ser maior que a anterior caso a mesma exista.
+			//Caso a dataInicio seja mudada entï¿½o a nova deve ser maior que a anterior caso a mesma exista.
 			if (vo.getDataInicio()!= null && planoVelho.getDataInicio() != null
 					&& ( vo.getDataInicio().getTime() < planoVelho.getDataInicio().getTime())){
 				throw new SmartAppException("A nova data inicio deve ser maior que a data inicio anterior.");
 			}
+		}
+	}
+	
+	/**
+	 * Obtï¿½m os HISTORICO DE VALORES DO PLANO atraves de critï¿½rios de filtro.
+	 * @param vo PlanoConvenioVO com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de planos, encapsulados na classe PlanoConvenioVO.
+	 * @throws SmartEnvException
+	 * @throws SmartAppException
+	 */
+	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO planoConvenio) throws SmartEnvException, SmartAppException {
+		if(planoConvenio != null && planoConvenio.getCodigo() != null){
+			return planoConvenioDAO.findHistoricoValorPlanoByPlano(planoConvenio);
+		}else{
+			throw new SmartAppException("O campo plano deve ser preenchido.");
 		}
 	}
 }

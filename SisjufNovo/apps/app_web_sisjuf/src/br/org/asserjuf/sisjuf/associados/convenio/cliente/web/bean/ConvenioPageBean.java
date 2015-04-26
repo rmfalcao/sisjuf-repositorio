@@ -48,6 +48,8 @@ public class ConvenioPageBean extends BasePageBean {
 	
 	private Collection<PlanoConvenioVO>		planosConvenio;
 	
+	private Collection<PlanoConvenioVO>     planosConvenioHistorico;
+	
 	private Collection<BeneficiarioVO>		beneficiariosConvenios;
 	
 	private Collection<PlanoConvenioVO>		printPlanosConvenio;
@@ -63,6 +65,7 @@ public class ConvenioPageBean extends BasePageBean {
 	
 	private BeneficiarioVO beneficiario;
 	private Collection planos;
+	
 
 	public ConvenioPageBean(){
 		try{ 
@@ -86,6 +89,8 @@ public class ConvenioPageBean extends BasePageBean {
 			beneficiario = new BeneficiarioVO();
 			beneficiario.setTitular(new AssociadoVO());
 			beneficiario.setPlano(new PlanoConvenioVO());
+			
+			planosConvenioHistorico = new ArrayList<PlanoConvenioVO>();
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}
@@ -596,6 +601,15 @@ public class ConvenioPageBean extends BasePageBean {
 		//planoConvenio.set
 	}
 	
+	public void carregarHistoricoValoresPlano(){
+		try{
+			planosConvenioHistorico = delegate.findHistoricoValorPlanoByPlano(planoConvenio);
+		}catch(Exception appEx){
+			tratarExcecao(appEx);
+		}
+	
+	}
+	
 	public Boolean getDesativado() {
 		if (this.convenio.getDesativado() == null || this.convenio.getDesativado().equals("") || this.convenio.getDesativado().equals("N")) {
 			return false;
@@ -905,5 +919,14 @@ public class ConvenioPageBean extends BasePageBean {
 
 	public void setBeneficiario(BeneficiarioVO beneficiario) {
 		this.beneficiario = beneficiario;
+	}
+
+	public Collection<PlanoConvenioVO> getPlanosConvenioHistorico() {
+		return planosConvenioHistorico;
+	}
+
+	public void setPlanosConvenioHistorico(
+			Collection<PlanoConvenioVO> planosConvenioHistorico) {
+		this.planosConvenioHistorico = planosConvenioHistorico;
 	}
 }

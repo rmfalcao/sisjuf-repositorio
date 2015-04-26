@@ -23,8 +23,8 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 	private static transient Logger	LOG = Logger.getLogger(PlanoConvenioDAO.class);
 	
 	/**
-	 * Obtém todos os planos de convenios cadastrados na banco de dados. Tabelas: PLANO_CONVENIO, CONVENIO , ATIVIDADE_CONVENIO , ESTADO
-	 * @return Coleção de PlanoConvenioVO (objeto que representa a entidade "Plano Convenio")
+	 * Obtï¿½m todos os planos de convenios cadastrados na banco de dados. Tabelas: PLANO_CONVENIO, CONVENIO , ATIVIDADE_CONVENIO , ESTADO
+	 * @return Coleï¿½ï¿½o de PlanoConvenioVO (objeto que representa a entidade "Plano Convenio")
 	 * @throws SmartEnvException
 	 */
 	public Collection<PlanoConvenioVO> findAll() throws SmartEnvException {
@@ -136,9 +136,9 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 	}
 	
 	/**
-	 * Obtém um Plano (encapsulado no objeto PlanoConvenioVO) cadastrada no banco de dados. Tabelas: PLANO_CONVENIO, CONVENIO , ATIVIDADE_CONVENIO , ESTADO
-	 * @param vo Instância da classe PlanoConvenioVO contendo a propriedade codigo preenchida.
-	 * @return Retorna uma instância da classe PlanoConvenioVO com as propriedades preenchidas.
+	 * Obtï¿½m um Plano (encapsulado no objeto PlanoConvenioVO) cadastrada no banco de dados. Tabelas: PLANO_CONVENIO, CONVENIO , ATIVIDADE_CONVENIO , ESTADO
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO contendo a propriedade codigo preenchida.
+	 * @return Retorna uma instï¿½ncia da classe PlanoConvenioVO com as propriedades preenchidas.
 	 * @throws SmartEnvException
 	 */
 	public PlanoConvenioVO findByPrimaryKey(PlanoConvenioVO vo) throws SmartEnvException {
@@ -188,7 +188,7 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 	
 	/**
 	 * Atualiza os dados de um plano no banco de dados. Tabelas: PLANO_CONVENIO
-	 * @param vo Instância da classe PlanoConvenioVO com os novos valores do registro a ser atualizado.
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO com os novos valores do registro a ser atualizado.
 	 * @throws SmartEnvException
 	 */
 	public void update(PlanoConvenioVO vo) throws SmartEnvException {
@@ -235,7 +235,7 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 
 	/**
 	 * Insere um convenio no banco de dados. Tabelas: PLANO_CONVENIO
-	 * @param vo Instância da classe PlanoConvenioVO com os valores do registro a ser inserido.
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public PlanoConvenioVO insert(PlanoConvenioVO vo) throws SmartEnvException {
@@ -291,7 +291,7 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 	
 	/**
 	 * Exclui um plano do banco de dados. Tabelas: PLANO_CONVENIO
-	 * @param vo Instância da classe PlanoConvenioVO com o código do registro a ser excluído.
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO com o cï¿½digo do registro a ser excluï¿½do.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -314,8 +314,8 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 		} catch (SQLException e) {
 
 			if (e.getMessage().indexOf("fk_hvp_plano") != -1) {
-				// Exceção levantada pela exclusão de plano com histórico já inseridos na base
-				throw new SmartAppException("Não é possível excluir este plano, pois já existe um histórico para o mesmo. Detalhe o plano para desativar o registro.");
+				// Exceï¿½ï¿½o levantada pela exclusï¿½o de plano com histï¿½rico jï¿½ inseridos na base
+				throw new SmartAppException("Nï¿½o ï¿½ possï¿½vel excluir este plano, pois jï¿½ existe um histï¿½rico para o mesmo. Detalhe o plano para desativar o registro.");
 			}
 			
 			throw new SmartEnvException(e);
@@ -327,9 +327,9 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 	
 	
 	/**
-	 * Obtém uma coleção de planos (encapsulado no objeto PlanoConvenioVO) cadastrada no banco de dados. Tabelas: PLANO_CONVENIO, CONVENIO , ATIVIDADE_CONVENIO , ESTADO
-	 * @param vo Instância da classe PlanoConvenioVO contendo a propriedade de filtro preenchida.
-	 * @return Retorna uma coleção de instâncias da classe PlanoConvenioVO com as propriedades preenchidas.
+	 * Obtï¿½m uma coleï¿½ï¿½o de planos (encapsulado no objeto PlanoConvenioVO) cadastrada no banco de dados. Tabelas: PLANO_CONVENIO, CONVENIO , ATIVIDADE_CONVENIO , ESTADO
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO contendo a propriedade de filtro preenchida.
+	 * @return Retorna uma coleï¿½ï¿½o de instï¿½ncias da classe PlanoConvenioVO com as propriedades preenchidas.
 	 * @throws SmartEnvException
 	 */
 	public Collection<PlanoConvenioVO> findByFilter(PlanoConvenioVO vo) throws SmartEnvException {
@@ -396,7 +396,7 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 	
 	/**
 	 * Insere um registro no historico de valores de Plano
-	 * @param vo Instância da classe PlanoConvenioVO com os valores do registro antigo do Plano.
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO com os valores do registro antigo do Plano.
 	 * @throws SmartEnvException
 	 */
 	public PlanoConvenioVO insertHistorico(PlanoConvenioVO vo) throws SmartEnvException {
@@ -440,6 +440,53 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 			throw new SmartEnvException(e);
 			
 		}finally {
+			sStmt.close();
+			sConn.close();
+		}
+	}	
+	
+	/**
+	 * Obtï¿½m uma coleï¿½ï¿½o de planos (encapsulado no objeto PlanoConvenioVO) cadastrada no banco de dados. Tabelas: PLANO_CONVENIO, HIST_VALOR_PLANO
+	 * @param vo Instï¿½ncia da classe PlanoConvenioVO contendo a propriedade de filtro preenchida.
+	 * @return Retorna uma coleï¿½ï¿½o de instï¿½ncias da classe PlanoConvenioVO com as propriedades preenchidas.
+	 * @throws SmartEnvException
+	 */
+	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException {
+		
+		StringBuffer SQL = new StringBuffer();
+		SQL.append("  SELECT   PC.SEQ_PLANO             , ");
+		SQL.append("           PC.NOM_PLANO             , ");
+		SQL.append("           PC.DES_PLANO             , ");
+		SQL.append("           HVP.VAL_PLANO             , ");
+		SQL.append("           HVP.DAT_INICIO      ");
+		SQL.append("  FROM     PLANO_CONVENIO PC    , ");
+		SQL.append("           HIST_VALOR_PLANO HVP             ");
+		SQL.append("  WHERE    PC.SEQ_PLANO = HVP.SEQ_PLANO  							");
+		SQL.append("  AND      HVP.SEQ_PLANO = ?		");
+		SQL.append("  ORDER BY DAT_CADASTRO DESC		");
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(SQL.toString()));
+								 
+			sStmt.setParameters(vo, new String[] {"codigo"});			
+			
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			return sRs.getJavaBeans(PlanoConvenioVO.class, new String[]{
+				"codigo",
+				"nome",
+				"descricao",
+				"valor",
+				"dataInicio"});
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+			sRs.close();
 			sStmt.close();
 			sConn.close();
 		}

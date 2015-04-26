@@ -21,7 +21,7 @@ import br.org.asserjuf.sisjuf.entidadesComuns.EstadoVO;
 import br.org.asserjuf.sisjuf.entidadesComuns.facade.EntidadesComunsFacade;
 
 /**
- * Implementação da classe que representa o "proxy" para o façade Convenio.
+ * Implementaï¿½ï¿½o da classe que representa o "proxy" para o faï¿½ade Convenio.
  * @author Paulo
  *
  */
@@ -30,7 +30,7 @@ public class ConvenioDelegate {
 	protected static transient Logger LOG = Logger.getLogger(ConvenioDelegate.class);
 	
 	/**
-	 * Façace Convênio do Sisjuf.
+	 * Faï¿½ace Convï¿½nio do Sisjuf.
 	 */
 	private ConvenioFacade	convenioBean;
 	
@@ -38,7 +38,7 @@ public class ConvenioDelegate {
 		
 
 	/**
-	 * "Proxy" para o método findAllConvenio() no façade Convenio
+	 * "Proxy" para o mï¿½todo findAllConvenio() no faï¿½ade Convenio
 	 * @return Collection de ConvenioVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -48,7 +48,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findConvenioByPrymaryKey() no façade Convenio.
+	 * "Proxy" para o mï¿½todo findConvenioByPrymaryKey() no faï¿½ade Convenio.
 	 * @param vo 
 	 * @return ConvenioVO
 	 * @throws SmartEnvException
@@ -59,7 +59,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updateConvenio() no façade Convenio.
+	 * "Proxy" para o mï¿½todo updateConvenio() no faï¿½ade Convenio.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -69,7 +69,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método removeConvenio() no façade Convenio.
+	 * "Proxy" para o mï¿½todo removeConvenio() no faï¿½ade Convenio.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -79,7 +79,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertConvenio() no façade Convenio.
+	 * "Proxy" para o mï¿½todo insertConvenio() no faï¿½ade Convenio.
 	 * @param vo
 	 * @return ConvenioVO 
 	 * @throws SmartEnvException
@@ -90,8 +90,8 @@ public class ConvenioDelegate {
 	}	
 	
 	/**
-	 * "Proxy" para o método findConvenioByFilter() no façade Convenio.
-	 * @param vo Convênio com critérios de filtro preenchidos. 
+	 * "Proxy" para o mï¿½todo findConvenioByFilter() no faï¿½ade Convenio.
+	 * @param vo Convï¿½nio com critï¿½rios de filtro preenchidos. 
 	 * @return Collection de ConvenioVO
 	 * @throws SmartAppException 
 	 * @throws SmartEnvException 
@@ -103,7 +103,7 @@ public class ConvenioDelegate {
 	}
 
 	/**
-	 * "Proxy" para o método findAllAtividades() no façade Convenio
+	 * "Proxy" para o mï¿½todo findAllAtividades() no faï¿½ade Convenio
 	 * @return Collection de AtividadeConvenioVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -113,7 +113,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findAllAtividades() no façade Convenio
+	 * "Proxy" para o mï¿½todo findAllAtividades() no faï¿½ade Convenio
 	 * @return Collection de AtividadeConvenioVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -123,7 +123,7 @@ public class ConvenioDelegate {
 	}	
 	
 	/**
-	 * "Proxy" para o método findAtividadeByPrimaryKey() no façade Convenio.
+	 * "Proxy" para o mï¿½todo findAtividadeByPrimaryKey() no faï¿½ade Convenio.
 	 * @param vo 
 	 * @return AtividadeConvenioVO
 	 * @throws SmartEnvException
@@ -134,7 +134,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updateAtividade() no façade Convenio.
+	 * "Proxy" para o mï¿½todo updateAtividade() no faï¿½ade Convenio.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -144,7 +144,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método removeAtividade() no façade Convenio.
+	 * "Proxy" para o mï¿½todo removeAtividade() no faï¿½ade Convenio.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -154,7 +154,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertAtividade() no façade Convenio.
+	 * "Proxy" para o mï¿½todo insertAtividade() no faï¿½ade Convenio.
 	 * @param vo
 	 * @return AtividadeConvenioVO 
 	 * @throws SmartEnvException
@@ -165,7 +165,7 @@ public class ConvenioDelegate {
 	}	
 	
 	/**
-	 * "Proxy" para o método findAtividadeConvenioByFilter() no façade Convenio.
+	 * "Proxy" para o mï¿½todo findAtividadeConvenioByFilter() no faï¿½ade Convenio.
 	 * @return Collection de AtividadeConvenioVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -176,7 +176,7 @@ public class ConvenioDelegate {
 	}	
 	
 	/**
-	 * "Proxy" para o método findAllPlanoConvenio() no façade Convenio
+	 * "Proxy" para o mï¿½todo findAllPlanoConvenio() no faï¿½ade Convenio
 	 * @return Collection de PlanoConvenioVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -186,7 +186,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findPlanoConvenioByPrimaryKey() no façade Convenio.
+	 * "Proxy" para o mï¿½todo findPlanoConvenioByPrimaryKey() no faï¿½ade Convenio.
 	 * @param vo 
 	 * @return PlanoConvenioVO
 	 * @throws SmartEnvException
@@ -197,7 +197,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updatePlanoConvenio() no façade Convenio.
+	 * "Proxy" para o mï¿½todo updatePlanoConvenio() no faï¿½ade Convenio.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -207,7 +207,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método removeConvenio() no façade Convenio.
+	 * "Proxy" para o mï¿½todo removeConvenio() no faï¿½ade Convenio.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -217,7 +217,7 @@ public class ConvenioDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertPlanoConvenio() no façade Convenio.
+	 * "Proxy" para o mï¿½todo insertPlanoConvenio() no faï¿½ade Convenio.
 	 * @param vo
 	 * @return ConvenioVO 
 	 * @throws SmartEnvException
@@ -288,6 +288,10 @@ public class ConvenioDelegate {
 	
 	public FaturaArquivoVO validarFatura(FaturaArquivoVO faturaArquivo) throws SmartEnvException, SmartAppException {
 		return convenioBean.validarFatura(faturaArquivo);
+	}
+	
+	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException, SmartAppException {
+		return convenioBean.findHistoricoValorPlanoByPlano(vo);
 	}
 	
 }

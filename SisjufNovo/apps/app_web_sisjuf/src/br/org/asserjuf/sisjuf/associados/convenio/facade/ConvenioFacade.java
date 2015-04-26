@@ -24,63 +24,63 @@ import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
 
 /**
- * Classe responsavél por chamar os métodos dos RNs diversos que envolvem a funcionalidade "Convenios"
+ * Classe responsavï¿½l por chamar os mï¿½todos dos RNs diversos que envolvem a funcionalidade "Convenios"
  * @author Paulo
  *
  */
 public class ConvenioFacade {
 
 	/**
-	 * Encapsula as regras de negócio de convenio.
+	 * Encapsula as regras de negï¿½cio de convenio.
 	 */
 	public ConvenioRN	convenioRN;
 
 	/**
-	 * Encapsula as regras de negócio de beneficiario.
+	 * Encapsula as regras de negï¿½cio de beneficiario.
 	 */
 	public BeneficiarioRN	beneficiarioRN;
 
 	
 	/**
-	 * Encapsula as regras de negócio de atividades dos convênios.
+	 * Encapsula as regras de negï¿½cio de atividades dos convï¿½nios.
 	 */
 	public AtividadeConvenioRN	atividadeConvenioRN;	
 	
 	/**
-	 * Encapsula as regras de negócio de Beneficiarios.
+	 * Encapsula as regras de negï¿½cio de Beneficiarios.
 	 */
 	public VinculacaoPlanoRN	vinculacaoPlanoRN;
 	
 	/**
-	 * Encapsula as regras de negócio de Plano.
+	 * Encapsula as regras de negï¿½cio de Plano.
 	 */
 	public PlanoConvenioRN	planoConvenioRN;	
 
 
 	/**
-	 * Encapsula as regras de negócio de Fatura.
+	 * Encapsula as regras de negï¿½cio de Fatura.
 	 */
 	public FaturaRN 		faturaRN;
 	
 	/**
-	 * Encapsula as regras de negócio de Status Fatura.
+	 * Encapsula as regras de negï¿½cio de Status Fatura.
 	 */
 	public StatusFaturaRN 		statusFaturaRN;
 	
 	/**
-	 * Encapsula as regras de negócio de Fatura Variável.
+	 * Encapsula as regras de negï¿½cio de Fatura Variï¿½vel.
 	 */
 	public FaturaVariavelRN 		faturaVariavelRN;
 	
 
 	/**
-	 * Encapsula as regras de negócio de Fatura Fixa.
+	 * Encapsula as regras de negï¿½cio de Fatura Fixa.
 	 */
 	public FaturaFixaRN 		faturaFixaRN;
 	
 	/**
-	 * Obtém todos os convênios.
-	 * @return Coleção de todos os convênios, encapsulados na classe ConvenioVO.
+	 * Obtï¿½m todos os convï¿½nios.
+	 * @return Coleï¿½ï¿½o de todos os convï¿½nios, encapsulados na classe ConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -90,9 +90,9 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Obtém um convênio por chave.
-	 * @param vo Instância de ConvenioVO que encapsula o código do convênio que se deseja recuperar.
-	 * @return Convênio desejado.
+	 * Obtï¿½m um convï¿½nio por chave.
+	 * @param vo Instï¿½ncia de ConvenioVO que encapsula o cï¿½digo do convï¿½nio que se deseja recuperar.
+	 * @return Convï¿½nio desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -102,8 +102,8 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Atualiza um convênio.
-	 * @param vo Convênio que se deseja atualizar.
+	 * Atualiza um convï¿½nio.
+	 * @param vo Convï¿½nio que se deseja atualizar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -113,8 +113,8 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Exclui um convênio.
-	 * @param vo Convênio que se deseja excluir.
+	 * Exclui um convï¿½nio.
+	 * @param vo Convï¿½nio que se deseja excluir.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -124,9 +124,9 @@ public class ConvenioFacade {
 
 	
 	/**
-	 * Insere um convênio.
-	 * @param vo Convênio que se deseja inserir.
-	 * @return Convênio que foi inserido.
+	 * Insere um convï¿½nio.
+	 * @param vo Convï¿½nio que se deseja inserir.
+	 * @return Convï¿½nio que foi inserido.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -136,9 +136,9 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Obtém os convênios atraves de critérios de filtro.
-	 * @param vo Convênio com critérios de filtro preenchidos.
-	 * @return Coleção de convênios, encapsulados na classe ConvenioVO.
+	 * Obtï¿½m os convï¿½nios atraves de critï¿½rios de filtro.
+	 * @param vo Convï¿½nio com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de convï¿½nios, encapsulados na classe ConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -147,8 +147,8 @@ public class ConvenioFacade {
 	}	
 	
 	/**
-	 * Obtém todos as atividades.
-	 * @return Coleção de todos as atividades, encapsulados na classe AtividadeConvenioVO.
+	 * Obtï¿½m todos as atividades.
+	 * @return Coleï¿½ï¿½o de todos as atividades, encapsulados na classe AtividadeConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -157,8 +157,8 @@ public class ConvenioFacade {
 	}
 	
 	/**
-	 * Obtém todos as atividades.
-	 * @return Coleção de todos as atividades, encapsulados na classe AtividadeConvenioVO.
+	 * Obtï¿½m todos as atividades.
+	 * @return Coleï¿½ï¿½o de todos as atividades, encapsulados na classe AtividadeConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -168,8 +168,8 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Obtém as atividades por chave.
-	 * @param vo Instância de AtividadeConvenioVO que encapsula o código do convênio que se deseja recuperar.
+	 * Obtï¿½m as atividades por chave.
+	 * @param vo Instï¿½ncia de AtividadeConvenioVO que encapsula o cï¿½digo do convï¿½nio que se deseja recuperar.
 	 * @return Atividade desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -202,9 +202,9 @@ public class ConvenioFacade {
 
 	
 	/**
-	 * Obtém os Beneficiarios atraves de critérios de filtro.
-	 * @param vo BeneficiarioVO com critérios de filtro preenchidos.
-	 * @return Coleção de beneficiarios, encapsulados na classe BeneficiarioVO.
+	 * Obtï¿½m os Beneficiarios atraves de critï¿½rios de filtro.
+	 * @param vo BeneficiarioVO com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de beneficiarios, encapsulados na classe BeneficiarioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -215,7 +215,7 @@ public class ConvenioFacade {
 	/**
 	 * Insere uma atividade.
 	 * @param vo Atividade que se deseja inserir.
-	 * @return Convênio que foi inserido.
+	 * @return Convï¿½nio que foi inserido.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -225,8 +225,8 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Obtém todos os planos.
-	 * @return Coleção de todos os planos, encapsulados na classe PlanoConvenioVO.
+	 * Obtï¿½m todos os planos.
+	 * @return Coleï¿½ï¿½o de todos os planos, encapsulados na classe PlanoConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -236,8 +236,8 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Obtém um plano por chave.
-	 * @param vo Instância de PlanoConvenioVO que encapsula o código do plano que se deseja recuperar.
+	 * Obtï¿½m um plano por chave.
+	 * @param vo Instï¿½ncia de PlanoConvenioVO que encapsula o cï¿½digo do plano que se deseja recuperar.
 	 * @return Plano desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -281,9 +281,9 @@ public class ConvenioFacade {
 	}		
 	
 	/** 
-	 * Obtém os planos atraves de critérios de filtro.
-	 * @param vo Plano com critérios de filtro preenchidos.
-	 * @return Coleção de planos, encapsulados na classe PlanoConvenioVO.
+	 * Obtï¿½m os planos atraves de critï¿½rios de filtro.
+	 * @param vo Plano com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de planos, encapsulados na classe PlanoConvenioVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -310,8 +310,8 @@ public class ConvenioFacade {
 	
 	
 	/**
-	 * Obtém os beneficiários por filtro.
-	 * @return Coleção de beneficiarios, encapsulados na classe BeneficiarioVO.
+	 * Obtï¿½m os beneficiï¿½rios por filtro.
+	 * @return Coleï¿½ï¿½o de beneficiarios, encapsulados na classe BeneficiarioVO.
 	 * @param BeneficiarioVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -321,8 +321,8 @@ public class ConvenioFacade {
 	}
 	
 	/**
-	 * Obtém as faturas recentes de um convênio.
-	 * @return Coleção de faturas, encapsulados na classe FaturaVO.
+	 * Obtï¿½m as faturas recentes de um convï¿½nio.
+	 * @return Coleï¿½ï¿½o de faturas, encapsulados na classe FaturaVO.
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findFaturaByConvenio(ConvenioVO convenio) throws SmartEnvException {
@@ -330,7 +330,7 @@ public class ConvenioFacade {
 	}
 	
 	/**
-	 * Gerar fatura de um convênio de fatura variável.
+	 * Gerar fatura de um convï¿½nio de fatura variï¿½vel.
 	 * @return Fatura gerada, encapsulados na classe FaturaVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException 
@@ -340,7 +340,7 @@ public class ConvenioFacade {
 	}
 	
 	/**
-	 * Gerar fatura de um convênio de fatura fixa.
+	 * Gerar fatura de um convï¿½nio de fatura fixa.
 	 * @return Fatura gerada, encapsulados na classe FaturaVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException 
@@ -350,8 +350,8 @@ public class ConvenioFacade {
 	}
 	
 	/**
-	 * Gerar prévia de fatura de um convênio de fatura fixa.
-	 * @return Fatura prévia, encapsulados na classe FaturaVO.
+	 * Gerar prï¿½via de fatura de um convï¿½nio de fatura fixa.
+	 * @return Fatura prï¿½via, encapsulados na classe FaturaVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException 
 	 */
@@ -394,5 +394,9 @@ public class ConvenioFacade {
 	
 	public FaturaArquivoVO validarFatura(FaturaArquivoVO faturaArquivo) throws SmartEnvException, SmartAppException {
 		return this.faturaFixaRN.validar(faturaArquivo);
+	}
+	
+	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException, SmartAppException {
+		return planoConvenioRN.findHistoricoValorPlanoByPlano(vo);
 	}
 }
