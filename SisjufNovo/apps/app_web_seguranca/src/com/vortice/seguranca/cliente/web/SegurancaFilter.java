@@ -63,7 +63,7 @@ public class SegurancaFilter implements Filter {
 		if (strLinksLiberados != null && !"".equals(strLinksLiberados)){
 			String[] arrayLinksLiberados = strLinksLiberados.split(";");
 			for (String link : arrayLinksLiberados){
-				if (servletPath.indexOf(link) > 0){
+				if (servletPath.indexOf(link) >= 0){
 					linkLiberado = true;
 				}
 			}
@@ -77,12 +77,12 @@ public class SegurancaFilter implements Filter {
 				if (!ext.equals("css") && !ext.equals("gif") && !ext.equals("jpg") && !ext.equals("png") && !ext.equals(".js")){
 					if (!login.equals("login.jsf") && !login.equals("login.jsp")){
 						if (!mudarSenha.equals("mudarSenha.jsp") && !mudarSenha.equals("mudarSenha.jsf")){
-							if (servletPath.indexOf("applet") < 0){//Só filtra se o diretorio passado nao tiver applet
+							if (servletPath.indexOf("applet") < 0){//Sï¿½ filtra se o diretorio passado nao tiver applet
 								if(desenv.equals("0")){
 									UsuarioVO usuario = (UsuarioVO)sessao.getAttribute("usuario");
 									
-									if (usuario == null){//TESTO SE O USUÁRIO NÃO EXISTE NA SESSÃO
-						                LOG.debug("Usuario não existe na sessão.");
+									if (usuario == null){//TESTO SE O USUï¿½RIO Nï¿½O EXISTE NA SESSï¿½O
+						                LOG.debug("Usuario nï¿½o existe na sessï¿½o.");
 						                request.getRequestDispatcher(loginPage).forward(request, response);
 						                
 									}else{//CASO EXISTA
@@ -120,7 +120,7 @@ public class SegurancaFilter implements Filter {
 						                			proibeContiuacao(request, response);	
 						                		}
 						                	}
-						                }else{//SE A ACAO QUE VAI EXECUTAR NÃO ESTA NUMA VARIAVEL SETA O LINK COMO A AÇÃO
+						                }else{//SE A ACAO QUE VAI EXECUTAR Nï¿½O ESTA NUMA VARIAVEL SETA O LINK COMO A Aï¿½ï¿½O
 						                	acaoSeguranca = httpRequest.getServletPath();
 						                	permitiContinuar = testaFuncionalidadesLinkFuncao(collFuncionalidadesPerfil, acaoSeguranca);
 						                	if (!permitiContinuar){
@@ -135,7 +135,7 @@ public class SegurancaFilter implements Filter {
 						                
 						                if (permitiContinuar) chain.doFilter(request, response);
 									}
-								} else if (desenv.equals("2")){//O proprio filtro vai salvar o link caso o mesmo não exista na base.
+								} else if (desenv.equals("2")){//O proprio filtro vai salvar o link caso o mesmo nï¿½o exista na base.
 									LinkVO linkVO = new LinkVO(servletPath);
 									Collection collLink = null;
 									try{
@@ -228,10 +228,10 @@ public class SegurancaFilter implements Filter {
 	private void proibeContiuacao(ServletRequest request, ServletResponse response) throws ServletException, IOException{
 		StringBuffer script = new StringBuffer();
         script.append("<script> \n");
-        script.append("  alert('Você não tem permissão para executar esta função.'); \n");
+        script.append("  alert('Vocï¿½ nï¿½o tem permissï¿½o para executar esta funï¿½ï¿½o.'); \n");
         script.append("</script> ");
         request.setAttribute("msgP", script.toString());
-        LOG.debug("alert('Você não tem permissão para executar esta função.'); ");
+        LOG.debug("alert('Vocï¿½ nï¿½o tem permissï¿½o para executar esta funï¿½ï¿½o.'); ");
         request.getRequestDispatcher(indexPage).forward(request, response);
 	}
 }
