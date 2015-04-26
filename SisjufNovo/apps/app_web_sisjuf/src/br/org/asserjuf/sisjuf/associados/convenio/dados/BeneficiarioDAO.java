@@ -26,6 +26,8 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 	 */
 	public Collection<BeneficiarioVO> findByFilter(BeneficiarioVO beneficiario) throws SmartEnvException {
 		
+
+		
 		StringBuffer sql = new StringBuffer();
 	
 		sql.append(" SELECT 	C.NOM_FANTASIA, ")
@@ -64,8 +66,12 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 					sql.append(" AND	 VP.DAT_VINCULACAO <=  current_date ")
 					.append(" AND	VP.DAT_DESVINCULACAO is null ");	
 				}else{
-					sql.append(" AND	(? IS NULL OR VP.DAT_VINCULACAO >= ?) ")
-					.append(" AND	(? IS NULL OR VP.DAT_VINCULACAO < ?) ");
+					if(beneficiario.getDataInicioVinculacao() != null){
+						sql.append(" AND	(VP.DAT_VINCULACAO >= ?) ");	
+					}
+					if(beneficiario.getDataFimVinculacao() != null){
+						sql.append(" AND	(VP.DAT_VINCULACAO < ?) ");	
+					}
 				}
 
 		SmartConnection 		sConn 	= null;
@@ -75,12 +81,17 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 		
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
-			if(beneficiario.getDataInicioVinculacao() == null && beneficiario.getDataFimVinculacao() == null){
-				sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo",
-						"titular.matriculaJustica","titular.matriculaJustica"});
-			}else{
-				sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo",
-						"titular.matriculaJustica","titular.matriculaJustica","dataInicioVinculacao","dataInicioVinculacao","dataFimVinculacao","dataFiminculacao"});	
+			sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo",
+					"titular.matriculaJustica","titular.matriculaJustica"});
+			
+			int i = 10;
+			if(beneficiario.getDataInicioVinculacao() != null || beneficiario.getDataFimVinculacao() != null){
+				if(beneficiario.getDataInicioVinculacao() != null){
+					sStmt.setDate(i++,beneficiario.getDataInicioVinculacao());
+				}
+				if(beneficiario.getDataFimVinculacao() != null){
+					sStmt.setDate(i++,beneficiario.getDataFimVinculacao());
+				}
 			}
 			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
@@ -99,9 +110,15 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
 		} finally {
-			sRs.close();
-			sStmt.close();
-			sConn.close();
+			if(sRs != null){
+				sRs.close();	
+			}
+			if(sStmt != null){
+				sStmt.close();	
+			}
+			if(sConn != null){
+				sConn.close();	
+			}
 		}
 	}
 		

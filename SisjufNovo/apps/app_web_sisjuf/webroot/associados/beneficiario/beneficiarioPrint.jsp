@@ -21,18 +21,17 @@
 			<br />
 			Operador: <c:out value="${requestScope.nomeUsuario}"/>
 			<br />
-			Convênio: <c:out value="${requestScope.nomeUsuario}"/>
+			Convênio: <c:out value="${requestScope.convenio}"/>
 			<br />
-			Plano: <c:out value="${requestScope.nomeUsuario}"/>
+			Plano: <c:out value="${requestScope.plano}"/>
 			<br />
-			Nome: <c:out value="${requestScope.nomeUsuario}"/>
+			Nome: <c:out value="${requestScope.nome}"/>
 			<br />
-			Matricula: <c:out value="${requestScope.nomeUsuario}"/>
+			Matricula: <c:out value="${requestScope.matricula}"/>
 			<br />
-			Período de vinculação: <c:out value="${requestScope.nomeUsuario}"/>
+			Período de vinculação: <c:out value="${requestScope.dataInicio}"/> a <c:out value="${requestScope.dataFim}"/>
 		</span>
 	</div>
-
 	
 	<table class="tabela_impressao" cellpadding="3" cellspacing="1">
 		<thead>

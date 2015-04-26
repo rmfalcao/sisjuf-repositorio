@@ -25,15 +25,14 @@
 	}
 
 	function imprimirBeneficiario() {
-		var codigoConvenio = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:codigoConvenio").value();
-		var plano = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:plano").value();
-		var nome = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:nomeBeneficiario").value();
-		var matricula = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:matriculaBeneficiario").value();
-		var dataInicio = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:dataInicioVinculacao").value();
-		var dataFim = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:dataFimVinculacao").value();
-		
+		var codigoConvenio = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:codigoConvenio").value;
+		var plano = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:plano").value;
+		var nome = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:nomeBeneficiario").value;
+		var matricula = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:matriculaBeneficiario").value;
+		var dataInicio = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:dataInicioVinculacaoInputDate").value;
+		var dataFim = document.getElementById("beneficiaropConvenioPesquisa:beneficiarioPesquisaForm:dataFimVinculacaoInputDate").value;
 		var url			= '<c:url value="/associados/convenio/BeneficiarioImpressao?codigoConvenio='+codigoConvenio+'&plano='+plano;
-		url+='&nome='+encodeURI(nome)+'&matricula='+encodeURI(matricula)+'&dataInicio='+encodeURI(dataInicio)+'&dataFim='+encodeURI(dataFim)+'"/>';
+		url+='&nome='+encodeURI(nome)+'&matricula='+encodeURI(matricula)+'&dataInicio='+escape(dataInicio)+'&dataFim='+escape(dataFim)+'"/>';
 		var name		= 'telaImpressao';
 		var features	= 'toolbar=no,status=no,resizable=yes,scrollbars=yes,width=750,height=500';
 		window.open(url,name,features);

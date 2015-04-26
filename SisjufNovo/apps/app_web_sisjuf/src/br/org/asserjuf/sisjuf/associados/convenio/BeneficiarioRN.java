@@ -19,15 +19,19 @@ public class BeneficiarioRN {
 		if(beneficiario.getNome() == ""){
 			beneficiario.setNome(null);
 		}
-		if(beneficiario.getTitular().getNome() == ""){
-			beneficiario.getTitular().setNome(null);
+		if(beneficiario.getTitular() != null){
+			if(beneficiario.getTitular().getNome() == ""){
+				beneficiario.getTitular().setNome(null);
+			}
+			if(beneficiario.getTitular().getMatriculaJustica() != null && beneficiario.getTitular().getMatriculaJustica() == 0){
+				beneficiario.getTitular().setMatriculaJustica(null);
+			}
 		}
-		if(beneficiario.getPlano().getCodigo() == 0){
+		
+		if(beneficiario.getPlano() != null && beneficiario.getPlano().getCodigo() != null && beneficiario.getPlano().getCodigo() == 0){
 			beneficiario.getPlano().setCodigo(null);
 		}
-		if(beneficiario.getTitular().getMatriculaJustica() == 0){
-			beneficiario.getTitular().setMatriculaJustica(null);
-		}
+		
 		return beneficiarioDAO.findByFilter(beneficiario);
 		
 	}
