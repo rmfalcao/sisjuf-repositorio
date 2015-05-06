@@ -1,2 +1,11 @@
 *.class
 *.war
+SisjufNovo/apps/.metadata/
+SisjufNovo/apps/app_web_sisjuf/.settings/
+SisjufNovo/apps/RemoteSystemsTempFiles/
+SisjufNovo/apps/Servers/
+SisjufNovo/apps/app_web_sisjuf/.classpath
+SisjufNovo/apps/app_web_sisjuf/.project
+SisjufNovo/apps/app_web_sisjuf/build/.gitignore
+SisjufNovo/apps/app_web_sisjuf/webroot/META-INF/MANIFEST.MF
+SisjufNovo/lib/.project
