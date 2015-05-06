@@ -1,2 +1,32 @@
 *.class
 *.war
+SisjufNovo/apps/.metadata/.plugins/
+SisjufNovo/apps/.metadata/.lock
+SisjufNovo/apps/.metadata/.mylyn/repositories.xml.zip
+SisjufNovo/apps/.metadata/version.ini
+SisjufNovo/apps/RemoteSystemsTempFiles/.project
+SisjufNovo/apps/app_web_sisjuf/.settings/.jsdtscope
+SisjufNovo/apps/app_web_sisjuf/.settings/org.eclipse.jdt.core.prefs
+SisjufNovo/apps/app_web_sisjuf/.settings/org.eclipse.wst.common.component
+SisjufNovo/apps/app_web_sisjuf/.settings/org.eclipse.wst.common.project.facet.core.xml
+SisjufNovo/apps/app_web_sisjuf/.settings/org.eclipse.wst.jsdt.ui.superType.container
+SisjufNovo/apps/app_web_sisjuf/.settings/org.eclipse.wst.jsdt.ui.superType.name
+SisjufNovo/apps/app_web_sisjuf/build/.gitignore
+SisjufNovo/apps/app_web_sisjuf/.project
+SisjufNovo/apps/Servers/.project
+SisjufNovo/apps/Servers/.settings/org.eclipse.wst.server.core.prefs
+SisjufNovo/apps/Servers/Tomcat v6.0 Server at localhost-config/catalina.policy
+SisjufNovo/apps/Servers/Tomcat v6.0 Server at localhost-config/catalina.properties
+SisjufNovo/apps/Servers/Tomcat v6.0 Server at localhost-config/context.xml
+SisjufNovo/apps/Servers/Tomcat v6.0 Server at localhost-config/server.xml
+SisjufNovo/apps/Servers/Tomcat v6.0 Server at localhost-config/tomcat-users.xml
+SisjufNovo/apps/Servers/Tomcat v6.0 Server at localhost-config/web.xml
+SisjufNovo/apps/Servers/Tomcat v6.0.43-config/catalina.policy
+SisjufNovo/apps/Servers/Tomcat v6.0.43-config/catalina.properties
+SisjufNovo/apps/Servers/Tomcat v6.0.43-config/context.xml
+SisjufNovo/apps/Servers/Tomcat v6.0.43-config/server.xml
+SisjufNovo/apps/Servers/Tomcat v6.0.43-config/tomcat-users.xml
+SisjufNovo/apps/Servers/Tomcat v6.0.43-config/web.xml
+SisjufNovo/apps/app_web_sisjuf/.classpath
+SisjufNovo/apps/app_web_sisjuf/webroot/META-INF/MANIFEST.MF
+SisjufNovo/lib/.project
