@@ -6,13 +6,14 @@ import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.PessoaVO;
 
 /**
- * Classe que encapsula as informações de um vinculado
+ * Classe que encapsula as informaï¿½ï¿½es de um vinculado
  * @author Paulo
  *
  */
 public class VinculadoPlanoAssembler extends PessoaVO {
 
 	private AssociadoVO associado;
+	private AssociadoVO associadoDependente;
 	private ConvenioVO convenio;
 	private PlanoConvenioVO plano;
 	private ParentescoVO parentesco;
@@ -54,6 +55,12 @@ public class VinculadoPlanoAssembler extends PessoaVO {
 	}
 	public void setAssociado(AssociadoVO associado) {
 		this.associado = associado;
+	}
+	public AssociadoVO getAssociadoDependente() {
+		return associadoDependente;
+	}
+	public void setAssociadoDependente(AssociadoVO associadoDependente) {
+		this.associadoDependente = associadoDependente;
 	}
 	
 	

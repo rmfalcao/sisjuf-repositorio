@@ -320,11 +320,12 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 		sql.append(" WHERE "); 
 		sql.append(" HVP.SEQ_VINCULACAO = VP.SEQ_VINCULACAO AND "); 
 		sql.append(" VP.SEQ_PLANO = PC.SEQ_PLANO AND "); 
-		sql.append(" VP.SEQ_PESSOA = P.SEQ_PESSOA AND "); 
-		sql.append(" (? IS NULL OR VP.SEQ_ASSOCIADO = ?) AND "); 
+		sql.append(" VP.SEQ_PESSOA = P.SEQ_PESSOA AND ");
+		sql.append(" PC.SEQ_CONVENIO = C.SEQ_CONVENIO AND ");
+		sql.append(" VP.SEQ_ASSOCIADO = ? AND "); 
 		sql.append(" (? IS NULL OR PC.SEQ_CONVENIO = ?) AND "); 
-		sql.append(" (? IS NULL OR PC.SEQ_PLANO = ?)  "); 
-		//sql.append("(? IS NULL OR UPPER(P.NOM_PESSOA) LIKE  '%' || UPPER(?) || '%') "); 
+		sql.append(" (? IS NULL OR PC.SEQ_PLANO = ?)  AND "); 
+		sql.append(" (? IS NULL OR P.SEQ_PESSOA = ?) "); 
 		sql.append(" order by p.nom_pessoa,c.nom_fantasia,pc.des_plano");
 
 		SmartConnection 		sConn 	= null;
@@ -336,7 +337,7 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));					
 			  
 			
-			sStmt.setParameters(vo, new String[] {"associado.codigo","associado.codigo","plano.convenio.codigo","plano.convenio.codigo","plano.codigo","plano.codigo"});
+			sStmt.setParameters(vo, new String[] {"associado.codigo","plano.convenio.codigo","plano.convenio.codigo","plano.codigo","plano.codigo"});
 			
 			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			

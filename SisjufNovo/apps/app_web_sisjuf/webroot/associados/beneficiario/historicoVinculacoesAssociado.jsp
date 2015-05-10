@@ -40,9 +40,17 @@
 				</thead>
 				<tbody>
 					<tr>
+						<th><h:outputLabel for="associadoCodigoHistoricoVinculacao" value="#{properties['lb_beneficiario']}" />:</th>
+						<td>
+							<h:selectOneMenu id="associadoCodigoHistoricoVinculacao" value="#{AssociadoBean.historicoVinculacaoFiltro.associado.codigo}" readonly="true">
+								<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
+								<f:selectItems id="sel_pessoas" value="#{AssociadoBean.pessoasVinculadas}"/>
+							</h:selectOneMenu>
+					</tr>
+					<tr>
 						<th><h:outputLabel for="pessoaCodigoHistoricoVinculacao" value="#{properties['lb_beneficiario']}" />:</th>
 						<td>
-							<h:selectOneMenu id="pessoaCodigoHistoricoVinculacao" value="#{AssociadoBean.historicoVinculacaoFiltro.associado.codigo}" >
+							<h:selectOneMenu id="pessoaCodigoHistoricoVinculacao" value="#{AssociadoBean.historicoVinculacaoFiltro.associadoDependente.codigo}" >
 								<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 								<f:selectItems id="sel_pessoas" value="#{AssociadoBean.pessoasVinculadas}"/>
 							</h:selectOneMenu>
