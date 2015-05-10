@@ -17,9 +17,8 @@ import br.org.asserjuf.sisjuf.associados.ParentescoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
-import br.org.asserjuf.sisjuf.associados.convenio.VinculadoPlanoAssembler;
-import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
+import br.org.asserjuf.sisjuf.associados.convenio.VinculadoPlanoAssembler;
 import br.org.asserjuf.sisjuf.associados.facade.AssociadoFacade;
 
 public class AssociadoDelegate  {
@@ -135,5 +134,9 @@ public class AssociadoDelegate  {
 
 	public void updateVinculacao(VinculacaoPlanoVO vinculacao) throws SmartEnvException, SmartAppException  {
 		associadoBean.updateVinculacaoPlano(vinculacao);		
+	}
+	
+	public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(VinculadoPlanoAssembler vo) throws SmartEnvException, SmartAppException {
+		return associadoBean.findHistoricoVinculadosPlanoByFilter(vo);
 	}
 }

@@ -21,8 +21,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	
 	
 	/**
-	 * Insere uma vinculação de um beneficiario a um plano no banco de dados. Tabelas: VINCULACAO_PLANO
-	 * @param vo Instância da classe AtividadeConvenioVO com os valores do registro a ser inserido.
+	 * Insere uma vinculaï¿½ï¿½o de um beneficiario a um plano no banco de dados. Tabelas: VINCULACAO_PLANO
+	 * @param vo Instï¿½ncia da classe AtividadeConvenioVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public VinculacaoPlanoVO insert(VinculacaoPlanoVO vo) throws SmartEnvException {
@@ -57,8 +57,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	
 	
 	/**
-	 * Atualiza os dados de uma vinculação no banco de dados. Tabelas: VINCULACAO_PLANO
-	 * @param vo Instância da classe VinculacaoPlanoVO com os novos valores do registro a ser atualizado.
+	 * Atualiza os dados de uma vinculaï¿½ï¿½o no banco de dados. Tabelas: VINCULACAO_PLANO
+	 * @param vo Instï¿½ncia da classe VinculacaoPlanoVO com os novos valores do registro a ser atualizado.
 	 * @throws SmartEnvException
 	 */
 	public void update(VinculacaoPlanoVO vo) throws SmartEnvException {
@@ -88,9 +88,9 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	}	
 	
 	/**
-	 * Obtém uma Vinculacao (encapsulado no objeto VinculacaoPlanoVO) cadastrada no banco de dados. Tabelas: VINCULACAO_PLANO
-	 * @param vo Instância da classe VinculacaoPlanoVO contendo a propriedade codigo preenchida.
-	 * @return Retorna uma instância da classe VinculacaoPlanoVO com as propriedades preenchidas.
+	 * Obtï¿½m uma Vinculacao (encapsulado no objeto VinculacaoPlanoVO) cadastrada no banco de dados. Tabelas: VINCULACAO_PLANO
+	 * @param vo Instï¿½ncia da classe VinculacaoPlanoVO contendo a propriedade codigo preenchida.
+	 * @return Retorna uma instï¿½ncia da classe VinculacaoPlanoVO com as propriedades preenchidas.
 	 * @throws SmartEnvException
 	 */
 	public VinculacaoPlanoVO findByPrimaryKey(VinculacaoPlanoVO vo) throws SmartEnvException {
@@ -139,9 +139,9 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	}	
 	
 	/**
-	 * Obtém uma coleção de vinculados (encapsulado no objeto VinculadoPlanoAssembler) cadastrada no banco de dados. Tabelas: CONVENIO , PLANO_CONVENIO , VINCULACAO_PLANO  , PESSOA , DEPENDENTE , ASSOCIADO , PARENTESCO , FILHO
-	 * @param vo Instância da classe VinculacaoPlanoVO contendo a propriedade de filtro preenchida.
-	 * @return Retorna uma coleção de instâncias da classe BeneficiarioAssembler com propriedades preenchidas.
+	 * Obtï¿½m uma coleï¿½ï¿½o de vinculados (encapsulado no objeto VinculadoPlanoAssembler) cadastrada no banco de dados. Tabelas: CONVENIO , PLANO_CONVENIO , VINCULACAO_PLANO  , PESSOA , DEPENDENTE , ASSOCIADO , PARENTESCO , FILHO
+	 * @param vo Instï¿½ncia da classe VinculacaoPlanoVO contendo a propriedade de filtro preenchida.
+	 * @return Retorna uma coleï¿½ï¿½o de instï¿½ncias da classe BeneficiarioAssembler com propriedades preenchidas.
 	 * @throws SmartEnvException
 	 */
 	public Collection<VinculacaoPlanoVO> findVinculadosPlanoByAssociado(VinculacaoPlanoVO vo) throws SmartEnvException {
@@ -276,8 +276,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	}	
 	
 	/**
-	 * Insere um registro no histórico de vinculação de um beneficiario a um plano no banco de dados. Tabelas: VINCULACAO_PLANO
-	 * @param vo Instância da classe VinculacaoPlanoVO com os valores do registro a ser inserido.
+	 * Insere um registro no histï¿½rico de vinculaï¿½ï¿½o de um beneficiario a um plano no banco de dados. Tabelas: VINCULACAO_PLANO
+	 * @param vo Instï¿½ncia da classe VinculacaoPlanoVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public VinculacaoPlanoVO insertHistorico(VinculacaoPlanoVO vo) throws SmartEnvException {
@@ -315,16 +315,17 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 		
 		StringBuffer sql = new StringBuffer();
 
-		sql.append("SELECT * FROM "); 
-		sql.append("HIST_VINCULACAO_PLANO HVP, VINCULACAO_PLANO VP, PESSOA P, PLANO_CONVENIO PC "); 
-		sql.append("WHERE "); 
-		sql.append("HVP.SEQ_VINCULACAO = VP.SEQ_VINCULACAO AND "); 
-		sql.append("VP.SEQ_PLANO = PC.SEQ_PLANO AND "); 
-		sql.append("VP.SEQ_PESSOA = P.SEQ_PESSOA AND "); 
-		sql.append("(? IS NULL OR VP.SEQ_ASSOCIADO = ?) AND "); 
-		sql.append("(? IS NULL OR PC.SEQ_CONVENIO = ?) AND "); 
-		sql.append("(? IS NULL OR PC.SEQ_PLANO = ?) AND "); 
-		sql.append("(? IS NULL OR UPPER(P.NOM_PESSOA) LIKE  '%' || UPPER(?) || '%') ");  
+		sql.append("SELECT HVP.dat_vinculacao,HVP.dat_desvinculacao,p.nom_pessoa, PC.des_plano,C.NOM_FANTASIA  "); 
+		sql.append(" FROM HIST_VINCULACAO_PLANO HVP, VINCULACAO_PLANO VP, PESSOA P, PLANO_CONVENIO PC,CONVENIO C "); 
+		sql.append(" WHERE "); 
+		sql.append(" HVP.SEQ_VINCULACAO = VP.SEQ_VINCULACAO AND "); 
+		sql.append(" VP.SEQ_PLANO = PC.SEQ_PLANO AND "); 
+		sql.append(" VP.SEQ_PESSOA = P.SEQ_PESSOA AND "); 
+		sql.append(" (? IS NULL OR VP.SEQ_ASSOCIADO = ?) AND "); 
+		sql.append(" (? IS NULL OR PC.SEQ_CONVENIO = ?) AND "); 
+		sql.append(" (? IS NULL OR PC.SEQ_PLANO = ?)  "); 
+		//sql.append("(? IS NULL OR UPPER(P.NOM_PESSOA) LIKE  '%' || UPPER(?) || '%') "); 
+		sql.append(" order by p.nom_pessoa,c.nom_fantasia,pc.des_plano");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -334,11 +335,13 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));					
 			  
-			sStmt.setParameters(vo, new String[] {""});
+			
+			sStmt.setParameters(vo, new String[] {"associado.codigo","associado.codigo","plano.convenio.codigo","plano.convenio.codigo","plano.codigo","plano.codigo"});
 			
 			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
-			return (Collection<VinculadoPlanoAssembler>) sRs.getJavaBeans(VinculadoPlanoAssembler.class, new String[]{});
+			return (Collection<VinculadoPlanoAssembler>) sRs.getJavaBeans(VinculadoPlanoAssembler.class, new String[]{"dataVinculacao","dataDesVinculacao","associado.nome",
+				"convenio.nomeFantasia","plano.descricao"});
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
 		} finally {
@@ -346,10 +349,11 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 			sStmt.close();
 			sConn.close();
 		}
-	}		
+	}	
+
 
 	/**
-	 * Recupera o registro de historico mais novo poara uma determinada vinculação.
+	 * Recupera o registro de historico mais novo poara uma determinada vinculaï¿½ï¿½o.
 	 * @param vo
 	 * @return
 	 * @throws SmartEnvException
