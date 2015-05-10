@@ -43,7 +43,7 @@
 	<h:form id="vinculaAssociadoForm">
 		<t:div  id="vinculaAssociadoFormMiolo">
 			<h1>Modulo Associado</h1>
-			<h2>Vincula Associado</h2>
+			<h2>Vinculação Associado</h2>
 			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
 				<thead>
 					<tr>
