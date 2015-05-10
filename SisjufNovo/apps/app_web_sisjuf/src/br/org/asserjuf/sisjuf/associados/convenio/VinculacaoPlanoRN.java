@@ -7,7 +7,7 @@ import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.VinculacaoPlanoDAO;
 
 /**
- * Classe que encapsula os métodos de acesso a Banco da entidade que guarda a vinculação da pessoa com o plano
+ * Classe que encapsula os mï¿½todos de acesso a Banco da entidade que guarda a vinculaï¿½ï¿½o da pessoa com o plano
  * @author Paulo
  *
  */
@@ -26,9 +26,9 @@ public class VinculacaoPlanoRN {
 	}
 	
 	/**
-	 * Obtém os vinculados atraves de critérios de filtro.
-	 * @param vo VinculacaoPlanoVO com critérios de filtro preenchidos.
-	 * @return Coleção de beneficiarios, encapsulados na classe VinculadoPlanoAssembler.
+	 * Obtï¿½m os vinculados atraves de critï¿½rios de filtro.
+	 * @param vo VinculacaoPlanoVO com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de beneficiarios, encapsulados na classe VinculadoPlanoAssembler.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -38,7 +38,7 @@ public class VinculacaoPlanoRN {
 	
 	
 	/**
-	 * Insere uma Vinculação ao Plano de uma pessoa.
+	 * Insere uma Vinculaï¿½ï¿½o ao Plano de uma pessoa.
 	 * @param vo VinculacaoPlanoVO que se deseja inserir.
 	 * @return VinculacaoPlanoVO que foi inserido.
 	 * @throws SmartEnvException
@@ -64,13 +64,12 @@ public class VinculacaoPlanoRN {
 	}	
 	
 	/**
-	 * atualiza uma vinculação.
+	 * atualiza uma vinculaï¿½ï¿½o.
 	 * @param vo VinculacaoPlanoVO que se deseja atualizar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
 	public void update(VinculacaoPlanoVO vo) throws SmartEnvException, SmartAppException {
-		try{	
 		validateFields(vo);		
 
 		vinculacaoPlanoDAO.update(vo);
@@ -81,13 +80,10 @@ public class VinculacaoPlanoRN {
 		
 		vinculacaoPlanoDAO.updateHistorico(histVO);
 		
-		}catch(Exception e){
-			e.printStackTrace();
-		}
 	}		
 	
 	/**
-	 * Verifica se os campos obrigatórios de "vinculação" estão preenchidos.
+	 * Verifica se os campos obrigatï¿½rios de "vinculaï¿½ï¿½o" estï¿½o preenchidos.
 	 * @param vo VinculacaoPlanoVO cujos dados se deseja verificar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -105,14 +101,14 @@ public class VinculacaoPlanoRN {
 		}
 		
 		if (vo.getDataVinculacao() == null) {
-			throw new SmartAppException("A data de vinculação deve ser preenchido.");
+			throw new SmartAppException("A data de vinculaÃ§Ã£o deve ser preenchido.");
 		}		
 	}
 	
 	/**
-	 * Obtém os historicos de vinculação atraves de critérios de filtro.
-	 * @param vo VinculadoPlanoAssembler com critérios de filtro preenchidos.
-	 * @return Coleção de historicoVinculados, encapsulados na classe VinculadoPlanoAssembler.
+	 * Obtï¿½m os historicos de vinculaï¿½ï¿½o atraves de critï¿½rios de filtro.
+	 * @param vo VinculadoPlanoAssembler com critï¿½rios de filtro preenchidos.
+	 * @return Coleï¿½ï¿½o de historicoVinculados, encapsulados na classe VinculadoPlanoAssembler.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -121,7 +117,7 @@ public class VinculacaoPlanoRN {
 	}	
 	
 	/**
-	 * Retorna o objeto vinculação filtrando pela chave primaria (codigo) 
+	 * Retorna o objeto vinculaï¿½ï¿½o filtrando pela chave primaria (codigo) 
 	 * @param vo
 	 * @return obj plano convenio
 	 * @throws SmartEnvException
