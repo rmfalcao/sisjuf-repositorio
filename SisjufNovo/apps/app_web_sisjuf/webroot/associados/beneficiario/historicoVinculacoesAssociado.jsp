@@ -6,16 +6,17 @@
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich"%>
 <%@ taglib prefix="a4j" uri="http://richfaces.org/a4j"%>
 
-<f:subview id="hitoricoVinculacoes">
+<f:subview id="historicoVinculacoes">
 	<f:loadBundle basename="sisjuf" var="properties" />
 	<script type="text/javascript">
 	
 		function imprimirVinculacoes() {
+			var associado = document.getElementById("historicoVinculacoes:historicoVinculacoesForm:associadoCodigoHistoricoVinculacao").value;
 			var pessoa = document.getElementById("historicoVinculacoes:historicoVinculacoesForm:pessoaCodigoHistoricoVinculacao").value;
 			var convenio = document.getElementById("historicoVinculacoes:historicoVinculacoesForm:convenioCodigoHistoricoVinculacao").value;
 			var plano = document.getElementById("historicoVinculacoes:historicoVinculacoesForm:planoCodigoHistoricoVinculacao").value;
-			var url			= '<c:url value="/associados/convenio/BeneficiarioImpressao?codigoConvenio='+codigoConvenio+'&plano='+plano;
-			url+='&nome='+encodeURI(nome)+'&matricula='+encodeURI(matricula)+'&dataInicio='+escape(dataInicio)+'&dataFim='+escape(dataFim)+'"/>';
+			var url			= '<c:url value="/associados/HistoricoVinculacoesImpressao?associado='+encodeURI(associado);
+			url+='&pessoa='+encodeURI(pessoa)+'&convenio='+escape(convenio)+'&plano='+escape(plano)+'"/>';
 			var name		= 'telaImpressao';
 			var features	= 'toolbar=no,status=no,resizable=yes,scrollbars=yes,width=750,height=500';
 			window.open(url,name,features);
@@ -40,20 +41,20 @@
 				</thead>
 				<tbody>
 					<tr>
-						<th><h:outputLabel for="associadoCodigoHistoricoVinculacao" value="#{properties['lb_beneficiario']}" />:</th>
+						<th><h:outputLabel value="#{properties['lb_nomeAssociado']}" />:</th>
 						<td>
-							<h:selectOneMenu id="associadoCodigoHistoricoVinculacao" value="#{AssociadoBean.historicoVinculacaoFiltro.associado.codigo}" readonly="true">
-								<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-								<f:selectItems id="sel_pessoas" value="#{AssociadoBean.pessoasVinculadas}"/>
-							</h:selectOneMenu>
+							<h:outputText value="#{AssociadoBean.associado.nome}" />
+							<h:inputHidden id="associadoCodigoHistoricoVinculacao" value="#{AssociadoBean.associado.codigo}"/>
+						</td>							
 					</tr>
 					<tr>
 						<th><h:outputLabel for="pessoaCodigoHistoricoVinculacao" value="#{properties['lb_beneficiario']}" />:</th>
 						<td>
 							<h:selectOneMenu id="pessoaCodigoHistoricoVinculacao" value="#{AssociadoBean.historicoVinculacaoFiltro.associadoDependente.codigo}" >
 								<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-								<f:selectItems id="sel_pessoas" value="#{AssociadoBean.pessoasVinculadas}"/>
+								<f:selectItems value="#{AssociadoBean.pessoasVinculadas}"/>
 							</h:selectOneMenu>
+						</td>
 					</tr>
 					<tr>
 						<th><h:outputLabel for="convenioCodigoHistoricoVinculacao" value="#{properties['lb_convenio']}" />:</th>

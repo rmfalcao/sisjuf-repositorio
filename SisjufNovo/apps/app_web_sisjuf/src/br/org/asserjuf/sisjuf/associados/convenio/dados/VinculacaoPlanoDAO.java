@@ -337,7 +337,7 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));					
 			  
 			
-			sStmt.setParameters(vo, new String[] {"associado.codigo","plano.convenio.codigo","plano.convenio.codigo","plano.codigo","plano.codigo"});
+			sStmt.setParameters(vo, new String[] {"associado.codigo","plano.convenio.codigo","plano.convenio.codigo","plano.codigo","plano.codigo","associadoDependente.codigo","associadoDependente.codigo"});
 			
 			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
