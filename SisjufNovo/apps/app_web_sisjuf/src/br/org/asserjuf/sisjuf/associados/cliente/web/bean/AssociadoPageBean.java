@@ -215,7 +215,8 @@ public class AssociadoPageBean  extends BasePageBean{
 			 
 			 historicoVinculacoes = new ArrayList<VinculadoPlanoAssembler>();
 			 historicoVinculacaoFiltro = new VinculadoPlanoAssembler();
-			 historicoVinculacaoFiltro.setAssociado(new AssociadoVO());
+			 historicoVinculacaoFiltro.setAssociado(associado);
+			 historicoVinculacaoFiltro.setAssociadoDependente(new AssociadoVO());
 			 historicoVinculacaoFiltro.setConvenio(new ConvenioVO());
 			 historicoVinculacaoFiltro.setPlano(new PlanoConvenioVO());
 			 historicoVinculacaoFiltro.getPlano().setConvenio(new ConvenioVO());
@@ -650,6 +651,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public String consultarHistoricoVinculacoes(){
 		try {
+			historicoVinculacaoFiltro.setAssociado(associado);
 			historicoVinculacoes = delegate.findHistoricoVinculadosPlanoByFilter(historicoVinculacaoFiltro);
 			LOG.debug("historicoVinculacaoFiltro " + historicoVinculacaoFiltro);
 			return getSucesso();
