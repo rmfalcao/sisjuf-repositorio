@@ -65,6 +65,7 @@ public class ConvenioPageBean extends BasePageBean {
 	
 	private BeneficiarioVO beneficiario;
 	private Collection planos;
+	private Boolean isValorPlanoModificado;
 	
 
 	public ConvenioPageBean(){
@@ -91,6 +92,7 @@ public class ConvenioPageBean extends BasePageBean {
 			beneficiario.setPlano(new PlanoConvenioVO());
 			
 			planosConvenioHistorico = new ArrayList<PlanoConvenioVO>();
+			isValorPlanoModificado = false;
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}
@@ -207,6 +209,7 @@ public class ConvenioPageBean extends BasePageBean {
 	public String carregarPlano(){
 		try {
 			this.planoConvenio = delegate.findPlanoConvenioByPrimaryKey(this.planoConvenio);
+			isValorPlanoModificado = false;
 			return getSucesso();
 		}catch(SmartAppException appEx){
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
@@ -928,5 +931,13 @@ public class ConvenioPageBean extends BasePageBean {
 	public void setPlanosConvenioHistorico(
 			Collection<PlanoConvenioVO> planosConvenioHistorico) {
 		this.planosConvenioHistorico = planosConvenioHistorico;
+	}
+
+	public Boolean getIsValorPlanoModificado() {
+		return isValorPlanoModificado;
+	}
+
+	public void setIsValorPlanoModificado(Boolean isValorPlanoModificado) {
+		this.isValorPlanoModificado = isValorPlanoModificado;
 	}
 }

@@ -10,6 +10,12 @@
 <script type="text/javascript">
 
 	function closePlanoModal(){
+		if(!functionIsValorPlanoModificado()){
+			Richfaces.hideModalPanel('panelPlanoConvenio');
+		}
+	}
+	
+	function closeModal(){
 		Richfaces.hideModalPanel('panelPlanoConvenio');
 	}
 
@@ -27,6 +33,20 @@
 		}
 		return true;
 	}
+	
+	function setMudouValorPlano(){
+		document.getElementById('isValorPlanoModificado').value = true;
+	}
+	
+	function functionIsValorPlanoModificado(){
+		var isValorPlanoModificadoTemp = document.getElementById('isValorPlanoModificado').value;
+		if(isValorPlanoModificadoTemp == "true"){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 </script>
 
 <rich:modalPanel id="panelPlanoConvenio" width="620" height="410">
@@ -68,7 +88,8 @@
 					<tr>
 						<th><h:outputLabel for="valor" value="#{properties['lb_valor']}" />:</th>
 						<td>
-							<t:inputText id="valor" value="#{ConvenioBean.planoConvenio.valor}" size="15" converter="DoubleConverter" maxlength="15"  
+							<t:inputText id="valor" value="#{ConvenioBean.planoConvenio.valor}" size="15" converter="DoubleConverter" maxlength="15" 
+							    onkeydown="setMudouValorPlano()" 
 								onkeyup="formatarCampoNumero(this)"/>
 						</td> 
 					</tr>
@@ -89,7 +110,9 @@
 				</tbody>
 			</table>
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" onclick="#{rich:component('confirmation')}.show();return false"
+			<t:inputHidden id="isValorPlanoModificado" forceId="true" value="#{ConvenioBean.isValorPlanoModificado}" />
+			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" 
+			    onclick="if(functionIsValorPlanoModificado()){ #{rich:component('confirmation')}.show(); return false;}"
 				oncomplete="closePlanoModal();" />
 		</t:div>
 		<h:inputHidden id="CConvenio" value="#{ConvenioBean.planoConvenio.convenio.codigo}"/>
@@ -98,10 +121,10 @@
 		   <f:facet name="header">Confirmação</f:facet>
 		   <h:panelGrid>
 		      <h:panelGrid columns="1">
-			 	<h:outputText value="Deseja confirmar a ação?" style="FONT-SIZE: large;" />
+			 	<h:outputText value="Tem certeza que deseja alterar o valor do plano?" style="FONT-SIZE: large;" />
 		      </h:panelGrid>
 		      <h:panelGroup>
-		      		<a4j:commandButton  value="Salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" oncomplete="#{rich:component('confirmation')}.hide();closePlanoModal();" />
+		      		<a4j:commandButton  value="Salvar" action="#{ConvenioBean.salvarPlano}"  reRender="div_planos" oncomplete="#{rich:component('confirmation')}.hide();closeModal();" />
 		            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation')}.hide();return false" />
 			  </h:panelGroup>
 		   </h:panelGrid>
