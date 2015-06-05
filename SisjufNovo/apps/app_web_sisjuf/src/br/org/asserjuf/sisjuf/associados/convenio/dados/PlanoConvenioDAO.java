@@ -346,6 +346,7 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 		SQL.append("  FROM     PLANO_CONVENIO PC    , ");
 		SQL.append("           CONVENIO C             ");
 		SQL.append("  WHERE    PC.SEQ_CONVENIO = C.SEQ_CONVENIO AND 							");
+		SQL.append(" ( ? IS NULL OR PC.SEQ_PLANO = ?) AND ");	
 		SQL.append(" ( ? IS NULL OR UPPER(PC.NOM_PLANO) LIKE  '%' || UPPER(?) || '%') AND		");
 		SQL.append(" ( ? IS NULL OR PC.FLG_DEDUTIVEL = ?) AND 									");
 		SQL.append(" ( ? IS NULL OR UPPER(PC.DES_PLANO)  LIKE  '%' || UPPER(?) || '%') AND 		");
@@ -362,6 +363,8 @@ public class PlanoConvenioDAO extends SisjufDAOPostgres{
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(SQL.toString()));
 								 
 			sStmt.setParameters(vo, new String[] {
+					"codigo", 
+					"codigo",
 					"nome", 
 					"nome",
 					"dedutivel", 

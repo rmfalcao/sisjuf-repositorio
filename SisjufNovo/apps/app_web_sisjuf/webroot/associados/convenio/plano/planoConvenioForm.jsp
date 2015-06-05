@@ -47,6 +47,13 @@
 		}
 	}
 	
+	function openPlanoModalHistorico(){
+		Richfaces.showModalPanel('panelPlanoConvenioHistorico');
+	}
+	function closePlanoModalHistorico(){
+		Richfaces.hideModalPanel('panelPlanoConvenioHistorico');
+	}
+	
 </script>
 
 <rich:modalPanel id="panelPlanoConvenio" width="620" height="410">
@@ -61,6 +68,10 @@
 	</f:facet>
 	
 	<h:form id="planoConvenioForm">
+		
+		<t:saveState value="#{ConvenioBean.planoConvenio}" />
+	
+	
 		<t:div  id="planoConvenioFormMiolo">
 			<h1>Modulo Convênio</h1>
 			<h2>Plano - Cadastro</h2>
@@ -75,7 +86,7 @@
 					<tr>
 						<th><h:outputLabel for="nome" value="#{properties['lb_nome']}" />:</th>
 						<td><t:inputText id="nome" value="#{ConvenioBean.planoConvenio.nome}" size="30" maxlength="30"/>
-							<h:inputHidden id="CodConvenio" value="#{ConvenioBean.planoConvenio.codigo}"/></td> 
+							<t:inputHidden id="CodConvenio" value="#{ConvenioBean.planoConvenio.codigo}"/></td> 
 					</tr>
 					<tr>
 						<th><h:outputLabel for="flagDedutivel" value="#{properties['lb_dedutivel']}" />:</th>
@@ -91,6 +102,10 @@
 							<t:inputText id="valor" value="#{ConvenioBean.planoConvenio.valor}" size="15" converter="DoubleConverter" maxlength="15" 
 							    onkeydown="setMudouValorPlano()" 
 								onkeyup="formatarCampoNumero(this)"/>
+							&nbsp;
+							<a4j:commandLink action="#{ConvenioBean.carregarHistoricoValoresPlano}" style="border: 0px;" value="Consultar Histórico" 
+							 oncomplete="openPlanoModalHistorico();" reRender="planoConvenioFormMiolo,">
+					    	</a4j:commandLink>
 						</td> 
 					</tr>
 					<tr>
@@ -116,7 +131,7 @@
 				oncomplete="closePlanoModal();" />
 		</t:div>
 		<h:inputHidden id="CConvenio" value="#{ConvenioBean.planoConvenio.convenio.codigo}"/>
-	
+		
 		<rich:modalPanel id="confirmation" width="250" height="150">
 		   <f:facet name="header">Confirmação</f:facet>
 		   <h:panelGrid>
@@ -129,5 +144,75 @@
 			  </h:panelGroup>
 		   </h:panelGrid>
 		</rich:modalPanel>
+		
+		<rich:modalPanel id="panelPlanoConvenioHistorico" width="620" height="410">
+
+		<f:facet name="header">
+			<h:panelGroup><h:outputText value="Plano - Cadastro"></h:outputText></h:panelGroup>
+		</f:facet>
+		
+		<f:facet name="controls">
+			<h:graphicImage value="/nucleo/images/close.png" style="cursor:pointer" id="hidePlanoModalHistorico" 
+				onclick="Richfaces.hideModalPanel('panelPlanoConvenioHistorico')"/>
+		</f:facet>
+		
+			<t:div  id="planoConvenioFormMioloHistorico">
+				<t:inputHidden id="codigoPlano" value="#{ConvenioBean.planoConvenio.codigo}" />
+				<h1>Modulo Convênio</h1>
+				<h2>Plano - Histórico Valores</h2>
+				<table class="tab_cadastro" cellpadding="2" cellspacing="1">
+					<thead>
+						<tr>
+							<th></th>
+							<th colspan="3"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Convênio:</th>
+							<td colspan="3">
+								<h:outputText  value="#{ConvenioBean.convenio.nomeFantasia}" />
+							</td>
+						</tr>
+						<tr>
+							<th>Plano:</th>
+							<td colspan="3">
+								<h:outputText  value="#{ConvenioBean.planoConvenio.nome}" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</t:div>
+			
+			
+			<t:dataTable id="planosHistorico" var="planos" value="#{ConvenioBean.planosConvenioHistorico}"
+					cellspacing="1" cellpadding="2" width="100%" styleClass="tab_lista"
+					preserveDataModel="true" rowId="#{planos.codigo}">
+		
+					<f:facet name="footer">
+						<h:commandLink value="javascript:void(0);" onclick="imprimirValoresHistoricos();" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}">
+						</h:commandLink>
+					</f:facet>
+		
+					<t:column width="10%">
+						<f:facet name="header">
+							<h:outputText value="#{properties['lb_valor']}" />
+						</f:facet>
+						<h:outputText value="#{planos.valor}" converter="DoubleConverter" />
+					</t:column>
+					
+					<t:column width="10%">
+						<f:facet name="header">
+							<h:outputText value="Data Início Vigência" />
+						</f:facet>
+						<h:outputText value="#{planos.dataInicio}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</t:column>
+					
+			    
+				</t:dataTable>
+			</rich:modalPanel>
+			
 	</h:form>
 </rich:modalPanel>
