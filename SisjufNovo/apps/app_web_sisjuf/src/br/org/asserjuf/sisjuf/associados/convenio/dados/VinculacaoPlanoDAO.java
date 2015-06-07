@@ -28,8 +28,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	public VinculacaoPlanoVO insert(VinculacaoPlanoVO vo) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO VINCULACAO_PLANO ( SEQ_VINCULACAO, SEQ_PESSOA, SEQ_ASSOCIADO, SEQ_PLANO, DAT_VINCULACAO, DAT_DESVINCULACAO) "); 
-		sql.append("VALUES(?,?,?,?,?,?)");
+		sql.append("INSERT INTO VINCULACAO_PLANO ( SEQ_VINCULACAO, SEQ_PESSOA, SEQ_ASSOCIADO, SEQ_PLANO, DAT_VINCULACAO, DAT_DESVINCULACAO,CODIGO_BENEFICIARIO_PLANO) "); 
+		sql.append("VALUES(?,?,?,?,?,?,?)");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -41,7 +41,7 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 			
 			vo.setCodigo(new Integer(getSequence("SEQ_VINCULACAO").intValue()));
 						
-			sStmt.setParameters(vo, new String[]{"codigo", "pessoa.codigo","associado.codigo","plano.codigo","dataVinculacao","dataDesVinculacao"});
+			sStmt.setParameters(vo, new String[]{"codigo", "pessoa.codigo","associado.codigo","plano.codigo","dataVinculacao","dataDesVinculacao","codigoBeneficiarioPlano"});
 						
 			sStmt.getMyPreparedStatement().execute();
 			
@@ -63,7 +63,7 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 	 */
 	public void update(VinculacaoPlanoVO vo) throws SmartEnvException {
 		
-		StringBuffer sql = new StringBuffer("UPDATE VINCULACAO_PLANO SET DAT_DESVINCULACAO = ?, DAT_VINCULACAO = ? WHERE SEQ_VINCULACAO = ?");
+		StringBuffer sql = new StringBuffer("UPDATE VINCULACAO_PLANO SET DAT_DESVINCULACAO = ?, DAT_VINCULACAO = ?,CODIGO_BENEFICIARIO_PLANO = ? WHERE SEQ_VINCULACAO = ?");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -73,7 +73,7 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 			
-			sStmt.setParameters(vo, new String[]{ "dataDesVinculacao", "dataVinculacao", "codigo"});			
+			sStmt.setParameters(vo, new String[]{ "dataDesVinculacao", "dataVinculacao","codigoBeneficiarioPlano", "codigo"});			
 						
 			sStmt.getMyPreparedStatement().execute();
 			
@@ -107,7 +107,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 		sql.append("PL.NOM_PLANO, "); 
 		sql.append("VP.DAT_VINCULACAO, "); 
 		sql.append("VP.DAT_DESVINCULACAO, "); 
-		sql.append("C.SEQ_CONVENIO "); 
+		sql.append("C.SEQ_CONVENIO, ");
+		sql.append("VP.CODIGO_BENEFICIARIO_PLANO ");
 		sql.append("FROM VINCULACAO_PLANO VP, PESSOA P, PESSOA PA, PLANO_CONVENIO PL, CONVENIO C "); 
 		sql.append("WHERE "); 
 		sql.append("VP.SEQ_PESSOA = P.SEQ_PESSOA AND "); 
@@ -128,7 +129,7 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 			
 			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			  
-			return (VinculacaoPlanoVO) sRs.getJavaBean(new VinculacaoPlanoVO(), new String[] {"codigo", "pessoa.codigo","pessoa.nome", "associado.codigo","associado.nome","plano.codigo", "plano.nome" , "dataVinculacao","dataDesVinculacao", "plano.convenio.codigo"});
+			return (VinculacaoPlanoVO) sRs.getJavaBean(new VinculacaoPlanoVO(), new String[] {"codigo", "pessoa.codigo","pessoa.nome", "associado.codigo","associado.nome","plano.codigo", "plano.nome" , "dataVinculacao","dataDesVinculacao","plano.convenio.codigo","codigoBeneficiarioPlano"});
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
 		} finally {
@@ -156,7 +157,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 		sql.append(" NOM_TITULAR, "); 
 		sql.append(" TIPO, "); 
 		sql.append(" NOM_PLANO, "); 
-		sql.append(" VAL_PLANO "); 
+		sql.append(" VAL_PLANO, "); 
+		sql.append(" CODIGO_BENEFICIARIO_PLANO ");
 		sql.append(" FROM "); 
 		sql.append(" ( "); 
 		sql.append(" SELECT "); 
@@ -167,7 +169,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 		sql.append(" NULL AS NOM_TITULAR, "); 
 		sql.append(" 'ASSOCIADO' AS TIPO , "); 
 		sql.append(" PC.NOM_PLANO, "); 
-		sql.append(" PC.VAL_PLANO "); 
+		sql.append(" PC.VAL_PLANO, "); 
+		sql.append(" VP.CODIGO_BENEFICIARIO_PLANO ");
 		sql.append(" FROM "); 
 		sql.append(" CONVENIO C, PLANO_CONVENIO PC, VINCULACAO_PLANO VP , PESSOA P, ASSOCIADO A "); 
 		sql.append(" WHERE "); 
@@ -186,7 +189,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 		sql.append(" PA.NOM_PESSOA AS NOM_TITULAR, "); 
 		sql.append(" 'FILHO' AS TIPO , "); 
 		sql.append(" PC.NOM_PLANO, "); 
-		sql.append(" PC.VAL_PLANO "); 
+		sql.append(" PC.VAL_PLANO, "); 
+		sql.append(" VP.CODIGO_BENEFICIARIO_PLANO "); 
 		sql.append(" FROM "); 
 		sql.append(" CONVENIO C, PLANO_CONVENIO PC, VINCULACAO_PLANO VP , PESSOA P, FILHO F, ASSOCIADO A , PESSOA PA "); 
 		sql.append(" WHERE "); 
@@ -207,7 +211,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 		sql.append(" PA.NOM_PESSOA AS NOM_TITULAR, "); 
 		sql.append(" 'DEPENDENTE : ' || PR.NOM_PARENTESCO  AS TIPO , "); 
 		sql.append(" PC.NOM_PLANO, "); 
-		sql.append(" PC.VAL_PLANO "); 
+		sql.append(" PC.VAL_PLANO, "); 
+		sql.append(" VP.CODIGO_BENEFICIARIO_PLANO "); 
 		sql.append(" FROM "); 
 		sql.append(" CONVENIO C, PLANO_CONVENIO PC, VINCULACAO_PLANO VP , PESSOA P, DEPENDENTE D, ASSOCIADO A , PESSOA PA, PARENTESCO PR "); 
 		sql.append(" WHERE "); 
@@ -229,7 +234,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 		sql.append(" P.NOM_PESSOA AS NOM_TITULAR, "); 
 		sql.append(" 'OUTRO BENEFICIAVEL'  AS TIPO , "); 
 		sql.append(" PC.NOM_PLANO, "); 
-		sql.append(" PC.VAL_PLANO "); 
+		sql.append(" PC.VAL_PLANO, "); 
+		sql.append(" VP.CODIGO_BENEFICIARIO_PLANO "); 
 		sql.append(" FROM "); 
 		sql.append(" CONVENIO C, PLANO_CONVENIO PC, VINCULACAO_PLANO VP , PESSOA P, PESSOA PO, OUTROS_BENEFICIAVEIS OB "); 
 		sql.append(" WHERE "); 
@@ -263,7 +269,8 @@ public class VinculacaoPlanoDAO extends SisjufDAOPostgres {
 				"associado.nome",
 				"parentesco.descricao",
 				"plano.nome",
-				"plano.valor"
+				"plano.valor",
+				"codigoBeneficiarioPlano"
 				});
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -435,7 +442,8 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 		sql.append("PL.SEQ_PLANO , "); 
 		sql.append("PL.nom_plano, "); 
 		sql.append("VP.DAT_VINCULACAO, "); 
-		sql.append("VP.DAT_DESVINCULACAO "); 
+		sql.append("VP.DAT_DESVINCULACAO, ");
+		sql.append(" VP.CODIGO_BENEFICIARIO_PLANO ");
 		sql.append("FROM VINCULACAO_PLANO VP, PESSOA P, PESSOA PA, PLANO_CONVENIO PL "); 
 		sql.append("WHERE "); 
 		sql.append("VP.SEQ_PESSOA = P.SEQ_PESSOA AND "); 
@@ -457,7 +465,7 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 			
 			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			  
-			return (VinculacaoPlanoVO) sRs.getJavaBean(new VinculacaoPlanoVO(), new String[] {"codigo", "pessoa.codigo","pessoa.nome", "associado.codigo","associado.nome","plano.codigo", "plano.nome" , "dataVinculacao","dataDesVinculacao"});
+			return (VinculacaoPlanoVO) sRs.getJavaBean(new VinculacaoPlanoVO(), new String[] {"codigo", "pessoa.codigo","pessoa.nome", "associado.codigo","associado.nome","plano.codigo", "plano.nome" , "dataVinculacao","dataDesVinculacao","codigoBeneficiarioPlano"});
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
 		} finally {

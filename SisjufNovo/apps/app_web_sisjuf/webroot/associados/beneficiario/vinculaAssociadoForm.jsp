@@ -92,6 +92,12 @@
 						</td>
 					</tr>
 					<tr>
+						<th><h:outputLabel for="codigoBeneficiarioPlano" value="#{properties['lb_CodigoBeneficiarioPlano']}" />:</th>
+						<td>
+							<t:inputText id="codigoBeneficiarioPlano" value="#{AssociadoBean.vinculacao.codigoBeneficiarioPlano}" maxlength="50" />
+						</td>
+					</tr>
+					<tr>
 						<th><h:outputLabel for="dataDesVinculacao" value="#{properties['lb_dataDesVinculacao']}" />:</th>
 						<td>
 							<rich:calendar id="dataDesVinculacao" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"

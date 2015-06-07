@@ -80,6 +80,13 @@
 	
 				<t:column width="67">
 					<f:facet name="header">
+						<h:outputText value="#{properties['lb_CodigoBeneficiarioPlano']}" />
+					</f:facet>
+					<h:outputText value="#{vinculacoes.codigoBeneficiarioPlano}" />
+				</t:column>
+				
+				<t:column width="67">
+					<f:facet name="header">
 						<h:outputText value="#{properties['lb_tipoVinculo']}" />
 					</f:facet>
 					<h:outputText value="#{vinculacoes.parentesco.descricao}" />
