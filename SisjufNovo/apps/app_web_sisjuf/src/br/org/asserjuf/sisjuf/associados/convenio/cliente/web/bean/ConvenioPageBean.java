@@ -727,7 +727,7 @@ public class ConvenioPageBean extends BasePageBean {
 					item.setNumero(count);
 					count++;
 				}
-				FacesMessage msgs = new FacesMessage("Fatura pr�via gerada com sucesso.");
+				FacesMessage msgs = new FacesMessage("Fatura prévia gerada com sucesso.");
 				FacesContext.getCurrentInstance().addMessage(null, msgs);		
 				return getSucesso();
 			}
@@ -818,6 +818,7 @@ public class ConvenioPageBean extends BasePageBean {
 		itemFatura.setNumero(fatura.getItens().size());
 		fatura.getItens().add(itemFatura);
 		itemFatura = new ItemFaturaVO();
+		itemFatura.setBeneficiario(new BeneficiarioVO());
 		System.out.println("fatura.getItens() "+ fatura.getItens());
 	}
 	

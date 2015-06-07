@@ -83,7 +83,7 @@
 				</tbody>
 			</table>
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.adicionarItemFatura}"  reRender="itensFatura" 
+			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.adicionarItemFatura}"  reRender="itemFaturaFormMiolo,itensFatura" 
 				oncomplete="closeItemFaturaModal();" />
 		</t:div>
 	</h:form>
