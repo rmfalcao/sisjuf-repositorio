@@ -17,6 +17,16 @@
 			<script src="<c:url value="/nucleo/js/sisjuf.js" />" type="text/javascript"></script>
 			<link href="<c:url value="/nucleo/style/sisjuf.css"/>" type="text/css" rel="stylesheet" />
 			<link rel="Shortcut Icon" type="image/png" href="<c:url value="/nucleo/images/icone.png"/>">
+			<script type="text/javascript">
+				function imprimir() {
+					var codigoFatura = document.getElementById("codigoFatura").value;
+					var url			= '<c:url value="/associados/convenio/FaturaDetalhadaImpressao?codigoFatura='+codigoFatura+'"/>';
+					var name		= 'telaImpressao';
+					var features	= 'toolbar=no,status=no,resizable=yes,scrollbars=yes,width=750,height=500';
+					window.open(url,name,features);
+					return true;
+				}
+			</script>
 		</head>
 		<body>
 			<div id="geral">
@@ -34,6 +44,7 @@
 					<br /><br />
     				<h:form id="gerarFaturaForm" acceptcharset="ISO-8859-1">
     					<a4j:keepAlive beanName="FaturaBean" />
+    					<t:inputHidden id="codigoFatura" forceId="true" value="#{FaturaBean.fatura.codigo}" />
 						<h:panelGroup id="faturasMsgs">
 							<h:messages showDetail="true" showSummary="false" errorClass="textoMsgErro" infoClass="textoMsgInfo" />
 						</h:panelGroup>
@@ -96,6 +107,8 @@
 						<a4j:commandLink title="#{properties['lb_cancelar']}" action="#{FaturaBean.cancelarFatura}" 
 							 onclick="#{rich:component('confirmation')}.show();return false"
 							 value="#{properties['lb_cancelar']}" rendered="#{!FaturaBean.faturaCancelada}"/><br/><br/>
+						&nbsp;
+						<h:outputLink value="javascript:void(0);" onclick="imprimir();" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" />
 						
 						<t:div id="div_faturas" styleClass="conteudo">
 							<h1>Itens de Fatura</h1>
