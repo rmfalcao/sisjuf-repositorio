@@ -314,7 +314,7 @@ public class FaturaRN {
 		
 	}
 	
-	protected void updateStatus(FaturaVO fatura) throws SmartEnvException {
+	public void updateStatus(FaturaVO fatura) throws SmartEnvException {
 		faturaDAO.updateStatus(fatura);
 	}
 	

@@ -14,6 +14,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
+import br.org.asserjuf.sisjuf.util.ParametroVO;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 import com.vortice.view.BasePageBean;
@@ -73,6 +74,49 @@ public class FaturaPageBean extends BasePageBean {
 			FacesContext facesContext =  FacesContext.getCurrentInstance();
 			facesContext.addMessage(null, msgs);
 			return "falha";
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
+		}
+	}
+	
+	public String validarFatura(){
+		try {
+			System.out.println("VEIO CARREGAR!!!");
+			fatura = delegate.findByPrimaryKey(fatura);
+			System.out.println("FATURA CONVENIO " + fatura.getConvenio().getNomeFantasia());
+			return getSucesso();
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
+		}
+	}
+	
+	public String cancelarFatura(){
+		try {
+			fatura.getStatus().setCodigo(new Short(utilDelegate.findParametroByPrimaryKey(new ParametroVO("STATUS_FATURA_CANCELADA")).getValorTextual()));
+			delegate.updateStatus(fatura);
+			FacesMessage msgs = new FacesMessage("Fatura Cancelada com sucesso.");
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage("convenioMsgs", msgs);	
+			carregar();
+			return getSucesso();
 		}catch(SmartEnvException envEx){
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
@@ -148,5 +192,12 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public void setUtilDelegate(UtilDelegate utilDelegate) {
 		this.utilDelegate = utilDelegate;
+	}
+	
+	public boolean isFaturaCancelada(){
+		if(fatura != null && fatura.getStatus() != null && fatura.getStatus().getCodigo() != null && fatura.getStatus().getCodigo().intValue() == 3){
+			return true;
+		}
+		return false;
 	}
 }

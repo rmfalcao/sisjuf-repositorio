@@ -90,9 +90,15 @@
 							
 						</table>
 						
+						<t:commandLink title="#{properties['lb_validar']}" action="#{FaturaBean.validarFatura}" 
+							 value="#{properties['lb_validar']}" rendered="#{!FaturaBean.faturaCancelada}" /><br/><br/>
+						&nbsp;
+						<a4j:commandLink title="#{properties['lb_cancelar']}" action="#{FaturaBean.cancelarFatura}" 
+							 onclick="#{rich:component('confirmation')}.show();return false"
+							 value="#{properties['lb_cancelar']}" rendered="#{!FaturaBean.faturaCancelada}"/><br/><br/>
+						
 						<t:div id="div_faturas" styleClass="conteudo">
-							<h2>&nbsp;</h2><br/>
-							<h2>Itens de Fatura</h2>
+							<h1>Itens de Fatura</h1>
 							<rich:dataTable value="#{FaturaBean.fatura.itens}" var="itens" border="0" id="itensFatura" width="100%">
 								<f:facet name="header">
 									<rich:columnGroup>
@@ -120,6 +126,20 @@
 								</rich:column>
 							</rich:dataTable>
 						</t:div>
+						
+						<rich:modalPanel id="confirmation" width="250" height="150">
+						   <f:facet name="header">Confirmação</f:facet>
+						   <h:panelGrid>
+						      <h:panelGrid columns="1">
+							 	<h:outputText value="Deseja confirmar o cancelamento da fatura? Essa ação não poderá ser desfeita." style="FONT-SIZE: large;" />
+						      </h:panelGrid>
+						      <h:panelGroup>
+						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.cancelarFatura}"  reRender="gerarFaturaForm" oncomplete="#{rich:component('confirmation')}.hide();"/>
+						            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation')}.hide();return false" />
+							  </h:panelGroup>
+						   </h:panelGrid>
+						</rich:modalPanel>
+									
 						
 					</h:form>
 					<br /><br /><br /><br /><br /><br /><hr>

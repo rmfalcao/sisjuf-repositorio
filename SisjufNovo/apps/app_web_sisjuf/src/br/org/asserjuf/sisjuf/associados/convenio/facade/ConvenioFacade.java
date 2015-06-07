@@ -396,6 +396,10 @@ public class ConvenioFacade {
 		return this.faturaFixaRN.validar(faturaArquivo);
 	}
 	
+	public void updateStatus(FaturaVO fatura) throws SmartEnvException, SmartAppException {
+		 faturaRN.updateStatus(fatura);
+	}
+	
 	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException, SmartAppException {
 		return planoConvenioRN.findHistoricoValorPlanoByPlano(vo);
 	}

@@ -290,6 +290,10 @@ public class ConvenioDelegate {
 		return convenioBean.validarFatura(faturaArquivo);
 	}
 	
+	public void updateStatus(FaturaVO fatura) throws SmartEnvException, SmartAppException {
+		convenioBean.updateStatus(fatura);
+	}
+	
 	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException, SmartAppException {
 		return convenioBean.findHistoricoValorPlanoByPlano(vo);
 	}
