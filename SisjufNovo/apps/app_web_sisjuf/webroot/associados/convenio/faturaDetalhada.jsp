@@ -101,9 +101,9 @@
 							
 						</table>
 						
-						<t:commandLink title="#{properties['lb_validar']}" action="#{FaturaBean.validarFatura}" 
-							 value="#{properties['lb_validar']}" rendered="#{!FaturaBean.faturaCancelada}" /><br/><br/>
-						&nbsp;
+						<a4j:commandLink title="#{properties['lb_validar']}" value="#{properties['lb_validar']}"  
+					   onclick="#{rich:component('geracaoFatura')}.show();return false" reRender="gerarFaturaForm" immediate="true" />
+	 					&nbsp;
 						<a4j:commandLink title="#{properties['lb_cancelar']}" action="#{FaturaBean.cancelarFatura}" 
 							 onclick="#{rich:component('confirmation')}.show();return false"
 							 value="#{properties['lb_cancelar']}" rendered="#{!FaturaBean.faturaCancelada}"/><br/><br/>
@@ -150,6 +150,39 @@
 						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.cancelarFatura}"  reRender="gerarFaturaForm" oncomplete="#{rich:component('confirmation')}.hide();"/>
 						            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation')}.hide();return false" />
 							  </h:panelGroup>
+						   </h:panelGrid>
+						</rich:modalPanel>
+						
+						<rich:modalPanel id="geracaoFatura" width="60" height="40" autosized="true">
+						   <f:facet name="header">Validação Fatura</f:facet>
+						   <h:panelGrid>
+							    <table class="tab_cadastro" cellpadding="2" cellspacing="1">
+									<thead>
+										<tr>
+											<th width="190">Tipo de Fatura</th>
+											<td width="400">
+												<h:selectOneMenu id="mes" value="#{FaturaBean.tipoArquivoFatura}" tabindex="2">
+													<f:selectItem itemLabel="VitalMed"	itemValue="VITALMED" />
+													<f:selectItem itemLabel="Promédica" itemValue="PROMEDICA"/>
+													<f:selectItem itemLabel="Odontosystem" itemValue="ODONTOSYSTEM"/>
+												</h:selectOneMenu>
+											</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Procurar arquivo:</th>
+											<td>
+												<rich:fileUpload id="arquivo" maxFilesQuantity="1" styleClass="teste" immediateUpload="true" 
+												fileUploadListener="#{FaturaBean.upload}" uploadData="#{FaturaBean.data}" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<h:panelGroup>
+						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.validarFatura}"  reRender="gerarFaturaForm" oncomplete="#{rich:component('confirmation')}.hide();"/>
+						            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('geracaoFatura')}.hide();return false" />
+							  	</h:panelGroup>
 						   </h:panelGrid>
 						</rich:modalPanel>
 									

@@ -6,6 +6,12 @@ import java.util.Collection;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
@@ -32,6 +38,8 @@ public class FaturaPageBean extends BasePageBean {
 	private static final transient SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
 	private transient UtilDelegate utilDelegate;
+	private String tipoArquivoFatura;
+	private byte[] conteudoArquivoFatura;
 	
 	public FaturaPageBean()
 	{
@@ -88,11 +96,27 @@ public class FaturaPageBean extends BasePageBean {
 		}
 	}
 	
+	public void upload(UploadEvent e) { 
+		UploadItem uploadItem = e.getUploadItem();	
+		conteudoArquivoFatura = uploadItem.getData();
+	} 
+	
 	public String validarFatura(){
 		try {
-			System.out.println("VEIO CARREGAR!!!");
+			if(StringUtils.isNotEmpty(tipoArquivoFatura)){
+				if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
+					
+				}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
+					
+				}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
+					
+				}
+			}
 			fatura = delegate.findByPrimaryKey(fatura);
-			System.out.println("FATURA CONVENIO " + fatura.getConvenio().getNomeFantasia());
+			FacesMessage msgs = new FacesMessage("Fatura validada com sucesso.");
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage("convenioMsgs", msgs);	
+			carregar();
 			return getSucesso();
 		}catch(SmartEnvException envEx){
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
@@ -112,7 +136,7 @@ public class FaturaPageBean extends BasePageBean {
 		try {
 			fatura.getStatus().setCodigo(new Short(utilDelegate.findParametroByPrimaryKey(new ParametroVO("STATUS_FATURA_CANCELADA")).getValorTextual()));
 			delegate.updateStatus(fatura);
-			FacesMessage msgs = new FacesMessage("Fatura Cancelada com sucesso.");
+			FacesMessage msgs = new FacesMessage("Fatura cancelada com sucesso.");
 			FacesContext facesContext =  FacesContext.getCurrentInstance();
 			facesContext.addMessage("convenioMsgs", msgs);	
 			carregar();
@@ -199,5 +223,21 @@ public class FaturaPageBean extends BasePageBean {
 			return true;
 		}
 		return false;
+	}
+
+	public byte[] getConteudoArquivoFatura() {
+		return conteudoArquivoFatura;
+	}
+
+	public void setConteudoArquivoFatura(byte[] conteudoArquivoFatura) {
+		this.conteudoArquivoFatura = conteudoArquivoFatura;
+	}
+
+	public String getTipoArquivoFatura() {
+		return tipoArquivoFatura;
+	}
+
+	public void setTipoArquivoFatura(String tipoArquivoFatura) {
+		this.tipoArquivoFatura = tipoArquivoFatura;
 	}
 }
