@@ -16,7 +16,7 @@ import br.org.asserjuf.sisjuf.util.ParametroRN;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 
 /**
- * Encapsula as regras de negócio da entidade fatura.
+ * Encapsula as regras de negï¿½cio da entidade fatura.
  * @author Paulo
  *
  */
@@ -28,23 +28,23 @@ public class FaturaRN {
 	protected FaturaDAO faturaDAO;
 	
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade lançamento fatura.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade lanï¿½amento fatura.
 	 */
 	protected LancamentoFaturaRN	lancamentoFaturaRN;
 	
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade Convenio.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade Convenio.
 	 */
 	protected ConvenioRN	convenioRN;
 	
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade lançamento item fatura.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade lanï¿½amento item fatura.
 	 */
 	//private LancamentoFaturaRN	lancamentoItemFaturaRN;
 	
 	
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade lançamento item fatura.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade lanï¿½amento item fatura.
 	 */
 	protected ParametroRN	parametroRN;
 	
@@ -55,8 +55,8 @@ public class FaturaRN {
 
 
 	/**
-	 * Obtém as faturas recentes de um convênio.
-	 * @return Coleção de faturas, encapsulados na classe FaturaVO.
+	 * Obtï¿½m as faturas recentes de um convï¿½nio.
+	 * @return Coleï¿½ï¿½o de faturas, encapsulados na classe FaturaVO.
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByConvenio(ConvenioVO convenio) throws SmartEnvException {
@@ -88,12 +88,12 @@ public class FaturaRN {
 
 	public void estornar(FaturaVO fatura)  throws SmartEnvException, SmartAppException {
 		
-		// Estornar lançamentos relacionados à fatura, caso existam
-		// 1. obter lançamentos by fatura
+		// Estornar lanï¿½amentos relacionados ï¿½ fatura, caso existam
+		// 1. obter lanï¿½amentos by fatura
 	
 		Collection<LancamentoFaturaVO> lancamentos	= lancamentoFaturaRN.findByFatura(fatura);
 
-		// 2. estornar lançamentos by pk
+		// 2. estornar lanï¿½amentos by pk
 		for (LancamentoFaturaVO lancamento : lancamentos) {
 			lancamentoFaturaRN.estornarLancamento(lancamento);
 		}
@@ -133,10 +133,10 @@ public class FaturaRN {
 			
 		}
 		
-		// 1) um lançamento a debitar da conta da ASSERJUF para o convênio em questão
+		// 1) um lanï¿½amento a debitar da conta da ASSERJUF para o convï¿½nio em questï¿½o
 		debitarContaAsserjuf(fatura);
 		
-		// 2) "n" lançamentos a creditar dos associados na conta da ASSERJUF
+		// 2) "n" lanï¿½amentos a creditar dos associados na conta da ASSERJUF
 		creditarContaAsserjuf(fatura);
 		
 		
@@ -170,7 +170,7 @@ public class FaturaRN {
 		
 		lancamentoFatura.setValor(fatura.getValorFatura());
 		
-		// TODO verificar: data de previsão está igual à data de vencimento, pode ser?
+		// TODO verificar: data de previsï¿½o estï¿½ igual ï¿½ data de vencimento, pode ser?
 		lancamentoFatura.setDataPrevisao(fatura.getDataVencimento());
 		
 		
@@ -180,7 +180,7 @@ public class FaturaRN {
 	
 	private void creditarContaAsserjuf(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
-		// Criar objeto com dados do lançamento a debitar.
+		// Criar objeto com dados do lanï¿½amento a debitar.
 		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_CREDITAR");
 		
 		
@@ -193,7 +193,7 @@ public class FaturaRN {
 	private void debitarContaAsserjuf(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
 		
-		// Criar objeto com dados do lançamento a debitar.
+		// Criar objeto com dados do lanï¿½amento a debitar.
 		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_DEBITAR");
 		
 		
@@ -215,29 +215,29 @@ public class FaturaRN {
 		
 		
 		if (item == null) {
-			throw new SmartAppException("Pelo menos um item da fatura não foi identificado.");
+			throw new SmartAppException("Pelo menos um item da fatura nÃ£o foi identificado.");
 		}
 		
 		if (item.getNumero() == null) {
-			throw new SmartAppException("Todos os itens da fatura devem ter numeração.");
+			throw new SmartAppException("Todos os itens da fatura devem ter numeraÃ§Ã£o.");
 		}
 		
 		if (item.getValor() == null || item.getValor().longValue() == 0) {
-			throw new SmartAppException("O item número " + item.getNumero() + " está vazio ou igual a zero.");
+			throw new SmartAppException("O item nÃºmero " + item.getNumero() + " estÃ¡ vazio ou igual a zero.");
 		}
 		
 		if (item.getVinculacao()==null || item.getVinculacao().getCodigo()==null) {
-			throw new SmartAppException("O associado não foi identificado no item número " + item.getNumero() + " da fatura.");
+			throw new SmartAppException("O associado nÃ£o foi identificado no item nÃºmero " + item.getNumero() + " da fatura.");
 		}
 		
 		item.getVinculacao().setBeneficiario(item.getBeneficiario());
 		
 		if (item.getVinculacao().getBeneficiario() == null || item.getVinculacao().getBeneficiario().getCodigo() == null) {
-			throw new SmartAppException("O beneficiário não foi identificado no item número " + item.getNumero() + " da fatura.");
+			throw new SmartAppException("O beneficiÃ¡rio nÃ£o foi identificado no item nÃºmero " + item.getNumero() + " da fatura.");
 		}
 		
 		if (item.getVinculacao().getBeneficiario().getTitular() == null || item.getVinculacao().getBeneficiario().getTitular().getCodigo() == null) {
-			throw new SmartAppException("O titular do beneficiário não foi encontrado no item número " + item.getNumero() + " da fatura.");
+			throw new SmartAppException("O titular do beneficiÃ¡rio nÃ£o foi encontrado no item nÃºmero " + item.getNumero() + " da fatura.");
 		}
 		
 		
@@ -247,26 +247,31 @@ public class FaturaRN {
 		
 
 		if (fatura.getCodigo() != null) {
-			throw new SmartAppException("Fatura já gerada: código " + fatura.getCodigo());
+			throw new SmartAppException("Fatura jÃ¡ gerada: cÃ³digo " + fatura.getCodigo());
 		}
 		
 		fatura.setConvenio(this.convenioRN.findByPrimaryKey(fatura.getConvenio()));
 		
 		setDatasFatura(fatura);	
 		
+		
 		fatura.setStatus(new StatusFaturaVO());
-		fatura.getStatus().setCodigo(new Short(parametroRN.findByPrimaryKey(new ParametroVO("STATUS_FATURA_GERADA")).getValorTextual()));
+		if (!fatura.getConvenio().getCategoria().equals("F")) {
+			fatura.getStatus().setCodigo(new Short(parametroRN.findByPrimaryKey(new ParametroVO("STATUS_FATURA_VALIDADA")).getValorTextual()));
+		}else{
+			fatura.getStatus().setCodigo(new Short(parametroRN.findByPrimaryKey(new ParametroVO("STATUS_FATURA_GERADA")).getValorTextual()));	
+		}
 		
 		fatura.setStatusPago("N");
 		fatura.setStatusRecebido("N");
 		
 
 		if (fatura == null) {
-			throw new SmartAppException("Fatura não identificada.");
+			throw new SmartAppException("Fatura nÃ£o identificada.");
 		}
 		
 		if (fatura.getConvenio() == null || fatura.getConvenio().getCodigo() == null) {
-			throw new SmartAppException("Você deve informar qual é o convênio.");
+			throw new SmartAppException("VocÃª deve informar qual nÃºmero do convÃªnio.");
 		}
 		
 		if (fatura.getDataFinal() == null) {
@@ -274,15 +279,15 @@ public class FaturaRN {
 		}
 		
 		if (fatura.getContaCredito() == null || fatura.getContaCredito().getCodigo() == null) {
-			throw new SmartAppException("A conta ASSERJUF para crédito deve ser informada.");
+			throw new SmartAppException("A conta ASSERJUF para crÃ©dito deve ser informada.");
 		}
 		
 		if (fatura.getContaDebito() == null || fatura.getContaDebito().getCodigo() == null) {
-			throw new SmartAppException("A conta ASSERJUF para débito deve ser informada.");
+			throw new SmartAppException("A conta ASSERJUF para dÃ©bito deve ser informada.");
 		}
 		
 		if (fatura.getMes() == null) {
-			throw new SmartAppException("O mês da fatura deve ser informado.");
+			throw new SmartAppException("O mÃªs da fatura deve ser informado.");
 		}
 		
 		if (fatura.getAno() == null)  {
@@ -347,7 +352,7 @@ public class FaturaRN {
 					fatura.getDataFimDe() == null &&
 					fatura.getDataFimAte() == null
 		 )) {
-			throw new SmartAppException("Ao menos um critério de filtro deve ser preenchido.");
+			throw new SmartAppException("Ao menos um critï¿½rio de filtro deve ser preenchido.");
 		}
 		
 	}
