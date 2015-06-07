@@ -79,27 +79,18 @@
 									</td>
 								</tr>
 								<tr>
-									<th>Mês/Ano:</th>
+									<th>Período (Inicio/Fim)</th>
 									<td>
-										<h:selectOneMenu id="mes" value="#{ConvenioBean.fatura.mes}" tabindex="2">
-											<f:selectItem itemLabel="#{properties['lb_selecione']}"	itemValue="" />
-											<f:selectItem itemLabel="#{properties['lb_janeiro']}" itemValue="1"/>
-											<f:selectItem itemLabel="#{properties['lb_fevereiro']}" itemValue="2"/>
-											<f:selectItem itemLabel="#{properties['lb_marco']}" itemValue="3"/>
-											<f:selectItem itemLabel="#{properties['lb_abril']}" itemValue="4"/>
-											<f:selectItem itemLabel="#{properties['lb_maio']}" itemValue="5"/>
-											<f:selectItem itemLabel="#{properties['lb_junho']}" itemValue="6"/>
-											<f:selectItem itemLabel="#{properties['lb_julho']}" itemValue="7"/>
-											<f:selectItem itemLabel="#{properties['lb_agosto']}" itemValue="8"/>
-											<f:selectItem itemLabel="#{properties['lb_setembro']}" itemValue="9"/>
-											<f:selectItem itemLabel="#{properties['lb_outubro']}" itemValue="10"/>
-											<f:selectItem itemLabel="#{properties['lb_novembro']}" itemValue="11"/>
-											<f:selectItem itemLabel="#{properties['lb_dezembro']}" itemValue="12"/>
-										</h:selectOneMenu>
+										<rich:calendar id="dataInicial" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
+											cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
+											value="#{ConvenioBean.fatura.dataInicial}" inputClass="inputCalendar" 
+											enableManualInput="true" oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
 									</td>
 									<td colspan="2">
-										<t:inputText size="15"  maxlength="4" id="ano" value="#{ConvenioBean.fatura.ano}" tabindex="3" 
-											onkeypress="return justNumber(this,event)"/>
+										<rich:calendar id="dataFinal" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
+											cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
+											value="#{ConvenioBean.fatura.dataFinal}" inputClass="inputCalendar" 
+											enableManualInput="true" oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
 									</td>
 								</tr>
 							</tbody>

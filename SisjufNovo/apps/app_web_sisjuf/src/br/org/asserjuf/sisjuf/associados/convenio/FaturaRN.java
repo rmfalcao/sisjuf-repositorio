@@ -252,30 +252,33 @@ public class FaturaRN {
 		
 		fatura.setConvenio(this.convenioRN.findByPrimaryKey(fatura.getConvenio()));
 		
+		validarCamposObrigatoriosFatura(fatura);
 		setDatasFatura(fatura);	
+		setStatusFatura(fatura);
 		
+		fatura.setStatusPago("N");
+		fatura.setStatusRecebido("N");
 		
+	}
+
+
+	protected void setStatusFatura(FaturaVO fatura) throws SmartEnvException,SmartAppException {
 		fatura.setStatus(new StatusFaturaVO());
 		if (!fatura.getConvenio().getCategoria().equals("F")) {
 			fatura.getStatus().setCodigo(new Short(parametroRN.findByPrimaryKey(new ParametroVO("STATUS_FATURA_VALIDADA")).getValorTextual()));
 		}else{
 			fatura.getStatus().setCodigo(new Short(parametroRN.findByPrimaryKey(new ParametroVO("STATUS_FATURA_GERADA")).getValorTextual()));	
 		}
-		
-		fatura.setStatusPago("N");
-		fatura.setStatusRecebido("N");
-		
+	}
 
+
+	protected void validarCamposObrigatoriosFatura(FaturaVO fatura) throws SmartAppException {
 		if (fatura == null) {
 			throw new SmartAppException("Fatura não identificada.");
 		}
 		
 		if (fatura.getConvenio() == null || fatura.getConvenio().getCodigo() == null) {
 			throw new SmartAppException("Você deve informar qual número do convênio.");
-		}
-		
-		if (fatura.getDataFinal() == null) {
-			throw new SmartAppException("A data final da fatura deve ser informada.");
 		}
 		
 		if (fatura.getContaCredito() == null || fatura.getContaCredito().getCodigo() == null) {
@@ -286,14 +289,13 @@ public class FaturaRN {
 			throw new SmartAppException("A conta ASSERJUF para débito deve ser informada.");
 		}
 		
-		if (fatura.getMes() == null) {
-			throw new SmartAppException("O mês da fatura deve ser informado.");
+		if (fatura.getDataInicial() == null) {
+			throw new SmartAppException("A data inicial da fatura deve ser informado.");
 		}
 		
-		if (fatura.getAno() == null)  {
-			throw new SmartAppException("O ano da fatura deve ser informado.");
+		if (fatura.getDataFinal() == null)  {
+			throw new SmartAppException("A data final da fatura deve ser informado.");
 		}
-		
 	}
 
 
@@ -301,17 +303,9 @@ public class FaturaRN {
 		
 		GregorianCalendar calendar	= new GregorianCalendar();
 		
-		// data fim (fechamento):
-		calendar.set(fatura.getAno().intValue(), fatura.getMes().intValue()-1, fatura.getConvenio().getDiaFechamento().intValue()-1);
-		fatura.setDataFinal(calendar.getTime());
-		
-		// data inicio:
-		calendar.add(Calendar.MONTH, -1);
-		calendar.add(Calendar.DAY_OF_MONTH, 1);
-		fatura.setDataInicial(calendar.getTime());
+		calendar.setTime(fatura.getDataInicial());
 		
 		// data vencimento:		
-		calendar.set(fatura.getAno().intValue(), fatura.getMes().intValue()-1, fatura.getConvenio().getDiaFechamento().intValue()-1);
 		calendar.add(Calendar.MONTH, fatura.getConvenio().getMesVencimento().shortValue());
 		calendar.set(Calendar.DAY_OF_MONTH,fatura.getConvenio().getDiaVencimento().intValue());
 		
