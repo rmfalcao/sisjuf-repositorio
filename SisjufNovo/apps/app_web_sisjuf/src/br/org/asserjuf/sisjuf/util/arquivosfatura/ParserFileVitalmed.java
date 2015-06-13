@@ -1,30 +1,33 @@
 package br.org.asserjuf.sisjuf.util.arquivosfatura;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ParserFileVitalmed {//extends ParserFileAb{
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+
+public class ParserFileVitalmed extends ParserFileAb{
 	
-	public ParserFileVitalmed(String pathFile) throws IOException {
-//		super(pathFile);
+	public ParserFileVitalmed(byte[] contentFile) throws IOException {
+		super(contentFile);
 	}
 
-//	@Override
-//	public List<AssociadoModel> parserContentFileToAssociadosList(String[] linhasArquivo) {                   
-//		List<AssociadoModel> listaAssociados = new ArrayList<AssociadoModel>();
-//		for(int i = 0;i<linhasArquivo.length;i++){
-//        	String linha = linhasArquivo[i].trim();
-//        	if(linha.startsWith("9")){
-//        		String linhaModificada = linha.replaceAll("  ","@").replaceAll(" ","").replaceAll("@@","#").replaceFirst("@","#").replaceAll("@"," ").replaceAll("##","");
-//	        	String[] conteudoLinha = linhaModificada.split("#");
-//	        	AssociadoModel associado = createAssociado(linhaModificada,conteudoLinha);	
-//	        	listaAssociados.add(associado);
-//        	}
-//        }
-//		return listaAssociados;
-//	}
-//	
-//	private AssociadoModel createAssociado(String linhaModificada,String[] conteudoLinha) {
-//		AssociadoModel associado = new AssociadoModel();
+	public List<BeneficiarioVO> parserContentFileToBeneficiariosList(String[] linhasArquivo) {                   
+		List<BeneficiarioVO> listaAssociados = new ArrayList<BeneficiarioVO>();
+		for(int i = 0;i<linhasArquivo.length;i++){
+        	String linha = linhasArquivo[i].trim();
+        	if(linha.startsWith("9")){
+        		String linhaModificada = linha.replaceAll("  ","@").replaceAll(" ","").replaceAll("@@","#").replaceFirst("@","#").replaceAll("@"," ").replaceAll("##","");
+	        	String[] conteudoLinha = linhaModificada.split("#");
+	        	BeneficiarioVO associado = createAssociado(linhaModificada,conteudoLinha);	
+	        	listaAssociados.add(associado);
+        	}
+        }
+		return listaAssociados;
+	}
+	
+	private BeneficiarioVO createAssociado(String linhaModificada,String[] conteudoLinha) {
+		BeneficiarioVO associado = new BeneficiarioVO();
 //		associado.setCodigo(conteudoLinha[0].trim());
 //		try{
 //			associado.setNomeServidor(conteudoLinha[1].trim());
@@ -43,6 +46,6 @@ public class ParserFileVitalmed {//extends ParserFileAb{
 //				ex.printStackTrace();
 //			}
 //		}
-//		return associado;
-//	}
+		return associado;
+	}
 }

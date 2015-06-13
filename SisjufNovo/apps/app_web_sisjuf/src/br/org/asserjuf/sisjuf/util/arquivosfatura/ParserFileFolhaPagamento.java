@@ -1,20 +1,23 @@
 package br.org.asserjuf.sisjuf.util.arquivosfatura;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ParserFileFolhaPagamento {//extends ParserFileAb {
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+
+public class ParserFileFolhaPagamento extends ParserFileAb {
 	
 	private static final int INICIO_UTIL_ARQUIVO = 11;
 	private static final int QUANTIDADE_CARACTERES_POSSIVEL_NOME_QUEBRA_LINHA = 19;
 	private static final int QUANTIDADE_MINIMA_NOME= 3;
 	
-	public ParserFileFolhaPagamento(String pathFile) throws IOException {
-		//super(pathFile);
+	public ParserFileFolhaPagamento(byte[] contentFile) throws IOException {
+		super(contentFile);
 	}
 	
-//	@Override
-//	public List<AssociadoModel> parserContentFileToAssociadosList(String[] linhasPaginasArquivo) throws Exception{
-//		List<AssociadoModel> listaAssociados = new ArrayList<AssociadoModel>();
+	public List<BeneficiarioVO> parserContentFileToBeneficiariosList(String[] linhasPaginasArquivo) throws Exception{
+		List<BeneficiarioVO> listaAssociados = new ArrayList<BeneficiarioVO>();
 //		int indicePonteiroLeituraArquivo = INICIO_UTIL_ARQUIVO;
 //		String linha =  null;
 //		try{
@@ -22,8 +25,8 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //	    	for(;indicePonteiroLeituraArquivo<linhasPaginasArquivo.length;indicePonteiroLeituraArquivo++){
 //	        	linha =  linhasPaginasArquivo[indicePonteiroLeituraArquivo].trim();
 ////	        	System.out.println("linha-> "+linha);
-//	        	if(!linha.equalsIgnoreCase("C??digo")){
-//	        		AssociadoModel associado = new AssociadoModel();
+//	        	if(!linha.equalsIgnoreCase("Código")){
+//	        		BeneficiarioVO associado = new BeneficiarioVO();
 //	        		associado.setCodigo(linha);
 //	    			listaAssociados.add(associado);
 //	        	}else{
@@ -51,7 +54,7 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //		        		}
 //	        		}
 //	        		if(indiceListaAssociados < listaAssociados.size()){
-//		        		AssociadoModel associado = listaAssociados.get(indiceListaAssociados);
+//	        			BeneficiarioVO associado = listaAssociados.get(indiceListaAssociados);
 //		        		associado.setNomeServidor(buffer.toString());
 //		        		indiceListaAssociados++;
 //	        		}else{
@@ -68,7 +71,7 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //	    	for(;indicePonteiroLeituraArquivo<linhasPaginasArquivo.length;indicePonteiroLeituraArquivo++){
 //	        	linha =  linhasPaginasArquivo[indicePonteiroLeituraArquivo].trim();
 //	        	if(indiceListaAssociados < quantidadeTotalAssociados){
-//	        		AssociadoModel associado = listaAssociados.get(indiceListaAssociados);
+//	        		BeneficiarioVO associado = listaAssociados.get(indiceListaAssociados);
 //	        		associado.setCpf(linha);
 //	        		indiceListaAssociados++;
 //	        	}else{
@@ -82,7 +85,7 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //	    	for(;indicePonteiroLeituraArquivo<linhasPaginasArquivo.length;indicePonteiroLeituraArquivo++){
 //	        	linha =  linhasPaginasArquivo[indicePonteiroLeituraArquivo].trim();
 //	        	if(indiceListaAssociados < quantidadeTotalAssociados){
-//	        		AssociadoModel associado = listaAssociados.get(indiceListaAssociados);
+//	        		BeneficiarioVO associado = listaAssociados.get(indiceListaAssociados);
 //	        		associado.setValorMensalidade(linha);
 //	        		indiceListaAssociados++;
 //	        	}else{
@@ -94,7 +97,7 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //	    	for(;indicePonteiroLeituraArquivo<linhasPaginasArquivo.length;indicePonteiroLeituraArquivo++){
 //	        	linha =  linhasPaginasArquivo[indicePonteiroLeituraArquivo].trim();
 //	        	if(indiceListaAssociados < quantidadeTotalAssociados){
-//	        		AssociadoModel associado = listaAssociados.get(indiceListaAssociados);
+//	        		BeneficiarioVO associado = listaAssociados.get(indiceListaAssociados);
 //	        		associado.setValorDevolucao(linha);
 //	        		indiceListaAssociados++;
 //	        	}else{
@@ -107,7 +110,7 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //	    	for(;indicePonteiroLeituraArquivo<linhasPaginasArquivo.length;indicePonteiroLeituraArquivo++){
 //	        	linha =  linhasPaginasArquivo[indicePonteiroLeituraArquivo].trim();
 //	        	if(indiceListaAssociados < quantidadeTotalAssociados){
-//	        		AssociadoModel associado = listaAssociados.get(indiceListaAssociados);
+//	        		BeneficiarioVO associado = listaAssociados.get(indiceListaAssociados);
 //	        		associado.setValorLiquido(linha);
 //	        		indiceListaAssociados++;
 //	        	}else{
@@ -121,8 +124,8 @@ public class ParserFileFolhaPagamento {//extends ParserFileAb {
 //				throw ex;
 //			}
 //		}
-//    	
-//        return listaAssociados;
-//	}
+    	
+        return listaAssociados;
+	}
 
 }

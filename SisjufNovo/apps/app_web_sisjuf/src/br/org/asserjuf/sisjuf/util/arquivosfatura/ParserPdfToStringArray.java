@@ -1,6 +1,6 @@
 package br.org.asserjuf.sisjuf.util.arquivosfatura;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -12,13 +12,13 @@ import org.apache.pdfbox.util.PDFTextStripper;
 
 public class ParserPdfToStringArray {
 	
+	private InputStream stream;
 	private int numeroPaginas;
-	private String pathFile;
-	private PDDocument document;
 	
-	public ParserPdfToStringArray(String pathFile) throws IOException{
-		this.pathFile = pathFile;
-		this.document = PDDocument.load(pathFile);
+	public ParserPdfToStringArray(byte[] contentFile) throws IOException{
+		this.stream = new ByteArrayInputStream(contentFile);
+		PDDocument document = PDDocument.load(stream);
+		document.close();	
 		this.numeroPaginas = document.getNumberOfPages();
 	}
 	
@@ -35,8 +35,7 @@ public class ParserPdfToStringArray {
 			endPage = numeroPaginas;
 		}
 		
-		InputStream file = new FileInputStream(pathFile);
-		PDFParser parser = new PDFParser(file);
+		PDFParser parser = new PDFParser(stream);
 		parser.parse();
 		COSDocument cosDoc = parser.getDocument();
         PDDocument  pdDoc = new PDDocument(cosDoc);
@@ -45,16 +44,15 @@ public class ParserPdfToStringArray {
 		stripper.setEndPage(endPage);
 		String st = stripper.getText(pdDoc);
 		String[] linhasArquivo = st.split("\n");
-		releaseResources(parser, cosDoc, pdDoc,file);
+		releaseResources(parser, cosDoc, pdDoc);
 		return linhasArquivo;
 	}
 
-	private void releaseResources(PDFParser parser, COSDocument cosDoc,PDDocument pdDoc,InputStream stream) throws IOException {
+	private void releaseResources(PDFParser parser, COSDocument cosDoc,PDDocument pdDoc) throws IOException {
 		pdDoc.close();
 		cosDoc.close();
 		parser.clearResources();
 		stream.close();
-		document.close();
 	}
 
 	public int getNumeroPaginas() {

@@ -1,20 +1,23 @@
 package br.org.asserjuf.sisjuf.util.arquivosfatura;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ParserFileOdontosystem{// extends ParserFileAb{
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+
+public class ParserFileOdontosystem extends ParserFileAb{
 	
 	private static final int TAMANHO_CABECALHO_ODONTO_SYSTEM_ASSOCIADO = 10;
 	private static final String MENSAGEM_RODAPE_ODONTO_SYSTEM_ASSOCIADO = "PDF created with pdfFactory trial version www.pdffactory.com";
 	
-	public ParserFileOdontosystem(String pathFile) throws IOException {
-		//super(pathFile);
+	public ParserFileOdontosystem(byte[] contentFile) throws IOException {
+		super(contentFile);
 	}
 	
-//	@Override
-//	public List<AssociadoModel> parserContentFileToAssociadosList(String[] linhasArquivo) {
-////		ADRIANA DE FREITAS ABBEHUSEN719137 01/09/2004  00:00:00GLOBAL 1  -  C Parcela N??o Usu??rio 0,00Titular0
-//		List<AssociadoModel> listaAssociados = new ArrayList<AssociadoModel>();
+	public List<BeneficiarioVO> parserContentFileToBeneficiariosList(String[] linhasArquivo) {
+//		ADRIANA DE FREITAS ABBEHUSEN719137 01/09/2004  00:00:00GLOBAL 1  -  C Parcela N??o Usu??rio 0,00Titular0
+		List<BeneficiarioVO> listaAssociados = new ArrayList<BeneficiarioVO>();
 //		for(int i = TAMANHO_CABECALHO_ODONTO_SYSTEM_ASSOCIADO;i<linhasArquivo.length;i++){
 //        	String linha = linhasArquivo[i];
 //        	System.out.println(linha);
@@ -25,7 +28,7 @@ public class ParserFileOdontosystem{// extends ParserFileAb{
 //        		//momento do agrupamento da familia...
 //        		continue;
 //        	}
-//        	AssociadoModel associado = new AssociadoModel();
+//        	BeneficiarioVO associado = new BeneficiarioVO();
 //        	
 //        	String conteudoNome = linha.replaceAll("[0-9]","#");
 //        	conteudoNome = conteudoNome.split("#")[0];
@@ -55,6 +58,6 @@ public class ParserFileOdontosystem{// extends ParserFileAb{
 //        	listaAssociados.add(associado);
 //
 //        }
-//		return listaAssociados;
-//	}
+		return listaAssociados;
+	}
 }
