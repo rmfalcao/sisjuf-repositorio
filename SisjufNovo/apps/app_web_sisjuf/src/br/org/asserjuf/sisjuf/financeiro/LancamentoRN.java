@@ -8,47 +8,48 @@ import java.util.Iterator;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.dados.LancamentoDAO;
 import br.org.asserjuf.sisjuf.util.DataRN;
 import br.org.asserjuf.sisjuf.util.ParametroRN;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 
 /**
- * Congrega todas as funcionalidades da regra de negócio da entidade lançamento.
+ * Congrega todas as funcionalidades da regra de negï¿½cio da entidade lanï¿½amento.
  * @author Paulo Prado
  *
  */
 public class LancamentoRN {
 
 	/**
-	 * Classe de acesso a banco de dados da entidade tipo de lançamento.
+	 * Classe de acesso a banco de dados da entidade tipo de lanï¿½amento.
 	 */
 	protected LancamentoDAO 	lancamentoDAO;
 
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade tipo de operação.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade tipo de operaï¿½ï¿½o.
 	 */
 	protected TipoOperacaoRN 	tipoOperacaoRN;
 
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade conta.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade conta.
 	 */
 	protected ContaRN 		contaRN;
 	
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade de parâmetros do sistema.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade de parï¿½metros do sistema.
 	 */
 	protected ParametroRN		parametroRN;
 	
 	/**
-	 * Classe que encapsula as funcionalidades da regra de negócio da entidade utilitária data.
+	 * Classe que encapsula as funcionalidades da regra de negï¿½cio da entidade utilitï¿½ria data.
 	 */
 	protected DataRN			dataRN;
 	
 	protected DiretorFinanceiroRN diretorFinanceiroRN;
 	
 	/**
-	 * Método que verifica se o sistema pode ser usado na data atual.
+	 * Mï¿½todo que verifica se o sistema pode ser usado na data atual.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -58,7 +59,7 @@ public class LancamentoRN {
 		format.applyPattern("dd/MM/yyyy");
 		try {
 			if (dataRN.getCurrentDate().after(format.parse("01/12/2006"))) {
-				throw new SmartAppException("Esta operação não é mais permitida na atual versão deste sistema.");
+				throw new SmartAppException("Esta operaï¿½ï¿½o nï¿½o ï¿½ mais permitida na atual versï¿½o deste sistema.");
 			}
 		} catch (ParseException e) {
 			throw new SmartEnvException(e);
@@ -66,9 +67,9 @@ public class LancamentoRN {
 	}
 
 	/**
-	 * Busca por chave um lançamento.
+	 * Busca por chave um lanï¿½amento.
 	 * @param vo
-	 * @return Objeto que representa o lançamento buscado
+	 * @return Objeto que representa o lanï¿½amento buscado
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -78,7 +79,7 @@ public class LancamentoRN {
 	}
 	
 	/**
-	 * Efetua a baixa de um lançamento (Registra um recebimento ou pagamento total ou parcial de um lançamento previsto). 
+	 * Efetua a baixa de um lanï¿½amento (Registra um recebimento ou pagamento total ou parcial de um lanï¿½amento previsto). 
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -95,13 +96,13 @@ public class LancamentoRN {
 			vo.setValor(new Double(vo.getValor().doubleValue() *(-1)));
 			
 			if (vo.getValor().doubleValue() < saldoLancamento.doubleValue()) {
-				throw new SmartAppException("Valor informado superior ao saldo a baixar desse lançamento.");
+				throw new SmartAppException("Valor informado superior ao saldo a baixar desse lanï¿½amento.");
 			}
 		}
 		else {
 	
 			if (vo.getValor().doubleValue() > saldoLancamento.doubleValue()) {
-				throw new SmartAppException("Valor informado superior ao saldo a baixar desse lançamento.");
+				throw new SmartAppException("Valor informado superior ao saldo a baixar desse lanï¿½amento.");
 			}
 		}
 		lancamentoDAO.baixarLancamento(vo);
@@ -136,7 +137,7 @@ public class LancamentoRN {
 	}
 	
 	/**
-	 * Grava um lançamento, executando sua respectiva baixa no caso de lançamento que não seja de previsão.
+	 * Grava um lanï¿½amento, executando sua respectiva baixa no caso de lanï¿½amento que nï¿½o seja de previsï¿½o.
 	 * @param vo
 	 * @return lancamentoVO com chave do registro inserido
 	 * @throws SmartEnvException
@@ -179,8 +180,8 @@ public class LancamentoRN {
 	}
 		
 	/**
-	 * Remove um lançamento.
-	 * @param vo Objeto com chave do lançamento a ser removido
+	 * Remove um lanï¿½amento.
+	 * @param vo Objeto com chave do lanï¿½amento a ser removido
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -189,9 +190,9 @@ public class LancamentoRN {
 		if (vo.getContaVO() == null || vo.getContaVO().getCodigo() == null) {
 			vo = this.findByPrimaryKey(vo);
 			if (vo == null) {
-				throw new SmartAppException("Lançamento não existe");
+				throw new SmartAppException("Lanï¿½amento nï¿½o existe");
 			} else if (vo.getContaVO() == null || vo.getContaVO().getCodigo() == null) {
-				throw new SmartAppException("Conta não existe");
+				throw new SmartAppException("Conta nï¿½o existe");
 			}
 		}
 		contaRN.removeHistoricoSaldoByLancamento(vo.getContaVO(), vo);
@@ -202,7 +203,7 @@ public class LancamentoRN {
 	}
 	
 	/**
-	 * Efetua a movimentação de valores entre duas contas.  Gera um lançamento de débito na conta de origem e um de crédito na conta destino.
+	 * Efetua a movimentaï¿½ï¿½o de valores entre duas contas.  Gera um lanï¿½amento de dï¿½bito na conta de origem e um de crï¿½dito na conta destino.
 	 * @param assembler
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -227,13 +228,13 @@ public class LancamentoRN {
 		lancamentoVO.setFormaPagamentoVO(assembler.getFormaPagamentoVO());
 		lancamentoVO.setNumeroCheque(assembler.getNumeroCheque());
 
-		// LANÇAMENTO PARA DEBITAR DA CONTA ORIGEM:
+		// LANï¿½AMENTO PARA DEBITAR DA CONTA ORIGEM:
 		this.efetuarLancamento(lancamentoVO);
 		
 		// CONTA ORIGEM DEBITADA.
 		
-		// o lançamento anteriormente realizado, por ser de débito,
-		// setou o valor para NEGATIVO. Então, devemos torná-lo
+		// o lanï¿½amento anteriormente realizado, por ser de dï¿½bito,
+		// setou o valor para NEGATIVO. Entï¿½o, devemos tornï¿½-lo
 		// positivo novamente.
 		lancamentoVO.setValor(lancamentoVO.getValor().doubleValue()<0?lancamentoVO.getValor()*(-1):lancamentoVO.getValor());
 		
@@ -241,17 +242,17 @@ public class LancamentoRN {
 		lancamentoVO.setDescricao("Transferido da conta " + contaRN.findByPrimaryKey(assembler.getContaOrigemVO()).getNome());;
 		lancamentoVO.getTipoOperacaoVO().setCodigo(new Integer(parametroRN.findByPrimaryKey(new ParametroVO("TP_OPERACAO_CREDITO")).getValorTextual())); //credtito
 		
-		// Testando se a forma de pagamento é "CHEQUE".
+		// Testando se a forma de pagamento ï¿½ "CHEQUE".
 		ParametroVO parametroVO	= new ParametroVO("FORMA_PAGTO_CHEQUE");
 		parametroVO	= parametroRN.findByPrimaryKey(parametroVO);
 		
 		if (lancamentoVO.getFormaPagamentoVO().getCodigo().toString().equals(parametroVO.getValorTextual())) {
 
-			// a operação é de crédito, mas a origem é uma conta controlada pela Asserjuf. Verificar se a conta informada é uma conta de banco.
+			// a operaï¿½ï¿½o ï¿½ de crï¿½dito, mas a origem ï¿½ uma conta controlada pela Asserjuf. Verificar se a conta informada ï¿½ uma conta de banco.
 			ContaBancoVO contaBancoVO = contaRN.findByPrimaryKey(assembler.getContaOrigemVO());
 
 			if (contaBancoVO.getFlgContaCaixa()==null || !contaBancoVO.getFlgContaCaixa().equals("S")) {
-			// a conta é de banco. Setar dados da conta do cheque no lançamento.
+			// a conta ï¿½ de banco. Setar dados da conta do cheque no lanï¿½amento.
 				lancamentoVO.setBancoCheque(contaBancoVO.getBancoVO().getSigla());
 				lancamentoVO.setAgenciaCheque(contaBancoVO.getNumAgencia());
 				lancamentoVO.setDigitoAgenciaCheque(contaBancoVO.getDigAgencia());
@@ -259,16 +260,16 @@ public class LancamentoRN {
 				lancamentoVO.setDigitoContaCheque(contaBancoVO.getDigConta());
 			}
 		}
-		// LANÇAMENTO PARA CREDITAR NA CONTA DESTINO:
+		// LANï¿½AMENTO PARA CREDITAR NA CONTA DESTINO:
 		this.efetuarLancamento(lancamentoVO);
 
-		// LANÇAMENTO REALIZADO.
+		// LANï¿½AMENTO REALIZADO.
 	}
 
 	/**
-	 * Busca por filtro de lançamentos.
+	 * Busca por filtro de lanï¿½amentos.
 	 * @param assembler Objeto que encapsula os dados de filtro
-	 * @return Coleção de lançamentos buscados
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos buscados
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -279,10 +280,10 @@ public class LancamentoRN {
 		
 		// testar checkboxes
 		
-		// Se nenhum dos checkboxes (previsao ou efetivação) foi marcado
+		// Se nenhum dos checkboxes (previsao ou efetivaï¿½ï¿½o) foi marcado
 		if ((assembler.getFlgEfetivacao() == null || assembler.getFlgEfetivacao().equals(""))&&(assembler.getFlgPrevisao() == null || assembler.getFlgPrevisao().equals(""))) {
 			
-			// SETAR data de previsão
+			// SETAR data de previsï¿½o
 			
 			assembler.setDataPrevisaoInicial(assembler.getDataEfetivacaoInicial());
 			assembler.setDataPrevisaoFinal(assembler.getDataEfetivacaoFinal());
@@ -294,19 +295,19 @@ public class LancamentoRN {
 		} else if (assembler.getFlgEfetivacao() == null || assembler.getFlgEfetivacao().equals("")) {
 			// Neste caso, apenas o flag PREVISTO foi marcado
 			
-			// SETAR data de previsão
+			// SETAR data de previsï¿½o
 			assembler.setDataPrevisaoInicial(assembler.getDataEfetivacaoInicial());
 			assembler.setDataPrevisaoFinal(assembler.getDataEfetivacaoFinal());
 
-			// limpar data de efetivação
+			// limpar data de efetivaï¿½ï¿½o
 			assembler.setDataEfetivacaoInicial(null);
 			assembler.setDataEfetivacaoFinal(null);
 
 			
 		} else  if (!((assembler.getFlgEfetivacao() == null || assembler.getFlgEfetivacao().equals(""))||(assembler.getFlgPrevisao() == null || assembler.getFlgPrevisao().equals("")))) {
-			// Neste caso, os dois flags estão preenchidos.
+			// Neste caso, os dois flags estï¿½o preenchidos.
 			
-			// SETAR data de previsão
+			// SETAR data de previsï¿½o
 			
 			assembler.setDataPrevisaoInicial(assembler.getDataEfetivacaoInicial());
 			assembler.setDataPrevisaoFinal(assembler.getDataEfetivacaoFinal());
@@ -338,8 +339,8 @@ public class LancamentoRN {
 	}
 
 	/**
-	 * Valida os campos passados para operação de movimentação de valores entre contas pelo objeto assembler.
-	 * @param assembler Objeto que encapsula os dados passados para a operação de movimentação
+	 * Valida os campos passados para operaï¿½ï¿½o de movimentaï¿½ï¿½o de valores entre contas pelo objeto assembler.
+	 * @param assembler Objeto que encapsula os dados passados para a operaï¿½ï¿½o de movimentaï¿½ï¿½o
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -353,7 +354,7 @@ public class LancamentoRN {
 		}
 		
 		if (assembler.getContaDestinoVO().getCodigo().intValue() == assembler.getContaOrigemVO().getCodigo().intValue()) {
-			throw new SmartAppException("A conta origem e a conta destino não podem ser a mesma.");
+			throw new SmartAppException("A conta origem e a conta destino nï¿½o podem ser a mesma.");
 		}
 
 		if (assembler.getValor() == null || assembler.getValor().doubleValue() <= 0) {
@@ -361,29 +362,29 @@ public class LancamentoRN {
 		}
 
 		if (assembler.getData() == null || assembler.getData().after(dataRN.getCurrentDate())) {
-			throw new SmartAppException("A data da movimentação deve ser informada e deve ser menor ou igual à data atual.");
+			throw new SmartAppException("A data da movimentaï¿½ï¿½o deve ser informada e deve ser menor ou igual ï¿½ data atual.");
 		}
 		
 		if (assembler.getFormaPagamentoVO() == null || assembler.getFormaPagamentoVO().getCodigo() == null) {
 			throw new SmartAppException("A forma de pagamento deve ser informada.");
 		}
 		
-		// Testando se a forma de pagamento é "CHEQUE".
+		// Testando se a forma de pagamento ï¿½ "CHEQUE".
 		ParametroVO parametroVO	= new ParametroVO("FORMA_PAGTO_CHEQUE");
 		parametroVO	= parametroRN.findByPrimaryKey(parametroVO);
 		
 		if (assembler.getFormaPagamentoVO().getCodigo().toString().equals(parametroVO.getValorTextual())) {
-			// a forma de pagamento é CHEQUE, o campo número do cheque deve ser informado.
+			// a forma de pagamento ï¿½ CHEQUE, o campo nï¿½mero do cheque deve ser informado.
 			
 			if (assembler.getNumeroCheque() == null || assembler.getNumeroCheque().equals("")) {
-				throw new SmartAppException("O número do cheque deve ser informado.");
+				throw new SmartAppException("O nï¿½mero do cheque deve ser informado.");
 			}
 		}
 	}
 
 	/**
-	 * Valida os campos passados para operação de baixa de lançamento.
-	 * @param vo Objeto que encapsula os dados passados para a operação de baixa
+	 * Valida os campos passados para operaï¿½ï¿½o de baixa de lanï¿½amento.
+	 * @param vo Objeto que encapsula os dados passados para a operaï¿½ï¿½o de baixa
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -398,9 +399,9 @@ public class LancamentoRN {
 			}			
 		}
 			
-		// Testando o Lançamento
+		// Testando o Lanï¿½amento
 		if (vo.getLancamentoVO() == null || vo.getLancamentoVO().getCodigo() == null || vo.getLancamentoVO().getCodigo().intValue() == 0) {
-			throw new SmartAppException("O Lançamento deve ser informado.");
+			throw new SmartAppException("O Lanï¿½amento deve ser informado.");
 		}
 
 		// Testando o valor
@@ -409,19 +410,19 @@ public class LancamentoRN {
 		}
 		
 	
-		// Testando a presença da forma de pagamento
+		// Testando a presenï¿½a da forma de pagamento
 		if (vo.getFormaPagamentoVO() == null || vo.getFormaPagamentoVO().getCodigo() == null) {
 			throw new SmartAppException("A forma de pagamento deve ser informada.");
 		}
 		
-		// Testando se a forma de pagamento é "CHEQUE".
+		// Testando se a forma de pagamento ï¿½ "CHEQUE".
 		ParametroVO parametroVO	= new ParametroVO("FORMA_PAGTO_CHEQUE");
 		parametroVO	= parametroRN.findByPrimaryKey(parametroVO);
 		
 		if (vo.getFormaPagamentoVO().getCodigo().toString().equals(parametroVO.getValorTextual())) {
-		// forma de pagamento é CHEQUE. Número do cheque obrigatório.
+		// forma de pagamento ï¿½ CHEQUE. Nï¿½mero do cheque obrigatï¿½rio.
 			if (vo.getNumeroCheque() == null || vo.getNumeroCheque().equals("")) {
-				throw new SmartAppException("O número do cheque deve ser informado.");
+				throw new SmartAppException("O nï¿½mero do cheque deve ser informado.");
 			}
 			
 			parametroVO.setNome("TP_OPERACAO_A_CREDITAR");
@@ -442,14 +443,14 @@ public class LancamentoRN {
 
 			if (vo.getLancamentoVO().getTipoOperacaoVO().getCodigo().intValue() == aCreditar.getCodigo().intValue() || vo.getLancamentoVO().getTipoOperacaoVO().getCodigo().intValue() == credito.getCodigo().intValue()) {
 					
-				// a operação é de crédito. Dados de identificação da origem do cheque (no mínimo o banco, agência e a conta com dígito verificador) devem ser informados.
+				// a operaï¿½ï¿½o ï¿½ de crï¿½dito. Dados de identificaï¿½ï¿½o da origem do cheque (no mï¿½nimo o banco, agï¿½ncia e a conta com dï¿½gito verificador) devem ser informados.
 				if (vo.getBancoCheque()==null || vo.getBancoCheque().equals("")) {
 					throw new SmartAppException("O banco do cheque deve ser informado.");
 					
 				}
 				
 				if (vo.getAgenciaCheque()==null || vo.getAgenciaCheque().equals("")) {
-					throw new SmartAppException("A agência do cheque deve ser informada.");
+					throw new SmartAppException("A agï¿½ncia do cheque deve ser informada.");
 					
 				}
 
@@ -459,15 +460,15 @@ public class LancamentoRN {
 				}
 				
 				if (vo.getDigitoContaCheque()==null || vo.getDigitoContaCheque().equals("")) {
-					throw new SmartAppException("O dígito verificador da conta do cheque deve ser informado.");
+					throw new SmartAppException("O dï¿½gito verificador da conta do cheque deve ser informado.");
 					
 				}
 			} else {
 				
-				// a operação é de débito. Verificar se a conta informada é uma conta de banco.
+				// a operaï¿½ï¿½o ï¿½ de dï¿½bito. Verificar se a conta informada ï¿½ uma conta de banco.
 				ContaBancoVO contaBancoVO = contaRN.findByPrimaryKey(vo.getLancamentoVO().getContaVO());
 				if (contaBancoVO.getFlgContaCaixa()==null || !contaBancoVO.getFlgContaCaixa().equals("S")) {
-				// a conta é de banco. Setar dados da conta na baixa de lançamento.
+				// a conta ï¿½ de banco. Setar dados da conta na baixa de lanï¿½amento.
 					vo.setBancoCheque(contaBancoVO.getBancoVO().getSigla());
 					vo.setAgenciaCheque(contaBancoVO.getNumAgencia());
 					vo.setDigitoAgenciaCheque(contaBancoVO.getDigAgencia());
@@ -475,16 +476,16 @@ public class LancamentoRN {
 					vo.setDigitoContaCheque(contaBancoVO.getDigConta());
 					
 				} else {
-				// a conta associada à baixa não é de banco. Não é possível realizar débito em cheque sem conhecer o banco.
-					throw new SmartAppException("Não é possível escolher a forma de pagamento CHEQUE para realizar baixa em um lançamento de débito ou a debitar de uma conta caixa.");
+				// a conta associada ï¿½ baixa nï¿½o ï¿½ de banco. Nï¿½o ï¿½ possï¿½vel realizar dï¿½bito em cheque sem conhecer o banco.
+					throw new SmartAppException("Nï¿½o ï¿½ possï¿½vel escolher a forma de pagamento CHEQUE para realizar baixa em um lanï¿½amento de dï¿½bito ou a debitar de uma conta caixa.");
 				}
 			}
 		}
 	}
 
 	/**
-	 * Valida os campos passados para operação efetuar lançamento.
-	 * @param vo Objeto que encapsula os dados passados para a operação efetuar lançamento
+	 * Valida os campos passados para operaï¿½ï¿½o efetuar lanï¿½amento.
+	 * @param vo Objeto que encapsula os dados passados para a operaï¿½ï¿½o efetuar lanï¿½amento
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -494,59 +495,59 @@ public class LancamentoRN {
 			throw new SmartAppException("A conta deve ser informada.");
 		}
 
-		// Testando o Tipo de Operação
+		// Testando o Tipo de Operaï¿½ï¿½o
 		if (vo.getTipoOperacaoVO() == null || vo.getTipoOperacaoVO().getCodigo() == null) {
-			throw new SmartAppException("O tipo de operação deve ser informado.");
+			throw new SmartAppException("O tipo de operaï¿½ï¿½o deve ser informado.");
 		}
 		
 		//Testando a data
 		String flgPrevisao = tipoOperacaoRN.findByPrimaryKey(vo.getTipoOperacaoVO()).getFlgPrevisao();
 		
 		if (flgPrevisao.equals("1") && vo.getDataPrevisao() == null) {
-			throw new SmartAppException("A data de previsão deve ser informada.");				
+			throw new SmartAppException("A data de previsï¿½o deve ser informada.");				
 		} else if (flgPrevisao.equals("0") && vo.getDataEfetivacao() == null){
-			throw new SmartAppException("A data de efetivação deve ser informada.");
+			throw new SmartAppException("A data de efetivaï¿½ï¿½o deve ser informada.");
 		}		
 		
 		if (flgPrevisao.equals("1")) {			
 			if (vo.getDataPrevisao().before(dataRN.getCurrentDate())) {
-				throw new SmartAppException("A data de previsão deve ser maior ou igual a hoje.");
+				throw new SmartAppException("A data de previsï¿½o deve ser maior ou igual a hoje.");
 			}			
 
 			if (vo.getDataEfetivacao() != null) {
-				throw new SmartAppException("A data de efetivação não pode ser informada para operações a debitar ou a creditar.");
+				throw new SmartAppException("A data de efetivaï¿½ï¿½o nï¿½o pode ser informada para operaï¿½ï¿½es a debitar ou a creditar.");
 			}
 			
 		} else {
 			if (vo.getDataEfetivacao().after(dataRN.getCurrentDate())) {
-				throw new SmartAppException("A data de efetivação deve ser menor ou igual a hoje.");				
+				throw new SmartAppException("A data de efetivaï¿½ï¿½o deve ser menor ou igual a hoje.");				
 			}	
 			
 			if (vo.getDataPrevisao() != null) {
-				throw new SmartAppException("A data de previsão não pode ser informada para operações de crédito ou débito.");
+				throw new SmartAppException("A data de previsï¿½o nï¿½o pode ser informada para operaï¿½ï¿½es de crï¿½dito ou dï¿½bito.");
 			}
 		}		
 		
-		// Testando a Origem de Lançamento
+		// Testando a Origem de Lanï¿½amento
 		if (vo.getOrigemLancamentoVO() == null || vo.getOrigemLancamentoVO().getCodigo() == null) {
-			throw new SmartAppException("A Origem de lançamento deve ser informada.");			
+			throw new SmartAppException("A Origem de lanï¿½amento deve ser informada.");			
 		}
 		
-		// Testando Tipo de lançamento
+		// Testando Tipo de lanï¿½amento
 		if (vo.getOrigemLancamentoVO().getCodigo().intValue() == new Integer(parametroRN.findByPrimaryKey(new ParametroVO("ORIGEM_USUARIO")).getValorTextual()).intValue()) {
 			if (vo.getTipoLancamentoVO() == null || vo.getTipoLancamentoVO().getCodigo() == null) {
-				throw new SmartAppException("O tipo de lançamento deve ser informado.");				
+				throw new SmartAppException("O tipo de lanï¿½amento deve ser informado.");				
 			}
 		}
 		else {
 			if ((vo.getTipoLancamentoVO() != null) && (vo.getTipoLancamentoVO().getCodigo() != null)) {
-				throw new SmartAppException("O tipo de lançamento não deve ser informado para esta Origem de Lançamento.");				
+				throw new SmartAppException("O tipo de lanï¿½amento nï¿½o deve ser informado para esta Origem de Lanï¿½amento.");				
 			}			
 		}
 		
-		// Testando o Tipo de operação
+		// Testando o Tipo de operaï¿½ï¿½o
 		if (vo.getTipoOperacaoVO() == null || vo.getTipoOperacaoVO().getCodigo() == null || vo.getTipoOperacaoVO().getCodigo().intValue() == 0) {
-			throw new SmartAppException("O tipo de operação deve ser informado.");			
+			throw new SmartAppException("O tipo de operaï¿½ï¿½o deve ser informado.");			
 		}
 
 		// Testando o Valor
@@ -554,15 +555,15 @@ public class LancamentoRN {
 			throw new SmartAppException("O valor deve ser informado e maior que 0 (zero).");			
 		}
 		
-		// Testando tamanho de descrição
+		// Testando tamanho de descriï¿½ï¿½o
 		if (vo.getDescricao() != null && vo.getDescricao().length() > 255) {
-			throw new SmartAppException("A descrição não deve possuir mais do que 255 caracteres.");
+			throw new SmartAppException("A descriï¿½ï¿½o nï¿½o deve possuir mais do que 255 caracteres.");
 		}
 	}
 	
 	/**
-	 * Valida os campos passados como filtro para a consulta de lançamentos pelo objeto assembler.
-	 * @param assembler Objeto que encapsula os dados de filtro da consulta de lançamentos
+	 * Valida os campos passados como filtro para a consulta de lanï¿½amentos pelo objeto assembler.
+	 * @param assembler Objeto que encapsula os dados de filtro da consulta de lanï¿½amentos
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -577,13 +578,13 @@ public class LancamentoRN {
 		if (assembler.getDataEfetivacaoFinal() == null) {
 			throw new SmartAppException("A data final deve ser informada.");
 		} else if (assembler.getDataEfetivacaoFinal().before(assembler.getDataEfetivacaoInicial())) {
-			throw new SmartAppException("Período inválido.  A data inicial é maior do que a data final.");
+			throw new SmartAppException("Perï¿½odo invï¿½lido.  A data inicial ï¿½ maior do que a data final.");
 		}
 	}
 	
 	/**
-	 * Obtém o saldo a pagar do lançamento.
-	 * @param vo Objeto que representa o lançamento
+	 * Obtï¿½m o saldo a pagar do lanï¿½amento.
+	 * @param vo Objeto que representa o lanï¿½amento
 	 * @return Valor do saldo a pagar
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -593,8 +594,8 @@ public class LancamentoRN {
 	}
 
 	/**
-	 * Obtém o saldo a pagar do lançamento em valor absoluto.
-	 * @param vo Objeto que representa o lançamento
+	 * Obtï¿½m o saldo a pagar do lanï¿½amento em valor absoluto.
+	 * @param vo Objeto que representa o lanï¿½amento
 	 * @return Valor absoluto do saldo a pagar
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -607,7 +608,7 @@ public class LancamentoRN {
 	}
 	
 	/**
-	 * Remove lançamentos duplicados (inconsistentes) da base de dados.
+	 * Remove lanï¿½amentos duplicados (inconsistentes) da base de dados.
 	 * @throws SmartEnvException
 	 */
 	public void removeDuplicados() throws SmartEnvException {
@@ -645,6 +646,16 @@ public class LancamentoRN {
 			
 		}
 		
+	}
+	
+	/**
+	 * Obtï¿½m uma coleï¿½ï¿½o de lanï¿½amentos a partir de uma fatura. Tabelas: LANCAMENTO, LANCAMENTO_FATURA, LANCAMENTO_ITEM_FATURA   
+	 * @param fatura Instï¿½ncia da classe FaturaVO, que encapsula uma fatura.
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos, encapsulados da classe LancamentoVO.
+	 * @throws SmartEnvException
+	 */
+	public Collection<LancamentoFaturaVO> findByFatura(FaturaVO fatura) throws SmartEnvException {
+		return lancamentoDAO.findByFatura(fatura);
 	}
 
 	public void setContaRN(ContaRN contaRN) {

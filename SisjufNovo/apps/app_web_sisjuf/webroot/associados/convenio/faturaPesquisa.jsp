@@ -124,6 +124,7 @@
 									<rich:column><h:outputText value="Paga" /></rich:column>
 									<rich:column><h:outputText value="Recebida" /></rich:column>
 									<rich:column><h:outputText value="Status" /></rich:column>
+									<rich:column><h:outputText value="" /></rich:column>
 									</rich:columnGroup>
 								</f:facet>
 								
@@ -164,9 +165,9 @@
 								</rich:column>
 								
 								<rich:column style="width:30%">
-									<t:commandLink action="#{FaturaBean.realizarBaixaFaturamento}" title="Baixar Fatura" immediate="true" id="baixarFatura" 
+									<t:commandLink action="#{LancamentoBean.realizarBaixaFatura}" title="Baixar Fatura" immediate="true" id="baixarFatura" 
 									rendered="#{!item.pago}">
-										<t:updateActionListener property="#{FaturaBean.fatura.codigo}" value="#{itens.codigo}" />
+										<t:updateActionListener property="#{LancamentoBean.fatura.codigo}" value="#{itens.codigo}" />
 										<h:outputText value="Baixar Fatura" />
 									</t:commandLink>
 									
