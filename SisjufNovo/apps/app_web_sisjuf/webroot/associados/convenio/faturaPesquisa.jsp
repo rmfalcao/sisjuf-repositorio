@@ -163,6 +163,15 @@
 									<h:outputText value="#{itens.status.nome}"/>
 								</rich:column>
 								
+								<rich:column style="width:30%">
+									<t:commandLink action="#{FaturaBean.realizarBaixaFaturamento}" title="Baixar Fatura" immediate="true" id="baixarFatura" 
+									rendered="#{!item.pago}">
+										<t:updateActionListener property="#{FaturaBean.fatura.codigo}" value="#{itens.codigo}" />
+										<h:outputText value="Baixar Fatura" />
+									</t:commandLink>
+									
+								</rich:column>
+								
 							</rich:dataTable>
 						</t:div>
 						
