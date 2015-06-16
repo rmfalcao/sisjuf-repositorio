@@ -345,6 +345,9 @@ public class LancamentoPageBean extends BasePageBean {
 					lancamento = delegate.findLancamentoByPrimaryKey(new LancamentoVO(lancamentoFatura.getCodigo())); 
 				}
 			}
+			if(lancamento.getValor() < 0){
+				lancamento.setValor(lancamento.getValor()*-1);
+			}
 			lancamento.setOrigemLancamentoVO(new OrigemLancamentoVO(new Integer(utilDelegate.findParametroByPrimaryKey(new ParametroVO("ORIGEM_USUARIO")).getValorTextual())));
 			lancamento.setDataPrevisao(utilDelegate.getCurrentDate());
 			return "realizarLancamentoADebitar";
