@@ -10,6 +10,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.dados.FaturaDAO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaRN;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.OrigemLancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.TipoOperacaoVO;
 import br.org.asserjuf.sisjuf.util.ParametroRN;
@@ -62,6 +63,10 @@ public class FaturaRN {
 	public Collection<FaturaVO> findByConvenio(ConvenioVO convenio) throws SmartEnvException {
 
 		return faturaDAO.findByConvenio(convenio);
+	}
+	
+	public Collection<FaturaVO> findByLancamento(LancamentoVO lancamento) throws SmartEnvException {
+		return faturaDAO.findByLancamento(lancamento);
 	}
 
 

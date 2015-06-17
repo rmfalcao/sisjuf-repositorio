@@ -250,9 +250,6 @@
 						            <h:outputText value="#{properties['lb_valorTotal']}" />
 						        </f:facet>
 							</t:column>
-
-
-
 							
 							<t:column width="90">
 								<f:facet name="header">
@@ -292,6 +289,20 @@
 									onclick="setAcao(document.forms[1], 'Remove_Lancamento')" styleClass="botao_excluir">
 									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
 								</t:commandLink>
+							</t:column>
+							
+							<t:column>
+								<t:panelGroup>
+									<t:commandLink action="#{LancamentoBean.detalharVinculacaoLancamento}" title="Detalhar Vinculação" immediate="true" rendered="#{lancamentos.tipoOperacaoVO.codigo == 3}">
+										<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
+										<h:outputText value="Detalhar Vinculação" />
+									</t:commandLink>
+									<t:commandLink action="#{FaturaBean.carregarFaturaADebitarAPartirLancamento}" title="Detalhar Vinculação" immediate="true" rendered="#{lancamentos.tipoOperacaoVO.codigo == 4}">
+											<t:updateActionListener property="#{FaturaBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
+											<h:outputText value="Detalhar Vinculação" />
+									</t:commandLink>
+								</t:panelGroup>
+								
 							</t:column>
 
 						</t:dataTable>

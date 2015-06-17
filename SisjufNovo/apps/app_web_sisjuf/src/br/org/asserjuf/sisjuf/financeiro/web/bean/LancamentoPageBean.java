@@ -372,6 +372,33 @@ public class LancamentoPageBean extends BasePageBean {
 			return "falha";
 		}
 	}
+	
+	public String detalharVinculacaoLancamento(){
+		try{
+			lancamento = delegate.findLancamentoByPrimaryKey(lancamento);
+			
+			return "realizarLancamentoADebitar";
+		}catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", envEx);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			LOG.error("Error ", e);
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
+		}
+	}
 
 	/**
 	 * Obt�m um lan�amento do bean para ser utilizado na interface.

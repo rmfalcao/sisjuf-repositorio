@@ -18,6 +18,9 @@ import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
+import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
@@ -32,6 +35,8 @@ public class FaturaPageBean extends BasePageBean {
 	private Collection<FaturaVO> 		faturas;
 	
 	private FaturaVO 					fatura;
+	
+	private LancamentoVO				lancamento;
 	
 	private static final transient SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -48,6 +53,8 @@ public class FaturaPageBean extends BasePageBean {
 		fatura = new FaturaVO();
 		fatura.setConvenio(new ConvenioVO());
 		fatura.setStatus(new StatusFaturaVO());
+		
+		lancamento = new LancamentoVO();
 	}
 	
 	public String carregar(){
@@ -56,6 +63,40 @@ public class FaturaPageBean extends BasePageBean {
 			fatura = delegate.findByPrimaryKey(fatura);
 			System.out.println("FATURA CONVENIO " + fatura.getConvenio().getNomeFantasia());
 			return getSucesso();
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
+		}
+	}
+	
+	public String carregarFaturaADebitarAPartirLancamento(){
+		try {
+			
+			Collection<FaturaVO> faturas = delegate.findFaturaByLancamento(lancamento);
+			if(faturas != null && faturas.size() > 0){
+				if(faturas.size() == 1){
+					fatura = faturas.iterator().next();
+				}else{
+					throw new SmartAppException("Lançamento possui mais de uma fatura associada.");
+				}
+				fatura = delegate.findByPrimaryKey(fatura);
+			}else{
+				throw new SmartAppException("Lançamento não possui uma fatura associada.");
+			}
+			return getSucesso();
+		}catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			return "falha";
 		}catch(SmartEnvException envEx){
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
@@ -238,4 +279,13 @@ public class FaturaPageBean extends BasePageBean {
 	public void setTipoArquivoFatura(String tipoArquivoFatura) {
 		this.tipoArquivoFatura = tipoArquivoFatura;
 	}
+
+	public LancamentoVO getLancamento() {
+		return lancamento;
+	}
+
+	public void setLancamento(LancamentoVO lancamento) {
+		this.lancamento = lancamento;
+	}
+	
 }

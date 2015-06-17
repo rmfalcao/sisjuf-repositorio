@@ -19,6 +19,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.facade.ConvenioFacade;
 import br.org.asserjuf.sisjuf.entidadesComuns.EstadoVO;
 import br.org.asserjuf.sisjuf.entidadesComuns.facade.EntidadesComunsFacade;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 
 /**
  * Implementa��o da classe que representa o "proxy" para o fa�ade Convenio.
@@ -260,6 +261,10 @@ public class ConvenioDelegate {
 	
 	public Collection<FaturaVO> findFaturaByConvenio(ConvenioVO convenio) throws SmartEnvException {
 		return convenioBean.findFaturaByConvenio(convenio);
+	}
+	
+	public Collection<FaturaVO> findFaturaByLancamento(LancamentoVO lancamento) throws SmartEnvException {
+		return convenioBean.findFaturaByLancamento(lancamento);
 	}
 
 	public FaturaVO gerarFaturaVariavel(FaturaVO fatura) throws SmartEnvException, SmartAppException {

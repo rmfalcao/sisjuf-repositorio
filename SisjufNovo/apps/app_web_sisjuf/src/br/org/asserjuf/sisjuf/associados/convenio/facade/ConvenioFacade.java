@@ -22,6 +22,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioRN;
 import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 
 /**
  * Classe responsav�l por chamar os m�todos dos RNs diversos que envolvem a funcionalidade "Convenios"
@@ -327,6 +328,10 @@ public class ConvenioFacade {
 	 */
 	public Collection<FaturaVO> findFaturaByConvenio(ConvenioVO convenio) throws SmartEnvException {
 		return faturaRN.findByConvenio(convenio);
+	}
+	
+	public Collection<FaturaVO> findFaturaByLancamento(LancamentoVO lancamento) throws SmartEnvException {
+		return faturaRN.findByLancamento(lancamento);
 	}
 	
 	/**

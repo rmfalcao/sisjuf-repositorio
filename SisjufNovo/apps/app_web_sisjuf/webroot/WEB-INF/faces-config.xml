@@ -772,6 +772,12 @@
 			<from-outcome>falha</from-outcome>
 			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FaturaBean.carregarFaturaADebitarAPartirLancamento}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/faturaDetalhada.jsp</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
