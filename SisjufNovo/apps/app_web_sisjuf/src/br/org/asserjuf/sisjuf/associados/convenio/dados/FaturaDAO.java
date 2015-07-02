@@ -467,25 +467,25 @@ public class FaturaDAO extends SisjufDAOPostgres {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'N�O ENCONTRADO NO ARQUIVO' AS TIPO_INCONSISTENCIA ")
+		sql.append(" SELECT 	F.SEQ_FATURA, VP.CODIGO_BENEFICIARIO_PLANO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'N�O ENCONTRADO NO ARQUIVO' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
 			.append(" AND	VP.SEQ_PESSOA = B.SEQ_BENEFICIARIO ")
-			.append(" AND	B.NUM_CPF_BENEFICIARIO NOT IN ( ")
-			.append(" SELECT 	IFA.NUM_CPF_BENEFICIARIO ")
+			.append(" AND	VP.CODIGO_BENEFICIARIO_PLANO NOT IN ( ")
+			.append(" SELECT 	IFA.CODIGO_BENEFICIARIO_PLANO ")
 			.append(" FROM 	ITEM_FATURA_ARQUIVO IFA, FATURA_ARQUIVO FA ")
 			.append(" WHERE 	IFA.SEQ_FATURA_ARQUIVO = FA.SEQ_FATURA_ARQUIVO ")
-			.append(" AND     IFA.NUM_CPF_BENEFICIARIO = B.NUM_CPF_BENEFICIARIO ")
+			.append(" AND     IFA.CODIGO_BENEFICIARIO_PLANO = VP.CODIGO_BENEFICIARIO_PLANO ")
 			.append(" AND	FA.SEQ_FATURA_ARQUIVO = F.SEQ_FATURA ")
 			.append(" ) ")
 			.append(" AND 	F.SEQ_FATURA = ? ")
 			.append(" UNION ALL ")
-			.append(" SELECT 	FA.SEQ_FATURA_ARQUIVO, IFA.NUM_CPF_BENEFICIARIO, IFA.NOM_BENEFICIARIO, IFA.VAL_ITEM_FATURA_ARQUIVO, 'N�O ENCONTRADO NA BASE' AS TIPO_INCONSISTENCIA ")
+			.append(" SELECT 	FA.SEQ_FATURA_ARQUIVO, IFA.CODIGO_BENEFICIARIO_PLANO, IFA.NOM_BENEFICIARIO, IFA.VAL_ITEM_FATURA_ARQUIVO, 'N�O ENCONTRADO NA BASE' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM	FATURA_ARQUIVO FA, ITEM_FATURA_ARQUIVO IFA ")
 			.append(" WHERE 	FA.SEQ_FATURA_ARQUIVO = IFA.SEQ_FATURA_ARQUIVO ")
-			.append(" AND	IFA.NUM_CPF_BENEFICIARIO NOT IN ( ")
-			.append(" SELECT 	B.NUM_CPF_BENEFICIARIO ")
+			.append(" AND	IFA.CODIGO_BENEFICIARIO_PLANO NOT IN ( ")
+			.append(" SELECT 	VP.CODIGO_BENEFICIARIO_PLANO ")
 			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
@@ -494,7 +494,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" ) ")
 			.append(" AND FA.SEQ_FATURA_ARQUIVO = ? ")
 			.append(" UNION ALL ")
-			.append(" SELECT 	F.SEQ_FATURA, B.NUM_CPF_BENEFICIARIO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'VALOR N�O BATE' AS TIPO_INCONSISTENCIA ")
+			.append(" SELECT 	F.SEQ_FATURA, VP.CODIGO_BENEFICIARIO_PLANO, B.NOM_BENEFICIARIO, IF.VAL_ITEM_FATURA, 'VALOR NAO BATE' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B, ITEM_FATURA_ARQUIVO IFA ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
@@ -503,7 +503,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" AND	IFA.NUM_CPF_BENEFICIARIO = B.NUM_CPF_BENEFICIARIO ")
 			.append(" AND	IFA.VAL_ITEM_FATURA_ARQUIVO <> IF.VAL_ITEM_FATURA ")
 			.append(" AND 	F.SEQ_FATURA = ? ")
-			.append(" ORDER BY SEQ_FATURA, NUM_CPF_BENEFICIARIO ");	
+			.append(" ORDER BY SEQ_FATURA, CODIGO_BENEFICIARIO_PLANO ");	
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -519,7 +519,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			
 			return sRs.getJavaBeans(ItemFaturaInconsistenteVO.class, new String[]{	
 																			"fatura.codigo",
-																			"vinculacao.beneficiario.cpf",
+																			"vinculacao.codigoBeneficiarioPlano",
 																			"vinculacao.beneficiario.nome",
 																			"valor",
 																			"tipoInconsistencia"
@@ -562,7 +562,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	public ItemFaturaVO insertItemArquivo(ItemFaturaVO item) throws SmartEnvException {
 
-		StringBuffer 			sql		= new StringBuffer(" INSERT INTO ITEM_FATURA_ARQUIVO (SEQ_ITEM_FATURA_ARQUIVO, NUM_CPF_BENEFICIARIO, NOM_BENEFICIARIO, FLG_TIPO_BENEFICIARIO, VAL_ITEM_FATURA_ARQUIVO) VALUES (?, ?, ?, ?, ?) ");
+		StringBuffer 			sql		= new StringBuffer(" INSERT INTO ITEM_FATURA_ARQUIVO (SEQ_ITEM_FATURA_ARQUIVO, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, FLG_TIPO_BENEFICIARIO, VAL_ITEM_FATURA_ARQUIVO) VALUES (?, ?, ?, ?, ?) ");
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 
@@ -573,7 +573,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 
 			item.setCodigo(new Integer(getSequence("SEQ_ITEM_FATURA_ARQUIVO").intValue()));
 
-			sStmt.setParameters(item, new String[]{"codigo", "vinculacao.beneficiario.cpf","vinculacao.beneficiario.nome","vinculacao.beneficiario.tipoBeneficiario", "valor"});
+			sStmt.setParameters(item, new String[]{"codigo", "vinculacao.codigoBeneficiarioPlano","vinculacao.beneficiario.nome","vinculacao.beneficiario.tipoBeneficiario", "valor"});
 
 			sStmt.getMyPreparedStatement().execute();
 
