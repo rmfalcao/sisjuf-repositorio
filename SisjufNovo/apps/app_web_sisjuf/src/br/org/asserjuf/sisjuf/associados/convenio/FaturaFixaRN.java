@@ -128,9 +128,13 @@ public class FaturaFixaRN extends FaturaRNAb {
 		if (item.getVinculacao() == null || item.getVinculacao().getBeneficiario() == null) {
 			throw new SmartAppException("Beneficiário não encontrado em item de fatura do arquivo.");
 		}
-		
+		/*
 		if (item.getVinculacao().getBeneficiario().getCpf() == null) {
 			throw new SmartAppException("CPF de beneficiário de um item de fatura do arquivo não encontrado.");
+		}
+		*/
+		if (item.getVinculacao().getCodigoBeneficiarioPlano()==null || "".equals(item.getVinculacao().getCodigoBeneficiarioPlano())) {
+			throw new SmartAppException("Codigo do beneficiario no plano de um item de fatura do arquivo nao encontrado.");
 		}
 		
 		if (item.getValor() == null) {
