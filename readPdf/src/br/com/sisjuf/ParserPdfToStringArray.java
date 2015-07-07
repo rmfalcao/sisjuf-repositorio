@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.util.PDFText2HTML;
 import org.apache.pdfbox.util.PDFTextStripper;
 
 public class ParserPdfToStringArray {
@@ -41,6 +42,7 @@ public class ParserPdfToStringArray {
 		COSDocument cosDoc = parser.getDocument();
         PDDocument  pdDoc = new PDDocument(cosDoc);
 		PDFTextStripper stripper = new PDFTextStripper();
+//        PDFText2HTML stripper = new PDFText2HTML("UTF-08");
 		stripper.setStartPage(startPage);
 		stripper.setEndPage(endPage);
 		String st = stripper.getText(pdDoc);

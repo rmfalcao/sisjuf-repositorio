@@ -16,7 +16,7 @@ public abstract class ParserFileAb implements ParserFile {
 	@Override
 	public List<AssociadoModel> parserContentFileToAssociadosList() throws Exception {
 		List<AssociadoModel> listaAssociados = new ArrayList<>();
-		for(int paginaCorrente=0;paginaCorrente<parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
+		for(int paginaCorrente=1;paginaCorrente<=parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
 			System.out.println("############### NOVA PAGINA ###### "+paginaCorrente);
 			String[] linhasPaginaArquivo = parserPdfToStringArray.parserPdfContentToStringArraySpecificPage(paginaCorrente,paginaCorrente);
 			if(linhasPaginaArquivo.length > 1){

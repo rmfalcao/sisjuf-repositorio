@@ -8,6 +8,7 @@ public class ParserFileOdontosystem extends ParserFileAb{
 	
 	private static final int TAMANHO_CABECALHO_ODONTO_SYSTEM_ASSOCIADO = 10;
 	private static final String MENSAGEM_RODAPE_ODONTO_SYSTEM_ASSOCIADO = "PDF created with pdfFactory trial version www.pdffactory.com";
+	private static final String MENSAGEM_RESUMO = "RESUMO  DA EMPRESA";
 	
 	public ParserFileOdontosystem(String pathFile) throws IOException {
 		super(pathFile);
@@ -18,9 +19,9 @@ public class ParserFileOdontosystem extends ParserFileAb{
 //		ADRIANA DE FREITAS ABBEHUSEN719137 01/09/2004  00:00:00GLOBAL 1  -  C Parcela Não Usuário 0,00Titular0
 		List<AssociadoModel> listaAssociados = new ArrayList<AssociadoModel>();
 		for(int i = TAMANHO_CABECALHO_ODONTO_SYSTEM_ASSOCIADO;i<linhasArquivo.length;i++){
-        	String linha = linhasArquivo[i];
+        	String linha = linhasArquivo[i].trim();
         	System.out.println(linha);
-        	if(linha.equalsIgnoreCase(MENSAGEM_RODAPE_ODONTO_SYSTEM_ASSOCIADO)){
+        	if(linha.equalsIgnoreCase(MENSAGEM_RODAPE_ODONTO_SYSTEM_ASSOCIADO) || linha.equalsIgnoreCase("RESUMO  DA EMPRESA")){
         		break;
         	}
         	if(Character.isDigit(linha.charAt(0))){

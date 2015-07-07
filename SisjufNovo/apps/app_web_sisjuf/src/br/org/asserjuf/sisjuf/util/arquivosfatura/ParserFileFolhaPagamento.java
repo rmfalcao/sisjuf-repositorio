@@ -16,7 +16,7 @@ public class ParserFileFolhaPagamento extends ParserFileAb {
 		super(contentFile);
 	}
 	
-	public List<BeneficiarioVO> parserContentFileToBeneficiariosList(String[] linhasPaginasArquivo) throws Exception{
+	public List<BeneficiarioVO> parserContentFileToItensFaturasList(String[] linhasPaginasArquivo) throws Exception{
 		List<BeneficiarioVO> listaAssociados = new ArrayList<BeneficiarioVO>();
 //		int indicePonteiroLeituraArquivo = INICIO_UTIL_ARQUIVO;
 //		String linha =  null;

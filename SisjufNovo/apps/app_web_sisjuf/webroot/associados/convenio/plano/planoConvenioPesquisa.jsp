@@ -102,7 +102,7 @@
 			<t:saveState value="#{ConvenioBean.planosConvenio}" />
 			
 			<a4j:commandLink action="#{ConvenioBean.prepararNovoPlano}" style="border: 0px;" styleClass="botao_novo" 
-				reRender="planoConvenioFormMiolo" oncomplete="openPlanoModal();" onclick="if (document.getElementById('planoConvenioPesquisa:planoPesquisaForm:CodConvenio').value == '') { novoPlano(); return false;} ">
+				reRender="planoConvenioFormMiolo" oncomplete="openPlanoModal();" onclick="if (document.getElementById('planoConvenioPesquisa:planoPesquisaForm:codigoConvenio').value == '') { novoPlano(); return false;} ">
 		    </a4j:commandLink>
 			<t:messages id="msgs" showDetail="true" showSummary="false" errorClass="textoMsgErro" infoClass="textoMsgInfo"/>
 	

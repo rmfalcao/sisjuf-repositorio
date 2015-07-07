@@ -127,9 +127,11 @@ public class PlanoConvenioRN {
 		if (vo.getCodigo() != null){
 			PlanoConvenioVO planoVelho =this.findByPrimaryKey(vo);
 			//Caso a dataInicio seja mudada ent�o a nova deve ser maior que a anterior caso a mesma exista.
-			if (vo.getDataInicio()!= null && planoVelho.getDataInicio() != null
-					&& ( vo.getDataInicio().getTime() < planoVelho.getDataInicio().getTime())){
-				throw new SmartAppException("A nova data inicio deve ser maior que a data inicio anterior.");
+			if (planoVelho != null){
+				if (vo.getDataInicio()!= null && planoVelho.getDataInicio() != null
+						&& ( vo.getDataInicio().getTime() < planoVelho.getDataInicio().getTime())){
+					throw new SmartAppException("A nova data inicio deve ser maior que a data inicio anterior.");
+				}
 			}
 		}
 	}

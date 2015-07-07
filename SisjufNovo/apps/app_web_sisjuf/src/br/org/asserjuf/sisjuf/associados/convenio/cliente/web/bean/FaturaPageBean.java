@@ -3,6 +3,7 @@ package br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -14,14 +15,19 @@ import org.richfaces.model.UploadItem;
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.FaturaArquivoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
+import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileOdontosystem;
+import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFilePromedica;
+import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileVitalmed;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 import com.vortice.view.BasePageBean;
@@ -142,21 +148,45 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public String validarFatura(){
 		try {
-			if(StringUtils.isNotEmpty(tipoArquivoFatura)){
-				if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
+			if (conteudoArquivoFatura == null){
+				if(StringUtils.isNotEmpty(tipoArquivoFatura)){
+					FaturaArquivoVO faturaArquivo = new FaturaArquivoVO();
+					faturaArquivo.setCodigo(fatura.getCodigo());
 					
-				}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
+					if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
+						ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
+						List<ItemFaturaVO> itens = parserFileVitalmed.parserContentFileToIntensFaturasList();
+						
+						faturaArquivo.setItens(itens);
+						
+					}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
+						ParserFilePromedica parserFilePromedica = new ParserFilePromedica(conteudoArquivoFatura);
+						
+					}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
+						ParserFileOdontosystem parserFileOdontosystem = new ParserFileOdontosystem(conteudoArquivoFatura);
+						List<ItemFaturaVO> itens = parserFileOdontosystem.parserContentFileToIntensFaturasList();
+						
+						faturaArquivo.setItens(itens);
+					}
 					
-				}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
+					Double valorTotal = new Double(0);
+					for (ItemFaturaVO itemFatura : faturaArquivo.getItens()){
+						valorTotal += itemFatura.getValor();
+					}
 					
+					faturaArquivo.setValorFatura(valorTotal);
+					
+					FaturaArquivoVO faturaProcessda = delegate.validarFatura(faturaArquivo);
 				}
+				//fatura = delegate.findByPrimaryKey(fatura);
+				FacesMessage msgs = new FacesMessage("Fatura validada com sucesso.");
+				FacesContext facesContext =  FacesContext.getCurrentInstance();
+				facesContext.addMessage("convenioMsgs", msgs);	
+				carregar();
+				return getSucesso();
+			}else{
+				throw new SmartAppException("Carregue primeio o arquivo antes de tentar validar.");
 			}
-			fatura = delegate.findByPrimaryKey(fatura);
-			FacesMessage msgs = new FacesMessage("Fatura validada com sucesso.");
-			FacesContext facesContext =  FacesContext.getCurrentInstance();
-			facesContext.addMessage("convenioMsgs", msgs);	
-			carregar();
-			return getSucesso();
 		}catch(SmartEnvException envEx){
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
@@ -287,5 +317,5 @@ public class FaturaPageBean extends BasePageBean {
 	public void setLancamento(LancamentoVO lancamento) {
 		this.lancamento = lancamento;
 	}
-	
+
 }

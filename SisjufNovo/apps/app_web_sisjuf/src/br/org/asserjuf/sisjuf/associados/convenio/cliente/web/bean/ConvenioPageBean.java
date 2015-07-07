@@ -715,6 +715,9 @@ public class ConvenioPageBean extends BasePageBean {
 	
 	public String gerarFatura(){
 		try {
+			if (fatura.getCodigo() != null && fatura.getCodigo() == 0){
+				fatura.setCodigo(null);
+			}
 			if (!fatura.getConvenio().getCategoria().equals("F")) {
 				fatura = delegate.gerarFaturaVariavel(fatura);
 				FacesMessage msgs = new FacesMessage("Fatura gerada com sucesso.");

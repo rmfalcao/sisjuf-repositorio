@@ -12,8 +12,8 @@ public class FaturaFixaRN extends FaturaRNAb {
 
 	public  FaturaVO gerarFaturaPrevia(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
-		// montar objeto de filtro. Este objeto, no que diz respeito às datas, 
-		//  terá implementações específicas a depender de como o convenio tratar os periodos de associação. 
+		// montar objeto de filtro. Este objeto, no que diz respeito Ã s datas, 
+		//  terÃ¡ implementaÃ§Ãµes especÃ­ficas a depender de como o convenio tratar os periodos de associaÃ§Ã£o. 
 		
 		FaturaPreviaFiltroAssembler filtro =	montaFiltroFaturaPrevia(fatura);
 		
@@ -39,13 +39,13 @@ public class FaturaFixaRN extends FaturaRNAb {
 		
 		/*
 		 * 
-		 * O objetivo deste método é setar duas datas do objeto "filtro" que são específicas para a Vitalmed:
+		 * O objetivo deste mÃ©todo ï¿½ setar duas datas do objeto "filtro" que sï¿½o especï¿½ficas para a Vitalmed:
 		 * 
 		 * dataInicioApuracaoAssociados e dataFimApuracaoAssociados
 		 * 
 		 */
 		
-		// para efeito de testes, será considerada a data de inicio da fatura e a data de fechamento da fatura.
+		// para efeito de testes, serï¿½ considerada a data de inicio da fatura e a data de fechamento da fatura.
 		
 		setDatasFatura(filtro.getFatura());
 		
@@ -61,12 +61,12 @@ public class FaturaFixaRN extends FaturaRNAb {
 		
 		inserirFaturaArquivo(faturaArquivo);
 		
-		// obter relatório dos registros inconsistentes
+		// obter relatï¿½rio dos registros inconsistentes
 		
 		Collection<ItemFaturaInconsistenteVO> itensInconsistentes	= this.faturaDAO.findItensInconsistentesByFatura(faturaArquivo);
 				
-		// verificar relatório obtido, se for vazio, validar a fatura.
-		// caso contrário, 
+		// verificar relatï¿½rio obtido, se for vazio, validar a fatura.
+		// caso contrï¿½rio, 
 		
 		if (itensInconsistentes != null && itensInconsistentes.size() != 0) {
 			faturaArquivo.setItensInconsistentes(itensInconsistentes);
@@ -74,7 +74,7 @@ public class FaturaFixaRN extends FaturaRNAb {
 		}
 		 
 		
-		// se chegou aqui, não houve inconsistências.
+		// se chegou aqui, nï¿½o houve inconsistï¿½ncias.
 		
 		// atualizar status da fatura para "validada"
 		faturaArquivo.setStatus(new StatusFaturaVO());
@@ -90,15 +90,15 @@ public class FaturaFixaRN extends FaturaRNAb {
 	private void inserirFaturaArquivo(FaturaVO faturaArquivo) throws SmartEnvException, SmartAppException {
 
 		if (faturaArquivo  == null) {
-			throw new SmartAppException("Não foi identificada nenhuma fatura no arquivo.");
+			throw new SmartAppException("NÃ£o foi identificada nenhuma fatura no arquivo.");
 		}
 		
 		if (faturaArquivo.getCodigo() == null) {
-			throw new SmartAppException("O código da fatura de referência não foi encontrado.");
+			throw new SmartAppException("O cÃ³digo da fatura de referÃªncia nÃ£o foi encontrado.");
 		};
 		
 		if (faturaArquivo.getItens() == null || faturaArquivo.getItens().size() == 0) {
-			throw new SmartAppException("Não foram identificados itens na fatura do arquivo.");
+			throw new SmartAppException("NÃ£o foram identificados itens na fatura do arquivo.");
 		}
 		
 		this.faturaDAO.insertFaturaArquivo(faturaArquivo);
@@ -122,23 +122,23 @@ public class FaturaFixaRN extends FaturaRNAb {
 	private void testaRegrasItemFaturaArquivo(ItemFaturaVO item) throws SmartAppException {
 
 		if (item == null) {
-			throw new SmartAppException("Pelo menos um item da fatura do arquivo não foi identificado.");
+			throw new SmartAppException("Pelo menos um item da fatura do arquivo nÃ£o foi identificado.");
 		}
 		
 		if (item.getVinculacao() == null || item.getVinculacao().getBeneficiario() == null) {
-			throw new SmartAppException("Beneficiário não encontrado em item de fatura do arquivo.");
+			throw new SmartAppException("BeneficiÃ¡rio nÃ£o encontrado em item de fatura do arquivo.");
 		}
 		/*
 		if (item.getVinculacao().getBeneficiario().getCpf() == null) {
-			throw new SmartAppException("CPF de beneficiário de um item de fatura do arquivo não encontrado.");
+			throw new SmartAppException("CPF de beneficiÃ¡rio de um item de fatura do arquivo nÃ£o encontrado.");
 		}
 		*/
 		if (item.getVinculacao().getCodigoBeneficiarioPlano()==null || "".equals(item.getVinculacao().getCodigoBeneficiarioPlano())) {
-			throw new SmartAppException("Codigo do beneficiario no plano de um item de fatura do arquivo nao encontrado.");
+			throw new SmartAppException("Codigo do beneficiario no plano de um item de fatura do arquivo nÃ£o encontrado.");
 		}
 		
 		if (item.getValor() == null) {
-			throw new SmartAppException("Valor de um item de fatura do arquivo não encontrado.");
+			throw new SmartAppException("Valor de um item de fatura do arquivo nÃ£o encontrado.");
 		}
 		
 	}

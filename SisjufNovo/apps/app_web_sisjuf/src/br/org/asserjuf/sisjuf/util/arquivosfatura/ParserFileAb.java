@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 
 
 public abstract class ParserFileAb implements ParserFile {
@@ -15,16 +15,16 @@ public abstract class ParserFileAb implements ParserFile {
 		this.parserPdfToStringArray = new ParserPdfToStringArray(contentFile);
 	}
 	
-	public List<BeneficiarioVO> parserContentFileToBeneficiariosList() throws Exception {
-		List<BeneficiarioVO> listaAssociados = new ArrayList<BeneficiarioVO>();
+	public List<ItemFaturaVO> parserContentFileToIntensFaturasList() throws Exception {
+		List<ItemFaturaVO> listaItensFaturas = new ArrayList<ItemFaturaVO>();
 		for(int paginaCorrente=0;paginaCorrente<parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
 			String[] linhasPaginaArquivo = parserPdfToStringArray.parserPdfContentToStringArraySpecificPage(paginaCorrente,paginaCorrente);
 			if(linhasPaginaArquivo.length > 1){
-				List<BeneficiarioVO> listaAssociadosPagina = parserContentFileToBeneficiariosList(linhasPaginaArquivo);
-				listaAssociados.addAll(listaAssociadosPagina);
+				List<ItemFaturaVO> listaItensFaturasPagina = parserContentFileToItensFaturasList(linhasPaginaArquivo);
+				listaItensFaturas.addAll(listaItensFaturasPagina);
 			}
 		}
-		return listaAssociados;
+		return listaItensFaturas;
 	}
 	
 }

@@ -395,7 +395,9 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" P.VAL_PLANO, ")
 			.append(" P.VAL_PLANO, ")
 			.append(" VP.DAT_VINCULACAO, ")
-			.append(" VP.DAT_DESVINCULACAO ")
+			.append(" VP.DAT_DESVINCULACAO, ")
+			.append(" VP.SEQ_VINCULACAO, ")
+			.append(" B.SEQ_BENEFICIARIO ")
 			.append(" FROM 	VW_ASSOCIADO A,  ")
 			.append(" VINCULACAO_PLANO VP, ")
 			.append(" VW_BENEFICIARIO B, ")
@@ -447,7 +449,9 @@ public class FaturaDAO extends SisjufDAOPostgres {
 																		"plano.valor",
 																		"valor",
 																		"vinculacao.dataVinculacao",
-																		"vinculacao.dataDesVinculacao" });
+																		"vinculacao.dataDesVinculacao", 
+																		"vinculacao.codigo",
+																		"beneficiario.codigo"});
 			
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
