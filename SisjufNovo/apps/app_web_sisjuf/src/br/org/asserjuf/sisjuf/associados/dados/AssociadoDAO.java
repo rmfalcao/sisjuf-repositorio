@@ -14,6 +14,9 @@ import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
 
@@ -1018,6 +1021,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 
 		
 	}
+	
+
 	
 	
 }

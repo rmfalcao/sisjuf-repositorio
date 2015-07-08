@@ -654,7 +654,7 @@ public class LancamentoRN {
 	 * @return Cole��o de lan�amentos, encapsulados da classe LancamentoVO.
 	 * @throws SmartEnvException
 	 */
-	public Collection<LancamentoFaturaVO> findByFatura(FaturaVO fatura) throws SmartEnvException {
+	public Collection<LancamentoFaturaVO> findByFatura(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		return lancamentoDAO.findByFatura(fatura);
 	}
 

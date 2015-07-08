@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.AtividadeConvenioRN;
 import br.org.asserjuf.sisjuf.associados.convenio.AtividadeConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioRN;
@@ -407,5 +408,9 @@ public class ConvenioFacade {
 	
 	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException, SmartAppException {
 		return planoConvenioRN.findHistoricoValorPlanoByPlano(vo);
+	}
+	
+	public RelatorioIRVO findRelatorioIR(RelatorioIRVO filtro) throws SmartEnvException, SmartAppException {
+		return beneficiarioRN.findRelatorioIR(filtro);
 	}
 }

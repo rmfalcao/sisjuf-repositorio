@@ -7,6 +7,8 @@ import br.com.falc.smartFW.exception.SmartEnvException;
 import br.com.falc.smartFW.persistence.SmartConnection;
 import br.com.falc.smartFW.persistence.SmartPreparedStatement;
 import br.com.falc.smartFW.persistence.SmartResultSet;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 
@@ -120,6 +122,89 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 				sConn.close();	
 			}
 		}
+	}
+	
+	public Collection<BeneficiarioIRVO> findRelatorioIR(RelatorioIRVO filtro) throws SmartEnvException {
+		
+		StringBuffer sql = new StringBuffer(" SELECT NOM_FANTASIA, DES_CNPJ, NOM_TITULAR, NOM_BENEFICIARIO, TOTAL_PAGO_BENEFICIARIO FROM ( ")
+.append(" SELECT  CONVENIO.NOM_FANTASIA, ")
+.append(" 	CONVENIO.DES_CNPJ, ")
+.append(" 	TIT.NOM_PESSOA || ' (TOTAL CONVENIO ' || CONVENIO.NOM_FANTASIA || ')' AS NOM_TITULAR, ")
+.append(" 	null as NOM_BENEFICIARIO, ")
+.append(" 	SUM(ITEM_FATURA.VAL_ITEM_FATURA) AS TOTAL_PAGO_BENEFICIARIO ")
+.append(" FROM    CONVENIO, ")
+.append(" 	PLANO_CONVENIO, ")
+.append(" 	VINCULACAO_PLANO, ")
+.append(" 	VW_BENEFICIARIO BENEF, ")
+.append(" 	PESSOA TIT, ")
+.append(" 	FATURA, ")
+.append(" 	ITEM_FATURA ")
+.append(" WHERE   CONVENIO.SEQ_CONVENIO = PLANO_CONVENIO.SEQ_CONVENIO ")
+.append(" AND	VINCULACAO_PLANO.SEQ_PLANO= PLANO_CONVENIO.SEQ_PLANO ")
+.append(" AND	VINCULACAO_PLANO.SEQ_PESSOA = BENEF.SEQ_BENEFICIARIO ")
+.append(" AND	VINCULACAO_PLANO.SEQ_ASSOCIADO = TIT.SEQ_PESSOA ")
+.append(" AND	ITEM_FATURA.SEQ_VINCULACAO = VINCULACAO_PLANO.SEQ_VINCULACAO ")
+.append(" AND	ITEM_FATURA.SEQ_FATURA = FATURA.SEQ_FATURA ")
+.append(" AND	date_part('year', FATURA.DAT_VENCIMENTO_FATURA) = ? ")
+.append(" AND	(? IS NULL OR TIT.SEQ_PESSOA = ?) ")
+.append(" GROUP BY CONVENIO.NOM_FANTASIA, ")
+.append(" 	CONVENIO.DES_CNPJ, ")
+.append(" 	TIT.NOM_PESSOA ")
+.append(" UNION ")
+.append(" SELECT  CONVENIO.NOM_FANTASIA, ")
+.append(" 	CONVENIO.DES_CNPJ, ")
+.append(" 	TIT.NOM_PESSOA, ")
+.append(" 	BENEF.NOM_BENEFICIARIO, ")
+.append(" 	SUM(ITEM_FATURA.VAL_ITEM_FATURA) AS TOTAL_PAGO_BENEFICIARIO ")
+.append(" FROM    CONVENIO, ")
+.append(" 	PLANO_CONVENIO, ")
+.append(" 	VINCULACAO_PLANO, ")
+.append(" 	VW_BENEFICIARIO BENEF, ")
+.append(" 	PESSOA TIT, ")
+.append(" 	FATURA, ")
+.append(" 	ITEM_FATURA ")
+.append(" WHERE   CONVENIO.SEQ_CONVENIO = PLANO_CONVENIO.SEQ_CONVENIO ")
+.append(" AND	VINCULACAO_PLANO.SEQ_PLANO= PLANO_CONVENIO.SEQ_PLANO ")
+.append(" AND	VINCULACAO_PLANO.SEQ_PESSOA = BENEF.SEQ_BENEFICIARIO ")
+.append(" AND	VINCULACAO_PLANO.SEQ_ASSOCIADO = TIT.SEQ_PESSOA ")
+.append(" AND	ITEM_FATURA.SEQ_VINCULACAO = VINCULACAO_PLANO.SEQ_VINCULACAO ")
+.append(" AND	ITEM_FATURA.SEQ_FATURA = FATURA.SEQ_FATURA ")
+.append(" AND	date_part('year', FATURA.DAT_VENCIMENTO_FATURA) = ? ")
+.append(" AND	(? IS NULL OR TIT.SEQ_PESSOA = ?) ")
+.append(" GROUP BY CONVENIO.NOM_FANTASIA, ")
+.append(" 	CONVENIO.DES_CNPJ, ")
+.append(" 	TIT.NOM_PESSOA, ")
+.append(" 	BENEF.NOM_BENEFICIARIO ")
+.append(" ) TMP ")
+.append(" ORDER BY NOM_FANTASIA, NOM_TITULAR, NOM_BENEFICIARIO ");
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setParameters(filtro, new String[] {"ano", "associado.codigo", "associado.codigo", "ano", "associado.codigo", "associado.codigo"});
+			
+			
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			return sRs.getJavaBeans(BeneficiarioIRVO.class, new String[] {"plano.convenio.nomeFantasia", "cnpj", "titular.nome", "nome", "valorPago"} );
+		
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+
+		} finally {
+
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+
+		}
+		
 	}
 		
 }

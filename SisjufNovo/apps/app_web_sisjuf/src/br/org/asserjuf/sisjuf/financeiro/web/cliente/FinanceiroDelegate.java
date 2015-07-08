@@ -424,7 +424,7 @@ public class FinanceiroDelegate {
 	 * @return Cole��o de lan�amentos, encapsulados da classe LancamentoVO.
 	 * @throws SmartEnvException
 	 */
-	public Collection<LancamentoFaturaVO> findLancamentoByFatura(FaturaVO fatura) throws SmartEnvException {
+	public Collection<LancamentoFaturaVO> findLancamentoByFatura(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		return financeiroBean.findLancamentoByFatura(fatura);
 	}
 

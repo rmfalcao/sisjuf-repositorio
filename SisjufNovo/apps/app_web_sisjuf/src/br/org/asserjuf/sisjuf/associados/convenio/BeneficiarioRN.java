@@ -2,7 +2,9 @@ package br.org.asserjuf.sisjuf.associados.convenio;
 
 import java.util.Collection;
 
+import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.BeneficiarioDAO;
 
 public class BeneficiarioRN {
@@ -33,6 +35,19 @@ public class BeneficiarioRN {
 		}
 		
 		return beneficiarioDAO.findByFilter(beneficiario);
+		
+	}
+	
+	public RelatorioIRVO findRelatorioIR(RelatorioIRVO filtro) throws SmartEnvException, SmartAppException {
+		
+		if (filtro == null || filtro.getAno() == null) {
+			throw new SmartAppException("O ano deve ser preenchido.");
+		}
+		
+		filtro.setBeneficiarios(beneficiarioDAO.findRelatorioIR(filtro));
+		
+		
+		return filtro;
 		
 	}
 	

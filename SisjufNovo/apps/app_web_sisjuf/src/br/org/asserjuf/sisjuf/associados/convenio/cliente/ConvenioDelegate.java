@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.AtividadeConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
@@ -301,6 +302,10 @@ public class ConvenioDelegate {
 	
 	public Collection<PlanoConvenioVO> findHistoricoValorPlanoByPlano(PlanoConvenioVO vo) throws SmartEnvException, SmartAppException {
 		return convenioBean.findHistoricoValorPlanoByPlano(vo);
+	}
+	
+	public RelatorioIRVO findRelatorioIR(RelatorioIRVO filtro) throws SmartEnvException, SmartAppException {
+		return convenioBean.findRelatorioIR(filtro);
 	}
 	
 }
