@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 
 public class ParserFileFolhaPagamento extends ParserFileAb {
 	
@@ -16,8 +17,8 @@ public class ParserFileFolhaPagamento extends ParserFileAb {
 		super(contentFile);
 	}
 	
-	public List<BeneficiarioVO> parserContentFileToItensFaturasList(String[] linhasPaginasArquivo) throws Exception{
-		List<BeneficiarioVO> listaAssociados = new ArrayList<BeneficiarioVO>();
+	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasPaginasArquivo) throws Exception{
+		List<ItemFaturaVO> listaAssociados = new ArrayList<ItemFaturaVO>();
 //		int indicePonteiroLeituraArquivo = INICIO_UTIL_ARQUIVO;
 //		String linha =  null;
 //		try{
