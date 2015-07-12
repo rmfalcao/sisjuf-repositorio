@@ -6,11 +6,13 @@ import java.util.Collection;
 //import org.apache.log4j.Logger;
 
 
+
 import br.com.falc.smartFW.exception.SmartEnvException;
 import br.com.falc.smartFW.persistence.SmartConnection;
 import br.com.falc.smartFW.persistence.SmartPreparedStatement;
 import br.com.falc.smartFW.persistence.SmartResultSet;
 import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.FaturaArquivoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaPreviaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
@@ -479,7 +481,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" FROM 	ITEM_FATURA_ARQUIVO IFA, FATURA_ARQUIVO FA ")
 			.append(" WHERE 	IFA.SEQ_FATURA_ARQUIVO = FA.SEQ_FATURA_ARQUIVO ")
 			.append(" AND     IFA.CODIGO_BENEFICIARIO_PLANO = VP.CODIGO_BENEFICIARIO_PLANO ")
-			.append(" AND	FA.SEQ_FATURA_ARQUIVO = F.SEQ_FATURA ")
+			.append(" AND	FA.SEQ_FATURA_ARQUIVO = F.SEQ_FATURA AND FA.seq_fatura_arquivo=?")
 			.append(" ) ")
 			.append(" AND 	F.SEQ_FATURA = ? ")
 			.append(" UNION ALL ")
@@ -492,7 +494,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
 			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
 			.append(" AND	VP.SEQ_PESSOA = B.SEQ_BENEFICIARIO ")
-			.append(" AND	F.SEQ_FATURA = FA.SEQ_FATURA_ARQUIVO ")
+			.append(" AND	F.seq_fatura=?")
 			.append(" ) ")
 			.append(" AND FA.SEQ_FATURA_ARQUIVO = ? ")
 			.append(" UNION ALL ")
@@ -515,7 +517,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 			
-			sStmt.setParameters(fatura, new String[] {"codigo","codigo","codigo"});
+			sStmt.setParameters(fatura, new String[] {"codigo","codigo","codigo", "codigo", "codigo"});
 			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
@@ -561,6 +563,78 @@ public class FaturaDAO extends SisjufDAOPostgres {
 		}
 		
 	}
+	
+	public void updateFaturaArquivo(FaturaVO faturaArquivo) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer(" UPDATE FATURA_ARQUIVO SET val_fatura_arquivo=? WHERE seq_fatura_arquivo=? ");
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		try {
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+						
+			sStmt.setParameters(faturaArquivo, new String[]{"valorFatura", "codigo"});
+						
+			sStmt.getMyPreparedStatement().execute();
+				
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		}finally {
+			sStmt.close();
+			sConn.close();
+		}
+		
+	}
+	
+	public void deleteItemFaturaArquivo(FaturaVO faturaArquivo) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer(" DELETE FROM ITEM_FATURA_ARQUIVO WHERE seq_fatura_arquivo=? ");
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		try {
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+						
+			sStmt.setParameters(faturaArquivo, new String[]{"codigo"});
+						
+			sStmt.getMyPreparedStatement().execute();
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		}finally {
+			sStmt.close();
+			sConn.close();
+		}
+	}
+	
+	public FaturaArquivoVO findBYPrimaryKey(FaturaArquivoVO faturaArquivo) throws SmartEnvException{
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("SELECT seq_fatura_arquivo, val_fatura_arquivo FROM fatura_arquivo WHERE seq_fatura_arquivo=? ");	
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setParameters(faturaArquivo, new String[] {"codigo"});
+			
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			return (FaturaArquivoVO) sRs.getJavaBean(faturaArquivo, new String[]{"codigo", "valorFatura"});									
+																	
+			
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+		} 
+	}
+	
 	
 	public ItemFaturaVO insertItemArquivo(ItemFaturaVO item) throws SmartEnvException {
 

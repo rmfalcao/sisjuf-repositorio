@@ -101,20 +101,39 @@ public class FaturaFixaRN extends FaturaRNAb {
 			throw new SmartAppException("Não foram identificados itens na fatura do arquivo.");
 		}
 		
-		this.faturaDAO.insertFaturaArquivo(faturaArquivo);
-		
-		// testa regras e insere itens de fatura:
-		for (ItemFaturaVO item : faturaArquivo.getItens()) {
+		FaturaArquivoVO faturaOld = this.faturaDAO.findBYPrimaryKey((FaturaArquivoVO)faturaArquivo);
+		if (faturaOld == null){
+			this.faturaDAO.insertFaturaArquivo(faturaArquivo);
 			
-			// coloca fatura (codigo) no item
-			item.setFatura(faturaArquivo);
+			// testa regras e insere itens de fatura:
+			for (ItemFaturaVO item : faturaArquivo.getItens()) {
+				
+				// coloca fatura (codigo) no item
+				item.setFatura(faturaArquivo);
+				
+				// testa regras:
+				testaRegrasItemFaturaArquivo(item);
+				
+				// insere:
+				this.faturaDAO.insertItemArquivo(item);
+			}
+		}else{//CASO FATURA JA EXISTA, ALTERA A MESMA E REMOVE OS ITENS PARA INSERIR NOVAMENTE
+			this.faturaDAO.updateFaturaArquivo(faturaArquivo);
+			faturaDAO.deleteItemFaturaArquivo(faturaArquivo);
 			
-			// testa regras:
-			testaRegrasItemFaturaArquivo(item);
-			
-			// insere:
-			this.faturaDAO.insertItemArquivo(item);
-			
+			// testa regras e insere itens de fatura:
+			for (ItemFaturaVO item : faturaArquivo.getItens()) {
+				
+				// coloca fatura (codigo) no item
+				item.setFatura(faturaArquivo);
+				
+				// testa regras:
+				testaRegrasItemFaturaArquivo(item);
+				
+				// insere:
+				this.faturaDAO.insertItemArquivo(item);
+			}
+			System.out.println("TESTE");
 		}
 		
 	}
