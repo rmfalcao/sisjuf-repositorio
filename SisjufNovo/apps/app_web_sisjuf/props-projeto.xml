@@ -5,7 +5,7 @@
 	<property value="D:\Servidores\jboss-4.0.4.GA" name="jbossDir"/>
 	<property value="D:\Servidores\jboss-4.0.4.GA\server\default\deploy" name="deployDir"/>
 	-->
-	<property name="SISJUF_HOME"		value="/Users/antoniolazarocarvalhoborges/Desenvolvimento/workspace/sisjuf-repositorio/SisjufNovo"/>
+	<property name="SISJUF_HOME"		value="D:/desenvolvimento/projetos/Sisjuf/sisjuf-repositorio/SisjufNovo"/>
 	
 	<property name="seguranca.dir" 		value="${SISJUF_HOME}/apps/app_web_seguranca"/><!-- location="D:\Projetos\SegurancaSisjuf" -->
 	<property name="project.dir"		value="${basedir}"/>
@@ -22,8 +22,8 @@
 	<property name="lib.dir" 			value="${SISJUF_HOME}/lib/"></property>
 	<property name="build.dir"			value="${project.dir}/build"></property>
 	<property name="smartFWVersionName" value="SmartFW"/>
-	<property name="server.deploy.dir"	value="/Users/antoniolazarocarvalhoborges/Desenvolvimento/Servers/apache-tomcat-6.0.32/webapps" />
-	<property name="server.cache"		value="/Users/antoniolazarocarvalhoborges/Desenvolvimento/Servers/apache-tomcat-6.0.32/work/Catalina" />
+	<property name="server.deploy.dir"	value="D:/desenvolvimento/servidores/apache-tomcat-6.0.43/webapps" />
+	<property name="server.cache"		value="D:/desenvolvimento/servidores/apache-tomcat-6.0.43/work/Catalina" />
 	<!--property name="classPath"		value="${SISJUF_HOME}/lib/"/ -->
 	
 	<fileset id="projeto.lib" dir="${lib.dir}">

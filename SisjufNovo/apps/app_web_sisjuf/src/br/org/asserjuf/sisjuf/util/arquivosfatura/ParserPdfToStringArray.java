@@ -1,6 +1,7 @@
 package br.org.asserjuf.sisjuf.util.arquivosfatura;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -14,11 +15,18 @@ public class ParserPdfToStringArray {
 	
 	private InputStream stream;
 	private int numeroPaginas;
+	private PDDocument document;
+	private String	strPath;
 	
 	public ParserPdfToStringArray(byte[] contentFile) throws IOException{
 		this.stream = new ByteArrayInputStream(contentFile);
-		PDDocument document = PDDocument.load(stream);
-		document.close();	
+		document = PDDocument.load(stream);
+		this.numeroPaginas = document.getNumberOfPages();
+	}
+	
+	public ParserPdfToStringArray(String path) throws IOException{
+		strPath = path;
+		document = PDDocument.load(path);
 		this.numeroPaginas = document.getNumberOfPages();
 	}
 	
@@ -34,8 +42,13 @@ public class ParserPdfToStringArray {
 		if(endPage == -1){
 			endPage = numeroPaginas;
 		}
-		
-		PDFParser parser = new PDFParser(stream);
+		PDFParser parser = null;
+		if (strPath != null){
+			InputStream file = new FileInputStream(strPath);
+			parser = new PDFParser(file);
+		}else{
+			parser = new PDFParser(stream);
+		}
 		parser.parse();
 		COSDocument cosDoc = parser.getDocument();
         PDDocument  pdDoc = new PDDocument(cosDoc);
@@ -52,7 +65,9 @@ public class ParserPdfToStringArray {
 		pdDoc.close();
 		cosDoc.close();
 		parser.clearResources();
-		stream.close();
+		if (stream != null)
+			stream.close();
+		document.close();
 	}
 
 	public int getNumeroPaginas() {

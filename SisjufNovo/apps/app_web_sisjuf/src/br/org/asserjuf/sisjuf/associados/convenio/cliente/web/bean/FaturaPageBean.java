@@ -1,5 +1,6 @@
 package br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean;
 
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.pdfbox.io.IOUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -21,9 +23,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
-import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
-import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileOdontosystem;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFilePromedica;
@@ -43,6 +43,12 @@ public class FaturaPageBean extends BasePageBean {
 	private FaturaVO 					fatura;
 	
 	private LancamentoVO				lancamento;
+	
+	private FaturaArquivoVO 			faturaProcessda;
+	
+	private List 			data = new ArrayList();
+	
+	private String			strPath;
 	
 	private static final transient SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -141,20 +147,28 @@ public class FaturaPageBean extends BasePageBean {
 		}
 	}
 	
-	public void upload(UploadEvent e) { 
-		UploadItem uploadItem = e.getUploadItem();	
-		conteudoArquivoFatura = uploadItem.getData();
+	public void upload(UploadEvent ue) { 
+		try {
+			UploadItem uploadItem = ue.getUploadItem();
+			if (uploadItem.getFile().exists()){
+				conteudoArquivoFatura = IOUtils.toByteArray(new FileInputStream(uploadItem.getFile()));
+				strPath = uploadItem.getFile().getAbsolutePath();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	} 
 	
 	public String validarFatura(){
 		try {
-			if (conteudoArquivoFatura == null){
+			if (conteudoArquivoFatura != null){
 				if(StringUtils.isNotEmpty(tipoArquivoFatura)){
 					FaturaArquivoVO faturaArquivo = new FaturaArquivoVO();
 					faturaArquivo.setCodigo(fatura.getCodigo());
 					
 					if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
-						ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
+						//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
+						ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(strPath);
 						List<ItemFaturaVO> itens = parserFileVitalmed.parserContentFileToIntensFaturasList();
 						
 						faturaArquivo.setItens(itens);
@@ -176,14 +190,17 @@ public class FaturaPageBean extends BasePageBean {
 					
 					faturaArquivo.setValorFatura(valorTotal);
 					
-					FaturaArquivoVO faturaProcessda = delegate.validarFatura(faturaArquivo);
+					faturaProcessda = delegate.validarFatura(faturaArquivo);
 				}
-				//fatura = delegate.findByPrimaryKey(fatura);
-				FacesMessage msgs = new FacesMessage("Fatura validada com sucesso.");
-				FacesContext facesContext =  FacesContext.getCurrentInstance();
-				facesContext.addMessage("convenioMsgs", msgs);	
-				carregar();
-				return getSucesso();
+				if (faturaProcessda != null && (faturaProcessda.getItensInconsistentes() == null || faturaProcessda.getItensInconsistentes().isEmpty())){
+					FacesMessage msgs = new FacesMessage("Fatura validada com sucesso.");
+					FacesContext facesContext =  FacesContext.getCurrentInstance();
+					facesContext.addMessage("convenioMsgs", msgs);	
+					carregar();
+					return getSucesso();
+				}else{
+					return "falha";
+				}
 			}else{
 				throw new SmartAppException("Carregue primeio o arquivo antes de tentar validar.");
 			}
@@ -194,6 +211,7 @@ public class FaturaPageBean extends BasePageBean {
 			facesContext.addMessage(null, msgs);
 			return "falha";
 		}catch(Exception e){
+			e.printStackTrace();
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
 			FacesContext.getCurrentInstance().addMessage(null, msgs);
@@ -297,25 +315,31 @@ public class FaturaPageBean extends BasePageBean {
 	public byte[] getConteudoArquivoFatura() {
 		return conteudoArquivoFatura;
 	}
-
 	public void setConteudoArquivoFatura(byte[] conteudoArquivoFatura) {
 		this.conteudoArquivoFatura = conteudoArquivoFatura;
 	}
-
 	public String getTipoArquivoFatura() {
 		return tipoArquivoFatura;
 	}
-
 	public void setTipoArquivoFatura(String tipoArquivoFatura) {
 		this.tipoArquivoFatura = tipoArquivoFatura;
 	}
-
 	public LancamentoVO getLancamento() {
 		return lancamento;
 	}
-
 	public void setLancamento(LancamentoVO lancamento) {
 		this.lancamento = lancamento;
 	}
-
+	public FaturaArquivoVO getFaturaProcessda() {
+		return faturaProcessda;
+	}
+	public void setFaturaProcessda(FaturaArquivoVO faturaProcessda) {
+		this.faturaProcessda = faturaProcessda;
+	}
+	public List getData() {
+		return data;
+	}
+	public void setData(List data) {
+		this.data = data;
+	}
 }

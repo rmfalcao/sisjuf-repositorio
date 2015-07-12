@@ -198,11 +198,9 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" F.DAT_FIM_FATURA, ")
 			.append(" F.DAT_FATURA, ")
 			.append(" F.DAT_VENCIMENTO_FATURA ")
-			.append(" FROM 	FATURA F, ")
-			.append(" STATUS_FATURA SF, ")
-			.append(" CONVENIO C ")
-			.append(" WHERE	F.SEQ_STATUS_FATURA = SF.SEQ_STATUS_FATURA ")
-			.append(" AND	F.SEQ_FATURA = ? ");	
+			.append(" FROM 	FATURA F JOIN STATUS_FATURA SF ON F.SEQ_STATUS_FATURA = SF.SEQ_STATUS_FATURA ")
+			.append(" JOIN CONVENIO C ON F.seq_convenio=C.seq_convenio ")
+			.append(" WHERE	F.SEQ_FATURA = ? ");	
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -540,7 +538,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 
 	public void insertFaturaArquivo(FaturaVO faturaArquivo) throws SmartEnvException {
-		StringBuffer sql = new StringBuffer(" INSERT INTO FATURA_ARQUIVO (SEQ_FATURA, VAL_FATURA) VALUES (?, ?) ");
+		StringBuffer sql = new StringBuffer(" INSERT INTO FATURA_ARQUIVO (seq_fatura_arquivo, val_fatura_arquivo) VALUES (?, ?) ");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -566,7 +564,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	public ItemFaturaVO insertItemArquivo(ItemFaturaVO item) throws SmartEnvException {
 
-		StringBuffer 			sql		= new StringBuffer(" INSERT INTO ITEM_FATURA_ARQUIVO (SEQ_ITEM_FATURA_ARQUIVO, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, FLG_TIPO_BENEFICIARIO, VAL_ITEM_FATURA_ARQUIVO) VALUES (?, ?, ?, ?, ?) ");
+		StringBuffer 			sql		= new StringBuffer(" INSERT INTO ITEM_FATURA_ARQUIVO (SEQ_ITEM_FATURA_ARQUIVO, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, FLG_TIPO_BENEFICIARIO, VAL_ITEM_FATURA_ARQUIVO, SEQ_FATURA_ARQUIVO) VALUES (?, ?, ?, ?, ?, ?) ");
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 
@@ -577,7 +575,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 
 			item.setCodigo(new Integer(getSequence("SEQ_ITEM_FATURA_ARQUIVO").intValue()));
 
-			sStmt.setParameters(item, new String[]{"codigo", "vinculacao.codigoBeneficiarioPlano","vinculacao.beneficiario.nome","vinculacao.beneficiario.tipoBeneficiario", "valor"});
+			sStmt.setParameters(item, new String[]{"codigo", "vinculacao.codigoBeneficiarioPlano","vinculacao.beneficiario.nome","vinculacao.beneficiario.tipoBeneficiario", "valor", "fatura.codigo"});
 
 			sStmt.getMyPreparedStatement().execute();
 

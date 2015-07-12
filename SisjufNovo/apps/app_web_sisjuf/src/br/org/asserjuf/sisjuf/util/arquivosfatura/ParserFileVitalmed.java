@@ -13,6 +13,10 @@ public class ParserFileVitalmed extends ParserFileAb{
 	public ParserFileVitalmed(byte[] contentFile) throws IOException {
 		super(contentFile);
 	}
+	
+	public ParserFileVitalmed(String path) throws IOException {
+		super(path);
+	}
 
 	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasArquivo) {                   
 		List<ItemFaturaVO> listaItens = new ArrayList<ItemFaturaVO>();
@@ -35,14 +39,14 @@ public class ParserFileVitalmed extends ParserFileAb{
 		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(conteudoLinha[0].trim());
 		try{
 			itemFatura.getVinculacao().getBeneficiario().setNome(conteudoLinha[1].trim());
-			itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(conteudoLinha[2].trim().equals("T") ? "titular" : "dependente");
+			itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(conteudoLinha[2].trim().equals("T") ? "T" : "D");
 			itemFatura.setValor(new Double(conteudoLinha[4].trim().replaceAll(",", "\\.")));
 		}catch(Exception ex){
 			if(ex instanceof ArrayIndexOutOfBoundsException){
 				conteudoLinha = linhaModificada.split("#");
 				String nomeServidor = conteudoLinha[1];
 				itemFatura.getVinculacao().getBeneficiario().setNome(nomeServidor.substring(0,nomeServidor.length()-1).trim());
-				itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(nomeServidor.substring(nomeServidor.length()-1).trim().equals("T") ? "titular" : "dependente");
+				itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(nomeServidor.substring(nomeServidor.length()-1).trim().equals("T") ? "T" : "D");
 				itemFatura.setValor(new Double(conteudoLinha[3].trim().replaceAll(",", "\\.")));
 			}else{
 				ex.printStackTrace();

@@ -14,7 +14,7 @@ public class ItemFaturaVO extends SmartVO {
 	
 	private BeneficiarioVO 	beneficiario;
 	private PlanoConvenioVO plano;
-
+	
 	public Integer getNumero() {
 		return numero;
 	}

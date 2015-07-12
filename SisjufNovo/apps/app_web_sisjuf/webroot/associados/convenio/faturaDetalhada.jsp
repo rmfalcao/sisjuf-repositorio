@@ -26,6 +26,14 @@
 					window.open(url,name,features);
 					return true;
 				}
+
+				function verificaSucesso(){
+					var sucesso = false;
+					
+					if (sucesso){
+						
+					}
+				}
 			</script>
 		</head>
 		<body>
@@ -152,8 +160,9 @@
 							  </h:panelGroup>
 						   </h:panelGrid>
 						</rich:modalPanel>
-						
-						<rich:modalPanel id="geracaoFatura" width="60" height="40" autosized="true">
+					</h:form>
+					<rich:modalPanel id="geracaoFatura" width="60" height="40" autosized="true">
+						<h:form>
 						   <f:facet name="header">Validação Fatura</f:facet>
 						   <h:panelGrid>
 							    <table class="tab_cadastro" cellpadding="2" cellspacing="1">
@@ -179,15 +188,41 @@
 										</tr>
 									</tbody>
 								</table>
+								
+								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" width="100%" rendered="#{FaturaBean.faturaProcessda != null}">
+									<f:facet name="header">
+										<rich:columnGroup>
+										<rich:column><h:outputText value="Matrícula" /></rich:column>
+										<rich:column><h:outputText value="Nome" /></rich:column>
+										<rich:column><h:outputText value="Valor" /></rich:column>
+										<rich:column><h:outputText value="Crítica" /></rich:column>
+										</rich:columnGroup>
+									</f:facet>
+									
+									<rich:column style="width:15%">
+										<h:outputText value="#{itens.vinculacao.codigoBeneficiarioPlano}" />
+									</rich:column>
+									
+									<rich:column style="width:40%">
+										<h:outputText value="#{itens.vinculacao.beneficiario.nome}" />
+									</rich:column>
+									
+									<rich:column style="width:30%">
+										<h:outputText value="#{itens.valor }" converter="DoubleConverter"/>
+									</rich:column>
+									
+									<rich:column style="width:10%">
+										<h:outputText value="#{itens.tipoInconsistencia}" />
+									</rich:column>
+								</rich:dataTable>
+								
 								<h:panelGroup>
-						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.validarFatura}"  reRender="gerarFaturaForm" oncomplete="#{rich:component('confirmation')}.hide();"/>
+						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.validarFatura}"  reRender="itensFaturaInc"/>
 						            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('geracaoFatura')}.hide();return false" />
 							  	</h:panelGroup>
 						   </h:panelGrid>
+						   </h:form>
 						</rich:modalPanel>
-									
-						
-					</h:form>
 					<br /><br /><br /><br /><br /><br /><hr>
 				</div>
 			</div>
