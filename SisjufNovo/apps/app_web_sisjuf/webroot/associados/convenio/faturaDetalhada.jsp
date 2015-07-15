@@ -26,14 +26,6 @@
 					window.open(url,name,features);
 					return true;
 				}
-
-				function verificaSucesso(){
-					var sucesso = false;
-					
-					if (sucesso){
-						
-					}
-				}
 			</script>
 		</head>
 		<body>
@@ -109,14 +101,17 @@
 							
 						</table>
 						
-						<a4j:commandLink title="#{properties['lb_validar']}" value="#{properties['lb_validar']}"  
-					   onclick="#{rich:component('geracaoFatura')}.show();return false" reRender="gerarFaturaForm" immediate="true" />
+						<a4j:commandLink title="#{properties['lb_validar']}" value="#{properties['lb_validar']}" onclick="#{rich:component('geracaoFatura')}.show();return false" reRender="gerarFaturaForm" immediate="true" />
 	 					&nbsp;
 						<a4j:commandLink title="#{properties['lb_cancelar']}" action="#{FaturaBean.cancelarFatura}" 
 							 onclick="#{rich:component('confirmation')}.show();return false"
-							 value="#{properties['lb_cancelar']}" rendered="#{!FaturaBean.faturaCancelada}"/><br/><br/>
+							 value="#{properties['lb_cancelar']}" rendered="#{!FaturaBean.faturaCancelada}"/>&nbsp;
+							 <a4j:commandLink title="#{properties['lb_itensInc']}" value="#{properties['lb_itensInc']}" onclick="#{rich:component('modalItensInconsit')}.show();return false" reRender="modalItensInconsit"  
+							rendered="#{FaturaBean.validaProblematica}"/>
+							 <br/><br/>
 						&nbsp;
 						<h:outputLink value="javascript:void(0);" onclick="imprimir();" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" />
+						&nbsp;
 						
 						<t:div id="div_faturas" styleClass="conteudo">
 							<h1>Itens de Fatura</h1>
@@ -189,7 +184,19 @@
 									</tbody>
 								</table>
 								
-								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" width="100%" rendered="#{FaturaBean.faturaProcessda != null}">
+								<h:panelGroup>
+						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.validarFatura}"  reRender="gerarFaturaForm, modalItensInconsit" oncomplete="#{rich:component('geracaoFatura')}.hide();"/>
+						            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('geracaoFatura')}.hide();return false" />
+							  	</h:panelGroup>
+						   </h:panelGrid>
+						   </h:form>
+						</rich:modalPanel>
+						
+						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="450"><!--  minHeight="100"  -->
+							<h:form>
+								<f:facet name="header">Itens Inconsistentes</f:facet>
+								
+								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" style="width:650px" rows="5"  reRender="ds">
 									<f:facet name="header">
 										<rich:columnGroup>
 										<rich:column><h:outputText value="Matrícula" /></rich:column>
@@ -214,13 +221,14 @@
 									<rich:column style="width:10%">
 										<h:outputText value="#{itens.tipoInconsistencia}" />
 									</rich:column>
+									<f:facet name="footer">
+										<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
+									</f:facet>
 								</rich:dataTable>
 								
 								<h:panelGroup>
-						      		<a4j:commandButton  value="Confirmar" action="#{FaturaBean.validarFatura}"  reRender="itensFaturaInc"/>
-						            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('geracaoFatura')}.hide();return false" />
+						            <a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" />
 							  	</h:panelGroup>
-						   </h:panelGrid>
 						   </h:form>
 						</rich:modalPanel>
 					<br /><br /><br /><br /><br /><br /><hr>

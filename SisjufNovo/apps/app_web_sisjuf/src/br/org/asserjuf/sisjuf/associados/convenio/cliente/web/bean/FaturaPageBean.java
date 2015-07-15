@@ -56,6 +56,8 @@ public class FaturaPageBean extends BasePageBean {
 	private String tipoArquivoFatura;
 	private byte[] conteudoArquivoFatura;
 	
+	private Boolean		validaProblematica = false;
+	
 	public FaturaPageBean()
 	{
 		faturaFiltro = new FaturaFiltroAssembler();
@@ -199,7 +201,11 @@ public class FaturaPageBean extends BasePageBean {
 					carregar();
 					return getSucesso();
 				}else{
-					return "falha";
+					FacesMessage msgs = new FacesMessage("Foram encontradas inconsistencias na fatura.");
+					FacesContext facesContext =  FacesContext.getCurrentInstance();
+					validaProblematica = true;
+					facesContext.addMessage("convenioMsgs", msgs);
+					return getSucesso();
 				}
 			}else{
 				throw new SmartAppException("Carregue primeio o arquivo antes de tentar validar.");
@@ -341,5 +347,11 @@ public class FaturaPageBean extends BasePageBean {
 	}
 	public void setData(List data) {
 		this.data = data;
+	}
+	public Boolean getValidaProblematica() {
+		return validaProblematica;
+	}
+	public void setValidaProblematica(Boolean validaProblematica) {
+		this.validaProblematica = validaProblematica;
 	}
 }
