@@ -192,7 +192,7 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
-			return sRs.getJavaBeans(BeneficiarioIRVO.class, new String[] {"plano.convenio.nomeFantasia", "cnpj", "titular.nome", "nome", "valorPago"} );
+			return sRs.getJavaBeans(BeneficiarioIRVO.class, new String[] {"plano.convenio.nomeFantasia", "plano.convenio.cnpj", "titular.nome", "nome", "valorPago"} );
 		
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);

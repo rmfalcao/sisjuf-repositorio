@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#associados#convenio#faturaPesquisa.jsp"
+  PATH="/associados/convenio/faturaPesquisa.jsp" SHAPE="96,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#convenio#faturaPesquisa.jsp:0"
+   NAME="item" PATH="/associados/convenio/faturaPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FaturaBean.carregar}:#associados#convenio#faturaDetalhada.jsp"
+    NAME="output" PATH="/associados/convenio/faturaDetalhada.jsp"
+    TARGET="rules:#associados#convenio#faturaDetalhada.jsp"
+    TITLE="#{FaturaBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FaturaBean.carregar}:#associados#convenio#faturaDetalhada.jsp"
+    NAME="output1" PATH="/associados/convenio/faturaDetalhada.jsp"
+    TARGET="rules:#associados#convenio#faturaDetalhada.jsp"
+    TITLE="#{FaturaBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FaturaBean.print}:#associados#convenio#faturaPrint.jsp"
+    NAME="output2" PATH="/associados/convenio/faturaPrint.jsp"
+    TARGET="rules:#associados#convenio#faturaPrint.jsp"
+    TITLE="#{FaturaBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FaturaBean.print}:#associados#convenio#faturaPrint.jsp"
+    NAME="output3" PATH="/associados/convenio/faturaPrint.jsp"
+    TARGET="rules:#associados#convenio#faturaPrint.jsp"
+    TITLE="#{FaturaBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="realizarLancamentoADebitar:#{LancamentoBean.realizarBaixaFatura}:#financeiro#lancamentoForm.jsp"
+    NAME="output4" PATH="/financeiro/lancamentoForm.jsp"
+    TARGET="rules:#financeiro#lancamentoForm.jsp"
+    TITLE="#{LancamentoBean.realizarBaixaFatura}:realizarLancamentoADebitar" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#convenio#convenioPesquisa.jsp"
+  PATH="/associados/convenio/convenioPesquisa.jsp" SHAPE="96,785,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#convenio#convenioPesquisa.jsp:0"
+   NAME="item" PATH="/associados/convenio/convenioPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.consultar}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.remover}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output1" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.carregar}:#associados#convenio#convenioForm.jsp"
+    NAME="output2" PATH="/associados/convenio/convenioForm.jsp"
+    TARGET="rules:#associados#convenio#convenioForm.jsp"
+    TITLE="#{ConvenioBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.carregar}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output3" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.print}:#associados#convenio#convenioPrint.jsp"
+    NAME="output4" PATH="/associados/convenio/convenioPrint.jsp"
+    TARGET="rules:#associados#convenio#convenioPrint.jsp"
+    TITLE="#{ConvenioBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.print}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output5" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#convenio#convenioPesquisa.jsp:1"
+   NAME="item1" PATH="/associados/convenio/convenioPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AtividadeConvenioBean.print}:#associados#convenio#convenioPrint.jsp"
+    NAME="output" PATH="/associados/convenio/convenioPrint.jsp"
+    TARGET="rules:#associados#convenio#convenioPrint.jsp"
+    TITLE="#{AtividadeConvenioBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AtividadeConvenioBean.print}:#associados#convenio#convenioPrint.jsp"
+    NAME="output1" PATH="/associados/convenio/convenioPrint.jsp"
+    TARGET="rules:#associados#convenio#convenioPrint.jsp"
+    TITLE="#{AtividadeConvenioBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#convenio#convenioPesquisa.jsp:2"
+   NAME="item2" PATH="/associados/convenio/convenioPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.consultar}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.remover}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output1" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.carregar}:#associados#convenio#convenioForm.jsp"
+    NAME="output2" PATH="/associados/convenio/convenioForm.jsp"
+    TARGET="rules:#associados#convenio#convenioForm.jsp"
+    TITLE="#{ConvenioBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.carregar}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output3" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.print}:#associados#convenio#convenioPrint.jsp"
+    NAME="output4" PATH="/associados/convenio/convenioPrint.jsp"
+    TARGET="rules:#associados#convenio#convenioPrint.jsp"
+    TITLE="#{ConvenioBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.print}:#associados#convenio#convenioPesquisa.jsp"
+    NAME="output5" PATH="/associados/convenio/convenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#convenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#convenio#convenioPesquisa.jsp:3"
+   NAME="item3" PATH="/associados/convenio/convenioPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AtividadeConvenioBean.print}:#associados#convenio#convenioPrint.jsp"
+    NAME="output" PATH="/associados/convenio/convenioPrint.jsp"
+    TARGET="rules:#associados#convenio#convenioPrint.jsp"
+    TITLE="#{AtividadeConvenioBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AtividadeConvenioBean.print}:#associados#convenio#convenioPrint.jsp"
+    NAME="output1" PATH="/associados/convenio/convenioPrint.jsp"
+    TARGET="rules:#associados#convenio#convenioPrint.jsp"
+    TITLE="#{AtividadeConvenioBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#atividade#atividadePesquisa.jsp"
+  PATH="/associados/convenio/atividade/atividadePesquisa.jsp"
+  SHAPE="576,1489,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#associados#convenio#atividade#atividadePesquisa.jsp:0"
+   NAME="item"
+   PATH="/associados/convenio/atividade/atividadePesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AtividadeConvenioBean.carregar}:#associados#convenio#atividade#atividadeForm.jsp"
+    NAME="output"
+    PATH="/associados/convenio/atividade/atividadeForm.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadeForm.jsp"
+    TITLE="#{AtividadeConvenioBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AtividadeConvenioBean.carregar}:#associados#convenio#atividade#atividadePesquisa.jsp"
+    NAME="output1"
+    PATH="/associados/convenio/atividade/atividadePesquisa.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadePesquisa.jsp"
+    TITLE="#{AtividadeConvenioBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{AtividadeConvenioBean.remover}:#associados#convenio#atividade#atividadePesquisa.jsp"
+    NAME="output2"
+    PATH="/associados/convenio/atividade/atividadePesquisa.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadePesquisa.jsp"
+    TITLE="#{AtividadeConvenioBean.remover}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM
+   ID="rules:#associados#convenio#atividade#atividadePesquisa.jsp:1"
+   NAME="item1"
+   PATH="/associados/convenio/atividade/atividadePesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AtividadeConvenioBean.print}:#associados#convenio#atividade#atividadePrint.jsp"
+    NAME="output"
+    PATH="/associados/convenio/atividade/atividadePrint.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadePrint.jsp"
+    TITLE="#{AtividadeConvenioBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AtividadeConvenioBean.print}:#associados#convenio#atividade#atividadePrint.jsp"
+    NAME="output1"
+    PATH="/associados/convenio/atividade/atividadePrint.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadePrint.jsp"
+    TITLE="#{AtividadeConvenioBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#atividade#atividadeForm.jsp"
+  PATH="/associados/convenio/atividade/atividadeForm.jsp"
+  SHAPE="848,1505,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#associados#convenio#atividade#atividadeForm.jsp:0"
+   NAME="item" PATH="/associados/convenio/atividade/atividadeForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AtividadeConvenioBean.salvar}:#associados#convenio#atividade#atividadeForm.jsp"
+    NAME="output"
+    PATH="/associados/convenio/atividade/atividadeForm.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadeForm.jsp"
+    TITLE="#{AtividadeConvenioBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AtividadeConvenioBean.salvar}:#associados#convenio#atividade#atividadeForm.jsp"
+    NAME="output1"
+    PATH="/associados/convenio/atividade/atividadeForm.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadeForm.jsp"
+    TITLE="#{AtividadeConvenioBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoImportarNucre.jsp"
+  PATH="/associados/associadoImportarNucre.jsp" SHAPE="32,1873,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoImportarNucre.jsp:0"
+   NAME="item" PATH="/associados/associadoImportarNucre.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.importarArquivo}:#associados#associadoFaltantes.jsp"
+    NAME="output" PATH="/associados/associadoFaltantes.jsp"
+    TARGET="rules:#associados#associadoFaltantes.jsp"
+    TITLE="#{AssociadoBean.importarArquivo}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.importarArquivo}:#associados#associadoImportarNucre.jsp"
+    NAME="output1" PATH="/associados/associadoImportarNucre.jsp"
+    TARGET="rules:#associados#associadoImportarNucre.jsp"
+    TITLE="#{AssociadoBean.importarArquivo}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoEventos.jsp"
+  PATH="/associados/associadoEventos.jsp" SHAPE="32,2017,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoEventos.jsp:0"
+   NAME="item" PATH="/associados/associadoEventos.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.printEventos}:#associados#associadoEventosPrint.jsp"
+    NAME="output" PATH="/associados/associadoEventosPrint.jsp"
+    TARGET="rules:#associados#associadoEventosPrint.jsp"
+    TITLE="#{AssociadoBean.printEventos}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.printEventos}:#associados#associadoEventosPrint.jsp"
+    NAME="output1" PATH="/associados/associadoEventosPrint.jsp"
+    TARGET="rules:#associados#associadoEventosPrint.jsp"
+    TITLE="#{AssociadoBean.printEventos}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoEnviaEmail.jsp"
+  PATH="/associados/associadoEnviaEmail.jsp" SHAPE="368,2177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoEnviaEmail.jsp:0"
+   NAME="item" PATH="/associados/associadoEnviaEmail.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.carregarEmail}:#associados#associadoEnviaEmail.jsp"
+    NAME="output" PATH="/associados/associadoEnviaEmail.jsp"
+    TARGET="rules:#associados#associadoEnviaEmail.jsp"
+    TITLE="#{AssociadoBean.carregarEmail}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.carregarEmail}:#associados#associadoEnviaEmail.jsp"
+    NAME="output1" PATH="/associados/associadoEnviaEmail.jsp"
+    TARGET="rules:#associados#associadoEnviaEmail.jsp"
+    TITLE="#{AssociadoBean.carregarEmail}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoAniversariantes.jsp"
+  PATH="/associados/associadoAniversariantes.jsp" SHAPE="96,2161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoAniversariantes.jsp:0"
+   NAME="item" PATH="/associados/associadoAniversariantes.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.carregarEmailAniversariantes}:#associados#associadoEnviaEmail.jsp"
+    NAME="output" PATH="/associados/associadoEnviaEmail.jsp"
+    TARGET="rules:#associados#associadoEnviaEmail.jsp"
+    TITLE="#{AssociadoBean.carregarEmailAniversariantes}:sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoAniversariantes.jsp:1"
+   NAME="item1" PATH="/associados/associadoAniversariantes.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.printAniversariantes}:#associados#associadoAniversariantesPrint.jsp"
+    NAME="output" PATH="/associados/associadoAniversariantesPrint.jsp"
+    TARGET="rules:#associados#associadoAniversariantesPrint.jsp"
+    TITLE="#{AssociadoBean.printAniversariantes}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.printAniversariantes}:#associados#associadoAniversariantesPrint.jsp"
+    NAME="output1" PATH="/associados/associadoAniversariantesPrint.jsp"
+    TARGET="rules:#associados#associadoAniversariantesPrint.jsp"
+    TITLE="#{AssociadoBean.printAniversariantes}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoPesquisa.jsp"
+  PATH="/associados/associadoPesquisa.jsp" SHAPE="96,2337,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoPesquisa.jsp:0"
+   NAME="item" PATH="/associados/associadoPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.carregarEmail}:#associados#associadoEnviaEmail.jsp"
+    NAME="output" PATH="/associados/associadoEnviaEmail.jsp"
+    TARGET="rules:#associados#associadoEnviaEmail.jsp"
+    TITLE="#{AssociadoBean.carregarEmail}:sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoPesquisa.jsp:1"
+   NAME="item1" PATH="/associados/associadoPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.print}:#associados#associadoPrint.jsp"
+    NAME="output" PATH="/associados/associadoPrint.jsp"
+    TARGET="rules:#associados#associadoPrint.jsp"
+    TITLE="#{AssociadoBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.print}:#associados#associadoPrint.jsp"
+    NAME="output1" PATH="/associados/associadoPrint.jsp"
+    TARGET="rules:#associados#associadoPrint.jsp"
+    TITLE="#{AssociadoBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoPesquisa.jsp:2"
+   NAME="item2" PATH="/associados/associadoPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.remover}:#associados#associadoPesquisa.jsp"
+    NAME="output" PATH="/associados/associadoPesquisa.jsp"
+    TARGET="rules:#associados#associadoPesquisa.jsp"
+    TITLE="#{AssociadoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.remover}:#associados#associadoPesquisa.jsp"
+    NAME="output1" PATH="/associados/associadoPesquisa.jsp"
+    TARGET="rules:#associados#associadoPesquisa.jsp"
+    TITLE="#{AssociadoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoPesquisa.jsp:3"
+   NAME="item3" PATH="/associados/associadoPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.carregar}:#associados#associadoForm.jsp"
+    NAME="output" PATH="/associados/associadoForm.jsp"
+    TARGET="rules:#associados#associadoForm.jsp"
+    TITLE="#{AssociadoBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.carregar}:#associados#associadoPesquisa.jsp"
+    NAME="output1" PATH="/associados/associadoPesquisa.jsp"
+    TARGET="rules:#associados#associadoPesquisa.jsp"
+    TITLE="#{AssociadoBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoPesquisa.jsp:4"
+   NAME="item4" PATH="/associados/associadoPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.consultar}:#associados#associadoPesquisa.jsp"
+    NAME="output" PATH="/associados/associadoPesquisa.jsp"
+    TARGET="rules:#associados#associadoPesquisa.jsp"
+    TITLE="#{AssociadoBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.consultar}:#associados#associadoPesquisa.jsp"
+    NAME="output1" PATH="/associados/associadoPesquisa.jsp"
+    TARGET="rules:#associados#associadoPesquisa.jsp"
+    TITLE="#{AssociadoBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoForm.jsp"
+  PATH="/associados/associadoForm.jsp" SHAPE="368,2833,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoForm.jsp:0" NAME="item"
+   PATH="/associados/associadoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.printOutrosBeneficiaveis}:#associados#associadoBeneficiavelPrint.jsp"
+    NAME="output" PATH="/associados/associadoBeneficiavelPrint.jsp"
+    TARGET="rules:#associados#associadoBeneficiavelPrint.jsp"
+    TITLE="#{AssociadoBean.printOutrosBeneficiaveis}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.printOutrosBeneficiaveis}:#associados#associadoBeneficiavelPrint.jsp"
+    NAME="output1" PATH="/associados/associadoBeneficiavelPrint.jsp"
+    TARGET="rules:#associados#associadoBeneficiavelPrint.jsp"
+    TITLE="#{AssociadoBean.printOutrosBeneficiaveis}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoForm.jsp:1" NAME="item1"
+   PATH="/associados/associadoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.printVinculacoes}:#associados#beneficiario#vinculacaoPrint.jsp"
+    NAME="output" PATH="/associados/beneficiario/vinculacaoPrint.jsp"
+    TARGET="rules:#associados#beneficiario#vinculacaoPrint.jsp"
+    TITLE="#{AssociadoBean.printVinculacoes}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.printVinculacoes}:#associados#beneficiario#vinculacaoPrint.jsp"
+    NAME="output1" PATH="/associados/beneficiario/vinculacaoPrint.jsp"
+    TARGET="rules:#associados#beneficiario#vinculacaoPrint.jsp"
+    TITLE="#{AssociadoBean.printVinculacoes}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoForm.jsp:2" NAME="item2"
+   PATH="/associados/associadoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.cancelarAssociado}:#associados#associadoForm.jsp"
+    NAME="output" PATH="/associados/associadoForm.jsp"
+    TARGET="rules:#associados#associadoForm.jsp"
+    TITLE="#{AssociadoBean.cancelarAssociado}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.cancelarAssociado}:#associados#associadoForm.jsp"
+    NAME="output1" PATH="/associados/associadoForm.jsp"
+    TARGET="rules:#associados#associadoForm.jsp"
+    TITLE="#{AssociadoBean.cancelarAssociado}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#associados#associadoForm.jsp:3" NAME="item3"
+   PATH="/associados/associadoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.reativarAssociado}:#associados#associadoForm.jsp"
+    NAME="output" PATH="/associados/associadoForm.jsp"
+    TARGET="rules:#associados#associadoForm.jsp"
+    TITLE="#{AssociadoBean.reativarAssociado}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.reativarAssociado}:#associados#associadoForm.jsp"
+    NAME="output1" PATH="/associados/associadoForm.jsp"
+    TARGET="rules:#associados#associadoForm.jsp"
+    TITLE="#{AssociadoBean.reativarAssociado}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoWebForm.jsp"
+  PATH="/associados/associadoWebForm.jsp" SHAPE="32,3265,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#associadoWebForm.jsp:0"
+   NAME="item" PATH="/associados/associadoWebForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.salvar}:#associados#associadoWebFormSucesso.jsp"
+    NAME="output" PATH="/associados/associadoWebFormSucesso.jsp"
+    TARGET="rules:#associados#associadoWebFormSucesso.jsp"
+    TITLE="#{AssociadoBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.salvar}:#associados#associadoWebForm.jsp"
+    NAME="output1" PATH="/associados/associadoWebForm.jsp"
+    TARGET="rules:#associados#associadoWebForm.jsp"
+    TITLE="#{AssociadoBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#associados#associadoBeneficiarioPesquisa.jsp"
+  PATH="/associados/associadoBeneficiarioPesquisa.jsp"
+  SHAPE="64,3409,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#associados#associadoBeneficiarioPesquisa.jsp:0"
+   NAME="item" PATH="/associados/associadoBeneficiarioPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.removerBeneficiario}:#associados#associadoBeneficiarioPesquisa.jsp"
+    NAME="output" PATH="/associados/associadoBeneficiarioPesquisa.jsp"
+    TARGET="rules:#associados#associadoBeneficiarioPesquisa.jsp"
+    TITLE="#{AssociadoBean.removerBeneficiario}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.removerBeneficiario}:#associados#associadoBeneficiarioPesquisa.jsp"
+    NAME="output1" PATH="/associados/associadoBeneficiarioPesquisa.jsp"
+    TARGET="rules:#associados#associadoBeneficiarioPesquisa.jsp"
+    TITLE="#{AssociadoBean.removerBeneficiario}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{AssociadoBean.carregarOutroBeneficiaro}:#associados#associadoBeneficiarioForm.jsp"
+    NAME="output2" PATH="/associados/associadoBeneficiarioForm.jsp"
+    TARGET="rules:#associados#associadoBeneficiarioForm.jsp"
+    TITLE="#{AssociadoBean.carregarOutroBeneficiaro}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{AssociadoBean.carregarOutroBeneficiaro}:#associados#associadoBeneficiarioPesquisa.jsp"
+    NAME="output3" PATH="/associados/associadoBeneficiarioPesquisa.jsp"
+    TARGET="rules:#associados#associadoBeneficiarioPesquisa.jsp"
+    TITLE="#{AssociadoBean.carregarOutroBeneficiaro}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#movimentarForm.jsp"
+  PATH="/financeiro/movimentarForm.jsp" SHAPE="48,5985,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#movimentarForm.jsp:0" NAME="item"
+   PATH="/financeiro/movimentarForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{MovimentarBean.salvar}:#financeiro#movimentarForm.jsp"
+    NAME="output" PATH="/financeiro/movimentarForm.jsp"
+    TARGET="rules:#financeiro#movimentarForm.jsp"
+    TITLE="#{MovimentarBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{MovimentarBean.salvar}:#financeiro#movimentarForm.jsp"
+    NAME="output1" PATH="/financeiro/movimentarForm.jsp"
+    TARGET="rules:#financeiro#movimentarForm.jsp"
+    TITLE="#{MovimentarBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#lancamentoConsulta.jsp"
+  PATH="/financeiro/lancamentoConsulta.jsp" SHAPE="96,257,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#lancamentoConsulta.jsp:0"
+   NAME="item" PATH="/financeiro/lancamentoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LancamentoBean.consultar}:#financeiro#lancamentoConsulta.jsp"
+    NAME="output" PATH="/financeiro/lancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#lancamentoConsulta.jsp"
+    TITLE="#{LancamentoBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LancamentoBean.consultar}:#financeiro#lancamentoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/lancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#lancamentoConsulta.jsp"
+    TITLE="#{LancamentoBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LancamentoBean.remover}:#financeiro#lancamentoConsulta.jsp"
+    NAME="output2" PATH="/financeiro/lancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#lancamentoConsulta.jsp"
+    TITLE="#{LancamentoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LancamentoBean.remover}:#financeiro#lancamentoConsulta.jsp"
+    NAME="output3" PATH="/financeiro/lancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#lancamentoConsulta.jsp"
+    TITLE="#{LancamentoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LancamentoBean.baixar}:#financeiro#baixarForm.jsp"
+    NAME="output4" PATH="/financeiro/baixarForm.jsp"
+    TARGET="rules:#financeiro#baixarForm.jsp"
+    TITLE="#{LancamentoBean.baixar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LancamentoBean.baixar}:#financeiro#lancamentoConsulta.jsp"
+    NAME="output5" PATH="/financeiro/lancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#lancamentoConsulta.jsp"
+    TITLE="#{LancamentoBean.baixar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FaturaBean.carregarFaturaADebitarAPartirLancamento}:#associados#convenio#faturaDetalhada.jsp"
+    NAME="output6" PATH="/associados/convenio/faturaDetalhada.jsp"
+    TARGET="rules:#associados#convenio#faturaDetalhada.jsp"
+    TITLE="#{FaturaBean.carregarFaturaADebitarAPartirLancamento}:sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#baixarForm.jsp"
+  PATH="/financeiro/baixarForm.jsp" SHAPE="368,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#baixarForm.jsp:0" NAME="item"
+   PATH="/financeiro/baixarForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LancamentoBean.salvarBaixa}:#financeiro#lancamentoConsulta.jsp"
+    NAME="output" PATH="/financeiro/lancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#lancamentoConsulta.jsp"
+    TITLE="#{LancamentoBean.salvarBaixa}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LancamentoBean.salvarBaixa}:#financeiro#baixarForm.jsp"
+    NAME="output1" PATH="/financeiro/baixarForm.jsp"
+    TARGET="rules:#financeiro#baixarForm.jsp"
+    TITLE="#{LancamentoBean.salvarBaixa}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#extratoConsulta.jsp"
+  PATH="/financeiro/extratoConsulta.jsp" SHAPE="256,6001,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#extratoConsulta.jsp:0" NAME="item"
+   PATH="/financeiro/extratoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ExtratoBean.consultar}:#financeiro#extratoConsulta.jsp"
+    NAME="output" PATH="/financeiro/extratoConsulta.jsp"
+    TARGET="rules:#financeiro#extratoConsulta.jsp"
+    TITLE="#{ExtratoBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ExtratoBean.consultar}:#financeiro#extratoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/extratoConsulta.jsp"
+    TARGET="rules:#financeiro#extratoConsulta.jsp"
+    TITLE="#{ExtratoBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#origemLacamentoConsulta.jsp"
+  PATH="/financeiro/origemLacamentoConsulta.jsp" SHAPE="32,3617,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#origemLacamentoConsulta.jsp:0"
+   NAME="item" PATH="/financeiro/origemLacamentoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{OrigemLancamentoBean.remover}:#financeiro#origemLancamentoConsulta.jsp"
+    NAME="output" PATH="/financeiro/origemLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#origemLancamentoConsulta.jsp"
+    TITLE="#{OrigemLancamentoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{OrigemLancamentoBean.remover}:#financeiro#origemLancamentoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/origemLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#origemLancamentoConsulta.jsp"
+    TITLE="#{OrigemLancamentoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#origemLancamentoConsulta.jsp"
+  PATH="/financeiro/origemLancamentoConsulta.jsp" SHAPE="288,3633,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#origemLancamentoConsulta.jsp:0"
+   NAME="item" PATH="/financeiro/origemLancamentoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{OrigemLancamentoBean.carregar}:#financeiro#origemLancamentoForm.jsp"
+    NAME="output" PATH="/financeiro/origemLancamentoForm.jsp"
+    TARGET="rules:#financeiro#origemLancamentoForm.jsp"
+    TITLE="#{OrigemLancamentoBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{OrigemLancamentoBean.carregar}:#financeiro#origemLancamentoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/origemLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#origemLancamentoConsulta.jsp"
+    TITLE="#{OrigemLancamentoBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#origemLancamentoForm.jsp"
+  PATH="/financeiro/origemLancamentoForm.jsp" SHAPE="512,3617,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#origemLancamentoForm.jsp:0"
+   NAME="item" PATH="/financeiro/origemLancamentoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{OrigemLancamentoBean.salvar}:#financeiro#origemLancamentoConsulta.jsp"
+    NAME="output" PATH="/financeiro/origemLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#origemLancamentoConsulta.jsp"
+    TITLE="#{OrigemLancamentoBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{OrigemLancamentoBean.salvar}:#financeiro#origemLancamentoForm.jsp"
+    NAME="output1" PATH="/financeiro/origemLancamentoForm.jsp"
+    TARGET="rules:#financeiro#origemLancamentoForm.jsp"
+    TITLE="#{OrigemLancamentoBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#tipoLacamentoConsulta.jsp"
+  PATH="/financeiro/tipoLacamentoConsulta.jsp" SHAPE="32,3761,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#tipoLacamentoConsulta.jsp:0"
+   NAME="item" PATH="/financeiro/tipoLacamentoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{TipoLancamentoBean.remover}:#financeiro#tipoLancamentoConsulta.jsp"
+    NAME="output" PATH="/financeiro/tipoLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#tipoLancamentoConsulta.jsp"
+    TITLE="#{TipoLancamentoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{TipoLancamentoBean.remover}:#financeiro#tipoLancamentoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/tipoLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#tipoLancamentoConsulta.jsp"
+    TITLE="#{TipoLancamentoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#tipoLancamentoConsulta.jsp"
+  PATH="/financeiro/tipoLancamentoConsulta.jsp" SHAPE="288,3777,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#tipoLancamentoConsulta.jsp:0"
+   NAME="item" PATH="/financeiro/tipoLancamentoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{TipoLancamentoBean.carregar}:#financeiro#tipoLancamentoForm.jsp"
+    NAME="output" PATH="/financeiro/tipoLancamentoForm.jsp"
+    TARGET="rules:#financeiro#tipoLancamentoForm.jsp"
+    TITLE="#{TipoLancamentoBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{TipoLancamentoBean.carregar}:#financeiro#tipoLancamentoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/tipoLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#tipoLancamentoConsulta.jsp"
+    TITLE="#{TipoLancamentoBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#tipoLancamentoForm.jsp"
+  PATH="/financeiro/tipoLancamentoForm.jsp" SHAPE="512,3761,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#tipoLancamentoForm.jsp:0"
+   NAME="item" PATH="/financeiro/tipoLancamentoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{TipoLancamentoBean.salvar}:#financeiro#tipoLancamentoConsulta.jsp"
+    NAME="output" PATH="/financeiro/tipoLancamentoConsulta.jsp"
+    TARGET="rules:#financeiro#tipoLancamentoConsulta.jsp"
+    TITLE="#{TipoLancamentoBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{TipoLancamentoBean.salvar}:#financeiro#tipoLancamentoForm.jsp"
+    NAME="output1" PATH="/financeiro/tipoLancamentoForm.jsp"
+    TARGET="rules:#financeiro#tipoLancamentoForm.jsp"
+    TITLE="#{TipoLancamentoBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#contaConsulta.jsp"
+  PATH="/financeiro/contaConsulta.jsp" SHAPE="80,3905,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#contaConsulta.jsp:0" NAME="item"
+   PATH="/financeiro/contaConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ContaBancoBean.remover}:#financeiro#contaConsulta.jsp"
+    NAME="output" PATH="/financeiro/contaConsulta.jsp"
+    TARGET="rules:#financeiro#contaConsulta.jsp"
+    TITLE="#{ContaBancoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ContaBancoBean.remover}:#financeiro#contaConsulta.jsp"
+    NAME="output1" PATH="/financeiro/contaConsulta.jsp"
+    TARGET="rules:#financeiro#contaConsulta.jsp"
+    TITLE="#{ContaBancoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#financeiro#contaConsulta.jsp:1" NAME="item1"
+   PATH="/financeiro/contaConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ContaBancoBean.carregar}:#financeiro#contaForm.jsp"
+    NAME="output" PATH="/financeiro/contaForm.jsp"
+    TARGET="rules:#financeiro#contaForm.jsp"
+    TITLE="#{ContaBancoBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ContaBancoBean.carregar}:#financeiro#contaConsulta.jsp"
+    NAME="output1" PATH="/financeiro/contaConsulta.jsp"
+    TARGET="rules:#financeiro#contaConsulta.jsp"
+    TITLE="#{ContaBancoBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#contaForm.jsp"
+  PATH="/financeiro/contaForm.jsp" SHAPE="336,3921,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#contaForm.jsp:0" NAME="item"
+   PATH="/financeiro/contaForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ContaBancoBean.salvar}:#financeiro#contaConsulta.jsp"
+    NAME="output" PATH="/financeiro/contaConsulta.jsp"
+    TARGET="rules:#financeiro#contaConsulta.jsp"
+    TITLE="#{ContaBancoBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ContaBancoBean.salvar}:#financeiro#contaForm.jsp"
+    NAME="output1" PATH="/financeiro/contaForm.jsp"
+    TARGET="rules:#financeiro#contaForm.jsp"
+    TITLE="#{ContaBancoBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#bancoConsulta.jsp"
+  PATH="/financeiro/bancoConsulta.jsp" SHAPE="80,4113,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#bancoConsulta.jsp:0" NAME="item"
+   PATH="/financeiro/bancoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{BancoBean.remover}:#financeiro#bancoConsulta.jsp"
+    NAME="output" PATH="/financeiro/bancoConsulta.jsp"
+    TARGET="rules:#financeiro#bancoConsulta.jsp"
+    TITLE="#{BancoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{BancoBean.remover}:#financeiro#bancoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/bancoConsulta.jsp"
+    TARGET="rules:#financeiro#bancoConsulta.jsp"
+    TITLE="#{BancoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#financeiro#bancoConsulta.jsp:1" NAME="item1"
+   PATH="/financeiro/bancoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{BancoBean.carregar}:#financeiro#bancoForm.jsp"
+    NAME="output" PATH="/financeiro/bancoForm.jsp"
+    TARGET="rules:#financeiro#bancoForm.jsp"
+    TITLE="#{BancoBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{BancoBean.carregar}:#financeiro#bancoConsulta.jsp"
+    NAME="output1" PATH="/financeiro/bancoConsulta.jsp"
+    TARGET="rules:#financeiro#bancoConsulta.jsp"
+    TITLE="#{BancoBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#financeiro#bancoForm.jsp"
+  PATH="/financeiro/bancoForm.jsp" SHAPE="336,4129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#financeiro#bancoForm.jsp:0" NAME="item"
+   PATH="/financeiro/bancoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{BancoBean.salvar}:#financeiro#bancoConsulta.jsp"
+    NAME="output" PATH="/financeiro/bancoConsulta.jsp"
+    TARGET="rules:#financeiro#bancoConsulta.jsp"
+    TITLE="#{BancoBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{BancoBean.salvar}:#financeiro#bancoForm.jsp"
+    NAME="output1" PATH="/financeiro/bancoForm.jsp"
+    TARGET="rules:#financeiro#bancoForm.jsp"
+    TITLE="#{BancoBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#linkPopup.jsp"
+  PATH="/seguranca/linkPopup.jsp" SHAPE="512,5985,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#linkPopup.jsp:0" NAME="item"
+   PATH="/seguranca/linkPopup.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.consultar}:#seguranca#linkPopup.jsp"
+    NAME="output" PATH="/seguranca/linkPopup.jsp"
+    TARGET="rules:#seguranca#linkPopup.jsp"
+    TITLE="#{LinkBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LinkBean.consultar}:#seguranca#linkPopup.jsp"
+    NAME="output1" PATH="/seguranca/linkPopup.jsp"
+    TARGET="rules:#seguranca#linkPopup.jsp"
+    TITLE="#{LinkBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.salvar}:#seguranca#linkPopup.jsp"
+    NAME="output2" PATH="/seguranca/linkPopup.jsp"
+    TARGET="rules:#seguranca#linkPopup.jsp"
+    TITLE="#{LinkBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LinkBean.salvar}:#seguranca#linkPopup.jsp"
+    NAME="output3" PATH="/seguranca/linkPopup.jsp"
+    TARGET="rules:#seguranca#linkPopup.jsp"
+    TITLE="#{LinkBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.reset}:#seguranca#linkPopup.jsp"
+    NAME="output4" PATH="/seguranca/linkPopup.jsp"
+    TARGET="rules:#seguranca#linkPopup.jsp"
+    TITLE="#{LinkBean.reset}:sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#linkConsulta.jsp"
+  PATH="/seguranca/linkConsulta.jsp" SHAPE="96,4321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#linkConsulta.jsp:0" NAME="item"
+   PATH="/seguranca/linkConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.consultar}:#seguranca#linkConsulta.jsp"
+    NAME="output" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LinkBean.consultar}:#seguranca#linkConsulta.jsp"
+    NAME="output1" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.remover}:#seguranca#linkConsulta.jsp"
+    NAME="output2" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LinkBean.remover}:#seguranca#linkConsulta.jsp"
+    NAME="output3" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.carregar}:#seguranca#linkForm.jsp"
+    NAME="output4" PATH="/seguranca/linkForm.jsp"
+    TARGET="rules:#seguranca#linkForm.jsp"
+    TITLE="#{LinkBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LinkBean.carregar}:#seguranca#linkConsulta.jsp"
+    NAME="output5" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.reset}:#seguranca#linkForm.jsp"
+    NAME="output6" PATH="/seguranca/linkForm.jsp"
+    TARGET="rules:#seguranca#linkForm.jsp"
+    TITLE="#{LinkBean.reset}:sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#linkForm.jsp"
+  PATH="/seguranca/linkForm.jsp" SHAPE="368,4337,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#linkForm.jsp:0" NAME="item"
+   PATH="/seguranca/linkForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.salvar}:#seguranca#linkConsulta.jsp"
+    NAME="output" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{LinkBean.salvar}:#seguranca#linkForm.jsp" NAME="output1"
+    PATH="/seguranca/linkForm.jsp"
+    TARGET="rules:#seguranca#linkForm.jsp"
+    TITLE="#{LinkBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{LinkBean.reset}:#seguranca#linkConsulta.jsp"
+    NAME="output2" PATH="/seguranca/linkConsulta.jsp"
+    TARGET="rules:#seguranca#linkConsulta.jsp"
+    TITLE="#{LinkBean.reset}:sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#funcaoForm.jsp"
+  PATH="/seguranca/funcaoForm.jsp" SHAPE="48,4625,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#funcaoForm.jsp:0" NAME="item"
+   PATH="/seguranca/funcaoForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncaoBean.salvar}:#seguranca#funcaoConsulta.jsp"
+    NAME="output" PATH="/seguranca/funcaoConsulta.jsp"
+    TARGET="rules:#seguranca#funcaoConsulta.jsp"
+    TITLE="#{FuncaoBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncaoBean.salvar}:#seguranca#funcaoForm.jsp"
+    NAME="output1" PATH="/seguranca/funcaoForm.jsp"
+    TARGET="rules:#seguranca#funcaoForm.jsp"
+    TITLE="#{FuncaoBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#funcaoConsulta.jsp"
+  PATH="/seguranca/funcaoConsulta.jsp" SHAPE="320,4641,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#funcaoConsulta.jsp:0" NAME="item"
+   PATH="/seguranca/funcaoConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncaoBean.consultar}:#seguranca#funcaoConsulta.jsp"
+    NAME="output" PATH="/seguranca/funcaoConsulta.jsp"
+    TARGET="rules:#seguranca#funcaoConsulta.jsp"
+    TITLE="#{FuncaoBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncaoBean.consultar}:#seguranca#funcaoConsulta.jsp"
+    NAME="output1" PATH="/seguranca/funcaoConsulta.jsp"
+    TARGET="rules:#seguranca#funcaoConsulta.jsp"
+    TITLE="#{FuncaoBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncaoBean.remover}:#seguranca#funcaoConsulta.jsp"
+    NAME="output2" PATH="/seguranca/funcaoConsulta.jsp"
+    TARGET="rules:#seguranca#funcaoConsulta.jsp"
+    TITLE="#{FuncaoBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncaoBean.remover}:#seguranca#funcaoConsulta.jsp"
+    NAME="output3" PATH="/seguranca/funcaoConsulta.jsp"
+    TARGET="rules:#seguranca#funcaoConsulta.jsp"
+    TITLE="#{FuncaoBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncaoBean.carregar}:#seguranca#funcaoForm.jsp"
+    NAME="output4" PATH="/seguranca/funcaoForm.jsp"
+    TARGET="rules:#seguranca#funcaoForm.jsp"
+    TITLE="#{FuncaoBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncaoBean.carregar}:#seguranca#funcaoConsulta.jsp"
+    NAME="output5" PATH="/seguranca/funcaoConsulta.jsp"
+    TARGET="rules:#seguranca#funcaoConsulta.jsp"
+    TITLE="#{FuncaoBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#funcionalidadeForm.jsp"
+  PATH="/seguranca/funcionalidadeForm.jsp" SHAPE="48,4897,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#funcionalidadeForm.jsp:0"
+   NAME="item" PATH="/seguranca/funcionalidadeForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncionalidadeBean.salvar}:#seguranca#funcionalidadeConsulta.jsp"
+    NAME="output" PATH="/seguranca/funcionalidadeConsulta.jsp"
+    TARGET="rules:#seguranca#funcionalidadeConsulta.jsp"
+    TITLE="#{FuncionalidadeBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncionalidadeBean.salvar}:#seguranca#funcionalidadeForm.jsp"
+    NAME="output1" PATH="/seguranca/funcionalidadeForm.jsp"
+    TARGET="rules:#seguranca#funcionalidadeForm.jsp"
+    TITLE="#{FuncionalidadeBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#funcionalidadeConsulta.jsp"
+  PATH="/seguranca/funcionalidadeConsulta.jsp" SHAPE="320,4913,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#funcionalidadeConsulta.jsp:0"
+   NAME="item" PATH="/seguranca/funcionalidadeConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncionalidadeBean.consultar}:#seguranca#funcionalidadeConsulta.jsp"
+    NAME="output" PATH="/seguranca/funcionalidadeConsulta.jsp"
+    TARGET="rules:#seguranca#funcionalidadeConsulta.jsp"
+    TITLE="#{FuncionalidadeBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncionalidadeBean.consultar}:#seguranca#funcionalidadeConsulta.jsp"
+    NAME="output1" PATH="/seguranca/funcionalidadeConsulta.jsp"
+    TARGET="rules:#seguranca#funcionalidadeConsulta.jsp"
+    TITLE="#{FuncionalidadeBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncionalidadeBean.remover}:#seguranca#funcionalidadeConsulta.jsp"
+    NAME="output2" PATH="/seguranca/funcionalidadeConsulta.jsp"
+    TARGET="rules:#seguranca#funcionalidadeConsulta.jsp"
+    TITLE="#{FuncionalidadeBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncionalidadeBean.remover}:#seguranca#funcionalidadeConsulta.jsp"
+    NAME="output3" PATH="/seguranca/funcionalidadeConsulta.jsp"
+    TARGET="rules:#seguranca#funcionalidadeConsulta.jsp"
+    TITLE="#{FuncionalidadeBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FuncionalidadeBean.carregar}:#seguranca#funcionalidadeForm.jsp"
+    NAME="output4" PATH="/seguranca/funcionalidadeForm.jsp"
+    TARGET="rules:#seguranca#funcionalidadeForm.jsp"
+    TITLE="#{FuncionalidadeBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FuncionalidadeBean.carregar}:#seguranca#funcionalidadeConsulta.jsp"
+    NAME="output5" PATH="/seguranca/funcionalidadeConsulta.jsp"
+    TARGET="rules:#seguranca#funcionalidadeConsulta.jsp"
+    TITLE="#{FuncionalidadeBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#perfilForm.jsp"
+  PATH="/seguranca/perfilForm.jsp" SHAPE="368,5185,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#perfilForm.jsp:0" NAME="item"
+   PATH="/seguranca/perfilForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.salvar}:#seguranca#perfilConsulta.jsp"
+    NAME="output" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.salvar}:#seguranca#perfilForm.jsp"
+    NAME="output1" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.adicionarFuncionalidade}:#seguranca#perfilForm.jsp"
+    NAME="output2" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.adicionarFuncionalidade}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.adicionarFuncionalidade}:#seguranca#perfilForm.jsp"
+    NAME="output3" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.adicionarFuncionalidade}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.removerFuncionalidade}:#seguranca#perfilForm.jsp"
+    NAME="output4" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.removerFuncionalidade}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.removerFuncionalidade}:#seguranca#perfilForm.jsp"
+    NAME="output5" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.removerFuncionalidade}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#perfilConsulta.jsp"
+  PATH="/seguranca/perfilConsulta.jsp" SHAPE="96,5169,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#perfilConsulta.jsp:0" NAME="item"
+   PATH="/seguranca/perfilConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.consultar}:#seguranca#perfilConsulta.jsp"
+    NAME="output" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.consultar}:#seguranca#perfilConsulta.jsp"
+    NAME="output1" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.reset}:#seguranca#perfilForm.jsp"
+    NAME="output2" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.reset}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.reset}:#seguranca#perfilConsulta.jsp"
+    NAME="output3" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.reset}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.remover}:#seguranca#perfilConsulta.jsp"
+    NAME="output4" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.remover}:#seguranca#perfilConsulta.jsp"
+    NAME="output5" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PerfilBean.carregar}:#seguranca#perfilForm.jsp"
+    NAME="output6" PATH="/seguranca/perfilForm.jsp"
+    TARGET="rules:#seguranca#perfilForm.jsp"
+    TITLE="#{PerfilBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PerfilBean.carregar}:#seguranca#perfilConsulta.jsp"
+    NAME="output7" PATH="/seguranca/perfilConsulta.jsp"
+    TARGET="rules:#seguranca#perfilConsulta.jsp"
+    TITLE="#{PerfilBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#login.jsp" PATH="/login.jsp"
+  SHAPE="32,5505,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#login.jsp:0" NAME="item" PATH="/login.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso:#{UsuarioBean.logar}:#index.jsp"
+    NAME="output" PATH="/index.jsp" TARGET="rules:#index.jsp"
+    TITLE="#{UsuarioBean.logar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="falha:#{UsuarioBean.logar}:#login.jsp"
+    NAME="output1" PATH="/login.jsp" TARGET="rules:#login.jsp"
+    TITLE="#{UsuarioBean.logar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#alterarSenha.jsp"
+  PATH="/seguranca/alterarSenha.jsp" SHAPE="32,5649,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#alterarSenha.jsp:0" NAME="item"
+   PATH="/seguranca/alterarSenha.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.mudarSenha}:#seguranca#usuarioConsulta.jsp"
+    NAME="output" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.mudarSenha}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.mudarSenha}:#seguranca#alterarSenha.jsp"
+    NAME="output1" PATH="/seguranca/alterarSenha.jsp"
+    TARGET="rules:#seguranca#alterarSenha.jsp"
+    TITLE="#{UsuarioBean.mudarSenha}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#usuarioForm.jsp"
+  PATH="/seguranca/usuarioForm.jsp" SHAPE="576,5649,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#usuarioForm.jsp:0" NAME="item"
+   PATH="/seguranca/usuarioForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.salvar}:#seguranca#usuarioConsulta.jsp"
+    NAME="output" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.salvar}:#seguranca#usuarioForm.jsp"
+    NAME="output1" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.adicionarPerfil}:#seguranca#usuarioForm.jsp"
+    NAME="output2" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.adicionarPerfil}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.adicionarPerfil}:#seguranca#usuarioForm.jsp"
+    NAME="output3" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.adicionarPerfil}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.removerPerfil}:#seguranca#usuarioForm.jsp"
+    NAME="output4" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.removerPerfil}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.removerPerfil}:#seguranca#usuarioForm.jsp"
+    NAME="output5" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.removerPerfil}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#seguranca#usuarioConsulta.jsp"
+  PATH="/seguranca/usuarioConsulta.jsp" SHAPE="304,5665,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguranca#usuarioConsulta.jsp:0" NAME="item"
+   PATH="/seguranca/usuarioConsulta.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.consultar}:#seguranca#usuarioConsulta.jsp"
+    NAME="output" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.consultar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.consultar}:#seguranca#usuarioConsulta.jsp"
+    NAME="output1" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.consultar}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.reset}:#seguranca#usuarioForm.jsp"
+    NAME="output2" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.reset}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.reset}:#seguranca#usuarioConsulta.jsp"
+    NAME="output3" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.reset}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.remover}:#seguranca#usuarioConsulta.jsp"
+    NAME="output4" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.remover}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.remover}:#seguranca#usuarioConsulta.jsp"
+    NAME="output5" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.remover}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{UsuarioBean.carregar}:#seguranca#usuarioForm.jsp"
+    NAME="output6" PATH="/seguranca/usuarioForm.jsp"
+    TARGET="rules:#seguranca#usuarioForm.jsp"
+    TITLE="#{UsuarioBean.carregar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{UsuarioBean.carregar}:#seguranca#usuarioConsulta.jsp"
+    NAME="output7" PATH="/seguranca/usuarioConsulta.jsp"
+    TARGET="rules:#seguranca#usuarioConsulta.jsp"
+    TITLE="#{UsuarioBean.carregar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+  PATH="/associados/convenio/plano/planoConvenioPesquisa.jsp"
+  SHAPE="64,1489,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#associados#convenio#plano#planoConvenioPesquisa.jsp:0"
+   NAME="item"
+   PATH="/associados/convenio/plano/planoConvenioPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.carregarPlano}:#associados#convenio#plano#planoConvenioForm.jsp"
+    NAME="output"
+    PATH="/associados/convenio/plano/planoConvenioForm.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioForm.jsp"
+    TITLE="#{ConvenioBean.carregarPlano}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.carregarPlano}:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+    NAME="output1"
+    PATH="/associados/convenio/plano/planoConvenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.carregarPlano}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.salvarPlano}:#associados#convenio#plano#planoConvenioForm.jsp"
+    NAME="output2"
+    PATH="/associados/convenio/plano/planoConvenioForm.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioForm.jsp"
+    TITLE="#{ConvenioBean.salvarPlano}:falha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.salvarPlano}:#associados#convenio#plano#planoConvenioForm.jsp"
+    NAME="output3"
+    PATH="/associados/convenio/plano/planoConvenioForm.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioForm.jsp"
+    TITLE="#{ConvenioBean.salvarPlano}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ConvenioBean.removerPlano}:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+    NAME="output4"
+    PATH="/associados/convenio/plano/planoConvenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.removerPlano}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ConvenioBean.removerPlano}:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+    NAME="output5"
+    PATH="/associados/convenio/plano/planoConvenioPesquisa.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioPesquisa.jsp"
+    TITLE="#{ConvenioBean.removerPlano}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#plano#planoConvenioForm.jsp"
+  PATH="/associados/convenio/plano/planoConvenioForm.jsp"
+  SHAPE="336,1505,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#associados#convenio#plano#planoConvenioForm.jsp:0"
+   NAME="item" PATH="/associados/convenio/plano/planoConvenioForm.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{PlanoConvenioBean.salvar}:#associados#convenio#atividade#atividadePesquisa.jsp"
+    NAME="output"
+    PATH="/associados/convenio/atividade/atividadePesquisa.jsp"
+    TARGET="rules:#associados#convenio#atividade#atividadePesquisa.jsp"
+    TITLE="#{PlanoConvenioBean.salvar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{PlanoConvenioBean.salvar}:#associados#convenio#plano#planoConvenioForm.jsp"
+    NAME="output1"
+    PATH="/associados/convenio/plano/planoConvenioForm.jsp"
+    TARGET="rules:#associados#convenio#plano#planoConvenioForm.jsp"
+    TITLE="#{PlanoConvenioBean.salvar}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#associados#associadoFaltantes.jsp"
+  PATH="/associados/associadoFaltantes.jsp" SHAPE="256,1889,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#associadoWebFormSucesso.jsp"
+  PATH="/associados/associadoWebFormSucesso.jsp" SHAPE="256,3281,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#associadoBeneficiarioForm.jsp"
+  PATH="/associados/associadoBeneficiarioForm.jsp" SHAPE="320,3425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.jsp" PATH="/index.jsp"
+  SHAPE="256,5521,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#convenio#convenioForm.jsp"
+  PATH="/associados/convenio/convenioForm.jsp" SHAPE="368,801,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#financeiro#lancamentoForm.jsp"
+  PATH="/financeiro/lancamentoForm.jsp" SHAPE="368,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#convenio#faturaDetalhada.jsp"
+  PATH="/associados/convenio/faturaDetalhada.jsp" SHAPE="368,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#associados#associadoAniversariantesPrint.jsp"
+  PATH="/associados/associadoAniversariantesPrint.jsp"
+  SHAPE="368,2353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#convenio#faturaPrint.jsp"
+  PATH="/associados/convenio/faturaPrint.jsp" SHAPE="368,577,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#atividade#atividadePrint.jsp"
+  PATH="/associados/convenio/atividade/atividadePrint.jsp"
+  SHAPE="848,1777,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#beneficiario#vinculacaoPrint.jsp"
+  PATH="/associados/beneficiario/vinculacaoPrint.jsp"
+  SHAPE="640,3153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#convenio#convenioPrint.jsp"
+  PATH="/associados/convenio/convenioPrint.jsp" SHAPE="368,1393,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#associadoBeneficiavelPrint.jsp"
+  PATH="/associados/associadoBeneficiavelPrint.jsp" SHAPE="640,2817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#associadoPrint.jsp"
+  PATH="/associados/associadoPrint.jsp" SHAPE="368,2721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#associadoEventosPrint.jsp"
+  PATH="/associados/associadoEventosPrint.jsp" SHAPE="256,2033,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#imposto#impostoPesquisa.jsp"
+  PATH="/associados/convenio/imposto/impostoPesquisa.jsp"
+  SHAPE="32,8705,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#associados#convenio#imposto#impostoPesquisa.jsp:0"
+   NAME="item" PATH="/associados/convenio/imposto/impostoPesquisa.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{ImpostoBean.print}:#associados#convenio#imposto#impostoPrint.jsp"
+    NAME="output" PATH="/associados/convenio/imposto/impostoPrint.jsp"
+    TARGET="rules:#associados#convenio#imposto#impostoPrint.jsp"
+    TITLE="#{ImpostoBean.print}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{ImpostoBean.print}:#associados#convenio#imposto#impostoPrint.jsp"
+    NAME="output1" PATH="/associados/convenio/imposto/impostoPrint.jsp"
+    TARGET="rules:#associados#convenio#imposto#impostoPrint.jsp"
+    TITLE="#{ImpostoBean.print}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#associados#convenio#imposto#impostoPrint.jsp"
+  PATH="/associados/convenio/imposto/impostoPrint.jsp"
+  SHAPE="256,8721,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -159,6 +159,20 @@
 	</managed-bean>
 	
 	<managed-bean>
+		<managed-bean-name>ImpostoBean</managed-bean-name>
+		<managed-bean-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.ImpostoPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>delegate</property-name>
+			<value>#{convenioDelegate}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>utilDelegate</property-name>
+			<value>#{utilDelegate}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
 		<managed-bean-name>AtividadeConvenioBean</managed-bean-name>
 		<managed-bean-class>br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.AtividadeConvenioPageBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -281,6 +295,24 @@
 			<from-action>#{LancamentoBean.realizarBaixaFatura}</from-action>
 			<from-outcome>realizarLancamentoADebitar</from-outcome>
 			<to-view-id>/financeiro/lancamentoForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Imposto</description>
+		<from-view-id>/associados/convenio/imposto/impostoPesquisa.jsp</from-view-id>
+					
+
+		<navigation-case>
+			<from-action>#{ImpostoBean.print}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/imposto/impostoPrint.jsp</to-view-id>
+		</navigation-case>
+			
+		<navigation-case>
+			<from-action>#{ImpostoBean.print}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/imposto/impostoPrint.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
