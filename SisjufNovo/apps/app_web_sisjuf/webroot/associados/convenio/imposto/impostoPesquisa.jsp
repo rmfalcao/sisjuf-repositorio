@@ -66,7 +66,7 @@
 							
 						</table>
 						<a4j:commandButton action="#{ImpostoBean.consulta}" title="#{properties['lb_filtrar']}" 
-							styleClass="botao_filtrar" value="Pesquisar" reRender="faturasMsgs,faturas" id="btPesquisarFaura"/><br/><br/>
+							styleClass="botao_filtrar" value="Pesquisar" reRender="faturasMsgs,beneficiarios" id="btPesquisarFaura"/><br/><br/>
 							
 						
 						<t:div id="div_faturas" styleClass="conteudo">
@@ -105,7 +105,7 @@
 								</rich:column>
 								
 								<rich:column style="width:10%">
-									<h:outputText value="#{itens.valorFatura}" converter="DoubleConverter"/>
+									<h:outputText value="#{itens.valorPago}" converter="DoubleConverter"/>
 								</rich:column>
 								
 							</rich:dataTable>

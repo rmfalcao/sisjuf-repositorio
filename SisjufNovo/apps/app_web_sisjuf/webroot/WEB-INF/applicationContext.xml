@@ -403,9 +403,9 @@
 		
 		<!-- DESENV -->
 
-		<property name="url" value="jdbc:postgresql://localhost:5432/sisjuf" />
+		<property name="url" value="jdbc:postgresql://localhost:5433/sisjuf" />
 		<property name="username" value="postgres" />
-		<property name="password" value="123" />
+		<property name="password" value="sa102101" />
 		<!--  PROD -->
 
 		<!-- 

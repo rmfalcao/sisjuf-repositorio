@@ -54,7 +54,7 @@
 						<f:facet name="header">
 							<h:outputText value="Valor Pago" />
 						</f:facet>
-						<h:outputText value="#{itens.valorFatura}" converter="DoubleConverter"/>
+						<h:outputText value="#{itens.valorPago}" converter="DoubleConverter"/>
 					</t:column>
 				</t:dataTable>
 			</h:form>
