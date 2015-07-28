@@ -160,6 +160,11 @@
 						<h:form>
 						   <f:facet name="header">Validação Fatura</f:facet>
 						   <h:panelGrid>
+						   		<a4j:status>
+					                <f:facet name="start">
+					                    <h:graphicImage  value="/nucleo/images/ajax_process.gif"/>
+					                </f:facet>
+					            </a4j:status>
 							    <table class="tab_cadastro" cellpadding="2" cellspacing="1">
 									<thead>
 										<tr>

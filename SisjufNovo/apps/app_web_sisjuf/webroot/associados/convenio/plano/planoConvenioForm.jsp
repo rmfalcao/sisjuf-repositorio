@@ -44,6 +44,11 @@
 		<t:div  id="planoConvenioFormMiolo">
 			<h1>Modulo Convênio</h1>
 			<h2>Plano - Cadastro</h2>
+			<a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/images/ajax_process.gif"/>
+                </f:facet>
+            </a4j:status>
 			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
 				<thead>
 					<tr>

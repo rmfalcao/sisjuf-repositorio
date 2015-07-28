@@ -19,7 +19,7 @@
 				<strong>Sistema da Associação dos Servidores da Justiça Federal na Bahia</strong>
 		
 				<span>
-					<h1>Lista de Beneficiários</h1>
+					<h1>Relatório de Apoio ao IR</h1>
 					Data de impressão: <t:outputText value="#{ImpostoBean.dataAtual}" />
 				</span>
 			</div>
