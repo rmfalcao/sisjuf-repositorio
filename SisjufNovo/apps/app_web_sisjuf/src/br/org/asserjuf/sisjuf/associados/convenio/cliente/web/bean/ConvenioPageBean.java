@@ -366,7 +366,7 @@ public class ConvenioPageBean extends BasePageBean {
 	}
 
 	/**
-	 * Grava no bean a informa��o se a conta � ativa ou n�o.
+	 * Grava no bean a informa��o se a conta � ativa ou não.
 	 * @param flgContaCaixa
 	 */
 	public void setFlgAtivo(boolean flgAtivo) {
@@ -730,8 +730,8 @@ public class ConvenioPageBean extends BasePageBean {
 					item.setNumero(count);
 					count++;
 				}
-				FacesMessage msgs = new FacesMessage("Fatura prévia gerada com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msgs);		
+				/*FacesMessage msgs = new FacesMessage("Fatura prévia gerada com sucesso.");
+				FacesContext.getCurrentInstance().addMessage(null, msgs);*/		
 				return getSucesso();
 			}
 		} catch(SmartAppException appEx){

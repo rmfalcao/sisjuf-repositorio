@@ -81,7 +81,7 @@
 							</rich:dataTable>
 			
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.gerarFaturaFixa}"  reRender="itensFatura" 
+			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.gerarFaturaFixa}"  reRender="itensFatura,:gerarFaturaForm" 
 				oncomplete="closeItemFaturaModal();" />
 		</t:div>
 	</h:form>
