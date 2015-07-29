@@ -431,7 +431,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		SmartResultSet			sRs		= null;
 
 		StringBuffer sql = new StringBuffer("select a.seq_associado, ")
-		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(pré-cadastro)' else a.nom_associado end as nom_associado, ")
+		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(prÃ©-cadastro)' else a.nom_associado end as nom_associado, ")
 		.append("a.nom_orgao_associado, a.nom_setor_associado, a.des_email_associado, a.dat_historico_evento_associado, a.sts_pre_cadastro_associado ")
 		//.append("from vw_associado a ")
 		//.append("natural join historico_evento_associado e ")
@@ -504,8 +504,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		sql.append("and (upper(a.num_conta_associado) like '%' || upper(?) || '%' or ? is null) ");
 		sql.append("and (a.dig_conta_associado = ? or ? is null or '' = ?) ");
 		sql.append("and (upper(d.nom_dependente) like '%' || upper(?) || '%' or ? is null or ? = '') ");
-		sql.append("and ((exists (select d2.seq_dependente from vw_dependente d2 where d2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parâmetro aqui é o checkbox POSSUIDEPENDENTE
-		sql.append("and ((exists (select f2.seq_filho from vw_filho f2 where f2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parâmetro aqui é o checkbox POSSUIFILHO
+		sql.append("and ((exists (select d2.seq_dependente from vw_dependente d2 where d2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parï¿½metro aqui ï¿½ o checkbox POSSUIDEPENDENTE
+		sql.append("and ((exists (select f2.seq_filho from vw_filho f2 where f2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parï¿½metro aqui ï¿½ o checkbox POSSUIFILHO
 		sql.append("and (d.num_rg_dependente = ? or ? is null) ");
 		sql.append("and (d.dat_nascimento_dependente >= ? or ? is null) ");
 		sql.append("and (d.dat_nascimento_dependente <= ? or ? is null) ");

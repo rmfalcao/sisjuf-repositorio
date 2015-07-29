@@ -287,7 +287,7 @@ function checkDate(input){
 	}
 	
 	if (!validformat.test(input.value)) {
-		alert("Data inv·lida.")
+		alert("Data inv√°lida.")
 		input.value = '';
 		input.focus();
 	}
@@ -297,7 +297,7 @@ function checkDate(input){
 	var yearfield=input.value.split("/")[2]
 	var dayobj = new Date(yearfield, monthfield-1, dayfield)
 	if ((dayobj.getMonth()+1!=monthfield)||(dayobj.getDate()!=dayfield)||(dayobj.getFullYear()!=yearfield)) {
-		alert("Data inv·lida.")
+		alert("Data inv√°lida.")
 		input.value = '';
 		input.focus();
 	}

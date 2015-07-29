@@ -159,13 +159,13 @@
 					<rich:modalPanel id="geracaoFatura" width="60" height="40" autosized="true">
 						<h:form>
 						   <f:facet name="header">Validação Fatura</f:facet>
-						   <h:panelGrid>
+						   <h:panelGrid columns="1">
 						   		<a4j:status>
 					                <f:facet name="start">
 					                    <h:graphicImage  value="/nucleo/images/ajax_process.gif"/>
 					                </f:facet>
 					            </a4j:status>
-							    <table class="tab_cadastro" cellpadding="2" cellspacing="1">
+							    <table class="tab_cadastro" style="width:100%;height:100%;border-style: solid;">
 									<thead>
 										<tr>
 											<th width="190">Tipo de Fatura</th>

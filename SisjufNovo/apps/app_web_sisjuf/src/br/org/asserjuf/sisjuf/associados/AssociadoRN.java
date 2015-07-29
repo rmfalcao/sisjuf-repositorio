@@ -30,17 +30,17 @@ public class AssociadoRN {
 		Integer operacaoCredito 				= new Integer(parametroRN.findByPrimaryKey(new ParametroVO("TP_OPERACAO_CREDITO")).getValorTextual());
 		Integer formaPagamentoDebitoAutomatico 	= new Integer(parametroRN.findByPrimaryKey(new ParametroVO("FORMA_PAGTO_DEBITO_AUT")).getValorTextual());
 		
-		// Obter coleção de "faltantes" para exibir relatório para o usuário:
+		// Obter coleï¿½ï¿½o de "faltantes" para exibir relatï¿½rio para o usuï¿½rio:
 		
 		Collection<AssociadoImportacaoNucreVO> faltantes	= associadoDAO.findFaltantes(planilha);
 		
 		
-		// Obter lançamentos a serem realizados, e realizá-los
-		// Os lançamentos a serem realizados serão a intercessão dos associados do arquivo com a base do SISJUF:
+		// Obter lanï¿½amentos a serem realizados, e realizï¿½-los
+		// Os lanï¿½amentos a serem realizados serï¿½o a intercessï¿½o dos associados do arquivo com a base do SISJUF:
 		
 		Collection<LancamentoAssociadoVO> lancamentosAssociados	= associadoDAO.findIntercessaoLancamentosBase(planilha);
 		
-		//obtendo a data para setar na efetivação:
+		//obtendo a data para setar na efetivaï¿½ï¿½o:
 		
 		Date dataImportacao = new Date(); 
 		
@@ -61,9 +61,9 @@ public class AssociadoRN {
 				vo.setFormaPagamentoVO(formaPagamento);
 				
 				if (vo.getTipoOperacaoVO().getCodigo().intValue() == operacaoCredito.intValue()) {
-					vo.setDescricao("Mensalidade do usuário de matrícula na justiça " + vo.getAssociado().getMatriculaJustica());
+					vo.setDescricao("Mensalidade do usuÃ¡rio de matrÃ­cula na justiÃ§a " + vo.getAssociado().getMatriculaJustica());
 				} else {
-					vo.setDescricao("Custo de consignação do usuário de matrícula na justiça " + vo.getAssociado().getMatriculaJustica());
+					vo.setDescricao("Custo de consignaÃ§Ã£o do usuÃ¡rio de matrÃ­cula na justiÃ§a " + vo.getAssociado().getMatriculaJustica());
 				}
 				LancamentoVO lancamento = lancamentoRN.efetuarLancamento(vo);
 				
@@ -92,18 +92,18 @@ public class AssociadoRN {
 			throw new SmartAppException("O nome do associado deve ser informado.");
 		}
 		
-		// data associação
+		// data associaï¿½ï¿½o
 		if (associado.getDataAssociacao() == null) {
-			throw new SmartAppException("A data de associação deve ser informada.");
+			throw new SmartAppException("A data de associaÃ§Ã£o deve ser informada.");
 		}
 		
-		// endereço do associado
+		// endereï¿½o do associado
 		if (associado.getEndereco() != null) {
 			if (associado.getEndereco().getLogradouro() == null || associado.getEndereco().getLogradouro().equals("")) {
 				throw new SmartAppException("O logradouro deve ser informado.");
 			}
 			if (associado.getEndereco().getNumero() == null || associado.getEndereco().getNumero().equals("")) {
-				throw new SmartAppException("O número deve ser informado.");
+				throw new SmartAppException("O nÃºmero deve ser informado.");
 			}
 			if (associado.getEndereco().getBairro() == null || associado.getEndereco().getBairro().equals("")) {
 				throw new SmartAppException("O bairro deve ser informado.");
@@ -113,18 +113,18 @@ public class AssociadoRN {
 			}
 			if (associado.getEndereco().getMunicipio() != null) {
 				if (associado.getEndereco().getMunicipio().getNome() == null || associado.getEndereco().getMunicipio().getNome().equals("")) {
-					throw new SmartAppException("O município deve ser informado.");	
+					throw new SmartAppException("O municÃ­pio deve ser informado.");	
 				}
 				if (associado.getEndereco().getMunicipio().getEstado() == null || associado.getEndereco().getMunicipio().getEstado().getCodigo() == null) {
 					throw new SmartAppException("O estado deve ser informado.");
 				}
 				
 			} else {
-				throw new SmartAppException("O município deve ser informado.");
+				throw new SmartAppException("O municÃ­pio deve ser informado.");
 			}
 			
 		} else {
-			throw new SmartAppException("Os dados do endereço devem ser preenchidos.");		
+			throw new SmartAppException("Os dados do endereÃ§o devem ser preenchidos.");		
 		}
 		
 		// celular
@@ -166,7 +166,7 @@ public class AssociadoRN {
 		if (associado.getNaturalidade() != null) {
 			
 			if (associado.getNaturalidade().getNome() == null || associado.getNaturalidade().getNome().equals("")) {
-				throw new SmartAppException("O município da naturalidade deve ser informado.");
+				throw new SmartAppException("O municipio da naturalidade deve ser informado.");
 			}
 			
 			if (associado.getNaturalidade().getEstado() == null || associado.getNaturalidade().getEstado().getCodigo() == null) {
@@ -174,7 +174,7 @@ public class AssociadoRN {
 			}
 			
 		} else {
-			throw new SmartAppException("O município da naturalidade deve ser informado.");
+			throw new SmartAppException("O municÃ­pio da naturalidade deve ser informado.");
 
 		}
 		
@@ -200,38 +200,38 @@ public class AssociadoRN {
 			throw new SmartAppException("O nome do pai deve ser informado.");
 		}
 		
-		// nome da mãe
+		// nome da mï¿½e
 		if (associado.getNomeMae() == null || associado.getNomeMae().equals("")) {
-			throw new SmartAppException("O nome da mãe deve ser informado.");
+			throw new SmartAppException("O nome da mÃ£e deve ser informado.");
 		}
 		
-		// TODO criar parâmetro!
-		// nome do cônjuge
+		// TODO criar parï¿½metro!
+		// nome do cï¿½njuge
 		if (associado.getEstadoCivil().equals("C") && (associado.getConjuge()== null || associado.getConjuge().getNome() == null || associado.getConjuge().getNome().equals("")) ) {
-			throw new SmartAppException("O nome do cônjuge deve ser informado.");
+			throw new SmartAppException("O nome do cÃ³njuge deve ser informado.");
 		}
 		
-		// status na justiça
+		// status na justiï¿½a
 		if (associado.getStatusJustica() == null || associado.getStatusJustica().equals("")) {
-			throw new SmartAppException("O status na justiça deve ser informado.");
+			throw new SmartAppException("O status na justiÃ§a deve ser informado.");
 		}
 		
 		// Setor		
 		if (associado.getSetor() == null) {
 			throw new SmartAppException("O setor deve ser informado.");
 			
-		// Órgão
+		// ï¿½rgï¿½o
 		} else 	if (associado.getSetor().getOrgao() == null || associado.getSetor().getOrgao().getNome() == null || associado.getSetor().getOrgao().getNome().equals("")) {
-				throw new SmartAppException("O órgão deve ser informado.");
+				throw new SmartAppException("O orgÃ£o deve ser informado.");
 			
 		}
 		
-		// Matrícula na jutiça
+		// Matrï¿½cula na jutiï¿½a
 		if (associado.getMatriculaJustica()==null) {
-			throw new SmartAppException("A matrícula na justiça deve ser informada.");
+			throw new SmartAppException("A matrÃ­cula na justiï¿½a deve ser informada.");
 		}
 	
-		// verificações apenas para o cadastro completo
+		// verificaï¿½ï¿½es apenas para o cadastro completo
 		if (associado.getPreCadastro() == null || !associado.getPreCadastro()) {
 			
 			// Setor
@@ -245,9 +245,9 @@ public class AssociadoRN {
 					throw new SmartAppException("O nome do setor deve ser informado.");
 				}
 				
-				// Município do setor
+				// Municï¿½pio do setor
 				if (associado.getSetor().getEndereco() == null || associado.getSetor().getEndereco().getMunicipio() == null || associado.getSetor().getEndereco().getMunicipio().getNome() == null || associado.getSetor().getEndereco().getMunicipio().getNome().equals("")) {
-					throw new SmartAppException("O município do setor deve ser informado.");
+					throw new SmartAppException("O municÃ­pio do setor deve ser informado.");
 				}
 				
 				// Estado do setor
@@ -269,13 +269,13 @@ public class AssociadoRN {
 			
 			// Categoria do associado
 			if (associado.getStatusCategoria() == null || associado.getStatusCategoria().equals("")) {
-				throw new SmartAppException ("A categoria do sócio deve ser informada.");
+				throw new SmartAppException ("A categoria do sÃ³cio deve ser informada.");
 				
 			}	
 			
-			// Sócio contribuinte do sócio usuário
+			// Sï¿½cio contribuinte do sï¿½cio usuï¿½rio
 			else if  (associado.getStatusCategoria().equals("U") && (associado.getContribuinte() == null || associado.getContribuinte().getCodigo() == null)) {
-				throw new SmartAppException ("O contribuinte deve ser informado para sócio usuário.");
+				throw new SmartAppException ("O contribuinte deve ser informado para sÃ³cio usuÃ¡rio.");
 			}
 			
 			// Conta 
@@ -289,19 +289,19 @@ public class AssociadoRN {
 					throw new SmartAppException ("O banco deve ser informado.");
 				}
 				
-				// Agência da conta
+				// Agï¿½ncia da conta
 				if (associado.getConta().getNumAgencia()==null || associado.getConta().getNumAgencia().equals("")) {
-					throw new SmartAppException ("A agência deve ser informada.");
+					throw new SmartAppException ("A agÃªncia deve ser informada.");
 				}
 				
-				// Número da conta
+				// Nï¿½mero da conta
 				if (associado.getConta().getNumConta()==null || associado.getConta().getNumConta().equals("")) {
 					throw new SmartAppException ("A conta deve ser informada.");
 				}
 
-				// Dígito da conta
+				// Dï¿½gito da conta
 				if (associado.getConta().getDigConta()==null || associado.getConta().getDigConta().equals("")) {
-					throw new SmartAppException ("O dígito verificador da conta deve ser informado.");
+					throw new SmartAppException ("O dÃ­gito verificador da conta deve ser informado.");
 				}
 			}
 		}
@@ -318,13 +318,13 @@ public class AssociadoRN {
 		filtro.setMatriculaJustica(associado.getMatriculaJustica());
 		Collection<AssociadoVO> associados = associadoDAO.findByFilter(filtro);
 		if (associados != null && associados.size() > 0){
-			throw new SmartAppException("Já existe um associado com o mesmo número de matricula cadastrado no sistema.");
+			throw new SmartAppException("JÃ¡ existe um associado com o mesmo nÃºmero de matricula cadastrado no sistema.");
 		}
 		
 		// inserir associado
 		associado 	= (AssociadoAssembler) associadoDAO.insert(associado);
 		
-		// inserir histórico
+		// inserir histï¿½rico
 		HistoricoAssociadoVO historicoAssociadoVO = new HistoricoAssociadoVO();
 		historicoAssociadoVO.setTipoEvento(new TipoEventoVO());
 		historicoAssociadoVO.getTipoEvento().setCodigo(new Short(parametroRN.findByPrimaryKey(new ParametroVO("TP_EVT_CADASTRO")).getValorTextual()));
@@ -374,15 +374,15 @@ public class AssociadoRN {
 		
 		if (associado.getConjuge() != null && associado.getNome() != null && !"".equals(associado.getConjuge().getNome())) {
 			
-			// testar se data de nascimento e CPF do conjuge estão sendo preenchidos:
-			// por enquanto esta regra deve ficar comentada, para não travar a manutenção em produção.
+			// testar se data de nascimento e CPF do conjuge estï¿½o sendo preenchidos:
+			// por enquanto esta regra deve ficar comentada, para nï¿½o travar a manutenï¿½ï¿½o em produï¿½ï¿½o.
 						/*
 						if (associado.getConjuge().getCpf() == null || associado.getConjuge().getCpf().equals("")) {
-							throw new SmartAppException("Você deve informar o CPF do cônjuge.");
+							throw new SmartAppException("Vocï¿½ deve informar o CPF do cï¿½njuge.");
 						}
 						
 						if (associado.getConjuge().getDataNascimento() == null) {
-							throw new SmartAppException("Você deve informar a data de nascimento do cônjuge.");
+							throw new SmartAppException("Vocï¿½ deve informar a data de nascimento do cï¿½njuge.");
 						}
 						*/
 			
@@ -529,7 +529,7 @@ public class AssociadoRN {
 					)
 				) 
 			{
-				throw new SmartAppException("O filtro de evento não pode ser parcialmente preenchido.");
+				throw new SmartAppException("O filtro de evento nï¿½o pode ser parcialmente preenchido.");
 			}
 		}
 	}
