@@ -55,20 +55,20 @@
 					<tr>
 						<th><h:outputLabel for="nome" value="#{properties['lb_beneficiario']}" />:</th>
 						<td>
-							<h:inputText value="#{ConvenioBean.itemFatura.beneficiario.nome}" id="nome" required="true"/>
+							<h:inputText value="#{FaturaBean.itemFatura.beneficiario.nome}" id="nome" required="true"/>
 							<rich:suggestionbox width="550" height="200" for="nome" 
-								suggestionAction="#{ConvenioBean.autocompleteBeneficiario}" var="resultBen">
+								suggestionAction="#{FaturaBean.autocompleteBeneficiario}" var="resultBen">
 								<h:column>
 									<h:outputText value="#{resultBen.nome}"/>
 								</h:column>
 								<h:column> 
 									<h:outputText value="#{resultBen.cpf}"/>
 								</h:column>
-								<a4j:support event="onselect" ajaxSingle="true" action="#{ConvenioBean.carregarItensFatura}" >  
-									<f:setPropertyActionListener value="#{resultBen.codigo}" target="#{ConvenioBean.itemFatura.beneficiario.codigo}" />
-									<f:setPropertyActionListener value="#{resultBen.titular.nome}" target="#{ConvenioBean.itemFatura.beneficiario.titular.nome}" />
-									<f:setPropertyActionListener value="#{resultBen.titular.codigo}" target="#{ConvenioBean.itemFatura.beneficiario.titular.codigo}" />
-									<f:setPropertyActionListener value="#{resultBen.vinculacao.codigo}" target="#{ConvenioBean.itemFatura.vinculacao.codigo}" />
+								<a4j:support event="onselect" ajaxSingle="true" action="#{FaturaBean.carregarItensFatura}" >  
+									<f:setPropertyActionListener value="#{resultBen.codigo}" target="#{FaturaBean.itemFatura.beneficiario.codigo}" />
+									<f:setPropertyActionListener value="#{resultBen.titular.nome}" target="#{FaturaBean.itemFatura.beneficiario.titular.nome}" />
+									<f:setPropertyActionListener value="#{resultBen.titular.codigo}" target="#{FaturaBean.itemFatura.beneficiario.titular.codigo}" />
+									<f:setPropertyActionListener value="#{resultBen.vinculacao.codigo}" target="#{FaturaBean.itemFatura.vinculacao.codigo}" />
 								</a4j:support>  
 							</rich:suggestionbox>
 						</td> 
@@ -76,14 +76,14 @@
 					<tr>
 						<th><h:outputLabel for="valor" value="#{properties['lb_valor']}" />:</th>
 						<td>
-							<h:inputText value="#{ConvenioBean.itemFatura.valor}" id="valor" required="true" converter="DoubleConverter" 
+							<h:inputText value="#{FaturaBean.itemFatura.valor}" id="valor" required="true" converter="DoubleConverter" 
 								onkeyup="formatarCampoNumero(this)"/>
 						</td> 
 					</tr>
 				</tbody>
 			</table>
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.adicionarItemFatura}"  reRender="itemFaturaFormMiolo,itensFatura" 
+			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{FaturaBean.adicionarItemFatura}"  reRender="itemFaturaFormMiolo,itensFatura" 
 				oncomplete="closeItemFaturaModal();" />
 		</t:div>
 	</h:form>

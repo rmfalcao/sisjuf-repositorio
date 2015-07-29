@@ -45,7 +45,7 @@
 			<h1>Fatura</h1>
 			<h2>Itens da Fatura</h2>
 			
-							<rich:dataTable value="#{ConvenioBean.fatura.itens}" var="itens" border="0" id="itensFaturaPrevia" width="100%">
+							<rich:dataTable value="#{FaturaBean.fatura.itens}" var="itens" border="0" id="itensFaturaPrevia" width="100%">
 								<f:facet name="header">
 									<rich:columnGroup>
 									<rich:column><h:outputText value="Número" /></rich:column>
@@ -73,16 +73,15 @@
 								</rich:column>
 								
 								<rich:column style="text-align:center; width:2%">
-									<a4j:commandLink action="#{ConvenioBean.removerItemFatura}" title="#{properties['lb_remover']}" 
+									<a4j:commandLink action="#{FaturaBean.removerItemFatura}" title="#{properties['lb_remover']}" 
 										immediate="true" id="remover" styleClass="botao_excluir" reRender="itensFatura">
-										<t:updateActionListener property="#{ConvenioBean.itemFatura.numero}" value="#{itens.numero}" />
+										<t:updateActionListener property="#{FaturaBean.itemFatura.numero}" value="#{itens.numero}" />
 									</a4j:commandLink>
 								</rich:column>
 							</rich:dataTable>
 			
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{ConvenioBean.gerarFaturaFixa}"  reRender="itensFatura,:gerarFaturaForm" 
-				oncomplete="closeItemFaturaModal();" />
+			<h:commandButton id="salvar" styleClass="botao_salvar" action="#{FaturaBean.gerarFaturaFixa}" /><!-- oncomplete="closeItemFaturaModal();"  reRender="itensFatura,:gerarFaturaForm"-->
 		</t:div>
 	</h:form>
 </rich:modalPanel>

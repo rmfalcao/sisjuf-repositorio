@@ -156,6 +156,10 @@
 			<property-name>utilDelegate</property-name>
 			<value>#{utilDelegate}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>financeiroDelegate</property-name>
+			<value>#{financeiroDelegate}</value>
+		</managed-property>
 	</managed-bean>
 	
 	<managed-bean>
@@ -1646,6 +1650,23 @@
 		</navigation-case>
 	</navigation-rule>
 
+
+	<navigation-rule>
+		<description>Navegação de Criação de Faturas</description>
+		<from-view-id>/associados/convenio/gerarFaturas.jsp</from-view-id>
+
+		<navigation-case>
+			<from-action>#{FaturaBean.gerarFaturaFixa}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/convenio/faturaDetalhada.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{FaturaBean.gerarFaturaFixa}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/associados/convenio/gerarFaturas.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 <!--BENEFICIARIO-->
 
 

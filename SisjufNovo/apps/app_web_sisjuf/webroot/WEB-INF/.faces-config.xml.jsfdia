@@ -1215,4 +1215,20 @@
   NAME="rules:#associados#convenio#imposto#impostoPrint.jsp"
   PATH="/associados/convenio/imposto/impostoPrint.jsp"
   SHAPE="256,8721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#associados#convenio#gerarFaturas.jsp"
+  PATH="/associados/convenio/gerarFaturas.jsp" SHAPE="96,1713,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#associados#convenio#gerarFaturas.jsp:0"
+   NAME="item" PATH="/associados/convenio/gerarFaturas.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{FaturaBean.gerarFaturaFixa}:#associados#convenio#faturaDetalhada.jsp"
+    NAME="output" PATH="/associados/convenio/faturaDetalhada.jsp"
+    TARGET="rules:#associados#convenio#faturaDetalhada.jsp"
+    TITLE="#{FaturaBean.gerarFaturaFixa}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="falha:#{FaturaBean.gerarFaturaFixa}:#associados#convenio#gerarFaturas.jsp"
+    NAME="output1" PATH="/associados/convenio/gerarFaturas.jsp"
+    TARGET="rules:#associados#convenio#gerarFaturas.jsp"
+    TITLE="#{FaturaBean.gerarFaturaFixa}:falha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
