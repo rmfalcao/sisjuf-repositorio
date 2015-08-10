@@ -550,8 +550,25 @@ public class AssociadoPageBean  extends BasePageBean{
 		try {
 			associados = delegate.findAssociadoByFilter(filtro);
 			return getSucesso();
-		} catch (Exception e) {
-			return tratarExcecao(e);
+		} catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", envEx);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			LOG.error("Error ", e);
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
 		}
 	}
 	

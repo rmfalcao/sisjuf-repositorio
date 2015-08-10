@@ -42,43 +42,46 @@
 	
 	<h:form id="faturaPreviaForm">
 		<t:div  id="faturaPreviaFormMiolo">
-			<h1>Fatura</h1>
+			<h1>Faturas</h1>
 			<h2>Itens da Fatura</h2>
-			
-							<rich:dataTable value="#{FaturaBean.fatura.itens}" var="itens" border="0" id="itensFaturaPrevia" width="100%">
-								<f:facet name="header">
-									<rich:columnGroup>
-									<rich:column><h:outputText value="Número" /></rich:column>
-									<rich:column><h:outputText value="Beneficiário" /></rich:column>
-									<rich:column><h:outputText value="Titular" /></rich:column>
-									<rich:column><h:outputText value="Valor" /></rich:column>
-									<rich:column></rich:column>
-									</rich:columnGroup>
-								</f:facet>
-								
-								<rich:column style="width:15%">
-									<h:outputText value="#{itens.numero}" />
-								</rich:column>
-								
-								<rich:column style="width:40%">
-									<h:outputText value="#{itens.beneficiario.nome}" />
-								</rich:column>
-								
-								<rich:column style="width:30%">
-									<h:outputText value="#{itens.beneficiario.titular.nome}"/>
-								</rich:column>
-								
-								<rich:column style="width:10%">
-									<h:outputText value="#{itens.valor}" converter="DoubleConverter"/>
-								</rich:column>
-								
-								<rich:column style="text-align:center; width:2%">
-									<a4j:commandLink action="#{FaturaBean.removerItemFatura}" title="#{properties['lb_remover']}" 
-										immediate="true" id="remover" styleClass="botao_excluir" reRender="itensFatura">
-										<t:updateActionListener property="#{FaturaBean.itemFatura.numero}" value="#{itens.numero}" />
-									</a4j:commandLink>
-								</rich:column>
-							</rich:dataTable>
+				<div id="table-wrapper">
+					<div id="table-scroll">
+						<rich:dataTable value="#{FaturaBean.fatura.itens}" var="itens" border="0" id="itensFaturaPrevia" width="100%">
+							<f:facet name="header">
+								<rich:columnGroup>
+								<rich:column><h:outputText value="Número" /></rich:column>
+								<rich:column><h:outputText value="Beneficiário" /></rich:column>
+								<rich:column><h:outputText value="Titular" /></rich:column>
+								<rich:column><h:outputText value="Valor" /></rich:column>
+								<rich:column></rich:column>
+								</rich:columnGroup>
+							</f:facet>
+							
+							<rich:column style="width:15%">
+								<h:outputText value="#{itens.numero}" />
+							</rich:column>
+							
+							<rich:column style="width:40%">
+								<h:outputText value="#{itens.beneficiario.nome}" />
+							</rich:column>
+							
+							<rich:column style="width:30%">
+								<h:outputText value="#{itens.beneficiario.titular.nome}"/>
+							</rich:column>
+							
+							<rich:column style="width:10%">
+								<h:outputText value="#{itens.valor}" converter="DoubleConverter"/>
+							</rich:column>
+							
+							<rich:column style="text-align:center; width:2%">
+								<a4j:commandLink action="#{FaturaBean.removerItemFatura}" title="#{properties['lb_remover']}" 
+									immediate="true" id="remover" styleClass="botao_excluir" reRender="itensFatura">
+									<t:updateActionListener property="#{FaturaBean.itemFatura.numero}" value="#{itens.numero}" />
+								</a4j:commandLink>
+							</rich:column>
+						</rich:dataTable>
+					</div>
+				</div>
 			
 			<br />
 			<h:commandButton id="salvar" styleClass="botao_salvar" action="#{FaturaBean.gerarFaturaFixa}" /><!-- oncomplete="closeItemFaturaModal();"  reRender="itensFatura,:gerarFaturaForm"-->

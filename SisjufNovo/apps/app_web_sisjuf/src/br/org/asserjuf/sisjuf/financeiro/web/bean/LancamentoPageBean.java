@@ -339,7 +339,7 @@ public class LancamentoPageBean extends BasePageBean {
 		try{
 			fatura = convenioDelegate.findByPrimaryKey(fatura);
 			Collection<LancamentoFaturaVO> listaLancamentos = delegate.findLancamentoByFatura(fatura);
-			Integer codigoTipoOperacaoADebitar = new Integer(utilDelegate.findParametroByPrimaryKey(new ParametroVO("TP_OPERACAO_A_DEBITAR")).getValorTextual());
+			Integer codigoTipoOperacaoADebitar = new Integer(utilDelegate.findParametroByPrimaryKey(new ParametroVO("TP_OPERACAO_DEBITO")).getValorTextual());
 			for(LancamentoFaturaVO lancamentoFatura:listaLancamentos){
 				if(lancamentoFatura.getTipoOperacaoVO().getCodigo().equals(codigoTipoOperacaoADebitar)){
 					lancamento = delegate.findLancamentoByPrimaryKey(new LancamentoVO(lancamentoFatura.getCodigo())); 

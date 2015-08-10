@@ -529,7 +529,7 @@ public class AssociadoRN {
 					)
 				) 
 			{
-				throw new SmartAppException("O filtro de evento n�o pode ser parcialmente preenchido.");
+				throw new SmartAppException("O filtro de evento não pode ser parcialmente preenchido.");
 			}
 		}
 	}

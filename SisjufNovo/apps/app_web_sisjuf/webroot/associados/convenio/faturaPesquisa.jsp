@@ -166,9 +166,8 @@
 								
 								<rich:column style="width:30%">
 									<t:commandLink action="#{LancamentoBean.realizarBaixaFatura}" title="Baixar Fatura" immediate="true" id="baixarFatura" 
-									rendered="#{!item.pago}">
+									rendered="#{!item.pago}" styleClass="botao_baixar"><!--  and item.status == 2 -->
 										<t:updateActionListener property="#{LancamentoBean.fatura.codigo}" value="#{itens.codigo}" />
-										<h:outputText value="Baixar Fatura" />
 									</t:commandLink>
 									
 								</rich:column>

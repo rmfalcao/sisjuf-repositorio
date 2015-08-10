@@ -101,11 +101,11 @@
 							
 						</table>
 						
-						<a4j:commandLink title="#{properties['lb_validar']}" value="#{properties['lb_validar']}" onclick="#{rich:component('geracaoFatura')}.show();return false" reRender="gerarFaturaForm" immediate="true" />
+						<a4j:commandLink title="#{properties['lb_validar']}" value="#{properties['lb_validar']}" onclick="#{rich:component('geracaoFatura')}.show();return false" reRender="gerarFaturaForm" immediate="true" rendered="#{FaturaBean.fatura.status.codigo == 1}"/>
 	 					&nbsp;
 						<a4j:commandLink title="#{properties['lb_cancelar']}" action="#{FaturaBean.cancelarFatura}" 
 							 onclick="#{rich:component('confirmation')}.show();return false"
-							 value="#{properties['lb_cancelar']}" rendered="#{!FaturaBean.faturaCancelada}"/>&nbsp;
+							 value="#{properties['lb_cancelar']}" rendered="#{FaturaBean.fatura.status.codigo == 1}"/>&nbsp;
 							 <a4j:commandLink title="#{properties['lb_itensInc']}" value="#{properties['lb_itensInc']}" onclick="#{rich:component('modalItensInconsit')}.show();return false" reRender="modalItensInconsit"  
 							rendered="#{FaturaBean.validaProblematica}"/>
 							 <br/><br/>

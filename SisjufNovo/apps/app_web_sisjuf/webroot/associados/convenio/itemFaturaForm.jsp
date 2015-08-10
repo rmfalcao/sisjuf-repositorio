@@ -30,61 +30,62 @@
 </script>
 
 <rich:modalPanel id="panelItemFatura" width="620" height="410">
-
-	<f:facet name="header">
-		<h:panelGroup><h:outputText value="Fatura - Gerar Item Fatura"></h:outputText></h:panelGroup>
-	</f:facet>
+	<div class="scroll_div">
+		<f:facet name="header">
+			<h:panelGroup><h:outputText value="Fatura - Gerar Item Fatura"></h:outputText></h:panelGroup>
+		</f:facet>
+		
+		<f:facet name="controls">
+			<h:graphicImage value="/nucleo/images/close.png" style="cursor:pointer" id="hidePlanoModal" 
+				onclick="Richfaces.hideModalPanel('panelItemFatura')"/>
+		</f:facet>
 	
-	<f:facet name="controls">
-		<h:graphicImage value="/nucleo/images/close.png" style="cursor:pointer" id="hidePlanoModal" 
-			onclick="Richfaces.hideModalPanel('panelItemFatura')"/>
-	</f:facet>
-	
-	<h:form id="itemFaturaForm">
-		<t:div  id="itemFaturaFormMiolo">
-			<h1>Fatura</h1>
-			<h2>Item Fatura - Adicionar</h2>
-			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
-				<thead>
-					<tr>
-						<th>Dados do Item de Fatura</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th><h:outputLabel for="nome" value="#{properties['lb_beneficiario']}" />:</th>
-						<td>
-							<h:inputText value="#{FaturaBean.itemFatura.beneficiario.nome}" id="nome" required="true"/>
-							<rich:suggestionbox width="550" height="200" for="nome" 
-								suggestionAction="#{FaturaBean.autocompleteBeneficiario}" var="resultBen">
-								<h:column>
-									<h:outputText value="#{resultBen.nome}"/>
-								</h:column>
-								<h:column> 
-									<h:outputText value="#{resultBen.cpf}"/>
-								</h:column>
-								<a4j:support event="onselect" ajaxSingle="true" action="#{FaturaBean.carregarItensFatura}" >  
-									<f:setPropertyActionListener value="#{resultBen.codigo}" target="#{FaturaBean.itemFatura.beneficiario.codigo}" />
-									<f:setPropertyActionListener value="#{resultBen.titular.nome}" target="#{FaturaBean.itemFatura.beneficiario.titular.nome}" />
-									<f:setPropertyActionListener value="#{resultBen.titular.codigo}" target="#{FaturaBean.itemFatura.beneficiario.titular.codigo}" />
-									<f:setPropertyActionListener value="#{resultBen.vinculacao.codigo}" target="#{FaturaBean.itemFatura.vinculacao.codigo}" />
-								</a4j:support>  
-							</rich:suggestionbox>
-						</td> 
-					</tr>
-					<tr>
-						<th><h:outputLabel for="valor" value="#{properties['lb_valor']}" />:</th>
-						<td>
-							<h:inputText value="#{FaturaBean.itemFatura.valor}" id="valor" required="true" converter="DoubleConverter" 
-								onkeyup="formatarCampoNumero(this)"/>
-						</td> 
-					</tr>
-				</tbody>
-			</table>
-			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{FaturaBean.adicionarItemFatura}"  reRender="itemFaturaFormMiolo,itensFatura" 
-				oncomplete="closeItemFaturaModal();" />
-		</t:div>
-	</h:form>
+		<h:form id="itemFaturaForm">
+			<t:div  id="itemFaturaFormMiolo">
+				<h1>Fatura</h1>
+				<h2>Item Fatura - Adicionar</h2>
+				<table class="tab_cadastro" cellpadding="2" cellspacing="1">
+					<thead>
+						<tr>
+							<th>Dados do Item de Fatura</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th><h:outputLabel for="nome" value="#{properties['lb_beneficiario']}" />:</th>
+							<td>
+								<h:inputText value="#{FaturaBean.itemFatura.beneficiario.nome}" id="nome" required="true"/>
+								<rich:suggestionbox width="550" height="200" for="nome" 
+									suggestionAction="#{FaturaBean.autocompleteBeneficiario}" var="resultBen">
+									<h:column>
+										<h:outputText value="#{resultBen.nome}"/>
+									</h:column>
+									<h:column> 
+										<h:outputText value="#{resultBen.cpf}"/>
+									</h:column>
+									<a4j:support event="onselect" ajaxSingle="true" action="#{FaturaBean.carregarItensFatura}" >  
+										<f:setPropertyActionListener value="#{resultBen.codigo}" target="#{FaturaBean.itemFatura.beneficiario.codigo}" />
+										<f:setPropertyActionListener value="#{resultBen.titular.nome}" target="#{FaturaBean.itemFatura.beneficiario.titular.nome}" />
+										<f:setPropertyActionListener value="#{resultBen.titular.codigo}" target="#{FaturaBean.itemFatura.beneficiario.titular.codigo}" />
+										<f:setPropertyActionListener value="#{resultBen.vinculacao.codigo}" target="#{FaturaBean.itemFatura.vinculacao.codigo}" />
+									</a4j:support>  
+								</rich:suggestionbox>
+							</td> 
+						</tr>
+						<tr>
+							<th><h:outputLabel for="valor" value="#{properties['lb_valor']}" />:</th>
+							<td>
+								<h:inputText value="#{FaturaBean.itemFatura.valor}" id="valor" required="true" converter="DoubleConverter" 
+									onkeyup="formatarCampoNumero(this)"/>
+							</td> 
+						</tr>
+					</tbody>
+				</table>
+				<br />
+				<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{FaturaBean.adicionarItemFatura}"  reRender="itemFaturaFormMiolo,itensFatura" 
+					oncomplete="closeItemFaturaModal();" />
+			</t:div>
+		</h:form>
+	</div>
 </rich:modalPanel>

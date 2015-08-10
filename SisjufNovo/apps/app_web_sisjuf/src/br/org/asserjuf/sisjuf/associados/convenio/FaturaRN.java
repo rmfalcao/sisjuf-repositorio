@@ -69,13 +69,9 @@ public class FaturaRN {
 		return faturaDAO.findByLancamento(lancamento);
 	}
 
-
 	public void setFaturaDAO(FaturaDAO faturaDAO) {
 		this.faturaDAO = faturaDAO;
 	}
-
-
-
 
 	public void setLancamentoFaturaRN(LancamentoFaturaRN lancamentoFaturaRN) {
 		this.lancamentoFaturaRN = lancamentoFaturaRN;
@@ -84,7 +80,6 @@ public class FaturaRN {
 	public void setConvenioRN(ConvenioRN convenioRN) {
 		this.convenioRN = convenioRN;
 	}
-
 
 //	public void setLancamentoItemFaturaRN(LancamentoFaturaRN lancamentoItemFaturaRN) {
 //		this.lancamentoItemFaturaRN = lancamentoItemFaturaRN;
@@ -105,7 +100,6 @@ public class FaturaRN {
 		
 		// 3. atualizar status da fatura para CANCELADA
 		 faturaDAO.estornar(fatura);
-		
 	}
 	
 	public FaturaVO gerar(FaturaVO fatura)  throws SmartEnvException, SmartAppException {
@@ -135,7 +129,6 @@ public class FaturaRN {
 			
 			// insere:
 			this.faturaDAO.insert(item);
-			
 		}
 		
 		// 1) um lan�amento a debitar da conta da ASSERJUF para o conv�nio em quest�o
@@ -144,13 +137,9 @@ public class FaturaRN {
 		// 2) "n" lan�amentos a creditar dos associados na conta da ASSERJUF
 		creditarContaAsserjuf(fatura);
 		
-		
 		return fatura;
 	}
 	
-	
-	
-
 	private LancamentoFaturaVO preparaLancamento(FaturaVO fatura, String nomeParametroTipoOperacao) throws SmartEnvException, SmartAppException {
 		
 		LancamentoFaturaVO lancamentoFatura	= new LancamentoFaturaVO();
@@ -186,38 +175,23 @@ public class FaturaRN {
 	private void creditarContaAsserjuf(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
 		// Criar objeto com dados do lan�amento a debitar.
-		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_CREDITAR");
-		
+		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_CREDITO");
 		
 		// Invocar rn
 		lancamentoFatura	= (LancamentoFaturaVO) lancamentoFaturaRN.efetuarLancamento(lancamentoFatura);
-		
 	}
 
 
 	private void debitarContaAsserjuf(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
-		
 		// Criar objeto com dados do lan�amento a debitar.
-		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_DEBITAR");
-		
+		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_DEBITO");
 		
 		// Invocar rn
 		lancamentoFatura	= (LancamentoFaturaVO) lancamentoFaturaRN.efetuarLancamento(lancamentoFatura);
-		
-		
-		
-		
 	}
 
-
-
-
-
-
 	protected void testaRegrasItemFatura(ItemFaturaVO item) throws SmartAppException {
-		
-		
 		
 		if (item == null) {
 			throw new SmartAppException("Pelo menos um item da fatura não foi identificado.");
@@ -244,8 +218,6 @@ public class FaturaRN {
 		if (item.getVinculacao().getBeneficiario().getTitular() == null || item.getVinculacao().getBeneficiario().getTitular().getCodigo() == null) {
 			throw new SmartAppException("O titular do beneficiário não foi encontrado no item número " + item.getNumero() + " da fatura.");
 		}
-		
-		
 	}
 
 	private void testaRegrasFatura(FaturaVO fatura) throws SmartAppException, SmartEnvException {
@@ -263,7 +235,6 @@ public class FaturaRN {
 		
 		fatura.setStatusPago("N");
 		fatura.setStatusRecebido("N");
-		
 	}
 
 
@@ -315,8 +286,6 @@ public class FaturaRN {
 		calendar.set(Calendar.DAY_OF_MONTH,fatura.getConvenio().getDiaVencimento().intValue());
 		
 		fatura.setDataVencimento(calendar.getTime());
-		
-		
 	}
 	
 	public void updateStatus(FaturaVO fatura) throws SmartEnvException {
@@ -353,7 +322,6 @@ public class FaturaRN {
 		 )) {
 			throw new SmartAppException("Ao menos um crit�rio de filtro deve ser preenchido.");
 		}
-		
 	}
 
 
@@ -364,12 +332,10 @@ public class FaturaRN {
 		fatura.setItens(this.findItensByFatura(fatura));
 			
 		return fatura;
-
 	}
 
 	private Collection<ItemFaturaVO> findItensByFatura(FaturaVO fatura) throws SmartEnvException {
 		
 		return faturaDAO.findItensByFatura(fatura);
 	}
-	
 }

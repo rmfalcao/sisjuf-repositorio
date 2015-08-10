@@ -36,6 +36,39 @@
 					}
 				}
 			</script>
+			<style type="text/css">
+				.rich-mpnl-panel {
+				    position: inherit;
+				}
+				.scroll_div{
+					overflow: scroll !important;
+					width:100%;
+					height:100%;
+				}
+				#table-wrapper {
+				  position:relative;
+				}
+				#table-scroll {
+				  height:280px;
+				  overflow:auto;  
+				  margin-top:20px;
+				}
+				#table-wrapper table {
+				  width:100%;
+				    
+				}
+				#table-wrapper table * {
+				  /*color:black;*/
+				}
+				#table-wrapper table thead th .text {
+				  position:absolute;   
+				  top:-20px;
+				  z-index:2;
+				  height:20px;
+				  width:35%;
+				  border:1px solid red;
+				}
+			</style>
 		</head>
 		<body>
 			<div id="geral">
