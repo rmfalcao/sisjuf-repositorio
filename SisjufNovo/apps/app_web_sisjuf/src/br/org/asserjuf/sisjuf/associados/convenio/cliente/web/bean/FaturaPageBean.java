@@ -202,6 +202,16 @@ public class FaturaPageBean extends BasePageBean {
 					linha.setVinculacao(itemFatura.getVinculacao());
 				}
 			}
+		}else{
+			try {
+				itemFatura.getBeneficiario().setPlano(new PlanoConvenioVO());
+				itemFatura.getBeneficiario().getPlano().setConvenio(fatura.getConvenio());
+				BeneficiarioVO beneficiario = (BeneficiarioVO)((ArrayList)delegate.findBeneficiariosByFilter(itemFatura.getBeneficiario())).get(0);
+				itemFatura.setBeneficiario(beneficiario);
+				itemFatura.setVinculacao(beneficiario.getVinculacao());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

@@ -64,11 +64,11 @@
 									<h:column> 
 										<h:outputText value="#{resultBen.cpf}"/>
 									</h:column>
-									<a4j:support event="onselect" ajaxSingle="true" action="#{FaturaBean.carregarItensFatura}" >  
+									<a4j:support event="onselect" ajaxSingle="true" action="#{FaturaBean.carregarItensFatura}" >
+										<f:setPropertyActionListener value="#{resultBen.vinculacao.codigo}" target="#{FaturaBean.itemFatura.vinculacao.codigo}" />  
 										<f:setPropertyActionListener value="#{resultBen.codigo}" target="#{FaturaBean.itemFatura.beneficiario.codigo}" />
 										<f:setPropertyActionListener value="#{resultBen.titular.nome}" target="#{FaturaBean.itemFatura.beneficiario.titular.nome}" />
 										<f:setPropertyActionListener value="#{resultBen.titular.codigo}" target="#{FaturaBean.itemFatura.beneficiario.titular.codigo}" />
-										<f:setPropertyActionListener value="#{resultBen.vinculacao.codigo}" target="#{FaturaBean.itemFatura.vinculacao.codigo}" />
 									</a4j:support>  
 								</rich:suggestionbox>
 							</td> 

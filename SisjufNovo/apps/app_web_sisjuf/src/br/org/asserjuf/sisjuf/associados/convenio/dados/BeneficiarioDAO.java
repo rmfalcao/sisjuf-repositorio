@@ -62,7 +62,8 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 				.append(" AND	(? is null OR upper(B.NOM_PESSOA) LIKE '%' || upper(?) || '%') ")
 				.append(" AND	(? is null OR upper(T.NOM_PESSOA) LIKE '%' || upper(?) || '%') ")
 				.append(" AND	(? IS NULL OR PC.SEQ_PLANO = ?) ")
-				.append(" AND	(? IS NULL OR A.NUM_MATRICULA_JUSTICA_ASSOCIADO = ?) ");
+				.append(" AND	(? IS NULL OR A.NUM_MATRICULA_JUSTICA_ASSOCIADO = ?) ")
+				.append(" AND 	(? IS NULL OR B.SEQ_PESSOA=?) ");
 		
 				if(beneficiario.getDataInicioVinculacao() == null && beneficiario.getDataFimVinculacao() == null){
 					sql.append(" AND	 VP.DAT_VINCULACAO <=  current_date ")
@@ -84,7 +85,7 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 			sStmt.setParameters(beneficiario, new String[] {"plano.convenio.codigo", "nome",  "nome", "titular.nome", "titular.nome", "plano.codigo", "plano.codigo",
-					"titular.matriculaJustica","titular.matriculaJustica"});
+					"titular.matriculaJustica","titular.matriculaJustica", "codigo", "codigo"});
 			
 			int i = 10;
 			if(beneficiario.getDataInicioVinculacao() != null || beneficiario.getDataFimVinculacao() != null){
@@ -95,7 +96,6 @@ public class BeneficiarioDAO extends SisjufDAOPostgres {
 					sStmt.setDate(i++,beneficiario.getDataFimVinculacao());
 				}
 			}
-			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
 			return sRs.getJavaBeans(BeneficiarioVO.class, new String[]{
