@@ -185,7 +185,7 @@ public class FaturaRN {
 	private void debitarContaAsserjuf(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
 		// Criar objeto com dados do lan�amento a debitar.
-		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_DEBITO");
+		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_DEBITAR");
 		
 		// Invocar rn
 		lancamentoFatura	= (LancamentoFaturaVO) lancamentoFaturaRN.efetuarLancamento(lancamentoFatura);
