@@ -291,19 +291,19 @@
 								</t:commandLink>
 							</t:column>
 							
-							<t:column>
-								<t:panelGroup>
-									<t:commandLink action="#{LancamentoBean.detalharVinculacaoLancamento}" title="Detalhar Vinculação" immediate="true" rendered="#{lancamentos.tipoOperacaoVO.codigo == 3}">
-										<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
-										<h:outputText value="Detalhar Vinculação" />
-									</t:commandLink>
-									<t:commandLink action="#{FaturaBean.carregarFaturaADebitarAPartirLancamento}" title="Detalhar Vinculação" immediate="true" rendered="#{lancamentos.tipoOperacaoVO.codigo == 4}">
-											<t:updateActionListener property="#{FaturaBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
-											<h:outputText value="Detalhar Vinculação" />
-									</t:commandLink>
-								</t:panelGroup>
+							<!-- t:column>
+								< t : panelGroup>
+									< t : commandLink action=" # { LancamentoBean.detalharVinculacaoLancamento}" title="Detalhar Vinculação" immediate="true" rendered=" # { lancamentos.tipoOperacaoVO.codigo == 3}">
+										< t :updateActionListener property=" # { LancamentoBean.lancamento.codigo}" value=" # { lancamentos.codigo}" />
+										< h : outputText value="Detalhar Vinculação" />
+									</ t : commandLink>
+									< t : commandLink action=" # { FaturaBean.carregarFaturaADebitarAPartirLancamento}" title="Detalhar Vinculação" immediate="true" rendered=" # { lancamentos.tipoOperacaoVO.codigo == 4}">
+											< t : updateActionListener property=" # { FaturaBean.lancamento.codigo}" value=" # { lancamentos.codigo}" />
+											<h : outputText value="Detalhar Vinculação" />
+									</ t : commandLink>
+								</ t : panelGroup>
 								
-							</t:column>
+							</ t :column-->
 
 						</t:dataTable>
 						

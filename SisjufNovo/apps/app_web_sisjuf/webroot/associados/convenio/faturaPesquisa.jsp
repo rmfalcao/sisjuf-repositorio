@@ -124,7 +124,7 @@
 									<rich:column><h:outputText value="Paga" /></rich:column>
 									<rich:column><h:outputText value="Recebida" /></rich:column>
 									<rich:column><h:outputText value="Status" /></rich:column>
-									<rich:column><h:outputText value="" /></rich:column>
+									<!-- rich : column><h:outputText value="" />< / rich :c olumn-->
 									</rich:columnGroup>
 								</f:facet>
 								
@@ -164,13 +164,13 @@
 									<h:outputText value="#{itens.status.nome}"/>
 								</rich:column>
 								
-								<rich:column style="width:30%">
-									<t:commandLink action="#{LancamentoBean.realizarBaixaFatura}" title="Baixar Fatura" immediate="true" id="baixarFatura" 
-									rendered="#{!item.pago}" styleClass="botao_baixar"><!--  and item.status == 2 -->
-										<t:updateActionListener property="#{LancamentoBean.fatura.codigo}" value="#{itens.codigo}" />
-									</t:commandLink>
+								<!-- rich:column style="width:30%">
+									<t : commandLink action="# { LancamentoBean.realizarBaixaFatura}" title="Baixar Fatura" immediate="true" id="baixarFatura" 
+									rendered=" # { !item.pago and item.status == 2}" styleClass="botao_baixar">
+										< t : updateActionListener property="# { LancamentoBean.fatura.codigo}" value=" # { itens.codigo}" />
+									</ t : commandLink>
 									
-								</rich:column>
+								</ rich : column-->
 								
 							</rich:dataTable>
 						</t:div>

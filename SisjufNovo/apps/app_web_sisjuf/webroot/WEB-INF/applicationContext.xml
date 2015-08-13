@@ -401,18 +401,16 @@
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		
 		
-		<!-- DESENV -->
-<!-- 
+		<!-- DESENV 
 		<property name="url" value="jdbc:postgresql://localhost:5433/sisjuf" />
 		<property name="username" value="postgres" />
-		<property name="password" value="sa102101" />
--->		
+		<property name="password" value="sa102101" /> -->
 
-		
-		<property name="url" value="jdbc:postgresql://localhost:5432/sisjuf" />
+		<!-- <property name="url" value="jdbc:postgresql://localhost:5432/sisjuf" /> -->
+		<property name="url" value="jdbc:postgresql://localhost:5432/sisjuf_homol" />
 		<property name="username" value="postgres" />
 		<property name="password" value="123" />
-<!--	-->
+
 	
 		<!--  PROD -->
 
