@@ -127,7 +127,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th>Data Vencimento Lançamento</th>
+									<th>Data Vencimento</th>
 									<td width="230" colspan="3">
 										<rich:calendar id="dataVencimentoLancamento" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
 											cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
