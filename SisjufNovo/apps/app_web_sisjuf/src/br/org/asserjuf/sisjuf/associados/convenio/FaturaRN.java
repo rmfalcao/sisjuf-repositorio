@@ -277,15 +277,20 @@ public class FaturaRN {
 
 	protected void setDatasFatura(FaturaVO fatura) {
 		
-		GregorianCalendar calendar	= new GregorianCalendar();
-		
-		calendar.setTime(fatura.getDataInicial());
-		
-		// data vencimento:		
-		calendar.add(Calendar.MONTH, fatura.getConvenio().getMesVencimento().shortValue());
-		calendar.set(Calendar.DAY_OF_MONTH,fatura.getConvenio().getDiaVencimento().intValue());
-		
-		fatura.setDataVencimento(calendar.getTime());
+		if (fatura.getDataVencimento() == null) {
+			
+			GregorianCalendar calendar	= new GregorianCalendar();
+			
+			calendar.setTime(fatura.getDataInicial());
+			
+			// data vencimento:	
+			
+			calendar.add(Calendar.MONTH, fatura.getConvenio().getMesVencimento().shortValue());
+			calendar.set(Calendar.DAY_OF_MONTH,fatura.getConvenio().getDiaVencimento().intValue());
+			
+			fatura.setDataVencimento(calendar.getTime());
+			
+		}
 	}
 	
 	public void updateStatus(FaturaVO fatura) throws SmartEnvException {
