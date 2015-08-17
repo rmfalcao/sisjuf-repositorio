@@ -9,3 +9,4 @@ SisjufNovo/apps/app_web_sisjuf/.project
 SisjufNovo/apps/app_web_sisjuf/build/.gitignore
 SisjufNovo/apps/app_web_sisjuf/webroot/META-INF/MANIFEST.MF
 SisjufNovo/lib/.project
+SisjufNovo/apps/app_web_sisjuf/.tern-project

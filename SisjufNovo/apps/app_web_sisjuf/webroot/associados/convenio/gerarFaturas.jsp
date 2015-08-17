@@ -126,6 +126,15 @@
 											enableManualInput="true" oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
 									</td>
 								</tr>
+								<tr>
+									<th>Data Vencimento Lançamento</th>
+									<td width="230" colspan="3">
+										<rich:calendar id="dataVencimentoLancamento" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
+											cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
+											value="#{FaturaBean.fatura.dataVencimento}" inputClass="inputCalendar" 
+											enableManualInput="true" oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
+									</td>
+								</tr>
 							</tbody>
 							
 							<thead>
