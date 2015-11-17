@@ -94,6 +94,8 @@ public class ParserFilePromedica extends ParserFileAb{
 		    	associado.setNomeServidor(linha);
 		    	qtdVezesQuebrouNome++;
 	    	}
+	    	indicePonteiroArquivo = indicePonteiroArquivo*8;
+	    	linha = linhasArquivo[indicePonteiroArquivo].trim();
 	    	System.out.println(linha);
 		}
 	    	

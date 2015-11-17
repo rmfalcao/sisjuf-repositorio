@@ -82,8 +82,7 @@
 				<div id="miolo">
 					<h1>Módulo Convênios</h1>
 					<h2>Gerar Faturas</h2>
-					<a class="botao_novo" href="<c:url value="/associados/convenio/gerarFaturas.jsf"/>"><span>novo</span></a>
-					<br /><br />
+					<br />
     				<h:form id="gerarFaturaForm" acceptcharset="ISO-8859-1">
     					<h:inputHidden value="#{FaturaBean.fatura.convenio.categoria}" id="convenioCategoria"/>
     					<a4j:keepAlive beanName="FaturaBean" />

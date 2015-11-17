@@ -18,6 +18,10 @@ public class ParserFileOdontosystem extends ParserFileAb{
 		super(contentFile);
 	}
 	
+	public ParserFileOdontosystem(String path) throws IOException {
+		super(path);
+	}
+	
 	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasArquivo) {
 		List<ItemFaturaVO> listaItensFaturas = new ArrayList<ItemFaturaVO>();
 		for(int i = TAMANHO_CABECALHO_ODONTO_SYSTEM_ASSOCIADO;i<linhasArquivo.length;i++){

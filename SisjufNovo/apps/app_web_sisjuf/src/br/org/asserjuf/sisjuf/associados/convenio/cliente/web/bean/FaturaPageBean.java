@@ -15,6 +15,8 @@ import org.apache.pdfbox.io.IOUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.vortice.view.BasePageBean;
+
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
@@ -36,8 +38,6 @@ import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileOdontosystem;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFilePromedica;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileVitalmed;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
-
-import com.vortice.view.BasePageBean;
 
 public class FaturaPageBean extends BasePageBean {
 
@@ -295,29 +295,25 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public String validarFatura(){
 		try {
-			if (conteudoArquivoFatura != null){
+			if (strPath != null){
 				if(StringUtils.isNotEmpty(tipoArquivoFatura)){
 					FaturaArquivoVO faturaArquivo = new FaturaArquivoVO();
 					faturaArquivo.setCodigo(fatura.getCodigo());
-					
+					List<ItemFaturaVO> itens = new ArrayList<ItemFaturaVO>();
 					if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
 						//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
 						ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(strPath);
-						List<ItemFaturaVO> itens = parserFileVitalmed.parserContentFileToIntensFaturasList();
-						
-						faturaArquivo.setItens(itens);
-						
+						itens.addAll(parserFileVitalmed.parserContentFileToIntensFaturasList());
 					}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
-						ParserFilePromedica parserFilePromedica = new ParserFilePromedica(conteudoArquivoFatura);
-						
+						ParserFilePromedica parserFilePromedica = new ParserFilePromedica(strPath);
+						itens.addAll(parserFilePromedica.parserContentFileToIntensFaturasList());
 					}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
-						ParserFileOdontosystem parserFileOdontosystem = new ParserFileOdontosystem(conteudoArquivoFatura);
-						List<ItemFaturaVO> itens = parserFileOdontosystem.parserContentFileToIntensFaturasList();
-						
-						faturaArquivo.setItens(itens);
+						ParserFileOdontosystem parserFileOdontosystem = new ParserFileOdontosystem(strPath);
+						itens.addAll(parserFileOdontosystem.parserContentFileToIntensFaturasList());
 					}
+					faturaArquivo.setItens(itens);
 					
-					Double valorTotal = new Double(0);
+					double valorTotal = 0D;
 					for (ItemFaturaVO itemFatura : faturaArquivo.getItens()){
 						valorTotal += itemFatura.getValor();
 					}
@@ -342,6 +338,12 @@ public class FaturaPageBean extends BasePageBean {
 			}else{
 				throw new SmartAppException("Carregue primeio o arquivo antes de tentar validar.");
 			}
+		}catch(SmartAppException appEx){
+				FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+				FacesContext facesContext =  FacesContext.getCurrentInstance();
+				facesContext.addMessage(null, msgs);
+				LOG.error("Error ", appEx);
+				return "falha";
 		}catch(SmartEnvException envEx){
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);

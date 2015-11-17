@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.falc.smartFW.exception.SmartAppException;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
@@ -32,7 +33,7 @@ public class ParserFileVitalmed extends ParserFileAb{
         		linhaModificada = linhaModificada.replaceAll("##","#").trim();
         		
 	        	String[] conteudoLinha = linhaModificada.split("#");
-	        	ItemFaturaVO associado = createAssociado(linha,conteudoLinha);	
+	        	ItemFaturaVO associado = createAssociado(linha,conteudoLinha);
 	        	listaItens.add(associado);
         	}
         }
@@ -65,13 +66,13 @@ public class ParserFileVitalmed extends ParserFileAb{
 					itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(tipoBeneficiario);
 					itemFatura.setValor(new Double(conteudoLinha[2].trim().replaceAll(",", "\\.")));
 				}else{
-					throw new Exception("Layout do arquivo com padrão não previsto pelo sistema. Envie o arquivo e informe a linha: "+linhaOriginal);
+					throw new SmartAppException("Layout do arquivo com padrão não previsto pelo sistema. Conteúdo da linha tratada: "+linhaOriginal);
 				}
 			}else{
 				ex.printStackTrace();
 				throw ex;
 			}
 		}
-		return itemFatura;
+		return itemFatura;		
 	}
 }
