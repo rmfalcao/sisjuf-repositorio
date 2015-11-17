@@ -19,6 +19,10 @@ public class ParserFilePromedica extends ParserFileAb{
 		super(contentFile);
 	}
 	
+	public ParserFilePromedica(String contentFile) throws IOException {
+		super(contentFile);
+	}
+
 	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasArquivo) throws SmartAppException{
 		List<ItemFaturaVO> listaIntensFaturas = new ArrayList<ItemFaturaVO>();
     	for(int i = INICIO_UTIL_ARQUIVO;i<linhasArquivo.length;i++){
