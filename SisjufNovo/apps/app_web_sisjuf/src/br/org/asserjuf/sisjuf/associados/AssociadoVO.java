@@ -42,7 +42,7 @@ public class AssociadoVO extends PessoaVO {
 	private Short							idade;
 	private Date							proximoAniversario;
 	private Date							dataAssociacao;
-	private Integer							matriculaJustica;
+	private String							matriculaJustica;
 	private String							statusPreCadastro;
 	
 	private Collection<DependenteVO> 		dependentes;
@@ -241,10 +241,10 @@ public class AssociadoVO extends PessoaVO {
 	public void setDataAssociacao(Date dataAssociacao) {
 		this.dataAssociacao = dataAssociacao;
 	}
-	public Integer getMatriculaJustica() {
+	public String getMatriculaJustica() {
 		return matriculaJustica;
 	}
-	public void setMatriculaJustica(Integer matriculaJustica) {
+	public void setMatriculaJustica(String matriculaJustica) {
 		this.matriculaJustica = matriculaJustica;
 	}
 	public String getStatusPreCadastro() {

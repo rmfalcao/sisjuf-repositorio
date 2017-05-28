@@ -366,8 +366,7 @@
 										<th>Mátricula da Justica:</th>
 										<td>
 											<t:inputText tabindex="28" size="10" id="matriculaJustica" 
-												value="#{AssociadoBean.associado.matriculaJustica}" maxlength="10" 
-												onkeypress="return justNumber(this,event)"/>
+												value="#{AssociadoBean.associado.matriculaJustica}" maxlength="10" />
 										</td>
 										<td colspan="2">&nbsp;
 										</td>
