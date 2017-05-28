@@ -314,8 +314,7 @@
 							<tr>
 								<th>Matrícula na Justiça:</th>
 								<td colspan="3"><t:inputText size="10" id="matriculaJustica" 
-										value="#{AssociadoBean.filtro.matriculaJustica}" maxlength="10" 
-										onkeypress="return justNumber(this,event)"/></td>
+										value="#{AssociadoBean.filtro.matriculaJustica}" maxlength="10" /></td>
 							</tr>
 							<tr>
 								<th>Órgão:</th>
