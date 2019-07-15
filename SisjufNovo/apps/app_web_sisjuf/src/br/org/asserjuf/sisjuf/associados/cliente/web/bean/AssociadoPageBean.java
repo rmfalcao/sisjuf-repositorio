@@ -269,7 +269,7 @@ public class AssociadoPageBean  extends BasePageBean{
 									matricula = matricula.substring(0, matricula.indexOf("/"));
 								
 								planilha.setAssociado(new AssociadoVO());
-								planilha.getAssociado().setMatriculaJustica(new Integer(matricula));
+								planilha.getAssociado().setMatriculaJustica(matricula);
 								Float valorDebitado = new Float(0);
 								Float custo = new Float(0);
 								Float liquido = new Float(0);

@@ -494,7 +494,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		sql.append("and (upper(a.des_endereco_setor_associado) like '%' || upper(?) || '%' or ? is null) ");
 		sql.append("and (a.num_telefone_setor_associado = ? or ? is null) ");
 		sql.append("and (a.num_ramal_setor_associado = ? or ? is null) ");
-		sql.append("and (a.num_matricula_justica_associado = ? or ? is null) ");
+		sql.append("and (upper(a.num_matricula_justica_associado) like '%' || upper(?) || '%' or ? is null) ");
 		sql.append("and (a.sts_categoria_associado = ?  or ? is null or ? = '')  ");
 		sql.append("and ((upper(a2.nom_associado) like '%' || upper(?) || '%' or ? is null) or (a2.nom_associado is null and (? is null or ? = ''))) ");
 		sql.append("and (a.sts_recebe_jornal_associado = ? or ? is null or '' = ?) ");
