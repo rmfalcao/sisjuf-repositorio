@@ -14,6 +14,9 @@ import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
 
@@ -428,7 +431,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		SmartResultSet			sRs		= null;
 
 		StringBuffer sql = new StringBuffer("select a.seq_associado, ")
-		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(pr�-cadastro)' else a.nom_associado end as nom_associado, ")
+		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(pré-cadastro)' else a.nom_associado end as nom_associado, ")
 		.append("a.nom_orgao_associado, a.nom_setor_associado, a.des_email_associado, a.dat_historico_evento_associado, a.sts_pre_cadastro_associado ")
 		//.append("from vw_associado a ")
 		//.append("natural join historico_evento_associado e ")
@@ -1018,6 +1021,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 
 		
 	}
+	
+
 	
 	
 }

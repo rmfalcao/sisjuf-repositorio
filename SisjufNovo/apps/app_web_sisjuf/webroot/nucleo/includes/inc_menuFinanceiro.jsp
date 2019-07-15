@@ -176,7 +176,7 @@ function MM_changeProp(objName,x,theProp,theValue) { //v6.0
 			<div><a class="submenu" href="<c:url value="/associados/convenio/convenioPesquisa.jsf"/>">Convênio</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/convenio/gerarFaturas.jsf"/>">Gerar Faturas</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/convenio/atividade/atividadePesquisa.jsf"/>">Atividade</a></div>
-			<div><a class="submenu" href="<c:url value="/associados/convenio/gerarFaturasFixas.jsf"/>">Faturamento</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/convenio/faturaPesquisa.jsf"/>">Faturas</a></div>
+			<div><a class="submenu" href="<c:url value="/associados/convenio/imposto/impostoPesquisa.jsf"/>">Imposto de Renda</a></div>
 		</div>
 	</div>

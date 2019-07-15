@@ -33,7 +33,7 @@
 					<a class="botao_novo" href="<c:url value="/associados/convenio/gerarFaturas.jsf"/>"><span>novo</span></a>
 					<br /><br />
     				<h:form id="gerarFaturaForm" acceptcharset="ISO-8859-1">
-    					<a4j:keepAlive beanName="ConvenioBean" />
+    					<a4j:keepAlive beanName="FaturaBean" />
 						<h:panelGroup id="faturasMsgs">
 							<h:messages showDetail="true" showSummary="false" errorClass="textoMsgErro" infoClass="textoMsgInfo" />
 						</h:panelGroup>
@@ -49,11 +49,11 @@
 								<tr>
 									<th width="140">Convênio:</th>
 									<td width="230" colspan="3">
-										<h:selectOneMenu id="convenio" value="#{ConvenioBean.fatura.convenio.codigo}" tabindex="1">
+										<h:selectOneMenu id="convenio" value="#{FaturaBean.fatura.convenio.codigo}" tabindex="1">
 											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<t:selectItems id="sel_convenios" value="#{ConvenioBean.allConvenios}" var="convenio" itemLabel="#{convenio.nomeFantasia}" 
+											<t:selectItems id="sel_convenios" value="#{FaturaBean.allConvenios}" var="convenio" itemLabel="#{convenio.nomeFantasia}" 
 												itemValue="#{convenio.codigo}"/>
-											<a4j:support event="onchange" action="#{ConvenioBean.limparFaturas}"/>
+											<a4j:support event="onchange" action="#{FaturaBean.limparFaturas}"/>
 											<a4j:support event="onchange" reRender="itensFatura"/>
 										</h:selectOneMenu>
 									</td>
@@ -61,7 +61,7 @@
 								<tr>
 									<th>Mês/Ano:</th>
 									<td>
-										<h:selectOneMenu id="mes" value="#{ConvenioBean.fatura.mes}" tabindex="2">
+										<h:selectOneMenu id="mes" value="#{FaturaBean.fatura.mes}" tabindex="2">
 											<f:selectItem itemLabel="#{properties['lb_selecione']}"	itemValue="" />
 											<f:selectItem itemLabel="#{properties['lb_janeiro']}" itemValue="1"/>
 											<f:selectItem itemLabel="#{properties['lb_fevereiro']}" itemValue="2"/>
@@ -78,7 +78,7 @@
 										</h:selectOneMenu>
 									</td>
 									<td colspan="2">
-										<t:inputText size="15"  maxlength="4" id="ano" value="#{ConvenioBean.fatura.ano}" tabindex="3" onkeypress="return justNumber(this,event)"/>
+										<t:inputText size="15"  maxlength="4" id="ano" value="#{FaturaBean.fatura.ano}" tabindex="3" onkeypress="return justNumber(this,event)"/>
 									</td>
 								</tr>
 							</tbody>
@@ -94,9 +94,9 @@
 								<tr>
 									<th>Conta Debito:</th>
 									<td colspan="3">
-										<h:selectOneMenu id="contaDebito" value="#{ConvenioBean.fatura.contaDebito.codigo}" tabindex="1">
+										<h:selectOneMenu id="contaDebito" value="#{FaturaBean.fatura.contaDebito.codigo}" tabindex="1">
 											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<t:selectItems id="sel_contasBebitos" value="#{ConvenioBean.allContas}" var="contaDebito" itemLabel="#{contaDebito.nome}" 
+											<t:selectItems id="sel_contasBebitos" value="#{FaturaBean.allContas}" var="contaDebito" itemLabel="#{contaDebito.nome}" 
 												itemValue="#{contaDebito.codigo}"/>
 										</h:selectOneMenu>
 									</td>
@@ -104,9 +104,9 @@
 								<tr>
 									<th>Conta Credito:</th>
 									<td colspan="3">
-										<h:selectOneMenu id="contaCredito" value="#{ConvenioBean.fatura.contaCredito.codigo}" tabindex="1">
+										<h:selectOneMenu id="contaCredito" value="#{FaturaBean.fatura.contaCredito.codigo}" tabindex="1">
 											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<t:selectItems id="sel_contasCreditos" value="#{ConvenioBean.allContas}" var="contaCredito" itemLabel="#{contaCredito.nome}" 
+											<t:selectItems id="sel_contasCreditos" value="#{FaturaBean.allContas}" var="contaCredito" itemLabel="#{contaCredito.nome}" 
 												itemValue="#{contaCredito.codigo}"/>
 										</h:selectOneMenu>
 									</td>
@@ -117,7 +117,7 @@
 						<t:div id="div_faturas" styleClass="conteudo">
 							<h2>&nbsp;</h2><br/>
 							<h2>Itens de Fatura</h2>
-							<rich:dataTable value="#{ConvenioBean.fatura.itens}" var="itens" border="0" id="itensFatura" width="100%">
+							<rich:dataTable value="#{FaturaBean.fatura.itens}" var="itens" border="0" id="itensFatura" width="100%">
 								<f:facet name="header">
 									<rich:columnGroup>
 									<rich:column><h:outputText value="Número" /></rich:column>
@@ -145,18 +145,18 @@
 								</rich:column>
 								
 								<rich:column style="text-align:center; width:2%">
-									<a4j:commandLink action="#{ConvenioBean.removerItemFatura}" title="#{properties['lb_remover']}" 
+									<a4j:commandLink action="#{FaturaBean.removerItemFatura}" title="#{properties['lb_remover']}" 
 										immediate="true" id="remover" styleClass="botao_excluir" reRender="itensFatura">
-										<t:updateActionListener property="#{ConvenioBean.itemFatura.numero}" value="#{itens.numero}" />
+										<t:updateActionListener property="#{FaturaBean.itemFatura.numero}" value="#{itens.numero}" />
 									</a4j:commandLink>
 								</rich:column>
 							</rich:dataTable>
 						</t:div>
 						
-						<a4j:commandButton action="#{ConvenioBean.gerarFatura}" title="#{properties['lb_Gerar']}" 
+						<a4j:commandButton action="#{FaturaBean.gerarFatura}" title="#{properties['lb_Gerar']}" 
 							styleClass="botao_salvar" value="salvar" reRender="faturasMsgs, codigo, btGerarFaura" id="btGerarFaura" 
 							disabled="#{ConvenioBea.fatura.codigo != null}"/>
-						<h:inputHidden id="codigo" value="#{ConvenioBean.fatura.codigo}"/>
+						<h:inputHidden id="codigo" value="#{FaturaBean.fatura.codigo}"/>
 					</h:form>
 					<%@ include file="itemFaturaForm.jsp"%>
 					<br /><br /><br /><br /><br /><br /><hr>

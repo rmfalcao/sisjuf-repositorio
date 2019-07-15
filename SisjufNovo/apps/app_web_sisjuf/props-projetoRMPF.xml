@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AsserjufProps">
+	<!-- 
+	<property value="D:\Projetos\Sisjuf" name="SISJUF_HOME"/>
+	<property value="D:\Servidores\jboss-4.0.4.GA" name="jbossDir"/>
+	<property value="D:\Servidores\jboss-4.0.4.GA\server\default\deploy" name="deployDir"/>
+	-->
+	<property name="SISJUF_HOME"		value="/Users/rodrigofalcao/git/sisjuf-repositorio/SisjufNovo"/>
+	
+	<property name="seguranca.dir" 		value="${SISJUF_HOME}/apps/app_web_seguranca"/><!-- location="D:\Projetos\SegurancaSisjuf" -->
+	<property name="project.dir"		value="${basedir}"/>
+	<property name="projectDeploy"		value="${basedir}/deploy" />
+	<property name="jboss.dir" 			value="D:/Desenvolvimento/Servidores/jboss-4.0.4.GA"/>
+	<property name="source.dir"			value="${project.dir}/src" />
+	<property name="zipDir"				value="${project.dir}/zip"/>
+	<property name="web.dir"			value="${project.dir}/webroot"/>
+	<property name="classes.dir"		value="${project.dir}/classes"/>
+	<property name="deploy.dir"			value="${project.dir}/deploy"/>
+	<property name="war.dir"			value="${build.dir}/sisjuf.war"/>
+	<property name="webinf.classes.dir"	value="${war.dir}/WEB-INF/classes"></property>
+	<property name="webinf.lib.dir"		value="${war.dir}/WEB-INF/lib"></property>
+	<property name="lib.dir" 			value="${SISJUF_HOME}/lib/"></property>
+	<property name="build.dir"			value="${project.dir}/build"></property>
+	<property name="smartFWVersionName" value="SmartFW"/>
+	<property name="server.deploy.dir"	value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-6.0.43/webapps" />
+	<property name="server.cache"		value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-6.0.43/work/Catalina" />
+	<!--property name="classPath"		value="${SISJUF_HOME}/lib/"/ -->
+	
+	<fileset id="projeto.lib" dir="${lib.dir}">
+		<!--
+		<include name="common-annotations.jar"/>
+		<include name="commons-beanutils-1.7.0.jar"/>
+		<include name="commons-beanutils.jar"/>
+		<include name="commons-collections.jar"/>
+		<include name="commons-dbcp-1.2.1.jar"/>
+		<include name="commons-digester.jar"/>
+		<include name="dwr.jar"/>
+		<include name="commons-el-1.0.jar"/>
+		<include name="commons-logging-1.1.1.jar"/>
+		<include name="commons-pool-1.3.jar"/>
+		<include name="el-ri.jar"/>
+		<include name="jsf-api.jar"/>
+		<include name="jsf-impl.jar" />
+		<include name="jstl.jar"/>
+		<include name="log4j-1.2.14.jar"/>
+		<include name="richfaces-api-3.3.1.GA.jar"/>
+		<include name="richfaces-impl-3.3.1.GA.jar"/>
+		<include name="richfaces-ui-3.3.1.GA.jar"/>
+		<include name="seguranca.jar"/>
+		<include name="SmartFW.jar"/>
+		<include name="spring.jar"/>
+		<include name="spring-mock.jar"/>
+		<include name="standard.jar"/>
+		<include name="tomahawk-1.1.6.jar"/>
+		<include name="vortice.jar"/>
+		<include name="pdfbox-app-1.8.9.jar"/>
+		-->
+		<include name="common-annotations.jar"/>
+		<include name="commons-beanutils-1.7.0.jar"/>
+		<include name="commons-beanutils.jar"/>
+		<include name="commons-collections.jar"/>
+		<include name="commons-dbcp-1.2.1.jar"/>
+		<include name="commons-digester.jar"/>
+		<include name="commons-lang.jar"/>
+		<include name="dwr.jar"/>
+		<include name="commons-el-1.0.jar"/>
+		<include name="commons-logging-1.1.1.jar"/>
+		<include name="commons-pool-1.3.jar"/>
+		<include name="el-ri.jar"/>
+		<include name="jsf-api.jar"/>
+		<include name="jsf-impl.jar" />
+		<include name="jstl.jar"/>
+		<include name="log4j-1.2.14.jar"/>
+		<include name="pdfbox-app-1.8.9.jar"/>
+		<include name="richfaces-api-3.3.1.GA.jar"/>
+		<include name="richfaces-impl-3.3.1.GA.jar"/>
+		<include name="richfaces-ui-3.3.1.GA.jar"/>
+		<include name="seguranca.jar"/>
+		<include name="SmartFW.jar"/>
+		<include name="spring.jar"/>
+		<include name="spring-mock.jar"/>
+		<include name="standard.jar"/>
+		<include name="tomahawk-1.1.6.jar"/>
+		<include name="vortice.jar"/>
+	</fileset>
+	
+	<path id="classPath">
+		<fileset refid="projeto.lib"/>
+		<fileset dir="${lib.dir}">
+			<include  name="servlet-api.jar"/>
+			<include  name="jboss-j2ee.jar"/>
+		</fileset>
+	</path>
+</project>

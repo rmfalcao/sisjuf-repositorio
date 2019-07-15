@@ -17,7 +17,7 @@ public class VinculacaoPlanoVO extends SmartVO {
 	private Date dataDesVinculacao;
 	private Integer codigoHist;
 	private ParentescoVO parentesco;
-	
+	private String codigoBeneficiarioPlano;
 	
 	
 	public BeneficiarioVO getBeneficiario() {
@@ -73,6 +73,12 @@ public class VinculacaoPlanoVO extends SmartVO {
 	}
 	public void setParentesco(ParentescoVO parentesco) {
 		this.parentesco = parentesco;
+	}
+	public String getCodigoBeneficiarioPlano() {
+		return codigoBeneficiarioPlano;
+	}
+	public void setCodigoBeneficiarioPlano(String codigoBeneficiarioPlano) {
+		this.codigoBeneficiarioPlano = codigoBeneficiarioPlano;
 	}
 		
 }

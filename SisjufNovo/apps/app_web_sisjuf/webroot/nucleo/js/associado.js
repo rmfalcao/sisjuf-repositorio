@@ -74,12 +74,12 @@ function incluirDependente(){
 							form.sexoDependente.value = "";
 							form.parentesco.value = "";
 							form.cpfDependente.value = "";
-						}else{alert("O parentesco do dependente n„o pode ser vazio.");}
-					}else{alert("O sexo do dependente n„o pode ser vazio.");}
-				}else{alert("A data de nascimento do dependente n„o pode ser vazio.");}
-			}else{alert("O rg do dependente n„o pode ser vazio.");}
-		}else{alert("O CPF do dependente n„o pode ser vazio.");}	
-	}else{alert("O nome do dependente n„o pode ser vazio.");}
+						}else{alert("O parentesco do dependente n√£o pode ser vazio.");}
+					}else{alert("O sexo do dependente n√£o pode ser vazio.");}
+				}else{alert("A data de nascimento do dependente n√£o pode ser vazio.");}
+			}else{alert("O rg do dependente n√£o pode ser vazio.");}
+		}else{alert("O CPF do dependente n√£o pode ser vazio.");}	
+	}else{alert("O nome do dependente n√£o pode ser vazio.");}
 }
 
 function incluirFilho(){
@@ -110,9 +110,9 @@ function incluirFilho(){
 				form.elements["associadoForm:dataNascimentoFilhoInputDate"].value = "";
 				form.sexoFilho.value = "";
 				form.cpfFilho.value = "";
-			}else{alert("O Sexo do filho n„o pode ser vazio");}
-		}else{alert("A data nascimento do filho n„o pode ser vazia");}
-	}else{alert("O nome do filho n„o pode ser vazio");}
+			}else{alert("O Sexo do filho n√£o pode ser vazio");}
+		}else{alert("A data nascimento do filho n√£o pode ser vazia");}
+	}else{alert("O nome do filho n√£o pode ser vazio");}
 }
 
 function removerDependente(str){
@@ -186,7 +186,7 @@ function carregaAssociado(associado){
 		document.forms[1].contribuinteCodigo.value = associado.codigo;
 		document.forms[1].contribuinteNome.value = associado.nome;
 	}else {
-		alert("Contribuinte n„o encontrado");
+		alert("Contribuinte n√£o encontrado");
 		document.forms[1].contribuinteCodigo.value = "";
 		document.forms[1].contribuinteNome.value = "";
 	}

@@ -401,20 +401,26 @@
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		
 		
-		<!-- DESENV -->
-
-	<!--		
-		<property name="url" value="jdbc:postgresql://localhost:5434/juriweb_sisjuf" />
+		<!-- DESENV 
+		<property name="url" value="jdbc:postgresql://localhost:5433/sisjuf" />
 		<property name="username" value="postgres" />
-		<property name="password" value="elefante10" />
-	-->			
+		<property name="password" value="sa102101" /> -->
+
+		<!-- <property name="url" value="jdbc:postgresql://localhost:5432/sisjuf" /> -->
+		
+		<!--
+		<property name="url" value="jdbc:postgresql://localhost:5432/sisjuf_homol" />
+		<property name="username" value="postgres" />
+		<property name="password" value="123" />
+		-->
+	
 		<!--  PROD -->
 
-			
+		 
 		<property name="url" value="jdbc:postgresql://localhost:5432/juriwebsisjuf" />
 		<property name="username" value="juriwebsisjuf2" />
-		<property name="password" value="gkug976f" />
-
+		<property name="password" value="gkug976f"/>
+		
 		
 		
 

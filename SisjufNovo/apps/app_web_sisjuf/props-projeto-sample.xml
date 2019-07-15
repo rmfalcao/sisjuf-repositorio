@@ -5,7 +5,7 @@
 	<property value="D:\Servidores\jboss-4.0.4.GA" name="jbossDir"/>
 	<property value="D:\Servidores\jboss-4.0.4.GA\server\default\deploy" name="deployDir"/>
 	-->
-	<property name="SISJUF_HOME"		value="C:\Users\Rodrigo\workspace\SisjufNovo-DESENV"/>
+	<property name="SISJUF_HOME"		value="D:/desenvolvimento/projetos/Sisjuf/sisjuf-repositorio/SisjufNovo"/>
 	
 	<property name="seguranca.dir" 		value="${SISJUF_HOME}/apps/app_web_seguranca"/><!-- location="D:\Projetos\SegurancaSisjuf" -->
 	<property name="project.dir"		value="${basedir}"/>
@@ -22,8 +22,8 @@
 	<property name="lib.dir" 			value="${SISJUF_HOME}/lib/"></property>
 	<property name="build.dir"			value="${project.dir}/build"></property>
 	<property name="smartFWVersionName" value="SmartFW"/>
-	<property name="server.deploy.dir"	value="C:\Users\Rodrigo\trabalho\apache-tomcat-6.0.14_paulete\apache-tomcat-6.0.14\webapps" />
-	<property name="server.cache"		value="C:\Users\Rodrigo\trabalho\apache-tomcat-6.0.14_paulete\apache-tomcat-6.0.14\work\Catalina" />
+	<property name="server.deploy.dir"	value="D:/desenvolvimento/servidores/apache-tomcat-6.0.43/webapps" />
+	<property name="server.cache"		value="D:/desenvolvimento/servidores/apache-tomcat-6.0.43/work/Catalina" />
 	<!--property name="classPath"		value="${SISJUF_HOME}/lib/"/ -->
 	
 	<fileset id="projeto.lib" dir="${lib.dir}">
@@ -33,6 +33,7 @@
 		<include name="commons-collections.jar"/>
 		<include name="commons-dbcp-1.2.1.jar"/>
 		<include name="commons-digester.jar"/>
+		<include name="commons-lang.jar"/>
 		<include name="dwr.jar"/>
 		<include name="commons-el-1.0.jar"/>
 		<include name="commons-logging-1.1.1.jar"/>
@@ -42,6 +43,7 @@
 		<include name="jsf-impl.jar" />
 		<include name="jstl.jar"/>
 		<include name="log4j-1.2.14.jar"/>
+		<include name="pdfbox-app-1.8.9.jar"/>
 		<include name="richfaces-api-3.3.1.GA.jar"/>
 		<include name="richfaces-impl-3.3.1.GA.jar"/>
 		<include name="richfaces-ui-3.3.1.GA.jar"/>

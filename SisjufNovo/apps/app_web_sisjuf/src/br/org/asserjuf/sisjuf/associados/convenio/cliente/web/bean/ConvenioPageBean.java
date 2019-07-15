@@ -3,8 +3,6 @@ package br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.ListIterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -22,7 +20,6 @@ import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.HistoricoValorPlanoConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioVO;
-import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
 import br.org.asserjuf.sisjuf.entidadesComuns.EstadoVO;
 import br.org.asserjuf.sisjuf.financeiro.ContaVO;
@@ -48,6 +45,8 @@ public class ConvenioPageBean extends BasePageBean {
 	
 	private Collection<PlanoConvenioVO>		planosConvenio;
 	
+	private Collection<PlanoConvenioVO>     planosConvenioHistorico;
+	
 	private Collection<BeneficiarioVO>		beneficiariosConvenios;
 	
 	private Collection<PlanoConvenioVO>		printPlanosConvenio;
@@ -57,9 +56,13 @@ public class ConvenioPageBean extends BasePageBean {
 	private static final transient SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
 	private FaturaVO						fatura;
-	private ItemFaturaVO					itemFatura;
+	
 	
 	private static final transient Logger LOG = Logger.getLogger(ConvenioPageBean.class);
+	
+	private BeneficiarioVO beneficiario;
+	private Collection planos;
+	
 
 	public ConvenioPageBean(){
 		try{ 
@@ -75,10 +78,11 @@ public class ConvenioPageBean extends BasePageBean {
 			fatura.setConvenio(new ConvenioVO());
 			fatura.setItens(new ArrayList<ItemFaturaVO>());
 			
-			itemFatura = new ItemFaturaVO();
-			itemFatura.setBeneficiario(new BeneficiarioVO());
-			itemFatura.setPlano(new PlanoConvenioVO());
-			itemFatura.setVinculacao(new VinculacaoPlanoVO());
+			beneficiario = new BeneficiarioVO();
+			beneficiario.setTitular(new AssociadoVO());
+			beneficiario.setPlano(new PlanoConvenioVO());
+			
+			planosConvenioHistorico = new ArrayList<PlanoConvenioVO>();
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}
@@ -354,7 +358,7 @@ public class ConvenioPageBean extends BasePageBean {
 	}
 
 	/**
-	 * Grava no bean a informação se a conta é ativa ou não.
+	 * Grava no bean a informaï¿½ï¿½o se a conta ï¿½ ativa ou nÃ£o.
 	 * @param flgContaCaixa
 	 */
 	public void setFlgAtivo(boolean flgAtivo) {
@@ -566,6 +570,16 @@ public class ConvenioPageBean extends BasePageBean {
 		return new ArrayList<PlanoConvenioVO>();				
 	}
 	
+	public Collection getPlanosConvenioCombo() {
+		try {
+			 Collection collPlanos = getPlanosConvenio(); 
+			 return (collPlanos != null) ? getSelect(collPlanos, "codigo", "nome") : new ArrayList();
+		} catch (Exception e) {
+			LOG.error("erro no momento de carregar os estados", e);
+		}
+		return new ArrayList();
+	}
+	
 	public void setPlanosConvenio(Collection<PlanoConvenioVO> planosConvenio) {
 		this.planosConvenio = planosConvenio;
 	}	
@@ -577,6 +591,15 @@ public class ConvenioPageBean extends BasePageBean {
 		this.planoConvenio.setHistoricoValorPlanoConvenio(new ArrayList<HistoricoValorPlanoConvenioVO>());
 		
 		//planoConvenio.set
+	}
+	
+	public void carregarHistoricoValoresPlano(){
+		try{
+			planosConvenioHistorico = delegate.findHistoricoValorPlanoByPlano(planoConvenio);
+		}catch(Exception appEx){
+			tratarExcecao(appEx);
+		}
+	
 	}
 	
 	public Boolean getDesativado() {
@@ -681,127 +704,7 @@ public class ConvenioPageBean extends BasePageBean {
 			return "falha";
 		}
 	}
-	
-	public String gerarFatura(){
-		try {
-			if (!fatura.getConvenio().getCategoria().equals("F")) {
-				fatura = delegate.gerarFaturaVariavel(fatura);
-				FacesMessage msgs = new FacesMessage("Fatura gerada com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msgs);		
-				return getSucesso();
-			} else {
-				fatura = delegate.gerarFaturaPrevia(fatura);
-				int count = 1;
-				for (ItemFaturaVO item : fatura.getItens()){
-					item.setNumero(count);
-					count++;
-				}
-				FacesMessage msgs = new FacesMessage("Fatura prévia gerada com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msgs);		
-				return getSucesso();
-			}
-		} catch(SmartAppException appEx){
-			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
-			FacesContext facesContext =  FacesContext.getCurrentInstance();
-			facesContext.addMessage(null, msgs);
-			LOG.error("Error ", appEx);
-			return "falha";
-		}catch(SmartEnvException envEx){
-			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
-			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
-			FacesContext facesContext =  FacesContext.getCurrentInstance();
-			facesContext.addMessage(null, msgs);
-			LOG.error("Error ", envEx);
-			return "falha";
-		}catch(Exception e){
-			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
-			LOG.error("Error ", e);
-			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
-			FacesContext.getCurrentInstance().addMessage(null, msgs);
-			return "falha";
-		}
-	}
-	
-	public String gerarFaturaFixa(){
-		try {
-			delegate.gerarFaturaFixa(fatura);
-			FacesMessage msgs = new FacesMessage("Fatura fixa gerada com sucesso.");
-			FacesContext.getCurrentInstance().addMessage(null, msgs);		
-			return getSucesso();
-		} catch(SmartAppException appEx){
-			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
-			FacesContext facesContext =  FacesContext.getCurrentInstance();
-			facesContext.addMessage(null, msgs);
-			LOG.error("Error ", appEx);
-			return "falha";
-		}catch(SmartEnvException envEx){
-			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
-			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
-			FacesContext facesContext =  FacesContext.getCurrentInstance();
-			facesContext.addMessage(null, msgs);
-			LOG.error("Error ", envEx);
-			return "falha";
-		}catch(Exception e){
-			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
-			LOG.error("Error ", e);
-			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
-			FacesContext.getCurrentInstance().addMessage(null, msgs);
-			return "falha";
-		}
-	}
-	
-	public void prepararNovoItemFatura(){
-		itemFatura = new ItemFaturaVO();
-		itemFatura.setBeneficiario(new BeneficiarioVO());
-		itemFatura.getBeneficiario().setTitular(new AssociadoVO());
-		itemFatura.setVinculacao(new VinculacaoPlanoVO());
-	}
-	
-	public List<BeneficiarioVO> autocompleteBeneficiario(Object suggest){
-		ArrayList<BeneficiarioVO> retorno = new ArrayList<BeneficiarioVO>();
-		try {
-			String nome  = (String)suggest;
-			BeneficiarioVO filtro = new BeneficiarioVO();
-			filtro.setNome(nome);
-			filtro.setPlano(new PlanoConvenioVO());
-			filtro.getPlano().setConvenio(fatura.getConvenio());
-			retorno.addAll(delegate.findBeneficiariosByFilter(filtro));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return retorno;
-	}
-	
-	public void carregarItensFatura(){
-		if (fatura.getItens().contains(itemFatura)){
-			for (ItemFaturaVO linha : fatura.getItens()){
-				if (linha.equals(itemFatura)){
-					linha.setBeneficiario(itemFatura.getBeneficiario());
-					linha.setVinculacao(itemFatura.getVinculacao());
-				}
-			}
-		}
-	}
-	
-	public void adicionarItemFatura(){
-		itemFatura.setNumero(fatura.getItens().size());
-		fatura.getItens().add(itemFatura);
-		itemFatura = new ItemFaturaVO();
-		System.out.println("fatura.getItens() "+ fatura.getItens());
-	}
-	
-	public void limparFaturas(){
-		System.out.println("LIMPAR FATURAS");
-		fatura.setItens(new ArrayList<ItemFaturaVO>());
-		try {
-			System.out.println("fatura.convenio.categoria " + fatura.getConvenio().getCategoria());
-			fatura.setConvenio(delegate.findConvenioByPrimaryKey(fatura.getConvenio()));
-			System.out.println("fatura.convenio.categoria " + fatura.getConvenio().getCategoria());
-		} catch (Exception e) {
-			LOG.error("ERRO NO MOMENTO DE CARREGAR CONVENIO");
-		}
-	}
-	
+
 	public void carregaConvenio(){
 		try {
 			System.out.println("fatura.convenio.categoria " + fatura.getConvenio().getCategoria());
@@ -812,10 +715,6 @@ public class ConvenioPageBean extends BasePageBean {
 		}
 	}
 	
-	public void removerItemFatura(){
-		fatura.getItens().remove(itemFatura);
-	}
-	
 	public Collection<PlanoConvenioVO> getPrintPlanosConvenio() {
 		return printPlanosConvenio;
 	}
@@ -823,21 +722,20 @@ public class ConvenioPageBean extends BasePageBean {
 	public void setUtilDelegate(UtilDelegate utilDelegate) {
 		this.utilDelegate = utilDelegate;
 	}
-
-	public Collection<BeneficiarioVO> getBeneficiariosConvenios() {
+	
+	public void carregarBeneficiarios(){
 		try{
 			if (convenio != null && convenio.getCodigo() != null){
-				BeneficiarioVO beneficiario = new BeneficiarioVO();
-				PlanoConvenioVO plano = new PlanoConvenioVO();
-				plano.setConvenio(this.convenio);
-				beneficiario.setPlano(plano);
+				beneficiario.getPlano().setConvenio(convenio);
 				beneficiariosConvenios = this.delegate.findBeneficiariosByFilter(beneficiario);
-				return beneficiariosConvenios;
 			}
-		} catch (Exception e) {
-			tratarExcecao(e);
-		}	
-		return new ArrayList<BeneficiarioVO>();
+		}catch(Exception appEx){
+			tratarExcecao(appEx);
+		}
+	}
+	
+	public Collection<BeneficiarioVO> getBeneficiariosConvenios() {
+		return beneficiariosConvenios;
 	}
 
 	public void setBeneficiariosConvenios(
@@ -875,11 +773,20 @@ public class ConvenioPageBean extends BasePageBean {
 		this.financeiroDelegate = financeiroDelegate;
 	}
 
-	public ItemFaturaVO getItemFatura() {
-		return itemFatura;
+	public BeneficiarioVO getBeneficiario() {
+		return beneficiario;
 	}
 
-	public void setItemFatura(ItemFaturaVO itemFatura) {
-		this.itemFatura = itemFatura;
+	public void setBeneficiario(BeneficiarioVO beneficiario) {
+		this.beneficiario = beneficiario;
+	}
+
+	public Collection<PlanoConvenioVO> getPlanosConvenioHistorico() {
+		return planosConvenioHistorico;
+	}
+
+	public void setPlanosConvenioHistorico(
+			Collection<PlanoConvenioVO> planosConvenioHistorico) {
+		this.planosConvenioHistorico = planosConvenioHistorico;
 	}
 }

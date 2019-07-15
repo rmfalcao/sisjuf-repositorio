@@ -712,9 +712,12 @@
 						<jsp:include page="associadoBeneficiarioPesquisa.jsp"></jsp:include>
 						<jsp:include page="associadoBeneficiarioForm.jsp"></jsp:include>
 					</rich:tab>
-					<rich:tab id="conv" label="Convénios">
+					<rich:tab id="conv" label="Convênios">
 						<jsp:include page="beneficiario/convenioAssociadoPesquisa.jsp"></jsp:include>
 						<jsp:include page="beneficiario/vinculaAssociadoForm.jsp"></jsp:include>
+					</rich:tab>
+					<rich:tab id="historicoVinculacoesView" label="Histórico de Vinculações">
+						<jsp:include page="beneficiario/historicoVinculacoesAssociado.jsp"></jsp:include>
 					</rich:tab>
 				</rich:tabPanel>
 					

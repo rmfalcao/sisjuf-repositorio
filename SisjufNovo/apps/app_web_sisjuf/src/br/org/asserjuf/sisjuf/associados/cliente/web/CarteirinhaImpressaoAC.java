@@ -12,8 +12,8 @@ import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.cliente.AssociadoDelegate;
 
 /**
- * Servlet da tela de impressão de carteirinhas.
- * @author Rodrigo Falcão
+ * Servlet da tela de impressï¿½o de carteirinhas.
+ * @author Rodrigo Falcï¿½o
  *
  */
 public class CarteirinhaImpressaoAC extends FrameworkServlet {
@@ -21,7 +21,7 @@ public class CarteirinhaImpressaoAC extends FrameworkServlet {
 	private AssociadoDelegate associadoDelegate;
 	
 	/**
-	 * Representa a implementação do corpo de execução da servlet. Instancia o delegate e seta os valores necessários no request.
+	 * Representa a implementaï¿½ï¿½o do corpo de execuï¿½ï¿½o da servlet. Instancia o delegate e seta os valores necessï¿½rios no request.
 	 */
 	protected void doService(HttpServletRequest request, HttpServletResponse response) throws Exception{
 
@@ -32,7 +32,7 @@ public class CarteirinhaImpressaoAC extends FrameworkServlet {
 		associado = associadoDelegate.findAssociadoByPrimaryKey(associado);
 		
 		request.setAttribute("associado", associado);
-		request.setAttribute("categoria", associado.getStatusCategoria().equals("C")?"Sócio Contribuinte":"Sócio Usuário");
+		request.setAttribute("categoria", associado.getStatusCategoria().equals("C")?"SÃ³cio Contribuinte":"SÃ³cio UsuÃ¡rio");
 
 		request.getRequestDispatcher("/associados/carteirinhaPrint.jsp").forward(request, response);
 	}

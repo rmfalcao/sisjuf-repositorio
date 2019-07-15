@@ -30,5 +30,6 @@
 	<classpathentry kind="lib" path="lib/standard.jar"/>
 	<classpathentry kind="lib" path="lib/tomahawk-1.1.6.jar"/>
 	<classpathentry kind="lib" path="lib/vortice.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-app-1.8.9.jar"/>
 	<classpathentry kind="output" path="apps/app_web_sisjuf/webroot/WEB-INF/classes"/>
 </classpath>
