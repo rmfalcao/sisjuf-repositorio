@@ -86,7 +86,7 @@ public class BeneficiarioImpressaoAC extends FrameworkServlet {
 		}
 		valorParameter = getValueFromParameter(request, "matricula");
 		if(valorParameter != null){
-			beneficiario.getTitular().setMatriculaJustica(Integer.valueOf(valorParameter));
+			beneficiario.getTitular().setMatriculaJustica(valorParameter);
 		}
 		valorParameter = getValueFromParameter(request, "dataInicio");
 		if(valorParameter != null){

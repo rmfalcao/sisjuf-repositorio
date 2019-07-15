@@ -25,7 +25,7 @@ public class BeneficiarioRN {
 			if(beneficiario.getTitular().getNome() == ""){
 				beneficiario.getTitular().setNome(null);
 			}
-			if(beneficiario.getTitular().getMatriculaJustica() != null && beneficiario.getTitular().getMatriculaJustica() == 0){
+			if(beneficiario.getTitular().getMatriculaJustica() != null && beneficiario.getTitular().getMatriculaJustica().equals("")){
 				beneficiario.getTitular().setMatriculaJustica(null);
 			}
 		}
