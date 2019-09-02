@@ -381,6 +381,8 @@
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_ativo']}" itemValue="A"/>
 												<f:selectItem itemLabel="#{properties['lb_inativo']}" itemValue="I"/>
+												<f:selectItem itemLabel="#{properties['lb_requisitado']}" itemValue="R"/>
+												<f:selectItem itemLabel="#{properties['lb_removido']}" itemValue="X"/>
 											</h:selectOneMenu>
 										</td>
 									</tr>

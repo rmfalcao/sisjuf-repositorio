@@ -255,6 +255,7 @@
 										<f:selectItem itemLabel="#{properties['lb_divorciado']}" itemValue="I"/>
 										<f:selectItem itemLabel="#{properties['lb_solteiro']}" itemValue="S"/>
 										<f:selectItem itemLabel="#{properties['lb_viuvo']}" itemValue="V"/>
+										<f:selectItem itemLabel="#{properties['lb_outro']}" itemValue="O"/>
 									</h:selectOneMenu>
 								</td>
 							</tr>
@@ -325,6 +326,8 @@
 										<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 										<f:selectItem itemLabel="#{properties['lb_ativo']}" itemValue="A"/>
 										<f:selectItem itemLabel="#{properties['lb_inativo']}" itemValue="I"/>
+										<f:selectItem itemLabel="#{properties['lb_requisitado']}" itemValue="R"/>
+										<f:selectItem itemLabel="#{properties['lb_removido']}" itemValue="X"/>
 									</h:selectOneMenu>
 								</td>
 							</tr>
