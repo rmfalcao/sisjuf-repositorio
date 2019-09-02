@@ -23,9 +23,6 @@
 			
 			<script language="JavaScript">
 				var dependenteArray = new Array();
-				var filhoArray 		= new Array();
-				
-				var filho		= null;
 				var dependente	= null;
 				var parentesco	= null;
 				
@@ -274,6 +271,7 @@
 												<f:selectItem itemLabel="#{properties['lb_divorciado']}" itemValue="I"/>
 												<f:selectItem itemLabel="#{properties['lb_solteiro']}" itemValue="S"/>
 												<f:selectItem itemLabel="#{properties['lb_viuvo']}" itemValue="V"/>
+												<f:selectItem itemLabel="#{properties['lb_outro']}" itemValue="O"/>
 											</h:selectOneMenu>
 										</td>
 									</tr>
@@ -604,103 +602,9 @@
 							</table>
 							
 							<br /><br /><br /><br />
-							<h2>Cadastro de Filhos</h2>
-							
-							<table class="tab_cadastro" cellpadding="2" cellspacing="1">
-								<thead>
-									<tr>
-										<th>Dados do Filho (a)</th>
-										<th colspan="3"></th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<th>Nome completo:</th>
-										<td width="230"><input tabindex="51" name="nomeFilho" type="text" size="40" maxlength="60" /></td>
-										<th width="100">CPF:</th>
-										<td width="120"><input tabindex="51" name="cpfFilho" type="text" size="20" maxlength="20" onkeypress="return justNumber(this,event)"/></td>
-									</tr>
-									<tr>
-										<th width="140">Data de Nasc.:</th>
-										<td width="230">
-											<rich:calendar id="dataNascimentoFilho" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-												inputClass="inputCalendar" enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="52"/>
-										</td>
-										<th width="100">Sexo:</th>
-										<td width="120">
-											<select tabindex="53" name="sexoFilho">
-												<option></option>
-												<option value="M">Masculino</option>
-												<option value="F">Feminino</option>
-											</select>
-										</td>
-									</tr>
-								</tbody>
-								
-								<tfoot>
-									<tr>
-										<th>Adicionar Filho (a)</th>
-										<td colspan="3">
-											<a class="botao_adicionar" title="Adicionar" href="javascript:incluirFilho();" onclick="">
-												<span>adicionar</span>
-											</a>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
 							
 							<br /><br />
-							<h2>Lista de Filhos</h2>
-							
-							<table class="tab_lista" cellpadding="2" cellspacing="1">
-								<thead>
-									<tr>
-										<th width="370">Nome do Filho (a)</th>
-										<th width="100">Data de Nasc.</th>
-										<th width="100">Sexo</th>
-										<th width="20"></th>
-									</tr>
-								</thead>
-								<tbody id="tb_filho">
-									<c:if test="${not empty requestScope.AssociadoBean.associado.filhos}">
-										<c:forEach var="filho" items="${requestScope.AssociadoBean.associado.filhos}">
-											<tr>
-												<td><c:out value="${filho.nome }"/></td>
-												<td><fmt:formatDate value="${filho.dataNascimento}" pattern="dd/MM/yyyy"/></td>
-												<td><c:out value="${filho.sexo}"/></td>
-												<td>
-													<a class='botao_excluir' href="javascript:removerFilho('<c:out value="${filho.nome}"/>');">
-														<span>excluir</span>
-													</a>
-													<input type='hidden' name='filho_codigo' value='<c:out value="${filho.codigo }"/>'>
-													<input type='hidden' name='filho_nome' value='<c:out value="${filho.nome }"/>'>
-													<input type='hidden' name='filho_dataNascimento' 
-														value='<fmt:formatDate value="${filho.dataNascimento }" pattern="dd/MM/yyyy"/>'/>
-													<input type='hidden' name='filho_sexo' value='<c:out value="${filho.sexo }"/>'/>
-													<input type='hidden' name='filho_cpf' value='<c:out value="${filho.cpf}"/>'/>
-												</td>
-											</tr>
-											
-											<script language="JavaScript">
-											filho = {
-												codigo:'<c:out value="${filho.codigo}"/>',
-												nome:'<c:out value="${filho.nome }"/>', 
-												dataNascimento:'<fmt:formatDate value="${filho.dataNascimento }" pattern="dd/MM/yyyy"/>', 
-												sexo:'<c:out value="${filho.sexo }"/>',
-												cpf:'<c:out value="${filho.cpf}"/>'
-											};
-											
-											filhoArray[filhoArray.length] = filho;
-											
-											</script>
-											
-										</c:forEach>
-									</c:if>
-								</tbody>
-							</table>
+
 							<a4j:commandButton  action="#{AssociadoBean.salvar}" onclick="if (!setAcao(document.forms[0], 'Salva_Associado')) return false;"
 								title="#{properties['lb_salvar']}" styleClass="botao_salvar" reRender="associadoMsgs, codigo, beneficiarioAssociadoCodigo"/>
 							<br /><br /><br /><br /><br /><br />

@@ -344,11 +344,15 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public String salvar(){
 		try {
-			List<FilhoVO> filhos = carregaFilhos();
 			List<DependenteVO> dependentes = carregaDependentes();
-			associado.setFilhos(filhos);
+			// comentando abaixo o load de filhos pois esses dados nao serao mais usados pelo sistema.
+			//List<FilhoVO> filhos = carregaFilhos();
+			//associado.setFilhos(filhos);
 			associado.setDependentes(dependentes);
 			LOG.debug("associado.getTelefoneCelular " + associado.getTelefoneCelular());
+
+			LOG.debug("........... " + associado.getSetor().getEndereco().getMunicipio().getEstado().getCodigo());
+			
 			if (associado.getCodigo() != null && associado.getCodigo() > 0){
 				delegate.updateAssociado(geraAssembler());
 				FacesMessage msgs = new FacesMessage("Registro Atualizado com sucesso.");

@@ -245,15 +245,7 @@ public class AssociadoRN {
 					throw new SmartAppException("O nome do setor deve ser informado.");
 				}
 				
-				// Munic�pio do setor
-				if (associado.getSetor().getEndereco() == null || associado.getSetor().getEndereco().getMunicipio() == null || associado.getSetor().getEndereco().getMunicipio().getNome() == null || associado.getSetor().getEndereco().getMunicipio().getNome().equals("")) {
-					throw new SmartAppException("O município do setor deve ser informado.");
-				}
 				
-				// Estado do setor
-				if (associado.getSetor().getEndereco().getMunicipio().getEstado() == null || associado.getEndereco().getMunicipio().getEstado().getCodigo() == null) {
-					throw new SmartAppException("O estado do setor deve ser informado.");
-				}
 				
 				// Telefone do setor
 				if (associado.getSetor().getTelefone() == null) {
@@ -278,32 +270,7 @@ public class AssociadoRN {
 				throw new SmartAppException ("O contribuinte deve ser informado para sócio usuário.");
 			}
 			
-			// Conta 
-			if (associado.getConta() == null) {
-				throw new SmartAppException ("A conta deve ser informada.");
-				
-			} else {
-				
-				//Banco da conta
-				if (associado.getConta().getBancoVO()==null || associado.getConta().getBancoVO().getCodigo() == null ) {
-					throw new SmartAppException ("O banco deve ser informado.");
-				}
-				
-				// Ag�ncia da conta
-				if (associado.getConta().getNumAgencia()==null || associado.getConta().getNumAgencia().equals("")) {
-					throw new SmartAppException ("A agência deve ser informada.");
-				}
-				
-				// N�mero da conta
-				if (associado.getConta().getNumConta()==null || associado.getConta().getNumConta().equals("")) {
-					throw new SmartAppException ("A conta deve ser informada.");
-				}
-
-				// D�gito da conta
-				if (associado.getConta().getDigConta()==null || associado.getConta().getDigConta().equals("")) {
-					throw new SmartAppException ("O dígito verificador da conta deve ser informado.");
-				}
-			}
+			
 		}
 	}
 	
