@@ -530,7 +530,7 @@
 											</t:selectOneMenu>
 										</td>
 										<th width="100">CPF:</th>
-										<td width="120"><input tabindex="50" name="cpfDependente" type="text" size="20" maxlength="10" onkeypress="return justNumber(this,event)"/></td>
+										<td width="120"><input tabindex="50" name="cpfDependente" type="text" size="20" maxlength="11" onkeypress="return justNumber(this,event)"/></td>
 									</tr>
 								</tbody>
 								
