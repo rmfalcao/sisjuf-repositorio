@@ -216,29 +216,22 @@ public class AssociadoRN {
 			throw new SmartAppException("O status na justiça deve ser informado.");
 		}
 		
-		// Setor		
-		if (associado.getSetor() == null) {
-			throw new SmartAppException("O setor deve ser informado.");
-			
-		// �rg�o
-		} else 	if (associado.getSetor().getOrgao() == null || associado.getSetor().getOrgao().getNome() == null || associado.getSetor().getOrgao().getNome().equals("")) {
-				throw new SmartAppException("O orgão deve ser informado.");
-			
-		}
-		
-		// Matr�cula na juti�a
-		if (associado.getMatriculaJustica()==null) {
-			throw new SmartAppException("A matrícula na justi�a deve ser informada.");
-		}
-	
+
 		// verifica��es apenas para o cadastro completo
 		if (associado.getPreCadastro() == null || !associado.getPreCadastro()) {
 			
-			// Setor
-			if (associado.getSetor() == null) {
-				throw new SmartAppException("O setor deve ser informado.");
-				
-			} else {
+			if (associado.getStatusJustica().equals("A")) {
+				// associado ativo na justica. alguns dados de setor sao obrigatorios.
+		
+				// Setor		
+				if (associado.getSetor() == null) {
+					throw new SmartAppException("O setor deve ser informado.");
+					
+				// �rg�o
+				} else 	if (associado.getSetor().getOrgao() == null || associado.getSetor().getOrgao().getNome() == null || associado.getSetor().getOrgao().getNome().equals("")) {
+						throw new SmartAppException("O orgão deve ser informado.");
+					
+				}
 				
 				// Nome do setor
 				if (associado.getSetor().getNome() == null || associado.getSetor().getNome().equals("")) {
@@ -257,6 +250,7 @@ public class AssociadoRN {
 					throw new SmartAppException("O ramal do setor deve ser informado.");
 				}
 				
+				
 			}
 			
 			// Categoria do associado
@@ -270,8 +264,14 @@ public class AssociadoRN {
 				throw new SmartAppException ("O contribuinte deve ser informado para sócio usuário.");
 			}
 			
-			
 		}
+
+		
+		// Matr�cula na juti�a
+		if (associado.getMatriculaJustica()==null) {
+			throw new SmartAppException("A matrícula na justi�a deve ser informada.");
+		}
+
 	}
 	
 	public AssociadoVO insert(AssociadoAssembler associado) throws SmartEnvException, SmartAppException {
