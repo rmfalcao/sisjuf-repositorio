@@ -5,6 +5,8 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 /**
  * 
  * Congrega os dados de um lan�amento da Asserjuf.
@@ -89,7 +91,17 @@ public class LancamentoVO implements Serializable{
 	
 	private String descricaoCompletaFormaPagamento;
 		
+	private UsuarioVO usuario;
 	
+	
+
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
 
 	public String getDescricaoCompletaFormaPagamento() {
 		return descricaoCompletaFormaPagamento;

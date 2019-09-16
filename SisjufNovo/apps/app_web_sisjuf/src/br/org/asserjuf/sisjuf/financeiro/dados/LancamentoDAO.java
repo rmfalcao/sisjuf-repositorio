@@ -130,8 +130,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		
 		StringBuffer sql = new StringBuffer("INSERT INTO lancamento (seq_lancamento, seq_conta, ");
 		sql.append("seq_origem_lancamento, seq_tipo_lancamento, seq_tipo_operacao, ");
-		sql.append("dat_previsao_lancamento, val_lancamento, des_lancamento) ");
-		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
+		sql.append("dat_previsao_lancamento, val_lancamento, des_lancamento, seq_usuario_cadastro, seq_usuario_alteracao) ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -150,7 +150,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			sStmt.setInteger(5, vo.getTipoOperacaoVO()==null?null:vo.getTipoOperacaoVO().getCodigo());
 			sStmt.setDate(6, vo.getDataPrevisao() == null ? null : vo.getDataPrevisao());
 			sStmt.setDouble(7, vo.getValor());
-			sStmt.setString(8, vo.getDescricao());			
+			sStmt.setString(8, vo.getDescricao());		
+			sStmt.setInteger(9, vo.getUsuario().getCodigo());	
+			sStmt.setInteger(10, vo.getUsuario().getCodigo());	
 			
 			sStmt.getMyPreparedStatement().execute();
 	

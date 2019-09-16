@@ -26,6 +26,7 @@ import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
+import com.vortice.seguranca.vo.UsuarioVO;
 import com.vortice.view.BasePageBean;
 
 /**
@@ -124,18 +125,26 @@ public class LancamentoPageBean extends BasePageBean {
 	
 	private FaturaVO fatura;
 	
+	private UsuarioVO usuarioLogado;
+	
 	private ConvenioDelegate convenioDelegate;
 	
 	private UtilDelegate utilDelegate;
 	
 	public LancamentoPageBean(){
 		LOG.debug("Vai construir LancamentoPageBean");
+		
+		usuarioLogado = (UsuarioVO)this.getHttpSession().getAttribute("usuario");
+			
+		
 		lancamento = new LancamentoVO();
 		lancamento.setContaVO(new ContaVO());
 		lancamento.setOrigemLancamentoVO(new OrigemLancamentoVO());
 		lancamento.setTipoLancamentoVO(new TipoLancamentoVO());
 		lancamento.setTipoOperacaoVO(new TipoOperacaoVO());
 		lancamento.setFormaPagamentoVO(new FormaPagamentoVO());
+		
+		lancamento.setUsuario(this.usuarioLogado);
 		
 		filtro = new LancamentoFiltroAssembler();
 		filtro.setContaVO(new ContaVO());
@@ -274,6 +283,8 @@ public class LancamentoPageBean extends BasePageBean {
 	public String consultar(){
 		try
 		{
+					
+			
 			lancamentoAssembler = delegate.findLancamentoByFilter(filtro);
 			for (LancamentoVO lc : lancamentoAssembler.getLancamentos()){
 				totalLancado += lc.getValor();
