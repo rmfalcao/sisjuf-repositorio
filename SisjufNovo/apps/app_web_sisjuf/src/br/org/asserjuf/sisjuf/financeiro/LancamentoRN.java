@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
@@ -188,7 +190,9 @@ public class LancamentoRN {
 	public void estornarLancamento(LancamentoVO vo) throws SmartEnvException, SmartAppException {
 		
 		if (vo.getContaVO() == null || vo.getContaVO().getCodigo() == null) {
+			UsuarioVO usuarioLogado = vo.getUsuario();
 			vo = this.findByPrimaryKey(vo);
+			vo.setUsuario(usuarioLogado);
 			if (vo == null) {
 				throw new SmartAppException("lançamento não existe");
 			} else if (vo.getContaVO() == null || vo.getContaVO().getCodigo() == null) {
