@@ -90,7 +90,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	 */
 	public void quitarLancamentoPrevisto(LancamentoVO vo) throws SmartEnvException{
 		
-		StringBuffer sql = new StringBuffer("UPDATE lancamento SET seq_tipo_operacao = ?, dat_efetivacao_lancamento = ? ");
+		StringBuffer sql = new StringBuffer("UPDATE lancamento SET seq_tipo_operacao = ?, dat_efetivacao_lancamento = ?, seq_usuario_alteracao = ?, dat_alteracao = now() ");
 		sql.append("WHERE seq_lancamento = ?");
 		
 		SmartConnection 		sConn 	= null;
@@ -103,7 +103,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			
 			sStmt.setInteger(1, vo.getTipoOperacaoVO()==null?null:vo.getTipoOperacaoVO().getCodigo());
 			sStmt.setDate(2, vo.getDataEfetivacao());
-			sStmt.setInteger(3, vo.getCodigo());
+			sStmt.setInteger(3, vo.getUsuario().getCodigo());
+			sStmt.setInteger(4, vo.getCodigo());
 			
 			sStmt.getMyPreparedStatement().execute();
 			
