@@ -43,8 +43,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		StringBuffer sql = new StringBuffer("INSERT INTO baixa_lancamento ");
 		sql.append(" (seq_baixa_lancamento, seq_lancamento, dat_baixa_lancamento, val_baixa_lancamento, ");
 		sql.append("  seq_forma_pagamento, des_banco_cheque_baixa_lancamento, num_agencia_cheque_baixa_lancamento, ");
-		sql.append("dig_agencia_cheque_baixa_lancamento, num_conta_cheque_baixa_lancamento, dig_conta_cheque_baixa_lancamento, num_cheque_baixa_lancamento ) ");
-		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		sql.append("dig_agencia_cheque_baixa_lancamento, num_conta_cheque_baixa_lancamento, dig_conta_cheque_baixa_lancamento, num_cheque_baixa_lancamento, seq_usuario_cadastro, seq_usuario_alteracao ) ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -67,6 +67,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			sStmt.setString(9, vo.getContaCheque());
 			sStmt.setString(10, vo.getDigitoContaCheque());
 			sStmt.setString(11, vo.getNumeroCheque());
+			sStmt.setInteger(12, vo.getLancamentoVO().getUsuario().getCodigo());
+			sStmt.setInteger(13, vo.getLancamentoVO().getUsuario().getCodigo());
 						
 			sStmt.getMyPreparedStatement().execute();
 			
@@ -180,14 +182,30 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	 */
 	public void estornarLancamento(LancamentoVO vo) throws SmartEnvException {
 		
-		StringBuffer sql = new StringBuffer("DELETE FROM baixa_lancamento WHERE seq_lancamento = ? ");
+		
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 		
 		try {
-		
+			
 			sConn 	= new SmartConnection(this.getConn());
+			
+			// o update abaixo visa apenas atualizar os dados de auditoria na tabela BAIXA_LANCAMENTO.
+			// desta forma, o usuario logado e a data e hora atual serao gravados nos campos
+			// seq_usuario_alteracao e dat_alteracao antes do delete. Quando o delete for
+			// realizado, a tabela lancamento_log terah a informacao das colunas preservada.
+
+			StringBuffer sql = new StringBuffer("UPDATE BAIXA_LANCAMENTO SET SEQ_USUARIO_ALTERACAO = ?, DAT_ALTERACAO = NOW() WHERE seq_lancamento = ? ");
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			sStmt.setInteger(1, vo.getUsuario().getCodigo());
+			sStmt.setInteger(2, vo.getCodigo());
+			sStmt.getMyPreparedStatement().execute();
+			
+			
+			
+			sql = new StringBuffer("DELETE FROM baixa_lancamento WHERE seq_lancamento = ? ");
+			
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 			
 			sStmt.setInteger(1, vo.getCodigo());
