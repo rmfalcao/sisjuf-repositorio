@@ -739,11 +739,12 @@ public class ContaDAO extends SisjufDAOPostgres {
 		sql.append("tl.nom_tipo_lancamento, top.sig_tipo_operacao, ");
 		sql.append("fp.nom_forma_pagamento, bl.des_banco_cheque_baixa_lancamento, bl.num_agencia_cheque_baixa_lancamento, bl.dig_agencia_cheque_baixa_lancamento, bl.num_conta_cheque_baixa_lancamento, bl.dig_conta_cheque_baixa_lancamento, bl.num_cheque_baixa_lancamento, ");
 		sql.append(" l.des_lancamento ");
-		sql.append("from lancamento l natural join baixa_lancamento bl ");
-		sql.append("natural join forma_pagamento fp ");
-		sql.append("natural join origem_lancamento ol natural left join tipo_lancamento tl ");
-		sql.append("natural join tipo_operacao top ");
-		sql.append("where bl.dat_baixa_lancamento between ? and ? and l.seq_conta = ? ");
+		sql.append("from lancamento l natural left join tipo_lancamento tl, ");
+		sql.append(" baixa_lancamento bl, ");
+		sql.append(" forma_pagamento fp, ");
+		sql.append(" origem_lancamento ol, ");
+		sql.append(" tipo_operacao top ");
+		sql.append("where l.seq_lancamento=bl.seq_lancamento and  bl.seq_forma_pagamento=fp.seq_forma_pagamento and l.seQ_origem_lancamento = ol.seQ_origem_lancamento and l.seq_tipo_operacao= top.seq_tipo_operacao  and bl.dat_baixa_lancamento between ? and ? and l.seq_conta = ? ");
 		sql.append("order by bl.dat_baixa_lancamento, ol.nom_origem_lancamento, ");
 		sql.append("tl.nom_tipo_lancamento, top.sig_tipo_operacao ");
 
