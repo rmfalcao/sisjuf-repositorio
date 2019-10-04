@@ -319,6 +319,15 @@ background:url(../images/botao_baixar.gif) no-repeat;
 font-size:1px;
 text-decoration:none;
 }
+.botao_audit span{visibility:hidden;}
+.botao_audit{
+display:block;
+width:15px;
+height:15px;
+background:url(../images/botao_excluir.gif) no-repeat;
+font-size:1px;
+text-decoration:none;
+}
 /*.botao_acima span{visibility:hidden;}*/
 .botao_acima:hover{color:#003366;}
 .botao_acima{
