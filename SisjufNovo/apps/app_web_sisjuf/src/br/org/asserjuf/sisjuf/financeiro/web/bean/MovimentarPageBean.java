@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
+import com.vortice.seguranca.vo.UsuarioVO;
 import com.vortice.view.BasePageBean;
 
 import br.com.falc.smartFW.exception.SmartAppException;
@@ -50,6 +51,9 @@ public class MovimentarPageBean extends BasePageBean{
 	
 	private Collection collContas;
 	
+	private UsuarioVO usuarioLogado;
+	
+	
 	/**
 	 * Objeto de log (log4j)
 	 */
@@ -63,6 +67,11 @@ public class MovimentarPageBean extends BasePageBean{
 		movimentacao.setContaDestinoVO(new ContaVO());
 		movimentacao.setContaOrigemVO(new ContaVO());
 		movimentacao.setFormaPagamentoVO(new FormaPagamentoVO());
+		
+
+		usuarioLogado = (UsuarioVO)this.getHttpSession().getAttribute("usuario");
+		
+		movimentacao.setUsuario(usuarioLogado);
 	}
 	
 	/**

@@ -218,6 +218,8 @@ public class LancamentoRN {
 		
 		LancamentoVO lancamentoVO = new LancamentoVO();
 		
+		lancamentoVO.setUsuario(assembler.getUsuario());
+		
 		lancamentoVO.setContaVO(assembler.getContaOrigemVO());
 		lancamentoVO.setDataEfetivacao(assembler.getData());
 		lancamentoVO.setDescricao("Transferido para a conta " + contaRN.findByPrimaryKey(assembler.getContaDestinoVO()).getNome());;
