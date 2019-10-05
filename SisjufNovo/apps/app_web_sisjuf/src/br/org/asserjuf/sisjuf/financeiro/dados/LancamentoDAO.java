@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.BaixaLancamentoVO;
@@ -425,13 +427,15 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		sql.append("ELSE '-' || c.dig_agencia_conta END) || '/' || c.num_conta || '-' || c.dig_conta) END) as conta, ");
 		sql.append("(CASE  WHEN ((CAST(ol.seq_origem_lancamento as text)) = (select str_val_parametro from parametros where nom_parametro ='ORIGEM_USUARIO')) THEN tl.nom_tipo_lancamento ELSE ol.nom_origem_lancamento END) as origem_tipo,  ");
 		sql.append("l.val_lancamento, COALESCE(sum(bl.val_baixa_lancamento), 0) as valor_efetivado, ");
-		sql.append("top.sig_tipo_operacao, l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento), l.des_lancamento ");
+		sql.append("top.sig_tipo_operacao, l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento), l.des_lancamento, ");
+		sql.append(" u.nome, l.dat_cadastro ");
 		sql.append("FROM lancamento l NATURAL LEFT JOIN baixa_lancamento bl ");
 		sql.append("INNER JOIN vw_conta c ON l.seq_conta = c.seq_conta ");
 		sql.append("INNER JOIN origem_lancamento ol ON l.seq_origem_lancamento = ol.seq_origem_lancamento ");
 		sql.append("INNER JOIN tipo_operacao top ON l.seq_tipo_operacao = top.seq_tipo_operacao ");
 		sql.append("LEFT JOIN tipo_lancamento tl ON l.seq_tipo_lancamento = tl.seq_tipo_lancamento ");
 		sql.append("LEFT JOIN banco b ON c.seq_banco = b.seq_banco ");
+		sql.append("LEFT JOIN usuario u ON l.seq_usuario_cadastro = u.seq_usuario ");
 		sql.append(" WHERE 1=1 ");
 		
 		if (assembler.getContaVO()!=null && assembler.getContaVO().getCodigo()!=null) {
@@ -517,7 +521,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		sql.append("c.seq_banco, c.num_agencia_conta, c.dig_agencia_conta, c.nom_conta, ");
 		sql.append("c.num_conta, c.dig_conta, ol.seq_origem_lancamento, l.val_lancamento, ");
 		sql.append("tl.nom_tipo_lancamento, ol.nom_origem_lancamento, b.sig_banco, top.sig_tipo_operacao, "); 
-		sql.append("l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento),l.des_lancamento ");
+		sql.append("l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento),l.des_lancamento, u.nome, l.dat_cadastro ");
 		sql.append(" ORDER BY l.seq_lancamento ");
 		
 		try {
@@ -579,6 +583,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 				lancamentoVO.getTipoOperacaoVO().setSigla(sRs.getString(8));
 				lancamentoVO.setDescricaoCompletaFormaPagamento(sRs.getString(10));
 				lancamentoVO.setDescricao(sRs.getString(11));
+				lancamentoVO.setUsuario(new UsuarioVO());
+				lancamentoVO.getUsuario().setNome((sRs.getString(12)));
+				lancamentoVO.setDataCadastro(sRs.getDate(13));
 				
 				retorno.add(lancamentoVO);
 

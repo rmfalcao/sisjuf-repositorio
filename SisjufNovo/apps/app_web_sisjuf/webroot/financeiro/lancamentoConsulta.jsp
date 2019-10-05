@@ -271,6 +271,16 @@
 					            </f:facet>
 							</t:column>
 							
+							
+							<t:column width="20">
+								<f:facet name="header">
+								
+								</f:facet>
+								
+								<a href="javascript:void(0)" onclick="alert('Feito por <h:outputText value="#{lancamentos.usuario.nome}" /> em <h:outputText value="#{lancamentos.dataCadastro}" />')">info</a> 
+							</t:column>
+							
+							
 							<t:column width="20">
 								<f:facet name="header">
 									

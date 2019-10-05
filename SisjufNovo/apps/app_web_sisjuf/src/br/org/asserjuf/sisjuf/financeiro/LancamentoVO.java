@@ -93,7 +93,16 @@ public class LancamentoVO implements Serializable{
 		
 	private UsuarioVO usuario;
 	
+	private Date dataCadastro;
 	
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
 	public UsuarioVO getUsuario() {
 		return usuario;
