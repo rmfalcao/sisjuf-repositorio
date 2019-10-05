@@ -276,10 +276,8 @@
 								<f:facet name="header">
 								
 								</f:facet>
-								<t:commandLink action="#{LancamentoBean.remover}" title="#{properties['lb_remover']}" immediate="true" id="audit" 
-									onclick="setAcao(document.forms[1], 'Remove_Lancamento')" styleClass="botao_excluir">
-									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
-								</t:commandLink>
+								
+								<a href="javascript:void(0)" onclick="alert('Feito por <h:outputText value="#{lancamentos.usuario.nome}" /> em <h:outputText value="#{lancamentos.dataCadastro}" />')">info</a> 
 							</t:column>
 							
 							
