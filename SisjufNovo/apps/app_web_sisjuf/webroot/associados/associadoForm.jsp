@@ -611,6 +611,8 @@
 								title="#{properties['lb_salvar']}" styleClass="botao_salvar" reRender="associadoMsgs, codigo, beneficiarioAssociadoCodigo"/>
 							<br /><br /><br /><br /><br /><br />
 							<hr>
+							Criado em <h:outputText value="#{AssociadoBean.associado.dataCadastro}" /> por <h:outputText value="#{AssociadoBean.associado.usuario.nome}" /> <br />
+							Alterado pela ultima vez em <h:outputText value="#{AssociadoBean.associado.dataAlteracao}" /> por <h:outputText value="#{AssociadoBean.associado.usuarioAlteracao.nome}" />
 						</h:form>
 					</rich:tab>
 					<rich:tab id="bene" label="Outros Beneficiáveis">

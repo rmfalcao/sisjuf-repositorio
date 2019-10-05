@@ -56,11 +56,33 @@ public class AssociadoVO extends PessoaVO {
 	private Collection<VinculacaoPlanoVO> 	vinculacoes;
 	
 	private ConjugeVO						conjuge;
-	
+
 	private UsuarioVO						usuario;
+	private UsuarioVO						usuarioAlteracao;
+	
+	private Date							dataCadastro;
+	private Date							dataAlteracao;
 	
 	
 	
+	public UsuarioVO getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+	public void setUsuarioAlteracao(UsuarioVO usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
 	public UsuarioVO getUsuario() {
 		return usuario;
 	}
