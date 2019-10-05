@@ -3,6 +3,8 @@ package br.org.asserjuf.sisjuf.associados;
 import java.util.Collection;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 import br.org.asserjuf.sisjuf.entidadesComuns.EnderecoVO;
@@ -55,6 +57,16 @@ public class AssociadoVO extends PessoaVO {
 	
 	private ConjugeVO						conjuge;
 	
+	private UsuarioVO						usuario;
+	
+	
+	
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
 	public ConjugeVO getConjuge() {
 		return conjuge;
 	}

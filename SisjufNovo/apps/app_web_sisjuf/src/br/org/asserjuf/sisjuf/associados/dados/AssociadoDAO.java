@@ -213,7 +213,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" nom_orgao_associado = ?, des_endereco_setor_associado = ?, nom_setor_associado = ?, seq_estado_setor_associado = ?, ")
 		.append(" nom_municipio_setor_associado = ?, num_telefone_setor_associado = ?, num_ramal_setor_associado = ?, num_matricula_justica_associado = ?, ")
 		.append(" sts_recebe_jornal_associado = ?, sts_categoria_associado = ?, seq_contribuinte_associado = ?, seq_banco = ?, num_agencia_associado = ?, ")
-		.append(" dig_agencia_associado = ?, num_conta_associado = ?, dig_conta_associado = ?, num_rg_associado = ?, num_cpf_associado = ? ")
+		.append(" dig_agencia_associado = ?, num_conta_associado = ?, dig_conta_associado = ?, num_rg_associado = ?, num_cpf_associado = ?, seq_usuario_alteracao=?, dat_alteracao=now() ")
 		.append(" where seq_pessoa = ? ");
 
 		SmartConnection 		sConn 	= null;
@@ -263,6 +263,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 														"conta.digConta", 
 														"rg", 
 														"cpf",
+														"usuario.codigo",
 														"codigo"});
 			
 			sStmt.getMyPreparedStatement().execute();
@@ -291,8 +292,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" nom_orgao_associado, des_endereco_setor_associado, nom_setor_associado, seq_estado_setor_associado, ")
 		.append(" nom_municipio_setor_associado, num_telefone_setor_associado, num_ramal_setor_associado, num_matricula_justica_associado, ")
 		.append(" sts_recebe_jornal_associado, sts_categoria_associado, seq_contribuinte_associado, seq_banco, num_agencia_associado, ")
-		.append(" dig_agencia_associado, num_conta_associado, dig_conta_associado, num_cpf_associado, num_rg_associado,sts_pre_cadastro_associado) ")
-		.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+		.append(" dig_agencia_associado, num_conta_associado, dig_conta_associado, num_cpf_associado, num_rg_associado,sts_pre_cadastro_associado, seq_usuario_cadastro, seq_usuario_alteracao) ")
+		.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -342,7 +343,9 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 															"conta.digConta",
 															"cpf", 
 															"rg",
-															"statusPreCadastro"															
+															"statusPreCadastro",
+															"usuario.codigo",
+															"usuario.codigo"
 															});
 			
 			sStmt.getMyPreparedStatement().execute();

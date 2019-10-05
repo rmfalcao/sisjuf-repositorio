@@ -176,6 +176,9 @@ public class AssociadoPageBean  extends BasePageBean{
 	 */
 	private Date dataImportacao;
 	
+
+	private UsuarioVO usuarioLogado;
+	
 	public AssociadoPageBean(){
 		 try{
 			// System.out.println("....................AssociadoPageBean");
@@ -187,6 +190,10 @@ public class AssociadoPageBean  extends BasePageBean{
 			 carregaAssociado();
 //			 associado.setCodigo();
 //			 associado.setNome("Associado1");
+			
+
+				usuarioLogado = (UsuarioVO)this.getHttpSession().getAttribute("usuario");
+				associado.setUsuario(usuarioLogado);
 			 
 			List lista = new ArrayList<AssociadoVO>();
 			associado.setBeneficiarios(lista);
