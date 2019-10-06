@@ -343,13 +343,6 @@
 											</h:selectOneMenu>
 										</td>
 									</tr>
-									<tr>
-										<th>Calçado nº.:</th>
-										<td colspan="3">
-											<t:inputText tabindex="27" size="5" maxlength="2" id="numeroInicioCalcado" 
-												value="#{AssociadoBean.associado.numeroCalcado}" onkeypress="return justNumber(this,event)"/>
-										</td>
-									</tr>
 								</tbody>
 								
 								<thead>
