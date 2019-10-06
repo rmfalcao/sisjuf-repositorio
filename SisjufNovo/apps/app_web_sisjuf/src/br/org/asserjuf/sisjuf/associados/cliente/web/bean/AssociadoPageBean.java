@@ -1428,6 +1428,8 @@ public class AssociadoPageBean  extends BasePageBean{
 			historico.getTipoEvento().setCodigo(new Short("2"));
 			historico.setAssociado(this.associado);
 			
+			historico.setUsuario(this.usuarioLogado);
+			
 			delegate.insertHistoricoAssociado(historico);
 			
 			associado.setUltimoEvento(new HistoricoAssociadoVO());
@@ -1470,6 +1472,8 @@ public class AssociadoPageBean  extends BasePageBean{
 			// TODO parametrizar para obter tipo evento do par�metro
 			historico.getTipoEvento().setCodigo(new Short("3"));
 			historico.setAssociado(this.associado);
+			
+			historico.setUsuario(this.usuarioLogado);
 			
 			delegate.insertHistoricoAssociado(historico);
 			

@@ -2,6 +2,8 @@ package br.org.asserjuf.sisjuf.associados;
 
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.com.falc.smartFW.SmartVO;
 
 public class HistoricoAssociadoVO extends SmartVO {
@@ -12,9 +14,17 @@ public class HistoricoAssociadoVO extends SmartVO {
 	private Date			data;
 	private Integer			codigo;
 	
+	private UsuarioVO		usuario;
 	
 	
 	
+	
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
 	public Integer getCodigo() {
 		return codigo;
 	}
