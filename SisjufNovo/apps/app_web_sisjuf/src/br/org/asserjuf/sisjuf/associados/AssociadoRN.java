@@ -207,9 +207,11 @@ public class AssociadoRN {
 		
 		// TODO criar par�metro!
 		// nome do c�njuge
+		/*
 		if (associado.getEstadoCivil().equals("C") && (associado.getConjuge()== null || associado.getConjuge().getNome() == null || associado.getConjuge().getNome().equals("")) ) {
 			throw new SmartAppException("O nome do cónjuge deve ser informado.");
 		}
+		*/
 		
 		// status na justi�a
 		if (associado.getStatusJustica() == null || associado.getStatusJustica().equals("")) {
@@ -307,7 +309,7 @@ public class AssociadoRN {
 		insertDependentes(associado);
 		
 		// inserir conjuge
-		insertConjuge(associado);
+		//insertConjuge(associado);
 		
 		// retornar
 		return associado;
@@ -431,7 +433,7 @@ public class AssociadoRN {
 		
 		updateDependentes(associado);
 		
-		updateConjuge(associado);
+		//updateConjuge(associado);
 	}
 	
 	private void updateDataAssociacao(AssociadoAssembler associado) throws SmartEnvException {
