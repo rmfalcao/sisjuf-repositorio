@@ -316,33 +316,7 @@
 												value="#{AssociadoBean.associado.nomeMae}" />
 										</td>
 									</tr>
-									<tr>
-										<th>Nome do Cônjuge:</th>
-										<td>
-											<t:inputText tabindex="26" size="40" maxlength="50" id="nomeConjuge" 
-												value="#{AssociadoBean.associado.conjuge.nome}" />
-										</td>
-										<th>C.P.F. do Cônjuge:</th>
-										<td><t:inputText tabindex="15" size="15" id="cpfConjugue" value="#{AssociadoBean.conjugeCpf}" onkeypress="return MaskCPF(this,event)"/></td>
-									</tr>
-									<tr>
-										<th>Data de Nasc. do Cônjuge:</th>
-										<td>
-											<rich:calendar id="dataNascimentoConjuge" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-												value="#{AssociadoBean.associado.conjuge.dataNascimento}" inputClass="inputCalendar" 
-												enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="16"/>
-										</td>
-										<th>Sexo do Cônjuge:</th>
-										<td>
-											<h:selectOneMenu tabindex="17" id="sexoConjuge" value="#{AssociadoBean.associado.conjuge.sexo}" >
-												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-												<f:selectItem itemLabel="#{properties['lb_masculino']}" itemValue="M"/>
-												<f:selectItem itemLabel="#{properties['lb_feminino']}" itemValue="F"/>
-											</h:selectOneMenu>
-										</td>
-									</tr>
+									
 								</tbody>
 								
 								<thead>
