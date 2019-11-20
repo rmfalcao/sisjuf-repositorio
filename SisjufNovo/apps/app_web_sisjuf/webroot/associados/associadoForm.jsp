@@ -149,7 +149,7 @@
 									<tr>
 										<th>Complemento:</th>
 										<td colspan="3">
-											<t:inputText size="40" maxlength="20" tabindex="5" id="enderecoComplemente" 
+											<t:inputText size="40" maxlength="40" tabindex="5" id="enderecoComplemente" 
 												value="#{AssociadoBean.associado.endereco.complemento}" />
 										</td>
 									</tr>
