@@ -195,7 +195,7 @@
 										<th>E-mail:</th>
 										<td><t:inputText tabindex="10" size="40" maxlength="50" id="email" value="#{AssociadoBean.associado.email}" /></td>
 										<th>Tel. Celular:</th>
-										<td><t:inputText tabindex="11" size="15" id="telefoneCelular" value="#{AssociadoBean.telefoneCelular}" onkeypress="return MaskTelefone(this,event)"/></td>
+										<td><t:inputText tabindex="11" size="15" id="telefoneCelular" value="#{AssociadoBean.telefoneCelular}" onkeypress="return MaskCelular(this,event)"/></td>
 									</tr>
 									<tr>
 										<th>Tel. Residencial:</th>

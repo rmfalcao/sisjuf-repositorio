@@ -3,6 +3,7 @@ package br.org.asserjuf.sisjuf.associados.cliente.web.bean;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -1051,24 +1053,43 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
-	public String getTelefoneCelular(){
-		return Formatador.formatTelefone(associado.getTelefoneCelular());
+	public String getTelefoneCelular() throws ParseException{
+		return incluiMaskCelular(associado.getTelefoneCelular());
+		//return Formatador.formatTelefone(associado.getTelefoneCelular());
+	}
+	
+	private static Long removeMaskCelular(String celular) {
+		
+		return new Long( celular.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
+	}
+	
+	private static String incluiMaskCelular(Long celular) throws ParseException {
+		
+		if (celular != null) {
+			
+			MaskFormatter formatter = new MaskFormatter("(##) #####-####");
+			formatter.setValueContainsLiteralCharacters(false);
+			return formatter.valueToString(celular);
+		
+		} 
+		
+		return null;
 	}
 	
 	public void setTelefoneCelular(String celular){
 		if (celular != null && !"".equals(celular)){
-			Long telefone = (Formatador.parseTelefone(celular) >= new Long(0)) ? Formatador.parseTelefone(celular) : null;
+			Long telefone = (removeMaskCelular(celular) >= new Long(0)) ? removeMaskCelular(celular) : null;
 			associado.setTelefoneCelular(telefone);
 		}
 	}
 	
-	public String getFiltroTelefoneCelular(){
-		return Formatador.formatTelefone(filtro.getTelefoneCelular());
+	public String getFiltroTelefoneCelular() throws ParseException{
+		return incluiMaskCelular(filtro.getTelefoneCelular());
 	}
 	
 	public void setFiltroTelefoneCelular(String celular){
 		if (celular != null && !"".equals(celular)){
-			Long telefone = (Formatador.parseTelefone(celular) >= new Long(0)) ? Formatador.parseTelefone(celular) : null;
+			Long telefone = (removeMaskCelular(celular) >= new Long(0)) ? removeMaskCelular(celular) : null;
 			filtro.setTelefoneCelular(telefone);
 		}
 	}

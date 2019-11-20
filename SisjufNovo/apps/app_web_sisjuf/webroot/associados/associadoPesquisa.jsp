@@ -177,7 +177,7 @@
 								<th>E-mail:</th>
 								<td><t:inputText size="40" id="email" value="#{AssociadoBean.filtro.email}" /></td>
 								<th>Tel. Celular:</th>
-								<td><t:inputText size="15" id="telefoneCelular" value="#{AssociadoBean.filtroTelefoneCelular}" onkeypress="return MaskTelefone(this,event)"/></td>
+								<td><t:inputText size="15" id="telefoneCelular" value="#{AssociadoBean.filtroTelefoneCelular}" onkeypress="return MaskCelular(this,event)"/></td>
 							</tr>
 							<tr>
 								<th>Tel. Residencial:</th>
