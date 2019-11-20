@@ -257,6 +257,10 @@ function MaskTelefone(objeto, evt) {
 return Mascara(objeto, evt, '(##) ####-####');
 }
 
+function MaskCelular(objeto, evt) {
+return Mascara(objeto, evt, '(##) #####-####');
+}
+
 function MaskCPF(objeto, evt) {
 return Mascara(objeto, evt, '###.###.###-##');
 }
