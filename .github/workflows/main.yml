@@ -17,3 +17,10 @@ jobs:
         java-version: 1.8
     - name: Build with Ant
       run: ant -noinput -buildfile ./SisjufNovo/apps/app_web_sisjuf/build-github.xml
+    - name: SSH Commands
+      uses: appleboy/ssh-action@v0.0.2
+      with:
+        host: ${{secrets.PROD_HOST}}
+        username: ${{secrets.PROD_USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        script: ls -la
