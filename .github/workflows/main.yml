@@ -16,4 +16,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Ant
-      run: ant -noinput -buildfile build-github.xml
+      run: ant -noinput -buildfile /SisjufNovo/apps/app_sisjuf_web/build-github.xml
