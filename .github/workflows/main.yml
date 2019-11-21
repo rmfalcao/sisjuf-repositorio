@@ -23,5 +23,4 @@ jobs:
         host: ${{secrets.PROD_HOST}}
         username: ${{secrets.PROD_USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY}}
-        port: 23
         script: ls -la
