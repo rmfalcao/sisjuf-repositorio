@@ -4,13 +4,14 @@
 	<property value="D:\Projetos\Sisjuf" name="SISJUF_HOME"/>
 	<property value="D:\Servidores\jboss-4.0.4.GA" name="jbossDir"/>
 	<property value="D:\Servidores\jboss-4.0.4.GA\server\default\deploy" name="deployDir"/>
-	-->
-	<property name="SISJUF_HOME"		value="/Users/rodrigofalcao/git/sisjuf-repositorio/SisjufNovo"/>
 	
-	<property name="seguranca.dir" 		value="${SISJUF_HOME}/apps/app_web_seguranca"/><!-- location="D:\Projetos\SegurancaSisjuf" -->
+	<property name="SISJUF_HOME"		value="/Users/rodrigofalcao/git/sisjuf-repositorio/SisjufNovo"/>
+	-->
+	
+	<property name="seguranca.dir" 		value="${basedir}/../../apps/app_web_seguranca"/><!-- location="D:\Projetos\SegurancaSisjuf" -->
 	<property name="project.dir"		value="${basedir}"/>
 	<property name="projectDeploy"		value="${basedir}/deploy" />
-	<property name="jboss.dir" 			value="D:/Desenvolvimento/Servidores/jboss-4.0.4.GA"/>
+	<!-- property name="jboss.dir" 			value="D:/Desenvolvimento/Servidores/jboss-4.0.4.GA"/ -->
 	<property name="source.dir"			value="${project.dir}/src" />
 	<property name="zipDir"				value="${project.dir}/zip"/>
 	<property name="web.dir"			value="${project.dir}/webroot"/>
@@ -19,7 +20,7 @@
 	<property name="war.dir"			value="${build.dir}/sisjuf.war"/>
 	<property name="webinf.classes.dir"	value="${war.dir}/WEB-INF/classes"></property>
 	<property name="webinf.lib.dir"		value="${war.dir}/WEB-INF/lib"></property>
-	<property name="lib.dir" 			value="${SISJUF_HOME}/lib/"></property>
+	<property name="lib.dir" 			value="${basedir}/../../lib/"></property>
 	<property name="build.dir"			value="${project.dir}/build"></property>
 	<property name="smartFWVersionName" value="SmartFW"/>
 	<property name="server.deploy.dir"	value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-6.0.43/webapps" />
