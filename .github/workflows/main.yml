@@ -20,7 +20,7 @@ jobs:
     - name: SSH Commands
       uses: appleboy/ssh-action@v0.0.2
       with:
-        host: ${{secrets.PROD_HOST}}
-        username: ${{secrets.PROD_USERNAME}}
+        host: ${{secrets.HOST}}
+        username: ${{secrets.USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY}}
         script: ls -la
