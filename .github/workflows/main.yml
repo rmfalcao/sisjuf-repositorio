@@ -2,8 +2,10 @@ name: backup and deploy SISJUF
 
 on:
   push:
-    branches: 
-      - teste-actions
+#    branches: 
+#      - master-mac
+     tags:
+       - '*'
 jobs:
   build:
 
