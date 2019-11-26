@@ -29,7 +29,7 @@ jobs:
         # FTP account password
         FTP_PASSWORD: 12
         # Protocol used to deploy (ftp or sftp)
-        method: sftp
+        METHOD: sftp
         # The port used to connect to server
         #port: # optional, default is 21
         # The local folder to copy, defaults to root project folder
