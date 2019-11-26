@@ -1,4 +1,4 @@
-name: scp and ssh
+name: backup and deploy SISJUF
 
 on:
   push:
@@ -41,5 +41,5 @@ jobs:
           /root/apache-tomcat-6.0.45/bin/shutdown.sh
           mv /root/apache-tomcat-6.0.45/webapps/sisjuf.war /root/oldfiles/sisjuf.war-$(date "+%Y.%m.%d-%H.%M.%S")
           rm -rf /root/apache-tomcat-6.0.45/webapps/sisjuf*
-          mv /root/latest/sisjuf.war /root/apache-tomcat-6.0.45/webapps
+          mv /root/latest/github/workspace/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war /root/apache-tomcat-6.0.45/webapps
           /root/apache-tomcat-6.0.45/bin/startup.sh
