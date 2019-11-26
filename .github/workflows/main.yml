@@ -25,4 +25,4 @@ jobs:
         username: ${{secrets.USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY}}
         #password: ${{secrets.PASSWORD}}
-        script: whoiam
+        script: ls -la
