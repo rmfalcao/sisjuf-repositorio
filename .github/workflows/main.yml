@@ -19,7 +19,7 @@ jobs:
     #  run: ant -noinput -buildfile ./SisjufNovo/apps/app_web_sisjuf/build-github.xml
       
     - name: SSH Commands
-      uses: appleboy/ssh-action@v0.0.2
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{secrets.USERNAME}}
