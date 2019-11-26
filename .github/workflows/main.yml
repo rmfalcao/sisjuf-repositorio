@@ -23,11 +23,11 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@2.0.0
       with:
         # FTP server name (you may need to specify a port)
-        ftp_server: {{secrets.HOST}}
+        FTP_SERVER: 165.227.221.11
         # FTP account username
-        ftp_username: {{secrets.USERNAME}}
+        FTP_USERNAME: root
         # FTP account password
-        ftp_password: {{secrets.PASSWORD}}
+        FTP_PASSWORD: 12
         # Protocol used to deploy (ftp or sftp)
         method: sftp
         # The port used to connect to server
