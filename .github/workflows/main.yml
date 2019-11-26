@@ -27,7 +27,7 @@ jobs:
         key: ${{secrets.SSH_PRIVATE_KEY}}
         #password: ${{secrets.PASSWORD}}
         source: "/home/runner/work/sisjuf-repositorio/sisjuf-repositorio/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war"
-        target: "latest/sisjuf.war"
+        target: "latest"
         
     - name: SSH Commands
       uses: appleboy/ssh-action@master
