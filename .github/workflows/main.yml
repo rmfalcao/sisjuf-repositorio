@@ -1,4 +1,4 @@
-name: github actions for SISJUF
+name: github actions 4 SISJUF
 
 on:
   push:
