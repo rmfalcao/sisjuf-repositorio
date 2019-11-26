@@ -27,7 +27,7 @@ jobs:
         key: ${{secrets.SSH_PRIVATE_KEY}}
         #password: ${{secrets.PASSWORD}}
         source: "/home/runner/work/sisjuf-repositorio/sisjuf-repositorio/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war"
-        target: "ENVIADO.war"
+        target: "latest/sisjuf.war"
         
     - name: SSH Commands
       uses: appleboy/ssh-action@master
@@ -36,4 +36,10 @@ jobs:
         username: ${{secrets.USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY}}
         #password: ${{secrets.PASSWORD}}
-        script: ls -la
+        script_stop: true
+        script: |
+          /root/apache-tomcat-6.0.45/bin/shutdown.sh
+          mv /root/apache-tomcat-6.0.45/webapps/sisjuf.war /root/oldfiles/sisjuf.war-$(date "+%Y.%m.%d-%H.%M.%S")
+          rm -rf /root/apache-tomcat-6.0.45/webapps/sisjuf*
+          mv /root/latest/sisjuf.war /root/apache-tomcat-6.0.45/webapps
+          /root/apache-tomcat-6.0.45/bin/startup.sh
