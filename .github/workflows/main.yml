@@ -15,10 +15,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Build with Ant
-      run: ant -noinput -buildfile ./SisjufNovo/apps/app_web_sisjuf/build-github.xml
+    #- name: Build with Ant
+    #  run: ant -noinput -buildfile ./SisjufNovo/apps/app_web_sisjuf/build-github.xml
+      
     - name: SSH Commands
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.0.2
       with:
         host: ${{secrets.HOST}}
         username: ${{secrets.USERNAME}}
