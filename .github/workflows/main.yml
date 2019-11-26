@@ -18,11 +18,32 @@ jobs:
     #- name: Build with Ant
     #  run: ant -noinput -buildfile ./SisjufNovo/apps/app_web_sisjuf/build-github.xml
       
-    - name: SSH Commands
-      uses: appleboy/ssh-action@master
+    
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@2.0.0
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{secrets.USERNAME}}
-        key: ${{secrets.SSH_PRIVATE_KEY}}
-        #password: ${{secrets.PASSWORD}}
-        script: ls -la
+        # FTP server name (you may need to specify a port)
+        ftp_server: {{secrets.HOST}}
+        # FTP account username
+        ftp_username: {{secrets.USERNAME}}
+        # FTP account password
+        ftp_password: {{secrets.PASSWORD}}
+        # Protocol used to deploy (ftp or sftp)
+        method: sftp
+        # The port used to connect to server
+        #port: # optional, default is 21
+        # The local folder to copy, defaults to root project folder
+        ##local_dir:  # optional, default is 
+        # The remote folder to copy to, deafults to root FTP folder (I recommend you configure this on your server side instead of here)
+        ##remote_dir: # optional, default is 
+        # Passes through options into lftp
+        ARGS: --include=File.txt
+        
+#    - name: SSH Commands
+#      uses: appleboy/ssh-action@master
+#      with:
+#        host: ${{ secrets.HOST }}
+#        username: ${{secrets.USERNAME}}
+#        key: ${{secrets.SSH_PRIVATE_KEY}}
+#        #password: ${{secrets.PASSWORD}}
+#        script: ls -la
