@@ -21,7 +21,7 @@ jobs:
     - name: SSH Commands
       uses: appleboy/ssh-action@v0.0.2
       with:
-        host: ${{secrets.HOST}}
+        host: 165.227.221.11
         username: ${{secrets.USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY}}
         #password: ${{secrets.PASSWORD}}
