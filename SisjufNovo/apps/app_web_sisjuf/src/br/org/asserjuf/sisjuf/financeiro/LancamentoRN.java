@@ -630,7 +630,7 @@ public class LancamentoRN {
 				
 				System.out.print("---- ESTORNANDO LANCAMENTO " + lancamento.getCodigo() + ": ");
 				
-				lancamentoDAO.estornarLancamento(lancamento);
+				lancamentoDAO.estornarLancamentoDuplicado(lancamento);
 				
 				System.out.println("OK");
 				System.out.print("---- REMOVENDO HISTORICO DE SALDO... ");

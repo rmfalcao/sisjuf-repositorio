@@ -177,6 +177,62 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		
 	}
 	
+	public void estornarLancamentoDuplicado(LancamentoVO vo) throws SmartEnvException {
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		
+		try {
+			
+			sConn 	= new SmartConnection(this.getConn());
+			
+			
+			
+			StringBuffer sql = new StringBuffer("DELETE FROM baixa_lancamento WHERE seq_lancamento = ? ");
+			
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setInteger(1, vo.getCodigo());
+						
+			sStmt.getMyPreparedStatement().execute();
+			
+			
+			// o update abaixo visa apenas atualizar os dados de auditoria na tabela LANCAMENTO.
+			// desta forma, o usuario logado e a data e hora atual serao gravados nos campos
+			// seq_usuario_alteracao e dat_alteracao antes do delete. Quando o delete for
+			// realizado, a tabela lancamento_log terah a informacao das colunas preservada.
+						
+			sql = new StringBuffer("UPDATE LANCAMENTO SET SEQ_USUARIO_ALTERACAO = ?, DAT_ALTERACAO = NOW() WHERE seq_lancamento = ? ");
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			sStmt.setInteger(1, vo.getUsuario().getCodigo());
+			sStmt.setInteger(2, vo.getCodigo());
+			sStmt.getMyPreparedStatement().execute();
+			
+			
+			
+			sql = new StringBuffer("DELETE FROM lancamento WHERE seq_lancamento = ? ");
+			
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+
+			sStmt.setInteger(1, vo.getCodigo());
+
+			sStmt.getMyPreparedStatement().execute();
+					
+		} catch (SQLException e) {
+
+			throw new SmartEnvException(e);
+
+		}finally {
+
+		
+			sStmt.close();
+			sConn.close();
+
+		}
+		
+		
+	}
+	
 	/**
 	 * Estorna (deletando do banco de dados) um lan�amento. Tabelas: BAIXA_LANCAMENTO, LANCAMENTO.
 	 * @param vo Inst�ncia de LancamentoVO que encapsula o lan�amento que se deseja estornar.
