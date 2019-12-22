@@ -19,7 +19,7 @@
 				<div id="geral_menor">
 					<img src="<c:url value="/nucleo/images/login01.gif"/>" />
 					<div id="login">
-						<table id="tabela_login" align="center" cellpadding="2" cellspacing="1">
+						<table id="tabela_login" align="center" cellpadding="2" cellspacing="1" style="border: 25px solid transparent">
 							<tr>
 								<td>Digite seu login:</td>
 								<td>
