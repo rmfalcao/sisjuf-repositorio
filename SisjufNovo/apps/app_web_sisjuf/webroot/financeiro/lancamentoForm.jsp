@@ -230,6 +230,7 @@
 					</div>
 					<input type="hidden" name="acao" value=""/>
 					<h:inputHidden id="codigo" value="#{LancamentoBean.lancamento.codigo}"/>
+					<h:inputHidden id="datasVerificadas" value="#{LancamentoBean.lancamento.datasVerificadas}"/>
 				</h:form>
 			</div>
 		

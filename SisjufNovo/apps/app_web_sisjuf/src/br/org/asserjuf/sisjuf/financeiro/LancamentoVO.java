@@ -95,6 +95,18 @@ public class LancamentoVO implements Serializable{
 	
 	private Date dataCadastro;
 	
+	private boolean isDatasVerificadas;
+	
+	
+	
+
+	public boolean isDatasVerificadas() {
+		return isDatasVerificadas;
+	}
+
+	public void setDatasVerificadas(boolean isDatasVerificadas) {
+		this.isDatasVerificadas = isDatasVerificadas;
+	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;

@@ -2,6 +2,7 @@ package br.org.asserjuf.sisjuf.financeiro.web.bean;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -35,6 +36,9 @@ import com.vortice.view.BasePageBean;
  *
  */
 public class LancamentoPageBean extends BasePageBean {
+	
+	private static long _LIMITE_DISTANCIA_DATA_LANCAMENTOS_ = 15552000000L; // corresponde a 180 dias
+	
 	
 	/**
 	 * Representa o encapsulamento dos dados de negï¿½cio da entidade lancamento. 
@@ -169,7 +173,16 @@ public class LancamentoPageBean extends BasePageBean {
 	 */
 	public String salvar(){
 		try{
+			
+			if (dataMuitoDistante(lancamento.getDataEfetivacao()) || dataMuitoDistante(lancamento.getDataPrevisao())) {
+				if (!lancamento.isDatasVerificadas()) {
+					lancamento.setDatasVerificadas(true);
+					throw new SmartAppException("Alguma data informada está muito distante da data atual. Verifique se a data está correta e então aperte Salvar.");
+				}
+			}
+			
 			delegate.efetuarLancamento(lancamento);
+			lancamento.setDatasVerificadas(false); // limpando flag apos efetuar lancamento com sucesso.
 			FacesMessage msgs = new FacesMessage("Registro Salvo com sucesso.");
 			FacesContext.getCurrentInstance().addMessage(null, msgs);
 			return getSucesso();
@@ -195,6 +208,23 @@ public class LancamentoPageBean extends BasePageBean {
 		}
 	}
 	
+	private boolean dataMuitoDistante(Date data) {
+		Date now = new Date();
+		
+		long diff;
+		if (data != null) {
+			diff = now.getTime() - data.getTime();
+			if (diff < 0) {
+				diff = diff * -1;
+			}
+			if (diff > _LIMITE_DISTANCIA_DATA_LANCAMENTOS_) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 	/**
 	 * Salva os dados dda baixa de um lanï¿½amento.
 	 * @return Mensagem pï¿½s-operaï¿½ï¿½o.
