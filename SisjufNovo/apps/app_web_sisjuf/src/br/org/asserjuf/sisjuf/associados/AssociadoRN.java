@@ -128,6 +128,7 @@ public class AssociadoRN {
 		}
 		
 		// celular
+		/*
 		if (associado.getTelefoneCelular() == null) {
 			throw new SmartAppException("O telefone celular deve ser informado.");
 		}
@@ -136,6 +137,7 @@ public class AssociadoRN {
 		if (associado.getTelefoneResidencial() == null) {
 			throw new SmartAppException("O telefone residencial deve ser informado.");
 		}
+		*/
 		
 		// telefone comercial
 		if (associado.getTelefoneComercial() == null) {
@@ -143,9 +145,11 @@ public class AssociadoRN {
 		}
 		
 		// e-mail
+		/*
 		if (associado.getEmail() == null || associado.getEmail().equals("")) {
 			throw new SmartAppException("O e-mail deve ser informado.");
 		}
+		*/
 		
 		// rg
 		if (associado.getRg() == null) {
@@ -195,6 +199,7 @@ public class AssociadoRN {
 			throw new SmartAppException("O CPF do associado deve ser informado.");
 		}
 		
+		/*
 		// nome do pai
 		if (associado.getNomePai() == null || associado.getNomePai().equals("")) {
 			throw new SmartAppException("O nome do pai deve ser informado.");
@@ -204,6 +209,7 @@ public class AssociadoRN {
 		if (associado.getNomeMae() == null || associado.getNomeMae().equals("")) {
 			throw new SmartAppException("O nome da mãe deve ser informado.");
 		}
+		*/
 		
 		// TODO criar par�metro!
 		// nome do c�njuge
