@@ -396,7 +396,7 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public Collection<ContaVO> getAllContas(){
 		try {
-			return financeiroDelegate.findAllConta();
+			return financeiroDelegate.findAllConta(false);
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}
