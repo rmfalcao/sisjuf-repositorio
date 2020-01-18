@@ -277,8 +277,8 @@ public class FinanceiroFacade {
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
-	public Collection findAllConta() throws SmartEnvException, SmartAppException {
-		return contaRN.findAll();
+	public Collection findAllConta(boolean incluiExcluidas) throws SmartEnvException, SmartAppException {
+		return contaRN.findAll(incluiExcluidas);
 		
 	}
 	

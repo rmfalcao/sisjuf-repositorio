@@ -111,7 +111,7 @@ public class SaldoPageBean extends BasePageBean {
 	public Collection getContas() {
 		if (contas == null){
 			try {
-				Collection collConta = delegate.findAllConta();
+				Collection collConta = delegate.findAllConta(true);
 				contas = (collConta != null && collConta.size() > 0) ? getSelect(collConta, "codigo", "nomeDefault") : new ArrayList<ContaVO>();
 			} catch (Exception e) {
 				LOG.error("ERRO NO MOMENTO DE CARREGAR AS CONTAS", e);

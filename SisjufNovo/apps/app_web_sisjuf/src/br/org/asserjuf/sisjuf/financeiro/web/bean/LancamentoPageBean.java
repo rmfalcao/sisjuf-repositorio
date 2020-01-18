@@ -68,6 +68,11 @@ public class LancamentoPageBean extends BasePageBean {
 	private Collection contas;
 	
 	/**
+	 * Colecao de contas, inclusive as excluidas logicamente, encapsulados na classe ContaVO
+	 */
+	private Collection contasInclusiveExcluidas;
+	
+	/**
 	 * Cole��o de origens de lancamentos, encapsulados na classe OrigemLancamentoVO.
 	 */
 	private Collection origemLancamentos;
@@ -609,7 +614,23 @@ public class LancamentoPageBean extends BasePageBean {
 	public Collection getContas() {
 		if (contas == null){
 			try {
-				Collection collContas = delegate.findAllConta();
+				Collection collContas = delegate.findAllConta(false);
+				contas	= (collContas != null) ? getSelect(collContas, "codigo", "NomeDefault") : new ArrayList();
+			} catch (Exception e) {
+				LOG.error("ERRO NO MOMENTO DE CARREGAR AS CONTAS", e);
+			}
+		}
+		return contas;
+	}
+	
+	/**
+	 * Obt�m a cole��o de contas no bean para ser utilizada pela interface.
+	 * @return Cole��o de contas
+	 */
+	public Collection getContasInclusiveExcluidas() {
+		if (contas == null){
+			try {
+				Collection collContas = delegate.findAllConta(true);
 				contas	= (collContas != null) ? getSelect(collContas, "codigo", "NomeDefault") : new ArrayList();
 			} catch (Exception e) {
 				LOG.error("ERRO NO MOMENTO DE CARREGAR AS CONTAS", e);
@@ -624,6 +645,10 @@ public class LancamentoPageBean extends BasePageBean {
 	 */
 	public void setContas(Collection contas) {
 		this.contas = contas;
+	}
+	
+	public void setContasInclusiveExcluidas(Collection contasInclusiveExcluidas) {
+		this.contasInclusiveExcluidas = contasInclusiveExcluidas;
 	}
 
 	/**

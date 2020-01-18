@@ -231,8 +231,8 @@ public class FinanceiroDelegate {
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
-	public Collection findAllConta() throws SmartEnvException, SmartAppException {
-		return financeiroBean.findAllConta();
+	public Collection findAllConta(boolean incluiExcluidas) throws SmartEnvException, SmartAppException {
+		return financeiroBean.findAllConta(incluiExcluidas);
 	}
 	
 	/**

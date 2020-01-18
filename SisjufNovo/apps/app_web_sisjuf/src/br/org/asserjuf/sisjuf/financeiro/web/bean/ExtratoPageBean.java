@@ -136,7 +136,7 @@ public class ExtratoPageBean extends BasePageBean {
 	public Collection getContas() {
 		if (contas == null){
 			try {
-				Collection collContas = delegate.findAllConta();
+				Collection collContas = delegate.findAllConta(true);
 				contas = (collContas != null) ? getSelect(collContas, "codigo", "nomeDefault") : new ArrayList();
 			} catch (Exception e) {
 				LOG.error("ERRO NO MOMENTO DE CARREGAR AS CONTAS", e);

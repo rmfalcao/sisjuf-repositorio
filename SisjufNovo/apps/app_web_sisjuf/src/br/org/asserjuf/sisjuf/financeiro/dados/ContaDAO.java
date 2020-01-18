@@ -41,7 +41,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 	 * @return Coleção de ContaBancoVO (entidade que encapsula as contas).
 	 * @throws SmartEnvException
 	 */
-	public Collection<ContaBancoVO> findAll() throws SmartEnvException {
+	public Collection<ContaBancoVO> findAll(boolean incluiExcluidas) throws SmartEnvException {
 		
 		 
 		StringBuffer sql = new StringBuffer("SELECT c.seq_conta, c.nom_conta, b.sig_banco, b.nom_banco, ");
@@ -52,6 +52,9 @@ public class ContaDAO extends SisjufDAOPostgres {
 		sql.append("USING(seq_banco) ");
 		sql.append("LEFT OUTER JOIN tipo_conta tc ");
 		sql.append("USING(seq_tipo_conta) ");
+		if (!incluiExcluidas) {
+			sql.append(" WHERE c.status IS NULL "); //para nao retornar contas excluidas logicamente
+		}
 		sql.append("ORDER BY c.nom_conta ");
 
 		SmartConnection 		sConn 	= null;
@@ -366,7 +369,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 		
 		
 		StringBuffer sql = new StringBuffer("DELETE FROM CONTA_BANCO WHERE SEQ_CONTA = ? ");
-	
+		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 		
@@ -415,7 +418,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 	public void remove(ContaVO vo) throws SmartEnvException, SmartAppException {
 		
 		
-		StringBuffer sql = new StringBuffer("DELETE FROM CONTA WHERE SEQ_CONTA = ? ");
+		StringBuffer sql = new StringBuffer("UPDATE CONTA SET STATUS = 'X' WHERE SEQ_CONTA = ? ");
 	
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;

@@ -209,7 +209,7 @@ public class MovimentarPageBean extends BasePageBean{
 	public Collection<ContaVO> getCollContas() {
 		if (collContas == null){
 			try {
-				collContas = delegate.findAllConta();
+				collContas = delegate.findAllConta(false);
 			} catch (Exception e) {
 				LOG.error("ERRO NO MOMENTO DE CARREGAR AS CONTAS", e);
 			}

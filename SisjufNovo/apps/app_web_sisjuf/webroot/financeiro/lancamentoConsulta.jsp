@@ -124,7 +124,7 @@
 									<td colspan="4">
 										<h:selectOneMenu id="Conta" value="#{LancamentoBean.filtro.contaVO.codigo}" >
 											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<f:selectItems id="sel_contas" value="#{LancamentoBean.contas}"/>
+											<f:selectItems id="sel_contas_inclusive_excluidas" value="#{LancamentoBean.contasInclusiveExcluidas}"/>
 										</h:selectOneMenu>
 									</td>
 								</tr>
