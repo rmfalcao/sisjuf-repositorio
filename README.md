@@ -1,4 +1,3 @@
-# SISJUF
-Repositório do código fonte do SISJUF.
+# SISJUF ![versão atual](https://img.shields.io/github/v/tag/rmfalcao/sisjuf-repositorio?label=Vers%C3%A3o%20atual&style=for-the-badge)
 
-![versão atual](https://img.shields.io/github/v/tag/rmfalcao/sisjuf-repositorio?label=Vers%C3%A3o%20atual&style=for-the-badge)
+Repositório do código fonte do SISJUF.
