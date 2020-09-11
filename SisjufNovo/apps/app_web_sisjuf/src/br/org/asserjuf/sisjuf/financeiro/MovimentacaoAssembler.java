@@ -3,6 +3,8 @@ package br.org.asserjuf.sisjuf.financeiro;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 /**
  * Congrega os dados necessários na operação de movimentação de valores entre contas. 
  * @author Paulo Prado
@@ -34,7 +36,17 @@ public class MovimentacaoAssembler implements Serializable{
 	
 	private String 				numeroCheque;
 	
+	private UsuarioVO usuario;
 	
+	
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getNumeroCheque() {
 		return numeroCheque;
 	}

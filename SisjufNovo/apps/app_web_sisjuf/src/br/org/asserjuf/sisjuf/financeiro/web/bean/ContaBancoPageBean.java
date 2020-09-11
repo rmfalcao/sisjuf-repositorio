@@ -115,7 +115,7 @@ import com.vortice.view.BasePageBean;
 	 */
 	public String consultar(){
 		try{
-			contas = delegate.findAllConta();
+			contas = delegate.findAllConta(false);
 			return getSucesso();
 		}catch(SmartAppException appEx){
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
@@ -258,7 +258,7 @@ import com.vortice.view.BasePageBean;
 	public Collection getContas() {
 		if (contas == null){
 			try {
-				contas = delegate.findAllConta();
+				contas = delegate.findAllConta(false);
 			} catch (Exception e) {
 				LOG.error("ERRO NO MOMENTO DE CARREGAR AS CONTAS", e);
 			}

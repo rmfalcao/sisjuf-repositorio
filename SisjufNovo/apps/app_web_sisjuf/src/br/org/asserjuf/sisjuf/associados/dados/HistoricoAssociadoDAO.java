@@ -20,8 +20,8 @@ public class HistoricoAssociadoDAO extends SisjufDAOPostgres {
 	public HistoricoAssociadoVO insert(HistoricoAssociadoVO historicoAssociado) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer(" insert into historico_evento_associado ")
-		.append(" (seq_associado, seq_tipo_evento, dat_historico_evento_associado, seq_historico_evento_associado) ")
-		.append(" values (?,?,?,(select nextval('seq_historico_evento_associado'))) ");
+		.append(" (seq_associado, seq_tipo_evento, dat_historico_evento_associado, seq_historico_evento_associado, seq_usuario_cadastro) ")
+		.append(" values (?,?,?,(select nextval('seq_historico_evento_associado')),?) ");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -31,7 +31,7 @@ public class HistoricoAssociadoDAO extends SisjufDAOPostgres {
 			sConn 	= new SmartConnection(this.getConn());
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 
-			sStmt.setParameters(historicoAssociado, new String[] {"associado.codigo", "tipoEvento.codigo" , "data"});
+			sStmt.setParameters(historicoAssociado, new String[] {"associado.codigo", "tipoEvento.codigo" , "data", "usuario.codigo"});
 			
 			sStmt.getMyPreparedStatement().execute();
 			

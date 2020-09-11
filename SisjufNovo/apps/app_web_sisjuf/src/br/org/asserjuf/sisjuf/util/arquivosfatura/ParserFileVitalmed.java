@@ -1,0 +1,78 @@
+package br.org.asserjuf.sisjuf.util.arquivosfatura;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.falc.smartFW.exception.SmartAppException;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
+import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
+
+public class ParserFileVitalmed extends ParserFileAb{
+	
+	public ParserFileVitalmed(byte[] contentFile) throws IOException {
+		super(contentFile);
+	}
+	
+	public ParserFileVitalmed(String path) throws IOException {
+		super(path);
+	}
+
+	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasArquivo) throws Exception {                   
+		List<ItemFaturaVO> listaItens = new ArrayList<ItemFaturaVO>();
+		for(int i = 0;i<linhasArquivo.length;i++){
+        	String linha = linhasArquivo[i].trim();
+        	if(linha.startsWith("9")){
+        		String linhaModificada = linha.replaceAll("  ","@").trim();
+        		linhaModificada = linhaModificada.replaceAll("@@","#").trim();
+        		linhaModificada = linhaModificada.replaceAll(" ","").trim();
+        		linhaModificada = linhaModificada.replaceFirst("@","#").trim();
+        		linhaModificada = linhaModificada.replaceAll("@"," ").trim();
+        		linhaModificada = linhaModificada.replaceAll("##","#").trim();
+        		linhaModificada = linhaModificada.replaceAll("##","#").trim();
+        		
+	        	String[] conteudoLinha = linhaModificada.split("#");
+	        	ItemFaturaVO associado = createAssociado(linha,conteudoLinha);
+	        	listaItens.add(associado);
+        	}
+        }
+		return listaItens;
+	}
+	
+	private ItemFaturaVO createAssociado(String linhaOriginal,String[] conteudoLinha) throws Exception {
+		ItemFaturaVO itemFatura = new ItemFaturaVO();
+		itemFatura.setVinculacao(new VinculacaoPlanoVO());
+		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
+		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(conteudoLinha[0].trim());
+		try{
+			itemFatura.getVinculacao().getBeneficiario().setNome(conteudoLinha[1].trim());
+			itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(conteudoLinha[2].trim().equals("T") ? "T" : "D");
+			itemFatura.setValor(new Double(conteudoLinha[4].trim().replaceAll(",", "\\.")));
+		}catch(Exception ex){
+			if(ex instanceof ArrayIndexOutOfBoundsException){
+				if(conteudoLinha.length == 4){
+					String nomeServidor = conteudoLinha[1];
+					itemFatura.getVinculacao().getBeneficiario().setNome(nomeServidor);
+					String tipoBeneficiario = Character.toString(conteudoLinha[1].charAt(0));
+					itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(tipoBeneficiario);
+					itemFatura.setValor(new Double(conteudoLinha[3].trim().replaceAll(",", "\\.")));
+				}else if(conteudoLinha.length == 3){
+					String nomeServidor = conteudoLinha[1];
+					nomeServidor = nomeServidor.replaceAll("[0-9]","").trim();
+					String nomeServidorFinal = nomeServidor.substring(0,nomeServidor.length()-1).trim(); 
+					itemFatura.getVinculacao().getBeneficiario().setNome(nomeServidorFinal);
+					String tipoBeneficiario = nomeServidor.substring(nomeServidor.length()-1).trim().equals("T") ? "T" : "D";
+					itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(tipoBeneficiario);
+					itemFatura.setValor(new Double(conteudoLinha[2].trim().replaceAll(",", "\\.")));
+				}else{
+					throw new SmartAppException("Layout do arquivo com padrão não previsto pelo sistema. Conteúdo da linha tratada: "+linhaOriginal);
+				}
+			}else{
+				ex.printStackTrace();
+				throw ex;
+			}
+		}
+		return itemFatura;		
+	}
+}

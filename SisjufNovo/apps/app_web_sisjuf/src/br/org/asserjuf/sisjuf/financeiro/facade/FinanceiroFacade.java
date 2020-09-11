@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.BaixaLancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.BancoRN;
 import br.org.asserjuf.sisjuf.financeiro.BancoVO;
@@ -16,6 +17,7 @@ import br.org.asserjuf.sisjuf.financeiro.ExtratoAssembler;
 import br.org.asserjuf.sisjuf.financeiro.ExtratoFiltroAssembler;
 import br.org.asserjuf.sisjuf.financeiro.FormaPagamentoRN;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssembler;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFiltroAssembler;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoRN;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
@@ -31,42 +33,42 @@ import br.org.asserjuf.sisjuf.financeiro.TipoOperacaoVO;
 public class FinanceiroFacade {
 
 	/**
-	 * Encapsula as regras de negócio de conta.
+	 * Encapsula as regras de negï¿½cio de conta.
 	 */
 	private ContaRN 			contaRN;
 	
 	/**
-	 * Encapsula as regras de negócio de banco.
+	 * Encapsula as regras de negï¿½cio de banco.
 	 */
 	private BancoRN 			bancoRN; 
 	
 	/**
-	 * Encapsula as regras de negócio de tipo de lançamento.
+	 * Encapsula as regras de negï¿½cio de tipo de lanï¿½amento.
 	 */
 	private TipoLancamentoRN 	tipoLancamentoRN; 
 	
 	/**
-	 * Encapsula as regras de negócio de origem de lançamento.
+	 * Encapsula as regras de negï¿½cio de origem de lanï¿½amento.
 	 */
 	private OrigemLancamentoRN 	origemLancamentoRN; 
 	
 	/**
-	 * Encapsula as regras de negócio de tipo de operação
+	 * Encapsula as regras de negï¿½cio de tipo de operaï¿½ï¿½o
 	 */
 	private TipoOperacaoRN 		tipoOperacaoRN;
 	
 	/**
-	 * Encapsula as regras de negócio de tipo de conta.
+	 * Encapsula as regras de negï¿½cio de tipo de conta.
 	 */
 	private TipoContaRN 		tipoContaRN;
 	
 	/**
-	 * Encapsula as regras de negócio de lançamento.
+	 * Encapsula as regras de negï¿½cio de lanï¿½amento.
 	 */
 	private LancamentoRN		lancamentoRN;
 
 	/**
-	 * Encapsula as regras de negócio de diretores financeiros.
+	 * Encapsula as regras de negï¿½cio de diretores financeiros.
 	 */
 	private DiretorFinanceiroRN diretorFinanceiroRN;
 	
@@ -74,8 +76,8 @@ public class FinanceiroFacade {
 	
 	
 	/**
-	 * Obtém todos os bancos.
-	 * @return Coleção de todos os bancos, encapsulados na classe BancoVO.
+	 * Obtï¿½m todos os bancos.
+	 * @return Coleï¿½ï¿½o de todos os bancos, encapsulados na classe BancoVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -85,8 +87,8 @@ public class FinanceiroFacade {
 	
 	
 	/**
-	 * Obtém um banco por chave.
-	 * @param vo Instância de BancoVO que encapsula o código do banco que se deseja recuperar.
+	 * Obtï¿½m um banco por chave.
+	 * @param vo Instï¿½ncia de BancoVO que encapsula o cï¿½digo do banco que se deseja recuperar.
 	 * @return Banco desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -131,8 +133,8 @@ public class FinanceiroFacade {
 
 	
 	/**
-	 * Obtém todos os tipos de lançamento.
-	 * @return Coleção com todos os tipos de lançamento, encapsulados na classe TipoLancamentoVO.
+	 * Obtï¿½m todos os tipos de lanï¿½amento.
+	 * @return Coleï¿½ï¿½o com todos os tipos de lanï¿½amento, encapsulados na classe TipoLancamentoVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -141,9 +143,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém um tipo de lançamento por chave.
-	 * @param vo Instância de TipoLancamentoVO que encapsula o código do tipo de lançamento que se deseja recuperar.
-	 * @return Tipo de lançamento desejado.
+	 * Obtï¿½m um tipo de lanï¿½amento por chave.
+	 * @param vo Instï¿½ncia de TipoLancamentoVO que encapsula o cï¿½digo do tipo de lanï¿½amento que se deseja recuperar.
+	 * @return Tipo de lanï¿½amento desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -152,8 +154,8 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Atualiza um tipo de lançamento.
-	 * @param vo Tipo de lançamento que se deseja atualizar.
+	 * Atualiza um tipo de lanï¿½amento.
+	 * @param vo Tipo de lanï¿½amento que se deseja atualizar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -162,9 +164,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Insere um tipo de lançamento
-	 * @param vo Tipo de lançamento que se deseja inserir.
-	 * @return Tipo de lançamento inserido.
+	 * Insere um tipo de lanï¿½amento
+	 * @param vo Tipo de lanï¿½amento que se deseja inserir.
+	 * @return Tipo de lanï¿½amento inserido.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -173,8 +175,8 @@ public class FinanceiroFacade {
 	}
 
 	/**
-	 * Exclui um tipo de lançamento.
-	 * @param vo Tipo de lançamento que se deseja excluir.
+	 * Exclui um tipo de lanï¿½amento.
+	 * @param vo Tipo de lanï¿½amento que se deseja excluir.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -183,8 +185,8 @@ public class FinanceiroFacade {
 	}
 
 	/**
-	 * Obtém todas as origens de lançamento ativas.
-	 * @return Coleção com todas as origens de lançamento ativas, encapsuladas na classe OrigemLancamentoVO.
+	 * Obtï¿½m todas as origens de lanï¿½amento ativas.
+	 * @return Coleï¿½ï¿½o com todas as origens de lanï¿½amento ativas, encapsuladas na classe OrigemLancamentoVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -195,9 +197,9 @@ public class FinanceiroFacade {
 	
 	
 	/**
-	 * Obtém uma origem de lançamento por chave.
-	 * @param vo Instância de OrigemLancamentoVO que encapsula o código da origem de lançamento desejada.
-	 * @return Origem de lançamento desejada.
+	 * Obtï¿½m uma origem de lanï¿½amento por chave.
+	 * @param vo Instï¿½ncia de OrigemLancamentoVO que encapsula o cï¿½digo da origem de lanï¿½amento desejada.
+	 * @return Origem de lanï¿½amento desejada.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -206,8 +208,8 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Atualiza uma origem de lançamento
-	 * @param vo Origem de lançamento que se deseja atualizar.
+	 * Atualiza uma origem de lanï¿½amento
+	 * @param vo Origem de lanï¿½amento que se deseja atualizar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -216,9 +218,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Insere uma origem de lançamento
-	 * @param vo Origem de lançamento que se deseja inserir.
-	 * @return Origem de lançamento inserida.
+	 * Insere uma origem de lanï¿½amento
+	 * @param vo Origem de lanï¿½amento que se deseja inserir.
+	 * @return Origem de lanï¿½amento inserida.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -228,8 +230,8 @@ public class FinanceiroFacade {
 
 	
 	/**
-	 * Exclui origem de lançamento.
-	 * @param vo Origem de lançamento que se deseja excluir.
+	 * Exclui origem de lanï¿½amento.
+	 * @param vo Origem de lanï¿½amento que se deseja excluir.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -238,8 +240,8 @@ public class FinanceiroFacade {
 	}
 
 	/**
-	 * Obtém todos os tipos de operação.
-	 * @return Coleção de tipos de operação, encapsuladas na classe TipoOperacaoVO.
+	 * Obtï¿½m todos os tipos de operaï¿½ï¿½o.
+	 * @return Coleï¿½ï¿½o de tipos de operaï¿½ï¿½o, encapsuladas na classe TipoOperacaoVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -249,9 +251,9 @@ public class FinanceiroFacade {
 
 	
 	/**
-	 * Obter tipo de operação por chave.
-	 * @param vo Instância de TipoOperacaoVO que encapsula o código do tipo de operação que se deseja obter.
-	 * @return Tipo de operação desejado.
+	 * Obter tipo de operaï¿½ï¿½o por chave.
+	 * @param vo Instï¿½ncia de TipoOperacaoVO que encapsula o cï¿½digo do tipo de operaï¿½ï¿½o que se deseja obter.
+	 * @return Tipo de operaï¿½ï¿½o desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -260,8 +262,8 @@ public class FinanceiroFacade {
 	}
 
 	/**
-	 * Obtém todos os tipos de conta.
-	 * @return Coleção de tipos de conta, encapsuladas na classe.
+	 * Obtï¿½m todos os tipos de conta.
+	 * @return Coleï¿½ï¿½o de tipos de conta, encapsuladas na classe.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -270,19 +272,19 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém todas as contas.
-	 * @return Coleção de contas, encapsuladas na classe ContaBancoVO. 
+	 * Obtï¿½m todas as contas.
+	 * @return Coleï¿½ï¿½o de contas, encapsuladas na classe ContaBancoVO. 
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
-	public Collection findAllConta() throws SmartEnvException, SmartAppException {
-		return contaRN.findAll();
+	public Collection findAllConta(boolean incluiExcluidas) throws SmartEnvException, SmartAppException {
+		return contaRN.findAll(incluiExcluidas);
 		
 	}
 	
 	/**
-	 * Obtém conta por chave.
-	 * @param vo Instância de ContaVO que encapsula o código da conta que se deseja obter.
+	 * Obtï¿½m conta por chave.
+	 * @param vo Instï¿½ncia de ContaVO que encapsula o cï¿½digo da conta que se deseja obter.
 	 * @return Conta desejada.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -323,7 +325,7 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém o saldo de uma conta.
+	 * Obtï¿½m o saldo de uma conta.
 	 * @param vo Conta cujo saldo deseja ser obtido.
 	 * @return Conta, contendo o saldo.
 	 * @throws SmartEnvException
@@ -334,9 +336,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém o extrato de uma conta por filtro.
-	 * @param assembler Objeto com os filtros a serem aplicados: conta, data início e data fim.
-	 * @return Instância de ExtratoAssembler, que encapsula o saldo inicial, o saldo final e a coleção de baixas de lançamento, encapsuladas no objeto BaixaLancamentoVO.
+	 * Obtï¿½m o extrato de uma conta por filtro.
+	 * @param assembler Objeto com os filtros a serem aplicados: conta, data inï¿½cio e data fim.
+	 * @return Instï¿½ncia de ExtratoAssembler, que encapsula o saldo inicial, o saldo final e a coleï¿½ï¿½o de baixas de lanï¿½amento, encapsuladas no objeto BaixaLancamentoVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -346,7 +348,7 @@ public class FinanceiroFacade {
 
 	/**
 	 * Movimenta valores entre duas contas.
-	 * @param assembler Objeto que encapsula os dados da movimentação: conta origem, conta destino, valor e data.
+	 * @param assembler Objeto que encapsula os dados da movimentaï¿½ï¿½o: conta origem, conta destino, valor e data.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -355,8 +357,8 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Efetua a baixa de um lançamento.
-	 * @param vo Baixa de lançamento que se deseja realizar.
+	 * Efetua a baixa de um lanï¿½amento.
+	 * @param vo Baixa de lanï¿½amento que se deseja realizar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -365,8 +367,8 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Estorna um lançamento.
-	 * @param vo Lançamento que se deseja estornar.
+	 * Estorna um lanï¿½amento.
+	 * @param vo Lanï¿½amento que se deseja estornar.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -375,9 +377,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Efetua um lançamento.
-	 * @param vo Lançamento que se deseja efetuar.
-	 * @return Lançamento efetuado.
+	 * Efetua um lanï¿½amento.
+	 * @param vo Lanï¿½amento que se deseja efetuar.
+	 * @return Lanï¿½amento efetuado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -386,9 +388,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém lançamentos por filtro.
-	 * @param assembler Objeto que encapsula os possíveis filtros de pesquisa.
-	 * @return Coleção de lançamentos encapsulados na classe LancamentoVO.
+	 * Obtï¿½m lanï¿½amentos por filtro.
+	 * @param assembler Objeto que encapsula os possï¿½veis filtros de pesquisa.
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos encapsulados na classe LancamentoVO.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -397,9 +399,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém saldo de um lançamento.
-	 * @param vo Lançamento cujo saldo deseja ser obtido.
-	 * @return Valor do saldo do lançamento passado como parâmetro.
+	 * Obtï¿½m saldo de um lanï¿½amento.
+	 * @param vo Lanï¿½amento cujo saldo deseja ser obtido.
+	 * @return Valor do saldo do lanï¿½amento passado como parï¿½metro.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -408,9 +410,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém saldo (em valor absoluto) de um lançamento.
-	 * @param vo Lançamento cujo saldo deseja ser obtido.
-	 * @return Valor absoluto do saldo do lançamento passado como parâmetro.
+	 * Obtï¿½m saldo (em valor absoluto) de um lanï¿½amento.
+	 * @param vo Lanï¿½amento cujo saldo deseja ser obtido.
+	 * @return Valor absoluto do saldo do lanï¿½amento passado como parï¿½metro.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -419,9 +421,9 @@ public class FinanceiroFacade {
 	}
 	
 	/**
-	 * Obtém lançamento por chave.
-	 * @param vo Objeto contendo o código do lançamento que se deseja obter.
-	 * @return Lançamento desejado.
+	 * Obtï¿½m lanï¿½amento por chave.
+	 * @param vo Objeto contendo o cï¿½digo do lanï¿½amento que se deseja obter.
+	 * @return Lanï¿½amento desejado.
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
@@ -460,6 +462,16 @@ public class FinanceiroFacade {
 		lancamentoRN.removeDuplicados();
 	}
 
+
+	/**
+	 * Obtï¿½m uma coleï¿½ï¿½o de lanï¿½amentos a partir de uma fatura. Tabelas: LANCAMENTO, LANCAMENTO_FATURA, LANCAMENTO_ITEM_FATURA   
+	 * @param fatura Instï¿½ncia da classe FaturaVO, que encapsula uma fatura.
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos, encapsulados da classe LancamentoVO.
+	 * @throws SmartEnvException
+	 */
+	public Collection<LancamentoFaturaVO> findLancamentoByFatura(FaturaVO fatura) throws SmartEnvException, SmartAppException {
+		return lancamentoRN.findByFatura(fatura);
+	}
 
 	public void setBancoRN(BancoRN bancoRN) {
 		this.bancoRN = bancoRN;

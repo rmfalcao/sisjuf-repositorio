@@ -3,6 +3,8 @@ package br.org.asserjuf.sisjuf.associados;
 import java.util.Collection;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 import br.org.asserjuf.sisjuf.entidadesComuns.EnderecoVO;
@@ -42,7 +44,7 @@ public class AssociadoVO extends PessoaVO {
 	private Short							idade;
 	private Date							proximoAniversario;
 	private Date							dataAssociacao;
-	private Integer							matriculaJustica;
+	private String							matriculaJustica;
 	private String							statusPreCadastro;
 	
 	private Collection<DependenteVO> 		dependentes;
@@ -54,7 +56,39 @@ public class AssociadoVO extends PessoaVO {
 	private Collection<VinculacaoPlanoVO> 	vinculacoes;
 	
 	private ConjugeVO						conjuge;
+
+	private UsuarioVO						usuario;
+	private UsuarioVO						usuarioAlteracao;
 	
+	private Date							dataCadastro;
+	private Date							dataAlteracao;
+	
+	
+	
+	public UsuarioVO getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+	public void setUsuarioAlteracao(UsuarioVO usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
 	public ConjugeVO getConjuge() {
 		return conjuge;
 	}
@@ -241,10 +275,10 @@ public class AssociadoVO extends PessoaVO {
 	public void setDataAssociacao(Date dataAssociacao) {
 		this.dataAssociacao = dataAssociacao;
 	}
-	public Integer getMatriculaJustica() {
+	public String getMatriculaJustica() {
 		return matriculaJustica;
 	}
-	public void setMatriculaJustica(Integer matriculaJustica) {
+	public void setMatriculaJustica(String matriculaJustica) {
 		this.matriculaJustica = matriculaJustica;
 	}
 	public String getStatusPreCadastro() {

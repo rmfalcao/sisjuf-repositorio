@@ -124,7 +124,7 @@
 									<td colspan="4">
 										<h:selectOneMenu id="Conta" value="#{LancamentoBean.filtro.contaVO.codigo}" >
 											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<f:selectItems id="sel_contas" value="#{LancamentoBean.contas}"/>
+											<f:selectItems id="sel_contas_inclusive_excluidas" value="#{LancamentoBean.contasInclusiveExcluidas}"/>
 										</h:selectOneMenu>
 									</td>
 								</tr>
@@ -250,9 +250,6 @@
 						            <h:outputText value="#{properties['lb_valorTotal']}" />
 						        </f:facet>
 							</t:column>
-
-
-
 							
 							<t:column width="90">
 								<f:facet name="header">
@@ -274,6 +271,16 @@
 					            </f:facet>
 							</t:column>
 							
+							
+							<t:column width="20">
+								<f:facet name="header">
+								
+								</f:facet>
+								
+								<a href="javascript:void(0)" onclick="alert('Feito por <h:outputText value="#{lancamentos.usuario.nome}" /> em <h:outputText value="#{lancamentos.dataCadastro}" />')">info</a> 
+							</t:column>
+							
+							
 							<t:column width="20">
 								<f:facet name="header">
 									
@@ -293,6 +300,20 @@
 									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
 								</t:commandLink>
 							</t:column>
+							
+							<!-- t:column>
+								< t : panelGroup>
+									< t : commandLink action=" # { LancamentoBean.detalharVinculacaoLancamento}" title="Detalhar Vinculação" immediate="true" rendered=" # { lancamentos.tipoOperacaoVO.codigo == 3}">
+										< t :updateActionListener property=" # { LancamentoBean.lancamento.codigo}" value=" # { lancamentos.codigo}" />
+										< h : outputText value="Detalhar Vinculação" />
+									</ t : commandLink>
+									< t : commandLink action=" # { FaturaBean.carregarFaturaADebitarAPartirLancamento}" title="Detalhar Vinculação" immediate="true" rendered=" # { lancamentos.tipoOperacaoVO.codigo == 4}">
+											< t : updateActionListener property=" # { FaturaBean.lancamento.codigo}" value=" # { lancamentos.codigo}" />
+											<h : outputText value="Detalhar Vinculação" />
+									</ t : commandLink>
+								</ t : panelGroup>
+								
+							</ t :column-->
 
 						</t:dataTable>
 						

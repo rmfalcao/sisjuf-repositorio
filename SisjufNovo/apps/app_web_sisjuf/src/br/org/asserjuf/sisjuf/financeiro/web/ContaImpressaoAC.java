@@ -32,7 +32,7 @@ public class ContaImpressaoAC extends FrameworkServlet {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		
 		request.setAttribute("dataAtual", formatter.format(utilDelegate.getCurrentDate()));
-		request.setAttribute("contas", financeiroDelegate.findAllConta());
+		request.setAttribute("contas", financeiroDelegate.findAllConta(true));
 
 		UsuarioVO usuarioVO = (UsuarioVO)  request.getSession().getAttribute("usuario");
 		

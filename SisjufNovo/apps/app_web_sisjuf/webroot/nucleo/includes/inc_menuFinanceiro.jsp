@@ -86,14 +86,14 @@ function MM_changeProp(objName,x,theProp,theValue) { //v6.0
 																	MM_changeProp('submenu1','','style.display','none','DIV'); 
 																	MM_changeProp('submenu3','','style.display','none','DIV'); 
 																	MM_changeProp('submenu4','','style.display','none','DIV');">
-																	Financeiro</a>
+																	<b>Financeiro</b></a>
 		</div>
 		<div id="menu_financ2">
 			<a href="javascript:void(0)" class="divisoria" onfocus="MM_changeProp('menu_financ1','','style.display','inline','DIV');
 																	 
 																	MM_changeProp('menu_financ2','','style.display','none','DIV');
 																	MM_changeProp('submenu2','','style.display','none','DIV');  ">
-																	Financeiro</a>
+																	<b>Financeiro</b></a>
 		</div>
 		<div id="submenu2">
 			<div><a class="submenu" href="<c:url value="/financeiro/bancoConsulta.jsf"/>">Bancos</a></div>
@@ -126,14 +126,14 @@ function MM_changeProp(objName,x,theProp,theValue) { //v6.0
 																	MM_changeProp('submenu1','','style.display','none','DIV'); 
 																	MM_changeProp('submenu2','','style.display','none','DIV'); 
 																	MM_changeProp('submenu4','','style.display','none','DIV');">
-																	Associado</a>
+																	<b>Associado</b></a>
 		</div>
 		<div id="menu_associado2">
 			<a href="javascript:void(0)" class="divisoria" onfocus="MM_changeProp('menu_associado1','','style.display','inline','DIV'); 
 																	
 																	MM_changeProp('menu_associado2','','style.display','none','DIV');
 																	MM_changeProp('submenu3','','style.display','none','DIV'); ">
-																	Associado</a>
+																	<b>Associado</b></a>
 
 		</div>
 		<div id="submenu3">
@@ -162,21 +162,21 @@ function MM_changeProp(objName,x,theProp,theValue) { //v6.0
 																	MM_changeProp('submenu1','','style.display','none','DIV'); 
 																	MM_changeProp('submenu2','','style.display','none','DIV');
 																	MM_changeProp('submenu3','','style.display','none','DIV');">
-																	Convênio</a>
+																	<b>Convênio</b></a>
 		</div>
 		<div id="menu_convenio2">
 			<a href="javascript:void(0)" class="divisoria" onfocus="MM_changeProp('menu_convenio1','','style.display','inline','DIV'); 
 																	
 																	MM_changeProp('menu_convenio2','','style.display','none','DIV');
 																	MM_changeProp('submenu4','','style.display','none','DIV'); ">
-																	Convênio</a>
+																	<b>Convênio</b></a>
 
 		</div>
 		<div id="submenu4">
 			<div><a class="submenu" href="<c:url value="/associados/convenio/convenioPesquisa.jsf"/>">Convênio</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/convenio/gerarFaturas.jsf"/>">Gerar Faturas</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/convenio/atividade/atividadePesquisa.jsf"/>">Atividade</a></div>
-			<div><a class="submenu" href="<c:url value="/associados/convenio/gerarFaturasFixas.jsf"/>">Faturamento</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/convenio/faturaPesquisa.jsf"/>">Faturas</a></div>
+			<div><a class="submenu" href="<c:url value="/associados/convenio/imposto/impostoPesquisa.jsf"/>">Imposto de Renda</a></div>
 		</div>
 	</div>

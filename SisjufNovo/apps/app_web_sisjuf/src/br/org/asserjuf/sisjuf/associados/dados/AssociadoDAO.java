@@ -14,6 +14,9 @@ import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
+import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
 
@@ -90,7 +93,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" a.nom_orgao_associado, a.des_endereco_setor_associado, a.nom_setor_associado, a.seq_estado_setor_associado, ")
 		.append(" a.nom_municipio_setor_associado, a.num_telefone_setor_associado, a.num_ramal_setor_associado, a.num_matricula_justica_associado, ")
 		.append(" a.sts_recebe_jornal_associado, a.sts_categoria_associado, a.seq_contribuinte_associado, co.nom_pessoa, a.seq_banco, a.num_agencia_associado, ")
-		.append(" a.dig_agencia_associado, a.num_conta_associado, a.dig_conta_associado, h.dat_historico_evento_associado, a.seq_tipo_evento, a.nom_tipo_evento, a.dat_historico_evento_associado as data_ultimo_evento ")
+		.append(" a.dig_agencia_associado, a.num_conta_associado, a.dig_conta_associado, h.dat_historico_evento_associado, a.seq_tipo_evento, a.nom_tipo_evento, a.dat_historico_evento_associado as data_ultimo_evento, a.nome_usuario_cadastro, a.dat_cadastro, a.nome_usuario_alteracao, a.dat_alteracao ")
 		.append(" from vw_associado a inner join historico_evento_associado h on a.seq_associado = h.seq_associado ")
 		.append(" left join vw_conjuge c on c.seq_associado = a.seq_associado ")
 		.append(" left join pessoa co on co.seq_pessoa = a.seq_contribuinte_associado ")
@@ -122,7 +125,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 					"numeroCalcado", "statusJustica", "setor.orgao.nome","setor.endereco.logradouro", "setor.nome", 
 					"setor.endereco.municipio.estado.codigo", "setor.endereco.municipio.nome", "setor.telefone", "setor.ramal", "matriculaJustica",
 					"statusRecebeJornal", "statusCategoria", "contribuinte.codigo", "contribuinte.nome", "conta.bancoVO.codigo", "conta.numAgencia", "conta.digAgencia", 
-					"conta.numConta", "conta.digConta", "dataAssociacao", "ultimoEvento.tipoEvento.codigo", "ultimoEvento.tipoEvento.nome", "ultimoEvento.data"} );
+					"conta.numConta", "conta.digConta", "dataAssociacao", "ultimoEvento.tipoEvento.codigo", "ultimoEvento.tipoEvento.nome", "ultimoEvento.data",
+					"usuario.nome", "dataCadastro", "usuarioAlteracao.nome", "dataAlteracao"} );
 		
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
@@ -210,7 +214,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" nom_orgao_associado = ?, des_endereco_setor_associado = ?, nom_setor_associado = ?, seq_estado_setor_associado = ?, ")
 		.append(" nom_municipio_setor_associado = ?, num_telefone_setor_associado = ?, num_ramal_setor_associado = ?, num_matricula_justica_associado = ?, ")
 		.append(" sts_recebe_jornal_associado = ?, sts_categoria_associado = ?, seq_contribuinte_associado = ?, seq_banco = ?, num_agencia_associado = ?, ")
-		.append(" dig_agencia_associado = ?, num_conta_associado = ?, dig_conta_associado = ?, num_rg_associado = ?, num_cpf_associado = ? ")
+		.append(" dig_agencia_associado = ?, num_conta_associado = ?, dig_conta_associado = ?, num_rg_associado = ?, num_cpf_associado = ?, seq_usuario_alteracao=?, dat_alteracao=now() ")
 		.append(" where seq_pessoa = ? ");
 
 		SmartConnection 		sConn 	= null;
@@ -260,6 +264,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 														"conta.digConta", 
 														"rg", 
 														"cpf",
+														"usuario.codigo",
 														"codigo"});
 			
 			sStmt.getMyPreparedStatement().execute();
@@ -288,8 +293,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" nom_orgao_associado, des_endereco_setor_associado, nom_setor_associado, seq_estado_setor_associado, ")
 		.append(" nom_municipio_setor_associado, num_telefone_setor_associado, num_ramal_setor_associado, num_matricula_justica_associado, ")
 		.append(" sts_recebe_jornal_associado, sts_categoria_associado, seq_contribuinte_associado, seq_banco, num_agencia_associado, ")
-		.append(" dig_agencia_associado, num_conta_associado, dig_conta_associado, num_cpf_associado, num_rg_associado,sts_pre_cadastro_associado) ")
-		.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+		.append(" dig_agencia_associado, num_conta_associado, dig_conta_associado, num_cpf_associado, num_rg_associado,sts_pre_cadastro_associado, seq_usuario_cadastro, seq_usuario_alteracao) ")
+		.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -339,7 +344,9 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 															"conta.digConta",
 															"cpf", 
 															"rg",
-															"statusPreCadastro"															
+															"statusPreCadastro",
+															"usuario.codigo",
+															"usuario.codigo"
 															});
 			
 			sStmt.getMyPreparedStatement().execute();
@@ -428,7 +435,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		SmartResultSet			sRs		= null;
 
 		StringBuffer sql = new StringBuffer("select a.seq_associado, ")
-		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(pré-cadastro)' else a.nom_associado end as nom_associado, ")
+		.append("case a.sts_pre_cadastro_associado when 'S' then a.nom_associado || '(prÃ©-cadastro)' else a.nom_associado end as nom_associado, ")
 		.append("a.nom_orgao_associado, a.nom_setor_associado, a.des_email_associado, a.dat_historico_evento_associado, a.sts_pre_cadastro_associado ")
 		//.append("from vw_associado a ")
 		//.append("natural join historico_evento_associado e ")
@@ -491,18 +498,18 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		sql.append("and (upper(a.des_endereco_setor_associado) like '%' || upper(?) || '%' or ? is null) ");
 		sql.append("and (a.num_telefone_setor_associado = ? or ? is null) ");
 		sql.append("and (a.num_ramal_setor_associado = ? or ? is null) ");
-		sql.append("and (a.num_matricula_justica_associado = ? or ? is null) ");
+		sql.append("and (upper(a.num_matricula_justica_associado) like '%' || upper(?) || '%' or ? is null) ");
 		sql.append("and (a.sts_categoria_associado = ?  or ? is null or ? = '')  ");
 		sql.append("and ((upper(a2.nom_associado) like '%' || upper(?) || '%' or ? is null) or (a2.nom_associado is null and (? is null or ? = ''))) ");
 		sql.append("and (a.sts_recebe_jornal_associado = ? or ? is null or '' = ?) ");
 		sql.append("and (a.seq_banco = ? or ? is null) ");	//80					
-		sql.append("and (upper(a.num_agencia_associado) like '%' || upper(?) || '%' or ? is null) ");
-		sql.append("and (a.dig_agencia_associado = ? or ? is null or '' = ?) ");
-		sql.append("and (upper(a.num_conta_associado) like '%' || upper(?) || '%' or ? is null) ");
-		sql.append("and (a.dig_conta_associado = ? or ? is null or '' = ?) ");
+		//sql.append("and (upper(a.num_agencia_associado) like '%' || upper(?) || '%' or ? is null) ");
+		//sql.append("and (a.dig_agencia_associado = ? or ? is null or '' = ?) ");
+		//sql.append("and (upper(a.num_conta_associado) like '%' || upper(?) || '%' or ? is null) ");
+		//sql.append("and (a.dig_conta_associado = ? or ? is null or '' = ?) ");
 		sql.append("and (upper(d.nom_dependente) like '%' || upper(?) || '%' or ? is null or ? = '') ");
-		sql.append("and ((exists (select d2.seq_dependente from vw_dependente d2 where d2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parâmetro aqui é o checkbox POSSUIDEPENDENTE
-		sql.append("and ((exists (select f2.seq_filho from vw_filho f2 where f2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parâmetro aqui é o checkbox POSSUIFILHO
+		sql.append("and ((exists (select d2.seq_dependente from vw_dependente d2 where d2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parï¿½metro aqui ï¿½ o checkbox POSSUIDEPENDENTE
+		sql.append("and ((exists (select f2.seq_filho from vw_filho f2 where f2.seq_associado = a.seq_associado)) or ? is null or ? = '') "); // o parï¿½metro aqui ï¿½ o checkbox POSSUIFILHO
 		sql.append("and (d.num_rg_dependente = ? or ? is null) ");
 		sql.append("and (d.dat_nascimento_dependente >= ? or ? is null) ");
 		sql.append("and (d.dat_nascimento_dependente <= ? or ? is null) ");
@@ -633,16 +640,16 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 														"statusRecebeJornal", 
 														"conta.bancoVO.codigo", 
 														"conta.bancoVO.codigo", 
-														"conta.numAgencia", 
-														"conta.numAgencia", 
-														"conta.digAgencia", 
-														"conta.digAgencia", 
-														"conta.digAgencia", 
-														"conta.numConta", 
-														"conta.numConta", 
-														"conta.digConta", 
-														"conta.digConta", 
-														"conta.digConta", 
+														//"conta.numAgencia", 
+														//"conta.numAgencia", 
+														//"conta.digAgencia", 
+														//"conta.digAgencia", 
+														//"conta.digAgencia", 
+														//"conta.numConta", 
+														//"conta.numConta", 
+														//"conta.digConta", 
+														//"conta.digConta", 
+														//"conta.digConta", 
 														"dependente.nome",
 														"dependente.nome", 
 														"dependente.nome", 
@@ -1018,6 +1025,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 
 		
 	}
+	
+
 	
 	
 }

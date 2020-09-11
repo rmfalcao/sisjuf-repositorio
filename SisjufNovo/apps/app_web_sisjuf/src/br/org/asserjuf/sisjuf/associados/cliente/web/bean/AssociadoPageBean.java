@@ -3,6 +3,7 @@ package br.org.asserjuf.sisjuf.associados.cliente.web.bean;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -45,6 +47,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
 import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
+import br.org.asserjuf.sisjuf.associados.convenio.VinculadoPlanoAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate;
 import br.org.asserjuf.sisjuf.entidadesComuns.EnderecoVO;
 import br.org.asserjuf.sisjuf.entidadesComuns.EstadoVO;
@@ -62,17 +65,17 @@ import com.vortice.view.Formatador;
 public class AssociadoPageBean  extends BasePageBean{
 
 	/**
-	 * Classe que implementa o padrão "proxy" para comunicação com o "façade" Associado.
+	 * Classe que implementa o padrï¿½o "proxy" para comunicaï¿½ï¿½o com o "faï¿½ade" Associado.
 	 */
 	private transient AssociadoDelegate delegate;
 
 	/**
-	 * Representa o encapsulamento dos dados de negócio da entidade associado. 
+	 * Representa o encapsulamento dos dados de negï¿½cio da entidade associado. 
 	 */
 	private AssociadoVO associado;
 	
 	/**
-	 * Coleção de associados, encapsulados na classe AssociadoVO.
+	 * Coleï¿½ï¿½o de associados, encapsulados na classe AssociadoVO.
 	 */
 	private Collection<AssociadoVO> associados;
 	
@@ -82,16 +85,16 @@ public class AssociadoPageBean  extends BasePageBean{
 	private static final transient Logger LOG = Logger.getLogger(AssociadoPageBean.class);
 	
 	/**
-	 * Instancia os objetos VO e delegate e invoca o método de consulta de todos os associados.
+	 * Instancia os objetos VO e delegate e invoca o mï¿½todo de consulta de todos os associados.
 	 */
 	
 	/**
-	 * Informação do valor atual do sócio usuario. 
+	 * Informaï¿½ï¿½o do valor atual do sï¿½cio usuario. 
 	 */
 	private Float valorAtual = null;
 
 	/**
-	 * Informação do valor novo do sócio usuario. 
+	 * Informaï¿½ï¿½o do valor novo do sï¿½cio usuario. 
 	 */
 	private Float valorNovo = null;
 	
@@ -124,14 +127,14 @@ public class AssociadoPageBean  extends BasePageBean{
 	private Collection<AssociadoVO> associadoEmails;
 	
 	/**
-	 * E-mails que serão carregados na tela de e-mail
+	 * E-mails que serï¿½o carregados na tela de e-mail
 	 */
 	private String emails;
 	
 	private EmailVO email;
 	
 	/**
-	 * Formatação de datas.
+	 * Formataï¿½ï¿½o de datas.
 	 */
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -167,10 +170,16 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	private Collection						planosItens = new ArrayList();
 	
+	private Collection<VinculadoPlanoAssembler> historicoVinculacoes;
+	private VinculadoPlanoAssembler historicoVinculacaoFiltro;
+	
 	/**
-	 * Data que será feita a importação do nucre
+	 * Data que serï¿½ feita a importaï¿½ï¿½o do nucre
 	 */
 	private Date dataImportacao;
+	
+
+	private UsuarioVO usuarioLogado;
 	
 	public AssociadoPageBean(){
 		 try{
@@ -183,6 +192,10 @@ public class AssociadoPageBean  extends BasePageBean{
 			 carregaAssociado();
 //			 associado.setCodigo();
 //			 associado.setNome("Associado1");
+			
+
+				usuarioLogado = (UsuarioVO)this.getHttpSession().getAttribute("usuario");
+				associado.setUsuario(usuarioLogado);
 			 
 			List lista = new ArrayList<AssociadoVO>();
 			associado.setBeneficiarios(lista);
@@ -208,6 +221,14 @@ public class AssociadoPageBean  extends BasePageBean{
 			 this.vinculacao.setPlano(new PlanoConvenioVO());
 			 this.vinculacao.getPlano().setConvenio(new ConvenioVO());
 			 this.vinculacao.setAssociado(new AssociadoVO());
+			 
+			 historicoVinculacoes = new ArrayList<VinculadoPlanoAssembler>();
+			 historicoVinculacaoFiltro = new VinculadoPlanoAssembler();
+			 historicoVinculacaoFiltro.setAssociado(associado);
+			 historicoVinculacaoFiltro.setAssociadoDependente(new AssociadoVO());
+			 historicoVinculacaoFiltro.setConvenio(new ConvenioVO());
+			 historicoVinculacaoFiltro.setPlano(new PlanoConvenioVO());
+			 historicoVinculacaoFiltro.getPlano().setConvenio(new ConvenioVO());
 		 }catch(Exception e){
 			 LOG.error("Error ", e);
 			 tratarExcecao(e);
@@ -257,7 +278,7 @@ public class AssociadoPageBean  extends BasePageBean{
 									matricula = matricula.substring(0, matricula.indexOf("/"));
 								
 								planilha.setAssociado(new AssociadoVO());
-								planilha.getAssociado().setMatriculaJustica(new Integer(matricula));
+								planilha.getAssociado().setMatriculaJustica(matricula);
 								Float valorDebitado = new Float(0);
 								Float custo = new Float(0);
 								Float liquido = new Float(0);
@@ -332,11 +353,15 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public String salvar(){
 		try {
-			List<FilhoVO> filhos = carregaFilhos();
 			List<DependenteVO> dependentes = carregaDependentes();
-			associado.setFilhos(filhos);
+			// comentando abaixo o load de filhos pois esses dados nao serao mais usados pelo sistema.
+			//List<FilhoVO> filhos = carregaFilhos();
+			//associado.setFilhos(filhos);
 			associado.setDependentes(dependentes);
 			LOG.debug("associado.getTelefoneCelular " + associado.getTelefoneCelular());
+
+			LOG.debug("........... " + associado.getSetor().getEndereco().getMunicipio().getEstado().getCodigo());
+			
 			if (associado.getCodigo() != null && associado.getCodigo() > 0){
 				delegate.updateAssociado(geraAssembler());
 				FacesMessage msgs = new FacesMessage("Registro Atualizado com sucesso.");
@@ -410,7 +435,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	/**
 	 * Detalha um associado.
-	 * @return Mensagem pós-operação.
+	 * @return Mensagem pï¿½s-operaï¿½ï¿½o.
 	 */
 	public String carregar(){
 		try{
@@ -538,8 +563,25 @@ public class AssociadoPageBean  extends BasePageBean{
 		try {
 			associados = delegate.findAssociadoByFilter(filtro);
 			return getSucesso();
-		} catch (Exception e) {
-			return tratarExcecao(e);
+		} catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", envEx);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			LOG.error("Error ", e);
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
 		}
 	}
 	
@@ -637,8 +679,19 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
+	public String consultarHistoricoVinculacoes(){
+		try {
+			historicoVinculacaoFiltro.setAssociado(associado);
+			historicoVinculacoes = delegate.findHistoricoVinculadosPlanoByFilter(historicoVinculacaoFiltro);
+			LOG.debug("historicoVinculacaoFiltro " + historicoVinculacaoFiltro);
+			return getSucesso();
+		} catch (Exception e) {
+			return tratarExcecao(e);
+		}
+	}
+	
 	/**
-	 * Obtém associado no bean para ser utilizado pela interface.
+	 * Obtï¿½m associado no bean para ser utilizado pela interface.
 	 * @return Associado presente no bean.
 	 */
 	public AssociadoVO getAssociado() {
@@ -655,8 +708,8 @@ public class AssociadoPageBean  extends BasePageBean{
 	}
 
 	/**
-	 * Obtém coleção de associados no bean para ser utilizado pela interface.
-	 * @return Coleção de associados presente no bean.
+	 * Obtï¿½m coleï¿½ï¿½o de associados no bean para ser utilizado pela interface.
+	 * @return Coleï¿½ï¿½o de associados presente no bean.
 	 */
 	public Collection getAssociados() {
 		return associados;
@@ -713,8 +766,8 @@ public class AssociadoPageBean  extends BasePageBean{
 	}
 
 	/**
-	 * Grava no bean a coleção de associados vinda da interface.
-	 * @param associados Coleção de associados com atributos preenchidos na interface.
+	 * Grava no bean a coleï¿½ï¿½o de associados vinda da interface.
+	 * @param associados Coleï¿½ï¿½o de associados com atributos preenchidos na interface.
 	 */
 	public void setAssociados(Collection<AssociadoVO> associados) {
 		this.associados = associados;
@@ -827,7 +880,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	}
 
 	/**
-	 * Obtenção da coleção de estados para ser utilizada pela interface
+	 * Obtenï¿½ï¿½o da coleï¿½ï¿½o de estados para ser utilizada pela interface
 	 * @return
 	 */
 	public Collection getEstados() {
@@ -901,9 +954,17 @@ public class AssociadoPageBean  extends BasePageBean{
 			LOG.error("erro no momento de carregar os planos dos convenios", e);
 		}
 	}
+	
+	public void carregarPlanosByConveniosHistoricoVinculacoes(){
+		try {
+			planosItens = (planosItens != null || planosItens.size() == 0) ? getSelect(convenioDelegate.findPlanoConvenioByFilter(historicoVinculacaoFiltro.getPlano()), "codigo", "nome") : new ArrayList();
+		} catch (Exception e) {
+			LOG.error("erro no momento de carregar os planos dos convenios", e);
+		}
+	}
 
 	/**
-	 * Grava no bean a coleção usada pela interface
+	 * Grava no bean a coleï¿½ï¿½o usada pela interface
 	 * @param estados
 	 */
 	public void setEstados(Collection estados) {
@@ -992,24 +1053,43 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
-	public String getTelefoneCelular(){
-		return Formatador.formatTelefone(associado.getTelefoneCelular());
+	public String getTelefoneCelular() throws ParseException{
+		return incluiMaskCelular(associado.getTelefoneCelular());
+		//return Formatador.formatTelefone(associado.getTelefoneCelular());
+	}
+	
+	private static Long removeMaskCelular(String celular) {
+		
+		return new Long( celular.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
+	}
+	
+	private static String incluiMaskCelular(Long celular) throws ParseException {
+		
+		if (celular != null) {
+			
+			MaskFormatter formatter = new MaskFormatter("(##) #####-####");
+			formatter.setValueContainsLiteralCharacters(false);
+			return formatter.valueToString(celular);
+		
+		} 
+		
+		return null;
 	}
 	
 	public void setTelefoneCelular(String celular){
 		if (celular != null && !"".equals(celular)){
-			Long telefone = (Formatador.parseTelefone(celular) >= new Long(0)) ? Formatador.parseTelefone(celular) : null;
+			Long telefone = (removeMaskCelular(celular) >= new Long(0)) ? removeMaskCelular(celular) : null;
 			associado.setTelefoneCelular(telefone);
 		}
 	}
 	
-	public String getFiltroTelefoneCelular(){
-		return Formatador.formatTelefone(filtro.getTelefoneCelular());
+	public String getFiltroTelefoneCelular() throws ParseException{
+		return incluiMaskCelular(filtro.getTelefoneCelular());
 	}
 	
 	public void setFiltroTelefoneCelular(String celular){
 		if (celular != null && !"".equals(celular)){
-			Long telefone = (Formatador.parseTelefone(celular) >= new Long(0)) ? Formatador.parseTelefone(celular) : null;
+			Long telefone = (removeMaskCelular(celular) >= new Long(0)) ? removeMaskCelular(celular) : null;
 			filtro.setTelefoneCelular(telefone);
 		}
 	}
@@ -1176,7 +1256,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	}
 	
 	/**
-	 * Metodo que deve ser implementado caso a tela venha ter ordenação, pelo nome das colunas
+	 * Metodo que deve ser implementado caso a tela venha ter ordenaï¿½ï¿½o, pelo nome das colunas
 	 */
 	@Override
 	protected boolean isDefaultAscending(String sortColumn) {
@@ -1184,7 +1264,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	}
 
 	/**
-	 * Metodo que deve ser implementado caso a tela venha ter ordenação pelo nome da coluna
+	 * Metodo que deve ser implementado caso a tela venha ter ordenaï¿½ï¿½o pelo nome da coluna
 	 */
 	@Override
 	protected void sort(String column, boolean ascending) {
@@ -1365,9 +1445,11 @@ public class AssociadoPageBean  extends BasePageBean{
 			HistoricoAssociadoVO historico	= new HistoricoAssociadoVO();
 			
 			historico.setTipoEvento(new TipoEventoVO());
-			// TODO parametrizar para obter tipo evento do parâmetro
+			// TODO parametrizar para obter tipo evento do parï¿½metro
 			historico.getTipoEvento().setCodigo(new Short("2"));
 			historico.setAssociado(this.associado);
+			
+			historico.setUsuario(this.usuarioLogado);
 			
 			delegate.insertHistoricoAssociado(historico);
 			
@@ -1408,9 +1490,11 @@ public class AssociadoPageBean  extends BasePageBean{
 			HistoricoAssociadoVO historico	= new HistoricoAssociadoVO();
 			
 			historico.setTipoEvento(new TipoEventoVO());
-			// TODO parametrizar para obter tipo evento do parâmetro
+			// TODO parametrizar para obter tipo evento do parï¿½metro
 			historico.getTipoEvento().setCodigo(new Short("3"));
 			historico.setAssociado(this.associado);
+			
+			historico.setUsuario(this.usuarioLogado);
 			
 			delegate.insertHistoricoAssociado(historico);
 			
@@ -1683,6 +1767,24 @@ public class AssociadoPageBean  extends BasePageBean{
 
 	public void setConvenioDelegate(ConvenioDelegate convenioDelegate) {
 		this.convenioDelegate = convenioDelegate;
+	}
+
+	public Collection<VinculadoPlanoAssembler> getHistoricoVinculacoes() {
+		return historicoVinculacoes;
+	}
+
+	public void setHistoricoVinculacoes(
+			Collection<VinculadoPlanoAssembler> historicoVinculacoes) {
+		this.historicoVinculacoes = historicoVinculacoes;
+	}
+
+	public VinculadoPlanoAssembler getHistoricoVinculacaoFiltro() {
+		return historicoVinculacaoFiltro;
+	}
+
+	public void setHistoricoVinculacaoFiltro(
+			VinculadoPlanoAssembler historicoVinculacaoFiltro) {
+		this.historicoVinculacaoFiltro = historicoVinculacaoFiltro;
 	}
 	
 }

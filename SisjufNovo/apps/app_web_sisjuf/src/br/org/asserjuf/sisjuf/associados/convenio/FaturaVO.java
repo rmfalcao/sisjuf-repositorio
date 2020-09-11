@@ -87,7 +87,7 @@ public class FaturaVO extends SmartVO {
 			if (statusPago.equals("S")) {
 				return "paga";
 			} else if (statusPago.equals("N")) {
-				return "n„o paga";
+				return "n√£o paga";
 			}
 		}
 		
@@ -108,7 +108,7 @@ public class FaturaVO extends SmartVO {
 			if (statusRecebido.equals("S")) {
 				return "recebida";
 			} else if (statusRecebido.equals("N")) {
-				return "n„o recebida";
+				return "n√£o recebida";
 			}
 		}
 		

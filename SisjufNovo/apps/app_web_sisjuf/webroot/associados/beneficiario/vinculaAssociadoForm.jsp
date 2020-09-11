@@ -43,7 +43,7 @@
 	<h:form id="vinculaAssociadoForm">
 		<t:div  id="vinculaAssociadoFormMiolo">
 			<h1>Modulo Associado</h1>
-			<h2>Vincula Associado</h2>
+			<h2>Vinculação Associado</h2>
 			<table class="tab_cadastro" cellpadding="2" cellspacing="1">
 				<thead>
 					<tr>
@@ -92,6 +92,12 @@
 						</td>
 					</tr>
 					<tr>
+						<th><h:outputLabel for="codigoBeneficiarioPlano" value="#{properties['lb_CodigoBeneficiarioPlano']}" />:</th>
+						<td>
+							<t:inputText id="codigoBeneficiarioPlano" value="#{AssociadoBean.vinculacao.codigoBeneficiarioPlano}" maxlength="50" />
+						</td>
+					</tr>
+					<tr>
 						<th><h:outputLabel for="dataDesVinculacao" value="#{properties['lb_dataDesVinculacao']}" />:</th>
 						<td>
 							<rich:calendar id="dataDesVinculacao" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
@@ -105,8 +111,21 @@
 			</table>
 			<br />
 			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{AssociadoBean.salvarVinculacao}"  reRender="div_associadovinculacaoPesquisa" 
-				oncomplete="closeVinculacaoModal();" />
+				oncomplete="closeVinculacaoModal();" onclick="#{rich:component('confirmation')}.show();return false" />
 			<h:inputHidden id="VAssociado" value="#{AssociadoBean.vinculacao.associado.codigo}"/>
 		</t:div>
+		<rich:modalPanel id="confirmation" width="250" height="150">
+			   <f:facet name="header">Confirmação</f:facet>
+			   <h:panelGrid>
+			      <h:panelGrid columns="1">
+				 	<h:outputText value="Deseja confirmar a ação?" style="FONT-SIZE: large;" />
+			      </h:panelGrid>
+			      <h:panelGroup>
+			      		<a4j:commandButton  value="Salvar" action="#{AssociadoBean.salvarVinculacao}"  reRender="div_associadovinculacaoPesquisa" oncomplete="#{rich:component('confirmation')}.hide();closeVinculacaoModal();"/>
+			            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation')}.hide();return false" />
+				  </h:panelGroup>
+			   </h:panelGrid>
+			</rich:modalPanel>
+			
 	</h:form>
 </rich:modalPanel>

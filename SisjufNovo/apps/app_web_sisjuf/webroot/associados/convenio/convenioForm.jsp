@@ -211,8 +211,6 @@
 											<th>Quem Pode Utilizar:</th>
 											<td>
 												<t:selectBooleanCheckbox  value="#{ConvenioBean.titular}"/>Titulares<br/>
-												<t:selectBooleanCheckbox  value="#{ConvenioBean.conjugue}"/>Cônjuge<br/>
-												<t:selectBooleanCheckbox  value="#{ConvenioBean.filhos}"/>Filhos<br/>
 												<t:selectBooleanCheckbox  value="#{ConvenioBean.dependentes}"/>Dependentes<br/>
 												<t:selectBooleanCheckbox  value="#{ConvenioBean.outrosBeneficaiveis}"/>Outros Beneficiaveis<br/>
 											</td>
@@ -249,4 +247,4 @@
 			</div>
 		</body>
 	</html>
-</f:view>\
+</f:view>

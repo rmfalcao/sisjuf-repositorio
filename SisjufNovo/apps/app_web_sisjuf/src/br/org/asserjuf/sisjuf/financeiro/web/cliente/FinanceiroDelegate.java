@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.BaixaLancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.BancoVO;
 import br.org.asserjuf.sisjuf.financeiro.ContaBancoVO;
@@ -14,6 +15,7 @@ import br.org.asserjuf.sisjuf.financeiro.DiretorFinanceiroVO;
 import br.org.asserjuf.sisjuf.financeiro.ExtratoAssembler;
 import br.org.asserjuf.sisjuf.financeiro.ExtratoFiltroAssembler;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssembler;
+import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFiltroAssembler;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.MovimentacaoAssembler;
@@ -23,8 +25,8 @@ import br.org.asserjuf.sisjuf.financeiro.TipoOperacaoVO;
 import br.org.asserjuf.sisjuf.financeiro.facade.FinanceiroFacade;
 
 /**
- * Implementação da classe que representa o "proxy" para o façade Financeiro.
- * @author Rodrigo Falcão
+ * Implementaï¿½ï¿½o da classe que representa o "proxy" para o faï¿½ade Financeiro.
+ * @author Rodrigo Falcï¿½o
  *
  */
 public class FinanceiroDelegate {
@@ -32,12 +34,12 @@ public class FinanceiroDelegate {
 	private static transient Logger LOG = Logger.getLogger(FinanceiroDelegate.class);
 	
 	/**
-	 * Façace Financeiro do Sisjuf.
+	 * Faï¿½ace Financeiro do Sisjuf.
 	 */
 	private FinanceiroFacade financeiroBean;
 	
 	/**
-	 * "Proxy" para o método findAllBanco() no façade Financeiro
+	 * "Proxy" para o mï¿½todo findAllBanco() no faï¿½ade Financeiro
 	 * @return Collection de BancoVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -48,7 +50,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findBancoByPrimaryKey() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo findBancoByPrimaryKey() no faï¿½ade Financeiro.
 	 * @param vo 
 	 * @return BancoVO
 	 * @throws SmartEnvException
@@ -59,7 +61,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updateBanco() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo updateBanco() no faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -69,7 +71,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método removeBanco() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo removeBanco() no faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -79,7 +81,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertBanco() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo insertBanco() no faï¿½ade Financeiro.
 	 * @param vo
 	 * @return BancoVO 
 	 * @throws SmartEnvException
@@ -90,7 +92,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findAllTipoLancamento() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo findAllTipoLancamento() no faï¿½ade Financeiro.
 	 * @return Collection de TipoLancamentoVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -100,7 +102,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findTipoLancamentoByPrimaryKey() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo findTipoLancamentoByPrimaryKey() no faï¿½ade Financeiro.
 	 * @param vo
 	 * @return TipoLancamentoVO
 	 * @throws SmartEnvException
@@ -111,7 +113,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updateTipoLancamento() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo updateTipoLancamento() no faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -121,7 +123,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método removeTipoLancamento() no façade Financeiro.
+	 * "Proxy" para o mï¿½todo removeTipoLancamento() no faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -131,7 +133,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertTipoLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo insertTipoLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return TipoLancamentoVO
 	 * @throws SmartEnvException
@@ -142,7 +144,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findAllOrigemLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findAllOrigemLancamento() no Faï¿½ade Financeiro.
 	 * @return Collection de OrigemLancamentoVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -152,7 +154,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 *  "Proxy" para o método findOrigemLancamentoByPrimaryKey() no Façade Financeiro.
+	 *  "Proxy" para o mï¿½todo findOrigemLancamentoByPrimaryKey() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return OrigemLancamentoVO
 	 * @throws SmartEnvException
@@ -163,7 +165,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updateOrigemLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo updateOrigemLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -172,7 +174,7 @@ public class FinanceiroDelegate {
 		financeiroBean.updateOrigemLancamento(vo);
 	}
 	/**
-	 * "Proxy" para o método removeOrigemLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo removeOrigemLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -182,7 +184,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertOrigemLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo insertOrigemLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return OrigemLancamentoVO
 	 * @throws SmartEnvException
@@ -193,7 +195,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findAllTipoOperacao() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findAllTipoOperacao() no Faï¿½ade Financeiro.
 	 * @return Collection de TipoOperacaoVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -203,7 +205,7 @@ public class FinanceiroDelegate {
 	}
 
 	/**
-	 * "Proxy" para o método findTipoOperacaoByPrimaryKey() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findTipoOperacaoByPrimaryKey() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return TipoOperacaoVO
 	 * @throws SmartEnvException
@@ -214,7 +216,7 @@ public class FinanceiroDelegate {
 	}
 
 	/**
-	 * "Proxy" para o método findAllTipoConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findAllTipoConta() no Faï¿½ade Financeiro.
 	 * @return Collection de TipoContaVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -224,17 +226,17 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findAllConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findAllConta() no Faï¿½ade Financeiro.
 	 * @return Collection de ContaVO
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
-	public Collection findAllConta() throws SmartEnvException, SmartAppException {
-		return financeiroBean.findAllConta();
+	public Collection findAllConta(boolean incluiExcluidas) throws SmartEnvException, SmartAppException {
+		return financeiroBean.findAllConta(incluiExcluidas);
 	}
 	
 	/**
-	 * "Proxy" para o método findContaByPrimaryKey() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findContaByPrimaryKey() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return ContaBancoVO
 	 * @throws SmartEnvException
@@ -245,7 +247,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método updateConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo updateConta() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -255,7 +257,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método insertConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo insertConta() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return ContaVO
 	 * @throws SmartEnvException
@@ -266,7 +268,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método removeConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo removeConta() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -276,7 +278,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método obterSaldoConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo obterSaldoConta() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return ContaVO
 	 * @throws SmartEnvException
@@ -289,7 +291,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método obterExtratoConta() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo obterExtratoConta() no Faï¿½ade Financeiro.
 	 * @param assembler
 	 * @return ExtratoAssembler
 	 * @throws SmartEnvException
@@ -300,7 +302,7 @@ public class FinanceiroDelegate {
 	}
 
 	/**
-	 * "Proxy" para o método movimentarValoresEntreContas() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo movimentarValoresEntreContas() no Faï¿½ade Financeiro.
 	 * @param assembler
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -310,7 +312,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método baixarLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo baixarLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -320,7 +322,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método estornarLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo estornarLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
@@ -330,7 +332,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método efetuarLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo efetuarLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return LancamentoVO
 	 * @throws SmartEnvException
@@ -342,7 +344,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método findLancamentoByFilter() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo findLancamentoByFilter() no Faï¿½ade Financeiro.
 	 * @param assembler
 	 * @return Collection de LancamentoVO
 	 * @throws SmartEnvException
@@ -354,7 +356,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método obterSaldoLancamento() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo obterSaldoLancamento() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return Saldo 
 	 * @throws SmartEnvException
@@ -365,7 +367,7 @@ public class FinanceiroDelegate {
 	}
 	
 	/**
-	 * "Proxy" para o método obterSaldoLancamentoAbsoluto() no Façade Financeiro.
+	 * "Proxy" para o mï¿½todo obterSaldoLancamentoAbsoluto() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return Saldo absoluto
 	 * @throws SmartEnvException
@@ -376,7 +378,7 @@ public class FinanceiroDelegate {
 	}
 
 	/**
-	 *  "Proxy" para o método findLancamentoByPrimaryKey() no Façade Financeiro.
+	 *  "Proxy" para o mï¿½todo findLancamentoByPrimaryKey() no Faï¿½ade Financeiro.
 	 * @param vo
 	 * @return LancamentoVO
 	 * @throws SmartEnvException
@@ -414,6 +416,16 @@ public class FinanceiroDelegate {
 	
 	public void removeLancamentosDuplicados() throws SmartEnvException {
 		financeiroBean.removeLancamentosDuplicados();
+	}
+	
+	/**
+	 * Obtï¿½m uma coleï¿½ï¿½o de lanï¿½amentos a partir de uma fatura. Tabelas: LANCAMENTO, LANCAMENTO_FATURA, LANCAMENTO_ITEM_FATURA   
+	 * @param fatura Instï¿½ncia da classe FaturaVO, que encapsula uma fatura.
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos, encapsulados da classe LancamentoVO.
+	 * @throws SmartEnvException
+	 */
+	public Collection<LancamentoFaturaVO> findLancamentoByFatura(FaturaVO fatura) throws SmartEnvException, SmartAppException {
+		return financeiroBean.findLancamentoByFatura(fatura);
 	}
 
 	public void setFinanceiroBean(FinanceiroFacade financeiroBean) {

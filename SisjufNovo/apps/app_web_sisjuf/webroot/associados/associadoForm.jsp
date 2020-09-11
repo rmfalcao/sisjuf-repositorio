@@ -23,9 +23,6 @@
 			
 			<script language="JavaScript">
 				var dependenteArray = new Array();
-				var filhoArray 		= new Array();
-				
-				var filho		= null;
 				var dependente	= null;
 				var parentesco	= null;
 				
@@ -152,7 +149,7 @@
 									<tr>
 										<th>Complemento:</th>
 										<td colspan="3">
-											<t:inputText size="40" maxlength="20" tabindex="5" id="enderecoComplemente" 
+											<t:inputText size="40" maxlength="40" tabindex="5" id="enderecoComplemente" 
 												value="#{AssociadoBean.associado.endereco.complemento}" />
 										</td>
 									</tr>
@@ -198,7 +195,7 @@
 										<th>E-mail:</th>
 										<td><t:inputText tabindex="10" size="40" maxlength="50" id="email" value="#{AssociadoBean.associado.email}" /></td>
 										<th>Tel. Celular:</th>
-										<td><t:inputText tabindex="11" size="15" id="telefoneCelular" value="#{AssociadoBean.telefoneCelular}" onkeypress="return MaskTelefone(this,event)"/></td>
+										<td><t:inputText tabindex="11" size="15" id="telefoneCelular" value="#{AssociadoBean.telefoneCelular}" onkeypress="return MaskCelular(this,event)"/></td>
 									</tr>
 									<tr>
 										<th>Tel. Residencial:</th>
@@ -274,6 +271,7 @@
 												<f:selectItem itemLabel="#{properties['lb_divorciado']}" itemValue="I"/>
 												<f:selectItem itemLabel="#{properties['lb_solteiro']}" itemValue="S"/>
 												<f:selectItem itemLabel="#{properties['lb_viuvo']}" itemValue="V"/>
+												<f:selectItem itemLabel="#{properties['lb_outro']}" itemValue="O"/>
 											</h:selectOneMenu>
 										</td>
 									</tr>
@@ -318,40 +316,7 @@
 												value="#{AssociadoBean.associado.nomeMae}" />
 										</td>
 									</tr>
-									<tr>
-										<th>Nome do Cônjuge:</th>
-										<td>
-											<t:inputText tabindex="26" size="40" maxlength="50" id="nomeConjuge" 
-												value="#{AssociadoBean.associado.conjuge.nome}" />
-										</td>
-										<th>C.P.F. do Cônjuge:</th>
-										<td><t:inputText tabindex="15" size="15" id="cpfConjugue" value="#{AssociadoBean.conjugeCpf}" onkeypress="return MaskCPF(this,event)"/></td>
-									</tr>
-									<tr>
-										<th>Data de Nasc. do Cônjuge:</th>
-										<td>
-											<rich:calendar id="dataNascimentoConjuge" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-												value="#{AssociadoBean.associado.conjuge.dataNascimento}" inputClass="inputCalendar" 
-												enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="16"/>
-										</td>
-										<th>Sexo do Cônjuge:</th>
-										<td>
-											<h:selectOneMenu tabindex="17" id="sexoConjuge" value="#{AssociadoBean.associado.conjuge.sexo}" >
-												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-												<f:selectItem itemLabel="#{properties['lb_masculino']}" itemValue="M"/>
-												<f:selectItem itemLabel="#{properties['lb_feminino']}" itemValue="F"/>
-											</h:selectOneMenu>
-										</td>
-									</tr>
-									<tr>
-										<th>Calçado nº.:</th>
-										<td colspan="3">
-											<t:inputText tabindex="27" size="5" maxlength="2" id="numeroInicioCalcado" 
-												value="#{AssociadoBean.associado.numeroCalcado}" onkeypress="return justNumber(this,event)"/>
-										</td>
-									</tr>
+									
 								</tbody>
 								
 								<thead>
@@ -366,8 +331,7 @@
 										<th>Mátricula da Justica:</th>
 										<td>
 											<t:inputText tabindex="28" size="10" id="matriculaJustica" 
-												value="#{AssociadoBean.associado.matriculaJustica}" maxlength="10" 
-												onkeypress="return justNumber(this,event)"/>
+												value="#{AssociadoBean.associado.matriculaJustica}" maxlength="10" />
 										</td>
 										<td colspan="2">&nbsp;
 										</td>
@@ -384,6 +348,8 @@
 												<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 												<f:selectItem itemLabel="#{properties['lb_ativo']}" itemValue="A"/>
 												<f:selectItem itemLabel="#{properties['lb_inativo']}" itemValue="I"/>
+												<f:selectItem itemLabel="#{properties['lb_requisitado']}" itemValue="R"/>
+												<f:selectItem itemLabel="#{properties['lb_removido']}" itemValue="X"/>
 											</h:selectOneMenu>
 										</td>
 									</tr>
@@ -531,7 +497,7 @@
 											</t:selectOneMenu>
 										</td>
 										<th width="100">CPF:</th>
-										<td width="120"><input tabindex="50" name="cpfDependente" type="text" size="20" maxlength="10" onkeypress="return justNumber(this,event)"/></td>
+										<td width="120"><input tabindex="50" name="cpfDependente" type="text" size="20" maxlength="11" onkeypress="return justNumber(this,event)"/></td>
 									</tr>
 								</tbody>
 								
@@ -605,116 +571,27 @@
 							</table>
 							
 							<br /><br /><br /><br />
-							<h2>Cadastro de Filhos</h2>
-							
-							<table class="tab_cadastro" cellpadding="2" cellspacing="1">
-								<thead>
-									<tr>
-										<th>Dados do Filho (a)</th>
-										<th colspan="3"></th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										<th>Nome completo:</th>
-										<td width="230"><input tabindex="51" name="nomeFilho" type="text" size="40" maxlength="60" /></td>
-										<th width="100">CPF:</th>
-										<td width="120"><input tabindex="51" name="cpfFilho" type="text" size="20" maxlength="20" onkeypress="return justNumber(this,event)"/></td>
-									</tr>
-									<tr>
-										<th width="140">Data de Nasc.:</th>
-										<td width="230">
-											<rich:calendar id="dataNascimentoFilho" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-												cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-												inputClass="inputCalendar" enableManualInput="true" oninputblur="checkDate(this)" 
-												oninputkeypress="return maskDate(this,event);" zindex="52"/>
-										</td>
-										<th width="100">Sexo:</th>
-										<td width="120">
-											<select tabindex="53" name="sexoFilho">
-												<option></option>
-												<option value="M">Masculino</option>
-												<option value="F">Feminino</option>
-											</select>
-										</td>
-									</tr>
-								</tbody>
-								
-								<tfoot>
-									<tr>
-										<th>Adicionar Filho (a)</th>
-										<td colspan="3">
-											<a class="botao_adicionar" title="Adicionar" href="javascript:incluirFilho();" onclick="">
-												<span>adicionar</span>
-											</a>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
 							
 							<br /><br />
-							<h2>Lista de Filhos</h2>
-							
-							<table class="tab_lista" cellpadding="2" cellspacing="1">
-								<thead>
-									<tr>
-										<th width="370">Nome do Filho (a)</th>
-										<th width="100">Data de Nasc.</th>
-										<th width="100">Sexo</th>
-										<th width="20"></th>
-									</tr>
-								</thead>
-								<tbody id="tb_filho">
-									<c:if test="${not empty requestScope.AssociadoBean.associado.filhos}">
-										<c:forEach var="filho" items="${requestScope.AssociadoBean.associado.filhos}">
-											<tr>
-												<td><c:out value="${filho.nome }"/></td>
-												<td><fmt:formatDate value="${filho.dataNascimento}" pattern="dd/MM/yyyy"/></td>
-												<td><c:out value="${filho.sexo}"/></td>
-												<td>
-													<a class='botao_excluir' href="javascript:removerFilho('<c:out value="${filho.nome}"/>');">
-														<span>excluir</span>
-													</a>
-													<input type='hidden' name='filho_codigo' value='<c:out value="${filho.codigo }"/>'>
-													<input type='hidden' name='filho_nome' value='<c:out value="${filho.nome }"/>'>
-													<input type='hidden' name='filho_dataNascimento' 
-														value='<fmt:formatDate value="${filho.dataNascimento }" pattern="dd/MM/yyyy"/>'/>
-													<input type='hidden' name='filho_sexo' value='<c:out value="${filho.sexo }"/>'/>
-													<input type='hidden' name='filho_cpf' value='<c:out value="${filho.cpf}"/>'/>
-												</td>
-											</tr>
-											
-											<script language="JavaScript">
-											filho = {
-												codigo:'<c:out value="${filho.codigo}"/>',
-												nome:'<c:out value="${filho.nome }"/>', 
-												dataNascimento:'<fmt:formatDate value="${filho.dataNascimento }" pattern="dd/MM/yyyy"/>', 
-												sexo:'<c:out value="${filho.sexo }"/>',
-												cpf:'<c:out value="${filho.cpf}"/>'
-											};
-											
-											filhoArray[filhoArray.length] = filho;
-											
-											</script>
-											
-										</c:forEach>
-									</c:if>
-								</tbody>
-							</table>
+
 							<a4j:commandButton  action="#{AssociadoBean.salvar}" onclick="if (!setAcao(document.forms[0], 'Salva_Associado')) return false;"
 								title="#{properties['lb_salvar']}" styleClass="botao_salvar" reRender="associadoMsgs, codigo, beneficiarioAssociadoCodigo"/>
 							<br /><br /><br /><br /><br /><br />
 							<hr>
+							Criado em <h:outputText value="#{AssociadoBean.associado.dataCadastro}" /> por <h:outputText value="#{AssociadoBean.associado.usuario.nome}" /> <br />
+							Alterado pela ultima vez em <h:outputText value="#{AssociadoBean.associado.dataAlteracao}" /> por <h:outputText value="#{AssociadoBean.associado.usuarioAlteracao.nome}" />
 						</h:form>
 					</rich:tab>
 					<rich:tab id="bene" label="Outros Beneficiáveis">
 						<jsp:include page="associadoBeneficiarioPesquisa.jsp"></jsp:include>
 						<jsp:include page="associadoBeneficiarioForm.jsp"></jsp:include>
 					</rich:tab>
-					<rich:tab id="conv" label="Convénios">
+					<rich:tab id="conv" label="Convênios">
 						<jsp:include page="beneficiario/convenioAssociadoPesquisa.jsp"></jsp:include>
 						<jsp:include page="beneficiario/vinculaAssociadoForm.jsp"></jsp:include>
+					</rich:tab>
+					<rich:tab id="historicoVinculacoesView" label="Histórico de Vinculações">
+						<jsp:include page="beneficiario/historicoVinculacoesAssociado.jsp"></jsp:include>
 					</rich:tab>
 				</rich:tabPanel>
 					

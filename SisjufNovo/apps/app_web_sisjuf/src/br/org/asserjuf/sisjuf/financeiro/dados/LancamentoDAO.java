@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.BaixaLancamentoVO;
@@ -22,8 +24,8 @@ import br.com.falc.smartFW.persistence.SmartPreparedStatement;
 import br.com.falc.smartFW.persistence.SmartResultSet;
 
 /**
- * Classe de acesso ao banco de dados da entidade "Lançamento" do Sisjuf.
- * @author Rodrigo Falcão
+ * Classe de acesso ao banco de dados da entidade "Lanï¿½amento" do Sisjuf.
+ * @author Rodrigo Falcï¿½o
  *
  */
 public class LancamentoDAO extends SisjufDAOPostgres {
@@ -34,8 +36,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	}
 
 	/**
-	 * Insere uma baixa de lançamento no banco de dados. Tabelas: BAIXA_LANCAMENTO
-	 * @param vo Instância da classe BaixaLancamentoVO (que encapsula a baixa de lançamento).
+	 * Insere uma baixa de lanï¿½amento no banco de dados. Tabelas: BAIXA_LANCAMENTO
+	 * @param vo Instï¿½ncia da classe BaixaLancamentoVO (que encapsula a baixa de lanï¿½amento).
 	 * @throws SmartEnvException
 	 */
 	public void baixarLancamento(BaixaLancamentoVO vo) throws SmartEnvException{
@@ -43,8 +45,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		StringBuffer sql = new StringBuffer("INSERT INTO baixa_lancamento ");
 		sql.append(" (seq_baixa_lancamento, seq_lancamento, dat_baixa_lancamento, val_baixa_lancamento, ");
 		sql.append("  seq_forma_pagamento, des_banco_cheque_baixa_lancamento, num_agencia_cheque_baixa_lancamento, ");
-		sql.append("dig_agencia_cheque_baixa_lancamento, num_conta_cheque_baixa_lancamento, dig_conta_cheque_baixa_lancamento, num_cheque_baixa_lancamento ) ");
-		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		sql.append("dig_agencia_cheque_baixa_lancamento, num_conta_cheque_baixa_lancamento, dig_conta_cheque_baixa_lancamento, num_cheque_baixa_lancamento, seq_usuario_cadastro, seq_usuario_alteracao ) ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -67,6 +69,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			sStmt.setString(9, vo.getContaCheque());
 			sStmt.setString(10, vo.getDigitoContaCheque());
 			sStmt.setString(11, vo.getNumeroCheque());
+			sStmt.setInteger(12, vo.getLancamentoVO().getUsuario().getCodigo());
+			sStmt.setInteger(13, vo.getLancamentoVO().getUsuario().getCodigo());
 						
 			sStmt.getMyPreparedStatement().execute();
 			
@@ -84,13 +88,13 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Quita o saldo em aberto de um lançamento previsto. Tabelas: LANCAMENTO
-	 * @param vo Instância de LancamentoVO que encapsula o lançamento previsto cujo saldo deve ser quitado.
+	 * Quita o saldo em aberto de um lanï¿½amento previsto. Tabelas: LANCAMENTO
+	 * @param vo Instï¿½ncia de LancamentoVO que encapsula o lanï¿½amento previsto cujo saldo deve ser quitado.
 	 * @throws SmartEnvException
 	 */
 	public void quitarLancamentoPrevisto(LancamentoVO vo) throws SmartEnvException{
 		
-		StringBuffer sql = new StringBuffer("UPDATE lancamento SET seq_tipo_operacao = ?, dat_efetivacao_lancamento = ? ");
+		StringBuffer sql = new StringBuffer("UPDATE lancamento SET seq_tipo_operacao = ?, dat_efetivacao_lancamento = ?, seq_usuario_alteracao = ?, dat_alteracao = now() ");
 		sql.append("WHERE seq_lancamento = ?");
 		
 		SmartConnection 		sConn 	= null;
@@ -103,7 +107,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			
 			sStmt.setInteger(1, vo.getTipoOperacaoVO()==null?null:vo.getTipoOperacaoVO().getCodigo());
 			sStmt.setDate(2, vo.getDataEfetivacao());
-			sStmt.setInteger(3, vo.getCodigo());
+			sStmt.setInteger(3, vo.getUsuario().getCodigo());
+			sStmt.setInteger(4, vo.getCodigo());
 			
 			sStmt.getMyPreparedStatement().execute();
 			
@@ -121,17 +126,17 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	}
 
 	/**
-	 * Efetua (insere) um lançamento no banco de dados. Tabelas: LANCAMENTO
-	 * @param vo Instância de LancamentoVO que encapsula o lançamento que está sendo realizado.
-	 * @return Instância de LancamentoVO contendo os dados do lançamento realizado.
+	 * Efetua (insere) um lanï¿½amento no banco de dados. Tabelas: LANCAMENTO
+	 * @param vo Instï¿½ncia de LancamentoVO que encapsula o lanï¿½amento que estï¿½ sendo realizado.
+	 * @return Instï¿½ncia de LancamentoVO contendo os dados do lanï¿½amento realizado.
 	 * @throws SmartEnvException
 	 */
 	public LancamentoVO efetuarLancamento(LancamentoVO vo) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer("INSERT INTO lancamento (seq_lancamento, seq_conta, ");
 		sql.append("seq_origem_lancamento, seq_tipo_lancamento, seq_tipo_operacao, ");
-		sql.append("dat_previsao_lancamento, val_lancamento, des_lancamento) ");
-		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
+		sql.append("dat_previsao_lancamento, val_lancamento, des_lancamento, seq_usuario_cadastro, seq_usuario_alteracao) ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -150,7 +155,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			sStmt.setInteger(5, vo.getTipoOperacaoVO()==null?null:vo.getTipoOperacaoVO().getCodigo());
 			sStmt.setDate(6, vo.getDataPrevisao() == null ? null : vo.getDataPrevisao());
 			sStmt.setDouble(7, vo.getValor());
-			sStmt.setString(8, vo.getDescricao());			
+			sStmt.setString(8, vo.getDescricao());		
+			sStmt.setInteger(9, vo.getUsuario().getCodigo());	
+			sStmt.setInteger(10, vo.getUsuario().getCodigo());	
 			
 			sStmt.getMyPreparedStatement().execute();
 	
@@ -170,26 +177,101 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		
 	}
 	
-	/**
-	 * Estorna (deletando do banco de dados) um lançamento. Tabelas: BAIXA_LANCAMENTO, LANCAMENTO.
-	 * @param vo Instância de LancamentoVO que encapsula o lançamento que se deseja estornar.
-	 * @throws SmartEnvException
-	 */
-	public void estornarLancamento(LancamentoVO vo) throws SmartEnvException {
-		
-		StringBuffer sql = new StringBuffer("DELETE FROM baixa_lancamento WHERE seq_lancamento = ? ");
+	public void estornarLancamentoDuplicado(LancamentoVO vo) throws SmartEnvException {
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 		
 		try {
-		
+			
 			sConn 	= new SmartConnection(this.getConn());
+			
+			
+			
+			StringBuffer sql = new StringBuffer("DELETE FROM baixa_lancamento WHERE seq_lancamento = ? ");
+			
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 			
 			sStmt.setInteger(1, vo.getCodigo());
 						
 			sStmt.getMyPreparedStatement().execute();
+			
+			
+			
+			
+			sql = new StringBuffer("DELETE FROM lancamento WHERE seq_lancamento = ? ");
+			
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+
+			sStmt.setInteger(1, vo.getCodigo());
+
+			sStmt.getMyPreparedStatement().execute();
+					
+		} catch (SQLException e) {
+
+			throw new SmartEnvException(e);
+
+		}finally {
+
+		
+			sStmt.close();
+			sConn.close();
+
+		}
+		
+		
+	}
+	
+	/**
+	 * Estorna (deletando do banco de dados) um lanï¿½amento. Tabelas: BAIXA_LANCAMENTO, LANCAMENTO.
+	 * @param vo Instï¿½ncia de LancamentoVO que encapsula o lanï¿½amento que se deseja estornar.
+	 * @throws SmartEnvException
+	 */
+	public void estornarLancamento(LancamentoVO vo) throws SmartEnvException {
+		
+		
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		
+		try {
+			
+			sConn 	= new SmartConnection(this.getConn());
+			
+			// o update abaixo visa apenas atualizar os dados de auditoria na tabela BAIXA_LANCAMENTO.
+			// desta forma, o usuario logado e a data e hora atual serao gravados nos campos
+			// seq_usuario_alteracao e dat_alteracao antes do delete. Quando o delete for
+			// realizado, a tabela lancamento_log terah a informacao das colunas preservada.
+
+			StringBuffer sql = new StringBuffer("UPDATE BAIXA_LANCAMENTO SET SEQ_USUARIO_ALTERACAO = ?, DAT_ALTERACAO = NOW() WHERE seq_lancamento = ? ");
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			sStmt.setInteger(1, vo.getUsuario().getCodigo());
+			sStmt.setInteger(2, vo.getCodigo());
+			sStmt.getMyPreparedStatement().execute();
+			
+			
+			
+			sql = new StringBuffer("DELETE FROM baixa_lancamento WHERE seq_lancamento = ? ");
+			
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setInteger(1, vo.getCodigo());
+						
+			sStmt.getMyPreparedStatement().execute();
+			
+			
+			// o update abaixo visa apenas atualizar os dados de auditoria na tabela LANCAMENTO.
+			// desta forma, o usuario logado e a data e hora atual serao gravados nos campos
+			// seq_usuario_alteracao e dat_alteracao antes do delete. Quando o delete for
+			// realizado, a tabela lancamento_log terah a informacao das colunas preservada.
+						
+			sql = new StringBuffer("UPDATE LANCAMENTO SET SEQ_USUARIO_ALTERACAO = ?, DAT_ALTERACAO = NOW() WHERE seq_lancamento = ? ");
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			sStmt.setInteger(1, vo.getUsuario().getCodigo());
+			sStmt.setInteger(2, vo.getCodigo());
+			sStmt.getMyPreparedStatement().execute();
+			
+			
 			
 			sql = new StringBuffer("DELETE FROM lancamento WHERE seq_lancamento = ? ");
 			
@@ -215,9 +297,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 
 	
 	/**
-	 * Obtém a data da primeira baixa de um lançamento. Tabelas: BAIXA_LANCAMENTO.
-	 * @param vo Instância de LancamentoVO que encapsula o lançamento cuja data da primeira baixa se deseja obter.
-	 * @return Data da primeira baixa do lançamento passado como parâmetro.
+	 * Obtï¿½m a data da primeira baixa de um lanï¿½amento. Tabelas: BAIXA_LANCAMENTO.
+	 * @param vo Instï¿½ncia de LancamentoVO que encapsula o lanï¿½amento cuja data da primeira baixa se deseja obter.
+	 * @return Data da primeira baixa do lanï¿½amento passado como parï¿½metro.
 	 * @throws SmartEnvException
 	 */
 	public Date findDataPrimeiraBaixaByLancamento(LancamentoVO vo) throws SmartEnvException {
@@ -264,9 +346,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	}
 
 	/**
-	 * Obtém o saldo em aberto de um lançamento. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO
-	 * @param vo Instância de LancamentoVO que encapsula o lançamento cujo saldo se deseja conhecer.
-	 * @return Saldo do lançamento passado como parâmetro.
+	 * Obtï¿½m o saldo em aberto de um lanï¿½amento. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO
+	 * @param vo Instï¿½ncia de LancamentoVO que encapsula o lanï¿½amento cujo saldo se deseja conhecer.
+	 * @return Saldo do lanï¿½amento passado como parï¿½metro.
 	 * @throws SmartEnvException
 	 */
 	public Double obterSaldoLancamento(LancamentoVO vo) throws SmartEnvException {
@@ -313,9 +395,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 
 	
 	/**
-	 * Obtém um lançamento do banco de dados. Tabelas: LANCAMENTO.
-	 * @param vo Instância de LancamentoVO que contém o código do lançamento que se deseja recuperar.
-	 * @return Instância de LancamentoVO com os dados do lançamento desejado.
+	 * Obtï¿½m um lanï¿½amento do banco de dados. Tabelas: LANCAMENTO.
+	 * @param vo Instï¿½ncia de LancamentoVO que contï¿½m o cï¿½digo do lanï¿½amento que se deseja recuperar.
+	 * @return Instï¿½ncia de LancamentoVO com os dados do lanï¿½amento desejado.
 	 * @throws SmartEnvException
 	 */
 	public LancamentoVO findByPrimaryKey(LancamentoVO vo) throws SmartEnvException {
@@ -372,9 +454,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	
 	
 	/**
-	 * Obtém uma coleção de lançamentos a partir de um filtro. Views: VW_CONTA. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO, ORIGEM_LANCAMENTO, TIPO_OPERACAO, TIPO_LANCAMENTO, BANCO.   
-	 * @param assembler Instância da classe LancamentoFiltroAssembler, que encapsula os filtros para a pesquisa de lançamentos.
-	 * @return Coleção de lançamentos, encapsulados da classe LancamentoVO.
+	 * Obtï¿½m uma coleï¿½ï¿½o de lanï¿½amentos a partir de um filtro. Views: VW_CONTA. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO, ORIGEM_LANCAMENTO, TIPO_OPERACAO, TIPO_LANCAMENTO, BANCO.   
+	 * @param assembler Instï¿½ncia da classe LancamentoFiltroAssembler, que encapsula os filtros para a pesquisa de lanï¿½amentos.
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos, encapsulados da classe LancamentoVO.
 	 * @throws SmartEnvException
 	 */
 	public Collection<LancamentoVO> findByFilter(LancamentoFiltroAssembler assembler) throws SmartEnvException {
@@ -390,13 +472,15 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		sql.append("ELSE '-' || c.dig_agencia_conta END) || '/' || c.num_conta || '-' || c.dig_conta) END) as conta, ");
 		sql.append("(CASE  WHEN ((CAST(ol.seq_origem_lancamento as text)) = (select str_val_parametro from parametros where nom_parametro ='ORIGEM_USUARIO')) THEN tl.nom_tipo_lancamento ELSE ol.nom_origem_lancamento END) as origem_tipo,  ");
 		sql.append("l.val_lancamento, COALESCE(sum(bl.val_baixa_lancamento), 0) as valor_efetivado, ");
-		sql.append("top.sig_tipo_operacao, l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento), l.des_lancamento ");
+		sql.append("top.sig_tipo_operacao, l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento), l.des_lancamento, ");
+		sql.append(" u.nome, l.dat_cadastro ");
 		sql.append("FROM lancamento l NATURAL LEFT JOIN baixa_lancamento bl ");
 		sql.append("INNER JOIN vw_conta c ON l.seq_conta = c.seq_conta ");
 		sql.append("INNER JOIN origem_lancamento ol ON l.seq_origem_lancamento = ol.seq_origem_lancamento ");
 		sql.append("INNER JOIN tipo_operacao top ON l.seq_tipo_operacao = top.seq_tipo_operacao ");
 		sql.append("LEFT JOIN tipo_lancamento tl ON l.seq_tipo_lancamento = tl.seq_tipo_lancamento ");
 		sql.append("LEFT JOIN banco b ON c.seq_banco = b.seq_banco ");
+		sql.append("LEFT JOIN usuario u ON l.seq_usuario_cadastro = u.seq_usuario ");
 		sql.append(" WHERE 1=1 ");
 		
 		if (assembler.getContaVO()!=null && assembler.getContaVO().getCodigo()!=null) {
@@ -421,7 +505,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		}
 		
 		if (assembler.getFlgEfetivadoOuPrevisto()) {
-//			Não foi marcado nenhum dos checkbox.
+//			Nï¿½o foi marcado nenhum dos checkbox.
 
 			sql.append("AND (((l.dat_previsao_lancamento >= ? ) "); 
 			sql.append("AND (l.dat_previsao_lancamento <= ? )) ");	
@@ -430,13 +514,13 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			sql.append("AND (l.dat_efetivacao_lancamento <= ? ))) ");
 			
 		} else if (assembler.getFlgEfetivacao() == null || assembler.getFlgEfetivacao().equals("")) {
-//			Foi marcado apenas o checkbox de previsão
+//			Foi marcado apenas o checkbox de previsï¿½o
 
 			sql.append("AND ((l.dat_previsao_lancamento >= ? ) "); 
 			sql.append("AND (l.dat_previsao_lancamento <= ? )) ");	
 
 		} else if (assembler.getFlgPrevisao() == null || assembler.getFlgPrevisao().equals("")) {
-//			Foi marcado apenas o checkbox de efetivação
+//			Foi marcado apenas o checkbox de efetivaï¿½ï¿½o
 
 			sql.append("AND ((l.dat_efetivacao_lancamento >= ? ) "); 
 			sql.append("AND (l.dat_efetivacao_lancamento <= ? )) ");	
@@ -482,7 +566,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		sql.append("c.seq_banco, c.num_agencia_conta, c.dig_agencia_conta, c.nom_conta, ");
 		sql.append("c.num_conta, c.dig_conta, ol.seq_origem_lancamento, l.val_lancamento, ");
 		sql.append("tl.nom_tipo_lancamento, ol.nom_origem_lancamento, b.sig_banco, top.sig_tipo_operacao, "); 
-		sql.append("l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento),l.des_lancamento ");
+		sql.append("l.seq_tipo_operacao, obter_forma_pagamento(l.seq_lancamento),l.des_lancamento, u.nome, l.dat_cadastro ");
 		sql.append(" ORDER BY l.seq_lancamento ");
 		
 		try {
@@ -544,6 +628,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 				lancamentoVO.getTipoOperacaoVO().setSigla(sRs.getString(8));
 				lancamentoVO.setDescricaoCompletaFormaPagamento(sRs.getString(10));
 				lancamentoVO.setDescricao(sRs.getString(11));
+				lancamentoVO.setUsuario(new UsuarioVO());
+				lancamentoVO.getUsuario().setNome((sRs.getString(12)));
+				lancamentoVO.setDataCadastro(sRs.getDate(13));
 				
 				retorno.add(lancamentoVO);
 
@@ -687,9 +774,9 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	
 	
 	/**
-	 * Obtém uma coleção de lançamentos a partir de uma fatura. Tabelas: LANCAMENTO, LANCAMENTO_FATURA, LANCAMENTO_ITEM_FATURA   
-	 * @param fatura Instância da classe FaturaVO, que encapsula uma fatura.
-	 * @return Coleção de lançamentos, encapsulados da classe LancamentoVO.
+	 * Obtï¿½m uma coleï¿½ï¿½o de lanï¿½amentos a partir de uma fatura. Tabelas: LANCAMENTO, LANCAMENTO_FATURA, LANCAMENTO_ITEM_FATURA   
+	 * @param fatura Instï¿½ncia da classe FaturaVO, que encapsula uma fatura.
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos, encapsulados da classe LancamentoVO.
 	 * @throws SmartEnvException
 	 */
 	public Collection<LancamentoFaturaVO> findByFatura(FaturaVO fatura) throws SmartEnvException {
@@ -698,13 +785,13 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 		SmartPreparedStatement 	sStmt 	= null;
 		SmartResultSet			sRs		= null;
 
-		StringBuffer sql = new StringBuffer(" SELECT L.SEQ_LANCAMENTO ")
+		StringBuffer sql = new StringBuffer(" SELECT L.SEQ_LANCAMENTO, L.SEQ_TIPO_OPERACAO ")
 									.append(" FROM LANCAMENTO L, LANCAMENTO_ITEM_FATURA LIF, ITEM_FATURA IFAT ")
 									.append(" WHERE L.SEQ_LANCAMENTO = LIF.SEQ_LANCAMENTO ")
 									.append(" AND LIF.SEQ_ITEM_FATURA = IFAT.SEQ_ITEM_FATURA ")
 									.append(" AND IFAT.SEQ_FATURA = ? ")
 									.append(" UNION ALL ")
-									.append(" SELECT L.SEQ_LANCAMENTO ")
+									.append(" SELECT L.SEQ_LANCAMENTO, L.SEQ_TIPO_OPERACAO ")
 									.append(" FROM LANCAMENTO L, LANCAMENTO_FATURA LF ")
 									.append(" WHERE L.SEQ_LANCAMENTO = LF.SEQ_LANCAMENTO ")
 									.append(" AND LF.SEQ_FATURA = ? ");
@@ -718,7 +805,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 			
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
-			return sRs.getJavaBeans(LancamentoFaturaVO.class, new String[] {"codigo"});
+			return sRs.getJavaBeans(LancamentoFaturaVO.class, new String[] {"codigo","tipoOperacaoVO.codigo"});
 			
 		
 		} catch (SQLException e) {
@@ -737,8 +824,8 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	
 	
 	/**
-	 * Obtém a coleção de lançamentos duplicados (registros inconsistentes) da base. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO   
-	 * @return Coleção de lançamentos, encapsulados da classe LancamentoVO.
+	 * Obtï¿½m a coleï¿½ï¿½o de lanï¿½amentos duplicados (registros inconsistentes) da base. Tabelas: LANCAMENTO, BAIXA_LANCAMENTO   
+	 * @return Coleï¿½ï¿½o de lanï¿½amentos, encapsulados da classe LancamentoVO.
 	 * @throws SmartEnvException
 	 */
 	public Collection<LancamentoVO> findDuplicadosInconsistentes() throws SmartEnvException {

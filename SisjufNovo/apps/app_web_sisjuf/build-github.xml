@@ -1,0 +1,94 @@
+<project name="Asserjuf" default="zip">
+	
+	<description>
+        Build do SISJUF
+    </description>
+	
+	<import file="${basedir}/props-projetoRMPF.xml"/>
+	
+	<!-- set global properties for this build -->
+	
+	<target name="cria.diretorios">
+		<echo message="Criando diretorios"></echo>
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.dir}/sisjuf.war"/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${deploy.dir}"/>
+	</target>
+	
+	<fileset dir="${lib}" id="libDir">
+		<include name="${smartFWVersionName}.jar"/>
+	</fileset>
+	
+	<target name="compilar" description="compile the source " depends="cria.diretorios">
+		<javac source="1.5" srcdir="${source.dir}" destdir="${classes.dir}" classpathref="classPath" 
+			debug="on" optimize="true" encoding="ISO-8859-1"/>
+	
+		<copy todir="${classes.dir}" verbose="true">
+			<fileset file="${source.dir}/*.xml"/>
+		</copy>
+		
+		<copy todir="${classes.dir}" verbose="true">
+			<fileset file="${source.dir}/*.properties"/>
+		</copy>
+
+	</target>
+	
+	<target name="make.build" depends="compilar">
+		<echo message=":: Construindo o build ::"></echo>
+		
+		<echo message=": Copiando web.dir :"></echo>
+		<copy todir="${build.dir}/sisjuf.war" verbose="false">
+			<fileset dir="${web.dir}"/>
+		</copy>
+		
+		<echo message=": Copiando classes.dir :"></echo>	
+		<copy todir="${build.dir}/sisjuf.war/WEB-INF/classes/" verbose="false">
+			<fileset dir="${classes.dir}"/>
+		</copy>
+		
+		<echo message=": Copiando classes de seguranca :"></echo>
+		<copy todir="${build.dir}/sisjuf.war/WEB-INF/classes/" verbose="false">
+			<fileset dir="${seguranca.dir}/classes/"></fileset>
+		</copy>
+			
+		<echo message=": Copiando projeto.dir :"></echo>
+		<copy todir="${build.dir}/sisjuf.war/WEB-INF/lib/" verbose="true" flatten="true">
+			<fileset refid="projeto.lib" />
+		</copy>
+	</target>
+
+	<target name="deployDir" depends="make.build">
+		<echo message=":: Copiando arquivos modificados ::"></echo>
+		
+		<mkdir dir="${server.deploy.dir}/sisjuf.war"/>
+		
+		<copy todir="${server.deploy.dir}/sisjuf.war" verbose="true">
+			<fileset dir="${build.dir}/sisjuf.war"></fileset>
+		</copy>
+	</target>
+	
+	<target name="zip" depends="make.build">
+		<echo message=":: Compactando Diretorios ::"></echo>
+		<jar destfile="${deploy.dir}/sisjuf.war" >
+			<fileset dir="${build.dir}/sisjuf.war"></fileset>
+		</jar>
+	</target>
+	
+	<target name="deploy-zip" depends="zip">
+		<echo message=":: Apaga caches do servidor ::"></echo>
+		<delete dir="${server.deploy.dir}/sisjuf"/>
+		<delete dir="${server.cache}"/>
+		<echo message=":: Copiando arquivos modificados ::"></echo>
+		<copy todir="${server.deploy.dir}/" verbose="true">
+			<fileset file="${deploy.dir}/sisjuf.war"></fileset>
+		</copy>
+	</target>
+
+	<target name="clean"  description="clean up" >
+		<delete dir="${build.dir}/*"/>
+		<delete dir="${classes.dir}/*"/>
+		<delete dir="${server.deploy.dir}/sisjuf.war"/>
+		<delete dir="${server.cache}"/>
+	</target>
+</project>

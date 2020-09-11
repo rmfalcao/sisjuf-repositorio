@@ -48,23 +48,30 @@
 				
 				<t:column width="90">
 					<f:facet name="header">
-						<h:outputText value="#{properties['lb_associadoEm']}" />
+						<h:outputText value="#{properties['lb_convenio']}" />
 					</f:facet>
 					<h:outputText value="#{vinculacao.plano.convenio.nomeFantasia}" />
 				</t:column>
 				
 				<t:column width="90">
 					<f:facet name="header">
-						<h:outputText value="#{properties['lb_associadoEm']}" />
+						<h:outputText value="#{properties['lb_plano']}" />
 					</f:facet>
 					<h:outputText value="#{vinculacao.plano.nome}" />
 				</t:column>
 				
 				<t:column width="90">
 					<f:facet name="header">
-						<h:outputText value="#{properties['lb_associadoEm']}" />
+						<h:outputText value="#{properties['lb_Titular']}" />
 					</f:facet>
 					<h:outputText value="#{vinculacao.associado.nome}" />
+				</t:column>
+				
+				<t:column width="67">
+					<f:facet name="header">
+						<h:outputText value="#{properties['lb_CodigoBeneficiarioPlano']}" />
+					</f:facet>
+					<h:outputText value="#{vinculacao.codigoBeneficiarioPlano}" />
 				</t:column>
 				
 				<t:column width="67">

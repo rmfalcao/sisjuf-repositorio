@@ -5,62 +5,73 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 /**
  * 
- * Congrega os dados de um lançamento da Asserjuf.
+ * Congrega os dados de um lanï¿½amento da Asserjuf.
  * 
  * @author Paulo Prado
  *
  */
 public class LancamentoVO implements Serializable{
 	
+	
+	public LancamentoVO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public LancamentoVO(Integer codigo) {
+		this.codigo = codigo;
+	}
+	
 	/**
-	 * codigo interno do lançamento.
+	 * codigo interno do lanï¿½amento.
 	 */
 	private Integer codigo;
 	
 	/**
-	 * Objeto que representa a conta do lançamento.
+	 * Objeto que representa a conta do lanï¿½amento.
 	 */
 	private ContaVO contaVO;
 	
 	/**
-	 * Objeto que representa a origem do lançamento.
+	 * Objeto que representa a origem do lanï¿½amento.
 	 */
 	private OrigemLancamentoVO origemLancamentoVO;
 	
 	/**
-	 * Objeto que represenra o tipo do lançamento.
+	 * Objeto que represenra o tipo do lanï¿½amento.
 	 */
 	private TipoLancamentoVO tipoLancamentoVO;
 	
 	/**
-	 * Objeto que representa o tipo de operação do lançamento.
+	 * Objeto que representa o tipo de operaï¿½ï¿½o do lanï¿½amento.
 	 */
 	private TipoOperacaoVO tipoOperacaoVO;
 	
 	/**
-	 * Data de previsão do lançamento caso seja de um tipo de operação de previsão.
+	 * Data de previsï¿½o do lanï¿½amento caso seja de um tipo de operaï¿½ï¿½o de previsï¿½o.
 	 */
 	private Date dataPrevisao;
 	
 	/**
-	 * Valor do lançamento.
+	 * Valor do lanï¿½amento.
 	 */
 	private Double valor;
 	
 	/**
-	 * Texto para descrição adicional livre do lançamento.
+	 * Texto para descriï¿½ï¿½o adicional livre do lanï¿½amento.
 	 */
 	private String descricao;
 	
 	/**
-	 * Data de efetivação do lançamento caso não seja de um tipo de operação de previsão.
+	 * Data de efetivaï¿½ï¿½o do lanï¿½amento caso nï¿½o seja de um tipo de operaï¿½ï¿½o de previsï¿½o.
 	 */
 	private Date dataEfetivacao;
 	
 	/**
-	 * Valor pago do lançamento. 
+	 * Valor pago do lanï¿½amento. 
 	 */
 	private Double valorPago;
 	
@@ -80,7 +91,38 @@ public class LancamentoVO implements Serializable{
 	
 	private String descricaoCompletaFormaPagamento;
 		
+	private UsuarioVO usuario;
 	
+	private Date dataCadastro;
+	
+	private boolean isDatasVerificadas;
+	
+	
+	
+
+	public boolean isDatasVerificadas() {
+		return isDatasVerificadas;
+	}
+
+	public void setDatasVerificadas(boolean isDatasVerificadas) {
+		this.isDatasVerificadas = isDatasVerificadas;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
 
 	public String getDescricaoCompletaFormaPagamento() {
 		return descricaoCompletaFormaPagamento;
@@ -149,16 +191,16 @@ public class LancamentoVO implements Serializable{
 
 
 	/**
-	 * Caso a origem seja USUARIO, retorna o tipo do lançamento, caso contrário, retorna a origem.
-	 * @return Tipo ou origem do lançamento.
+	 * Caso a origem seja USUARIO, retorna o tipo do lanï¿½amento, caso contrï¿½rio, retorna a origem.
+	 * @return Tipo ou origem do lanï¿½amento.
 	 */
 	public String getOrigemTipo() {
 		return (getTipoLancamentoVO()==null||getTipoLancamentoVO().getNome()==null||getTipoLancamentoVO().getNome().equals("")?getOrigemLancamentoVO().getNome():getTipoLancamentoVO().getNome());
 	}
 	
 	/**
-	 * Obtém o valor da propriedade codigo.
-	 * @return Código interno do lançamento
+	 * Obtï¿½m o valor da propriedade codigo.
+	 * @return Cï¿½digo interno do lanï¿½amento
 	 */
 	public Integer getCodigo() {
 		return codigo;
@@ -173,15 +215,15 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém o objeto que representa a conta do lançamento.
-	 * @return Objeto que representa a conta do lançamento
+	 * Obtï¿½m o objeto que representa a conta do lanï¿½amento.
+	 * @return Objeto que representa a conta do lanï¿½amento
 	 */
 	public ContaVO getContaVO() {
 		return contaVO;
 	}
 	
 	/**
-	 * Seta o objeto que representa a conta do lançamento.
+	 * Seta o objeto que representa a conta do lanï¿½amento.
 	 * @param contaVO Objeto que se deseja setar na propriedade
 	 */
 	public void setContaVO(ContaVO contaVO) {
@@ -189,8 +231,8 @@ public class LancamentoVO implements Serializable{
 	}
 	
 	/**
-	 * Obtém o valor da propriedade descricao.
-	 * @return Descrição do lançamento
+	 * Obtï¿½m o valor da propriedade descricao.
+	 * @return Descriï¿½ï¿½o do lanï¿½amento
 	 */
 	public String getDescricao() {
 		return descricao;
@@ -205,15 +247,15 @@ public class LancamentoVO implements Serializable{
 	}
 	
 	/**
-	 * Obtém o objeto que representa a origem do lançamento.
-	 * @return Objeto que representa a origem do lançamento
+	 * Obtï¿½m o objeto que representa a origem do lanï¿½amento.
+	 * @return Objeto que representa a origem do lanï¿½amento
 	 */
 	public OrigemLancamentoVO getOrigemLancamentoVO() {
 		return origemLancamentoVO;
 	}
 	
 	/**
-	 * Seta o objeto que representa a origem do lançamento.
+	 * Seta o objeto que representa a origem do lanï¿½amento.
 	 * @param origemLancamentoVO Objeto que se deseja setar na propriedade
 	 */
 	public void setOrigemLancamentoVO(OrigemLancamentoVO origemLancamentoVO) {
@@ -221,15 +263,15 @@ public class LancamentoVO implements Serializable{
 	}
 	
 	/**
-	 * Obtém o objeto que representa o tipo do lançamento.
-	 * @return Objeto que representa o tipo do lançamento
+	 * Obtï¿½m o objeto que representa o tipo do lanï¿½amento.
+	 * @return Objeto que representa o tipo do lanï¿½amento
 	 */
 	public TipoLancamentoVO getTipoLancamentoVO() {
 		return tipoLancamentoVO;
 	}
 	
 	/**
-	 * Seta o objeto que representa o tipo do lançamento.
+	 * Seta o objeto que representa o tipo do lanï¿½amento.
 	 * @param tipoLancamentoVO Objeto que se deseja setar na propriedade
 	 */
 	public void setTipoLancamentoVO(TipoLancamentoVO tipoLancamentoVO) {
@@ -237,15 +279,15 @@ public class LancamentoVO implements Serializable{
 	}
 	
 	/**
-	 * Obtém o objeto que representa o tipo de operação do lançamento.
-	 * @return Objeto que representa o tipo de operação do lançamento
+	 * Obtï¿½m o objeto que representa o tipo de operaï¿½ï¿½o do lanï¿½amento.
+	 * @return Objeto que representa o tipo de operaï¿½ï¿½o do lanï¿½amento
 	 */
 	public TipoOperacaoVO getTipoOperacaoVO() {
 		return tipoOperacaoVO;
 	}
 	
 	/**
-	 * Seta o objeto que representa o tipo de operação do lançamento.
+	 * Seta o objeto que representa o tipo de operaï¿½ï¿½o do lanï¿½amento.
 	 * @param tipoOperacaoVO Objeto que se deseja setar na propriedade
 	 */
 	public void setTipoOperacaoVO(TipoOperacaoVO tipoOperacaoVO) {
@@ -253,7 +295,7 @@ public class LancamentoVO implements Serializable{
 	}
 	
 	/**
-	 * Obtém o valor do lançamento formatado para exibição na interface.
+	 * Obtï¿½m o valor do lanï¿½amento formatado para exibiï¿½ï¿½o na interface.
 	 * @return Valor formatado
 	 */
 	public String getValorFormatado() {
@@ -268,8 +310,8 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém o valor pago do lançamento formatado para exibição da interface.
-	 * @return Valor pago do lançamento
+	 * Obtï¿½m o valor pago do lanï¿½amento formatado para exibiï¿½ï¿½o da interface.
+	 * @return Valor pago do lanï¿½amento
 	 */
 	public String getValorPagoFormatado() {
 		if (valorPago != null) {
@@ -283,8 +325,8 @@ public class LancamentoVO implements Serializable{
 	}
 	
 	/**
-	 * Obtém o valor da propriedade valor.
-	 * @return Valor do lançamento
+	 * Obtï¿½m o valor da propriedade valor.
+	 * @return Valor do lanï¿½amento
 	 */
 	public Double getValor() {
 		return valor;
@@ -299,8 +341,8 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém o valor da propriedade valorPago.
-	 * @return Valor pago do lançamento
+	 * Obtï¿½m o valor da propriedade valorPago.
+	 * @return Valor pago do lanï¿½amento
 	 */
 	public Double getValorPago() {
 		return valorPago;
@@ -315,8 +357,8 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém a data de efetivação do lançamento formatada para exibição da interface.
-	 * @return Data de efetivação formatada
+	 * Obtï¿½m a data de efetivaï¿½ï¿½o do lanï¿½amento formatada para exibiï¿½ï¿½o da interface.
+	 * @return Data de efetivaï¿½ï¿½o formatada
 	 */
 	public String getDataEfetivacaoFormatada() {
 		
@@ -330,8 +372,8 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém a data de previsão do lançamento formatada para exibição da interface.
-	 * @return Data de previsão formatada
+	 * Obtï¿½m a data de previsï¿½o do lanï¿½amento formatada para exibiï¿½ï¿½o da interface.
+	 * @return Data de previsï¿½o formatada
 	 */
 	public String getDataPrevisaoFormatada() {
 		
@@ -345,8 +387,8 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém o valor da propriedade dataEfetivacao.
-	 * @return Data de efetivação do lançamento
+	 * Obtï¿½m o valor da propriedade dataEfetivacao.
+	 * @return Data de efetivaï¿½ï¿½o do lanï¿½amento
 	 */
 	public Date getDataEfetivacao() {
 		return dataEfetivacao;
@@ -361,8 +403,8 @@ public class LancamentoVO implements Serializable{
 	}
 
 	/**
-	 * Obtém o valor da propriedade dataPrevisao.
-	 * @return Data de previsão do lançamento
+	 * Obtï¿½m o valor da propriedade dataPrevisao.
+	 * @return Data de previsï¿½o do lanï¿½amento
 	 */
 	public Date getDataPrevisao() {
 		return dataPrevisao;

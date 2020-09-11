@@ -177,7 +177,7 @@
 								<th>E-mail:</th>
 								<td><t:inputText size="40" id="email" value="#{AssociadoBean.filtro.email}" /></td>
 								<th>Tel. Celular:</th>
-								<td><t:inputText size="15" id="telefoneCelular" value="#{AssociadoBean.filtroTelefoneCelular}" onkeypress="return MaskTelefone(this,event)"/></td>
+								<td><t:inputText size="15" id="telefoneCelular" value="#{AssociadoBean.filtroTelefoneCelular}" onkeypress="return MaskCelular(this,event)"/></td>
 							</tr>
 							<tr>
 								<th>Tel. Residencial:</th>
@@ -255,6 +255,7 @@
 										<f:selectItem itemLabel="#{properties['lb_divorciado']}" itemValue="I"/>
 										<f:selectItem itemLabel="#{properties['lb_solteiro']}" itemValue="S"/>
 										<f:selectItem itemLabel="#{properties['lb_viuvo']}" itemValue="V"/>
+										<f:selectItem itemLabel="#{properties['lb_outro']}" itemValue="O"/>
 									</h:selectOneMenu>
 								</td>
 							</tr>
@@ -314,8 +315,7 @@
 							<tr>
 								<th>Matrícula na Justiça:</th>
 								<td colspan="3"><t:inputText size="10" id="matriculaJustica" 
-										value="#{AssociadoBean.filtro.matriculaJustica}" maxlength="10" 
-										onkeypress="return justNumber(this,event)"/></td>
+										value="#{AssociadoBean.filtro.matriculaJustica}" maxlength="10" /></td>
 							</tr>
 							<tr>
 								<th>Órgão:</th>
@@ -326,6 +326,8 @@
 										<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 										<f:selectItem itemLabel="#{properties['lb_ativo']}" itemValue="A"/>
 										<f:selectItem itemLabel="#{properties['lb_inativo']}" itemValue="I"/>
+										<f:selectItem itemLabel="#{properties['lb_requisitado']}" itemValue="R"/>
+										<f:selectItem itemLabel="#{properties['lb_removido']}" itemValue="X"/>
 									</h:selectOneMenu>
 								</td>
 							</tr>

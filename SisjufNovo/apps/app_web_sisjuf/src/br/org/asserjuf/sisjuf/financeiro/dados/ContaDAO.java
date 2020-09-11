@@ -41,7 +41,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 	 * @return Coleção de ContaBancoVO (entidade que encapsula as contas).
 	 * @throws SmartEnvException
 	 */
-	public Collection<ContaBancoVO> findAll() throws SmartEnvException {
+	public Collection<ContaBancoVO> findAll(boolean incluiExcluidas) throws SmartEnvException {
 		
 		 
 		StringBuffer sql = new StringBuffer("SELECT c.seq_conta, c.nom_conta, b.sig_banco, b.nom_banco, ");
@@ -52,6 +52,9 @@ public class ContaDAO extends SisjufDAOPostgres {
 		sql.append("USING(seq_banco) ");
 		sql.append("LEFT OUTER JOIN tipo_conta tc ");
 		sql.append("USING(seq_tipo_conta) ");
+		if (!incluiExcluidas) {
+			sql.append(" WHERE c.status IS NULL "); //para nao retornar contas excluidas logicamente
+		}
 		sql.append("ORDER BY c.nom_conta ");
 
 		SmartConnection 		sConn 	= null;
@@ -366,7 +369,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 		
 		
 		StringBuffer sql = new StringBuffer("DELETE FROM CONTA_BANCO WHERE SEQ_CONTA = ? ");
-	
+		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 		
@@ -415,7 +418,7 @@ public class ContaDAO extends SisjufDAOPostgres {
 	public void remove(ContaVO vo) throws SmartEnvException, SmartAppException {
 		
 		
-		StringBuffer sql = new StringBuffer("DELETE FROM CONTA WHERE SEQ_CONTA = ? ");
+		StringBuffer sql = new StringBuffer("UPDATE CONTA SET STATUS = 'X' WHERE SEQ_CONTA = ? ");
 	
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -739,11 +742,12 @@ public class ContaDAO extends SisjufDAOPostgres {
 		sql.append("tl.nom_tipo_lancamento, top.sig_tipo_operacao, ");
 		sql.append("fp.nom_forma_pagamento, bl.des_banco_cheque_baixa_lancamento, bl.num_agencia_cheque_baixa_lancamento, bl.dig_agencia_cheque_baixa_lancamento, bl.num_conta_cheque_baixa_lancamento, bl.dig_conta_cheque_baixa_lancamento, bl.num_cheque_baixa_lancamento, ");
 		sql.append(" l.des_lancamento ");
-		sql.append("from lancamento l natural join baixa_lancamento bl ");
-		sql.append("natural join forma_pagamento fp ");
-		sql.append("natural join origem_lancamento ol natural left join tipo_lancamento tl ");
-		sql.append("natural join tipo_operacao top ");
-		sql.append("where bl.dat_baixa_lancamento between ? and ? and l.seq_conta = ? ");
+		sql.append("from lancamento l natural left join tipo_lancamento tl, ");
+		sql.append(" baixa_lancamento bl, ");
+		sql.append(" forma_pagamento fp, ");
+		sql.append(" origem_lancamento ol, ");
+		sql.append(" tipo_operacao top ");
+		sql.append("where l.seq_lancamento=bl.seq_lancamento and  bl.seq_forma_pagamento=fp.seq_forma_pagamento and l.seQ_origem_lancamento = ol.seQ_origem_lancamento and l.seq_tipo_operacao= top.seq_tipo_operacao  and bl.dat_baixa_lancamento between ? and ? and l.seq_conta = ? ");
 		sql.append("order by bl.dat_baixa_lancamento, ol.nom_origem_lancamento, ");
 		sql.append("tl.nom_tipo_lancamento, top.sig_tipo_operacao ");
 

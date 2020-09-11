@@ -1,9 +1,11 @@
-name: ANT
+name: redeploy SISJUF
 
 on:
   push:
-    branches: 
-      - teste-actions
+#    branches: 
+#      - master-mac
+     tags:
+       - '*'
 jobs:
   build:
 
@@ -16,4 +18,30 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Ant
-      run: ant -noinput -buildfile build-github.xml
+      run: ant -noinput -buildfile ./SisjufNovo/apps/app_web_sisjuf/build-github.xml
+      
+     
+    - name: Copy sisjuf.war package to cloud server via SCP
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{secrets.USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        #password: ${{secrets.PASSWORD}}
+        source: "/home/runner/work/sisjuf-repositorio/sisjuf-repositorio/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war"
+        target: "latest"
+        
+    - name: Backup old .war and deploy new .war
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{secrets.USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        #password: ${{secrets.PASSWORD}}
+        script_stop: true
+        script: |
+          /root/apache-tomcat-6.0.45/bin/shutdown.sh
+          mv /root/apache-tomcat-6.0.45/webapps/sisjuf.war /root/oldfiles/sisjuf.war-$(date "+%Y.%m.%d-%H.%M.%S")
+          rm -rf /root/apache-tomcat-6.0.45/webapps/sisjuf*
+          mv /root/latest/github/workspace/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war /root/apache-tomcat-6.0.45/webapps/sisjuf.war
+          /root/apache-tomcat-6.0.45/bin/startup.sh

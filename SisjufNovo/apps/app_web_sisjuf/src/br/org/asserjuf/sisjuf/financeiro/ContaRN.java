@@ -132,9 +132,9 @@ public class ContaRN {
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
-	public Collection findAll() throws SmartEnvException, SmartAppException {
+	public Collection findAll(boolean incluiExcluidas) throws SmartEnvException, SmartAppException {
 	
-		return contaDAO.findAll();
+		return contaDAO.findAll(incluiExcluidas);
 	}
 
 	/**
@@ -201,15 +201,15 @@ public class ContaRN {
 	}
 	
 	/**
-	 * Remove uma conta
+	 * Remove uma conta - exclusao LOGICA desde janeiro/2020
 	 * @param vo Objeto com chave da conta a ser removida
 	 * @throws SmartEnvException
 	 * @throws SmartAppException
 	 */
 	public void remove(ContaVO vo) throws SmartEnvException, SmartAppException {
 		
-		contaDAO.removeContaBanco(vo);
-		contaDAO.removeHistoricoSaldoByConta(vo);
+		//contaDAO.removeContaBanco(vo);
+		//contaDAO.removeHistoricoSaldoByConta(vo);
 		contaDAO.remove(vo);
 	}
 	
