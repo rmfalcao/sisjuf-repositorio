@@ -23,8 +23,8 @@
 	<property name="lib.dir" 			value="${basedir}/../../lib/"></property>
 	<property name="build.dir"			value="${project.dir}/build"></property>
 	<property name="smartFWVersionName" value="SmartFW"/>
-	<property name="server.deploy.dir"	value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-6.0.43/webapps" />
-	<property name="server.cache"		value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-6.0.43/work/Catalina" />
+	<property name="server.deploy.dir"	value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-9.0.37/webapps" />
+	<property name="server.cache"		value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-9.0.37/work/Catalina" />
 	<!--property name="classPath"		value="${SISJUF_HOME}/lib/"/ -->
 	
 	<fileset id="projeto.lib" dir="${lib.dir}">
