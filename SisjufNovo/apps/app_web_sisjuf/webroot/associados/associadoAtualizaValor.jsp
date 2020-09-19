@@ -22,7 +22,7 @@
 		<body>
 			<div id="geral">
 				<div id="topo">
-					<div id="sair">sair <a href="<c:url value="/Logout"/>"><img
+					<div id="sair">sair <a href="<c:url value="/login.jsf"/>"><img
 						src="<c:url value="/nucleo/images/botao_x.gif"/>" /></a>
 					</div>
 					<div id="voltar">
