@@ -6,7 +6,7 @@
 	<property value="D:\Servidores\jboss-4.0.4.GA\server\default\deploy" name="deployDir"/>
 	-->
 	
-	<property name="SISJUF_HOME"		value="D:/_rodrigo/eclipse_workspace/SisjufNovo-DESENV"/>
+	<property name="SISJUF_HOME"		value="C:/Users/falcao/falcao-files/_pessoal/sisjuf/development/sisjuf-repositorio/SisjufNovo"/>
 	<property name="projectDir"			value="${basedir}"/>
 	<property name="projectDeploy"		value="${basedir}/deploy" />
 	<property name="jbossDir" 			value="D:/Desenvolvimento/Servidores/jboss-4.0.4.GA"/>
@@ -20,7 +20,7 @@
 	<property name="webinf.classes.dir"	value="${war.dir}/WEB-INF/classes"></property>
 	<property name="lib.dir" 			value="${SISJUF_HOME}/lib/"></property>
 	<property name="build.dir"			value="${projectDir}/build"></property>
-	<property name="server.dir"			value="C:/Documents and Settings/Rodrigo/Desktop/TRABALHO/apache-tomcat-6.0.14_paulete/apache-tomcat-6.0.14/webapps" />
+	<property name="server.dir"			value="C:/Users/falcao/falcao-files/_pessoal/sisjuf/development/apache-tomcat-9.0.37/webapps" />
 	<!--property name="classPath"		value="${SISJUF_HOME}/lib/"/ -->
 	
 	<fileset id="projeto.lib" dir="${lib.dir}">

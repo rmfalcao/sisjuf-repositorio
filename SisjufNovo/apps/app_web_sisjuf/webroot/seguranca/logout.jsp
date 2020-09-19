@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%
 //HttpSession session = request.getSession();
 
@@ -12,7 +13,7 @@ session = null;
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Insert title here</title>
 		<script>
-			window.location.href = '/seguranca/login.jsf';
+			window.location.href = '<c:url value="/login.jsf"/>';
 		</script>
 	</head>
 	<body>
