@@ -21,7 +21,7 @@
 			<strong>Sistema da Associação dos Servidores da Justiça Federal na Bahia</strong>
 	
 			<span>
-				<h1>Lista de Associados</h1>
+				<h1>Lista de Associados (<h:outputText value="#{AssociadoBean.size}" />)</h1>
 				<!-- Esses dados são vocês que irão determinar o que será exibido -->
 				Data de impressão: <t:outputText value="#{AssociadoBean.dataAtual}" />
 				<br />
