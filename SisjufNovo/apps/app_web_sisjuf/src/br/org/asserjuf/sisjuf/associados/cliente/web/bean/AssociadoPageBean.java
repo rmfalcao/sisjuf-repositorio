@@ -559,6 +559,10 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
+	public Integer getSize() {
+		return (associados != null) ? associados.size() : 0; 
+	}
+	
 	public String consultar(){
 		try {
 			associados = delegate.findAssociadoByFilter(filtro);

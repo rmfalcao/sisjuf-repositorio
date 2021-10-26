@@ -533,7 +533,7 @@
 					</h:form>
 					<br /><br />
 					
-					<h2>Lista de Associados</h2>
+					<h2>Lista de Associados (<h:outputText value="#{AssociadoBean.size}" />)</h2>
 					<h:form id="associadoResultado">
 					<t:saveState value="#{AssociadoBean.associados}" />
 					<t:saveState value="#{AssociadoBean.associado}" />
