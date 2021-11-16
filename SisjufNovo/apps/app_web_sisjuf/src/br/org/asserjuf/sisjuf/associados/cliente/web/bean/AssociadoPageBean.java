@@ -1187,10 +1187,38 @@ public class AssociadoPageBean  extends BasePageBean{
 		associado.setCpf(Formatador.parseCPF(cpf));
 	}
 	
+	private static String formatCpf(Long cpf) {
+	      if (cpf != null && cpf != 0) {
+	         String strCpf = cpf.toString();
+	         
+	         if (strCpf.length() != 0) {
+	         
+		         LOG.debug(strCpf + " >> strCpf.length() " + strCpf.length());
+		         if (strCpf.length() != 11) {
+		        	 int numberOfZeros = 11 - strCpf.length();
+		        	 for (int i = 0; i < numberOfZeros; i++) {
+		        		strCpf = "0" + strCpf;
+		        	 }
+		        	 
+		         }
+		         
+	            strCpf = strCpf.substring(0, 3) + "." + strCpf.substring(3, 6) + "." + strCpf.substring(6, 9) + "-" + strCpf.substring(9, 11);
+	            return strCpf;
+	            
+	        }
+	         
+	      }
+
+	      return "";
+	   }
+	
 	public String getCpf(){
 		LOG.debug("associado.getCpf() " + associado.getCpf());
 		LOG.debug("Formatador.formatCpf(associado.getCpf()) " + Formatador.formatCpf(associado.getCpf()));
-		return Formatador.formatCpf(associado.getCpf());
+		
+		
+		
+		return formatCpf(associado.getCpf());
 	}
 	
 	public void setConjugeCpf(String cpf){
