@@ -593,6 +593,9 @@
 					<rich:tab id="historicoVinculacoesView" label="Histórico de Vinculações">
 						<jsp:include page="beneficiario/historicoVinculacoesAssociado.jsp"></jsp:include>
 					</rich:tab>
+					<rich:tab id="documentosView" label="Documentos">
+						<jsp:include page="documentosAssociado.jsp"></jsp:include>
+					</rich:tab>
 				</rich:tabPanel>
 					
 				</div>

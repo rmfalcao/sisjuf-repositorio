@@ -30,6 +30,7 @@ import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.ConjugeVO;
 import br.org.asserjuf.sisjuf.associados.DependenteVO;
+import br.org.asserjuf.sisjuf.associados.DocumentoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.EmailVO;
 import br.org.asserjuf.sisjuf.associados.FilhoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
@@ -163,8 +164,13 @@ public class AssociadoPageBean  extends BasePageBean{
 	private VinculacaoPlanoFiltroAssembler 	vinculacaoFiltro;
 
 	private Collection<VinculacaoPlanoVO> 	vinculacoes;
-
+	
 	private VinculacaoPlanoVO 				vinculacao;
+	
+	private Collection<DocumentoAssociadoVO> 	documentos;
+	
+	private DocumentoAssociadoVO 				documento;
+	
 	
 	private transient ConvenioDelegate		convenioDelegate;
 	
@@ -1734,6 +1740,36 @@ public class AssociadoPageBean  extends BasePageBean{
 	public void setVinculacoes(Collection<VinculacaoPlanoVO> vinculacoes) {
 		this.vinculacoes = vinculacoes;
 	}
+	
+	public Collection<DocumentoAssociadoVO> getDocumentos() throws SmartEnvException, SmartAppException {
+		
+		try{
+			if (associado != null && associado.getCodigo() != null){
+				//DocumentoAssociadoVO vo = new DocumentoAssociadoVO();
+				//vo.setAssociado(associado);
+				//return convenioDelegate.findVinculadosPlanoByAssociado(vo);
+				
+			}
+		}catch (Exception e) {
+			tratarExcecao(e);
+		}	
+		
+		DocumentoAssociadoVO doc1 = new DocumentoAssociadoVO();
+		doc1.setNome("Ficha de cadastro");
+		DocumentoAssociadoVO doc2 = new DocumentoAssociadoVO();
+		doc2.setNome("Recibo de IRPF");
+		
+		ArrayList<DocumentoAssociadoVO> docs = new ArrayList<DocumentoAssociadoVO>();
+		docs.add(doc1);
+		docs.add(doc2);
+		
+		return docs;	
+	}
+
+	public void setDocumentos(Collection<DocumentoAssociadoVO> documentos) {
+		this.documentos = documentos;
+	}
+	
 
 	public Collection<PlanoConvenioVO> getPlanos() {
 		return planos;
@@ -1749,6 +1785,14 @@ public class AssociadoPageBean  extends BasePageBean{
 
 	public void setVinculacao(VinculacaoPlanoVO vinculacao) {
 		this.vinculacao = vinculacao;
+	}
+	
+	public DocumentoAssociadoVO getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(DocumentoAssociadoVO documento) {
+		this.documento = documento;
 	}
 
 	public Collection<OutroBeneficiavelVO> getBeneficiarios() {
