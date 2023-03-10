@@ -454,6 +454,9 @@ public class AssociadoPageBean  extends BasePageBean{
 			OutroBeneficiavelVO outroBeneficiavel = new OutroBeneficiavelVO();
 			outroBeneficiavel.setAssociado(associado);
 			associado.setBeneficiarios(delegate.findOutrosBeneficiaveisByAssociado(outroBeneficiavel));
+			
+			
+			
 			return getSucesso();
 		}catch(SmartAppException appEx){
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
@@ -1686,6 +1689,11 @@ public class AssociadoPageBean  extends BasePageBean{
 		LOG.debug("OLHA AI O BENEFICIARIO " + beneficiario.getAssociado().getCodigo());
 	}
 	
+	public void prepararNovoDocumentoAssociado(){
+		this.documento = new DocumentoAssociadoVO();
+		this.vinculacao.setAssociado(associado);
+	}
+	
 	public void prepararNovaVinculacao(){
 		this.vinculacao = new VinculacaoPlanoVO();
 		this.vinculacao.setAssociado(associado);
@@ -1743,17 +1751,21 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public Collection<DocumentoAssociadoVO> getDocumentos() throws SmartEnvException, SmartAppException {
 		
+		Collection documentos = null;
+		
 		try{
 			if (associado != null && associado.getCodigo() != null){
-				//DocumentoAssociadoVO vo = new DocumentoAssociadoVO();
-				//vo.setAssociado(associado);
-				//return convenioDelegate.findVinculadosPlanoByAssociado(vo);
+				
+				documentos = delegate.findDocumentosByAssociado(associado);
 				
 			}
 		}catch (Exception e) {
 			tratarExcecao(e);
 		}	
 		
+		return documentos;
+		
+		/*
 		DocumentoAssociadoVO doc1 = new DocumentoAssociadoVO();
 		doc1.setNome("Ficha de cadastro");
 		DocumentoAssociadoVO doc2 = new DocumentoAssociadoVO();
@@ -1763,7 +1775,8 @@ public class AssociadoPageBean  extends BasePageBean{
 		docs.add(doc1);
 		docs.add(doc2);
 		
-		return docs;	
+		return docs;
+		*/	
 	}
 
 	public void setDocumentos(Collection<DocumentoAssociadoVO> documentos) {

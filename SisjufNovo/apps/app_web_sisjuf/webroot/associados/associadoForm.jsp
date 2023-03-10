@@ -595,6 +595,7 @@
 					</rich:tab>
 					<rich:tab id="documentosView" label="Documentos">
 						<jsp:include page="documentosAssociado.jsp"></jsp:include>
+						<jsp:include page="documentosAssociadoForm.jsp"></jsp:include>
 					</rich:tab>
 				</rich:tabPanel>
 					

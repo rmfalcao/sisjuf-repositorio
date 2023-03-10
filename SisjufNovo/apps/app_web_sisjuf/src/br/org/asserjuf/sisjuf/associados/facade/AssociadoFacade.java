@@ -9,6 +9,8 @@ import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoRN;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
+import br.org.asserjuf.sisjuf.associados.DocumentoAssociadoVO;
+import br.org.asserjuf.sisjuf.associados.DocumentosAssociadoRN;
 import br.org.asserjuf.sisjuf.associados.EmailRN;
 import br.org.asserjuf.sisjuf.associados.EmailVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoRN;
@@ -34,6 +36,7 @@ public class AssociadoFacade {
 	private TipoEventoRN			tipoEventoRN;
 	private VinculacaoPlanoRN		vinculacaoPlanoRN;	
 	private OutrosBeneficiaveisRN	outrosBeneficiaveisRN;
+	private DocumentosAssociadoRN	documentosAssociadoRN;
 	
 	public Collection<AssociadoVO> findAssociadoByFilter(AssociadoFiltroAssembler assembler) throws SmartEnvException, SmartAppException {
 		return associadoRN.findByFilter(assembler);
@@ -138,7 +141,24 @@ public class AssociadoFacade {
 	
 	public OutroBeneficiavelVO insertOutrobeneficiavel(OutroBeneficiavelVO vo) throws SmartEnvException, SmartAppException {							
 		return outrosBeneficiaveisRN.insert(vo);
+	}
+	
+	public DocumentoAssociadoVO insertDocumentoAssociado(DocumentoAssociadoVO vo) throws SmartEnvException, SmartAppException {
+		return documentosAssociadoRN.insert(vo);
+	}
+	
+	public DocumentoAssociadoVO findDocumentoAssociadoByPrimaryKey(DocumentoAssociadoVO vo) throws SmartEnvException, SmartAppException {
+		return documentosAssociadoRN.findByPrimaryKey(vo);
+	}
+	
+	public Collection<DocumentoAssociadoVO> findDocumentosByAssociado(AssociadoVO vo) throws SmartEnvException, SmartAppException {
+		return documentosAssociadoRN.findDocumentosByAssociado(vo);
 	}	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -164,6 +184,10 @@ public class AssociadoFacade {
 
 	public void setVinculacaoPlanoRN(VinculacaoPlanoRN vinculacaoPlanoRN) {
 		this.vinculacaoPlanoRN = vinculacaoPlanoRN;
+	}
+	
+	public void setDocumentosAssociadoRN(DocumentosAssociadoRN documentosAssociadoRN) {
+		this.documentosAssociadoRN = documentosAssociadoRN;
 	}
 
 	public void setOutrosBeneficiaveisRN(OutrosBeneficiaveisRN outrosBeneficiaveisRN) {

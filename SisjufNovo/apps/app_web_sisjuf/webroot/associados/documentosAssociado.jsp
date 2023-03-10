@@ -10,8 +10,10 @@
 <script type="text/javascript">
 	
 	function openModalDocumentoAssociado(){
+		
+		
 		//if (document.getElementById('planoConvenioPesquisa:planoPesquisaForm:CodConvenio').value != ''){
-		Richfaces.showModalPanel('panelDocumentoAssociado',{width:600, top:220 });
+		Richfaces.showModalPanel('panelDocumentosAssociado',{width:600, top:220 });
 	}
 
 	function novoDocumento(){
@@ -42,7 +44,7 @@
 				styleClass="tab_lista_maior" preserveDataModel="true" rowId="#{documentos.codigo}">
 				
 				<f:facet name="footer">
-		            <h:commandLink value="javascript:void(0);" onclick="imprimir();" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" 
+		            <h:commandLink value="" onclick="imprimir();" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" 
 		            	action="#{AssociadoBean.printDocumentosAssociado}"/>
 		        </f:facet>
 				

@@ -10,6 +10,7 @@ import br.org.asserjuf.sisjuf.associados.AssociadoAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
+import br.org.asserjuf.sisjuf.associados.DocumentoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.EmailVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoFiltroAssembler;
@@ -139,4 +140,17 @@ public class AssociadoDelegate  {
 	public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(VinculadoPlanoAssembler vo) throws SmartEnvException, SmartAppException {
 		return associadoBean.findHistoricoVinculadosPlanoByFilter(vo);
 	}
+	
+	public DocumentoAssociadoVO insertDocumentoAssociado(DocumentoAssociadoVO vo) throws SmartEnvException, SmartAppException {
+		return associadoBean.insertDocumentoAssociado(vo);
+	}
+	
+	public DocumentoAssociadoVO findByPrimaryKey(DocumentoAssociadoVO vo) throws SmartEnvException, SmartAppException {
+		return associadoBean.findDocumentoAssociadoByPrimaryKey(vo);
+	}
+	
+	public Collection<DocumentoAssociadoVO> findDocumentosByAssociado(AssociadoVO vo) throws SmartEnvException, SmartAppException {
+		return associadoBean.findDocumentosByAssociado(vo);
+	}
+	
 }
