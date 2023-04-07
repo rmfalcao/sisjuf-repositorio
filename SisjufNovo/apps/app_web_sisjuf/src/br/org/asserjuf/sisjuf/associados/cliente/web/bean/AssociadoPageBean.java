@@ -1876,12 +1876,7 @@ public class AssociadoPageBean  extends BasePageBean{
 				
 			}
 			
-			
-			for(DocumentoAssociadoVO doc : documentos) {
-				System.out.println("=^.^= MIAU =^.^= MIAU =^.^=");
-				System.out.println(doc.getDataDocumento());
-				System.out.println(doc.getDataCriacao());
-			}
+
 			
 		}catch (Exception e) {
 			tratarExcecao(e);
