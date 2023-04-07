@@ -6,8 +6,17 @@
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich"%>
 <%@ taglib prefix="a4j" uri="http://richfaces.org/a4j"%>
 
+<c:url value="/Associados/Documento/Download" var="myUrl">
+  <c:param name="codigo" value="value1" />
+  <c:param name="param2" value="value2" />
+</c:url>
 
 <script type="text/javascript">
+
+	function downloadDocumento(codigo) {
+		window.open('<c:url value="/Associados/Documento/Download"/>?codigo=' + codigo, '_blank');
+		return false;
+	}
 	
 	function openModalDocumentoAssociado(){
 		
@@ -52,8 +61,7 @@
 					<f:facet name="header">
 						<h:outputText value="#{properties['lb_nome']}" />
 					</f:facet>
-					<a4j:commandLink action="#{AssociadoBean.baixarDocumentoAssociado}" oncomplete="openModalDocumentoAssociado();" 
-				    	reRender="documentosAssociadoFormMiolo" value="#{documentos.nome}" immediate="true">
+					<a4j:commandLink value="#{documentos.nome}" onclick="downloadDocumento(#{documentos.codigo});">
 	 				</a4j:commandLink>
 				</t:column>
 				<t:column width="9">

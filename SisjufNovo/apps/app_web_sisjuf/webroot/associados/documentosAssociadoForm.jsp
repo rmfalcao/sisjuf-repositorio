@@ -13,24 +13,7 @@
 		Richfaces.hideModalPanel('panelDocumentosAssociado');
 	}
 
-	function validarCamposObrigatorios(){
-		return confirm('Submeter?');
-	}
-		
-	function xxxxxx(){	
-		var nome = document.getElementById('planoConvenioForm:nome').value;
-		if (nome == null || nome =='' ){
-			alert('Favor preencher o campo nome.' );
-			return false;
-		}
-
-		var valor = document.getElementById('planoConvenioForm:valor').value;
-		if (valor == null || valor =='' ){
-			alert('Favor preencher o campo valor.' );
-			return false;
-		}
-		return true;
-	}
+	
 </script>
 
 <rich:modalPanel id="panelDocumentosAssociado" width="620" height="450">

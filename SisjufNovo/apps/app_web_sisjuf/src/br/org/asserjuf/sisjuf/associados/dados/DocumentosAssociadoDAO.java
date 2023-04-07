@@ -1,6 +1,8 @@
 package br.org.asserjuf.sisjuf.associados.dados;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -62,6 +64,15 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 		}
 	}
 	
+	public static byte[] getBytesFromBinaryStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        return byteArrayOutputStream.toByteArray();
+    }
 	
 	/**
 	 * Obtem um documento de um associado. Tabelas: DOCUMENTOS_ASSOCIADO
@@ -73,8 +84,7 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append("select nom_arquivo from documentos_associado where seq_documento=  ? ");
-		// TODO falta o BLOB
+		sql.append("select nom_arquivo, blob_arquivo from documentos_associado where seq_documento=  ? ");
 		
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -85,11 +95,21 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 			
 			sStmt.setInteger(1, vo.getCodigo());
-			
+						
 			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
-			  
-			return (DocumentoAssociadoVO) sRs.getJavaBean(new DocumentoAssociadoVO(), new String[] {"nomeDoArquivo"});
+
+			DocumentoAssociadoVO documento = new DocumentoAssociadoVO();
+			if (sRs.getMyResultSet().next()) {
+				
+				documento.setNomeDoArquivo(sRs.getString(1));
+				documento.setFileData(getBytesFromBinaryStream(sRs.getMyResultSet().getBinaryStream(2)));
+			
+			}
+			
+			return documento;
 		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} catch (IOException e) {
 			throw new SmartEnvException(e);
 		} finally {
 			sRs.close();
