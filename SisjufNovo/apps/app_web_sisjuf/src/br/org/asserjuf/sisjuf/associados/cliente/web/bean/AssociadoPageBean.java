@@ -1838,14 +1838,23 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public Collection<DocumentoAssociadoVO> getDocumentos() throws SmartEnvException, SmartAppException {
 		
-		Collection documentos = null;
+		Collection<DocumentoAssociadoVO> documentos = null;
 		
 		try{
 			if (associado != null && associado.getCodigo() != null){
 				
 				documentos = delegate.findDocumentosByAssociado(associado);
 				
+				
 			}
+			
+			
+			for(DocumentoAssociadoVO doc : documentos) {
+				System.out.println("=^.^= MIAU =^.^= MIAU =^.^=");
+				System.out.println(doc.getDataDocumento());
+				System.out.println(doc.getDataCriacao());
+			}
+			
 		}catch (Exception e) {
 			tratarExcecao(e);
 		}	
