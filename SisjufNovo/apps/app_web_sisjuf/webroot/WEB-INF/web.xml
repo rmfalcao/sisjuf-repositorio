@@ -255,6 +255,17 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<servlet-name>BancoImpressaoAC</servlet-name>
 		<url-pattern>/Financeiro/Bancos/Imprimir</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>DownloadDocumentoAssociadoAC</servlet-name>
+		<servlet-class>br.org.asserjuf.sisjuf.associados.cliente.web.DownloadDocumentoAssociadoAC</servlet-class>
+		<load-on-startup>-1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DownloadDocumentoAssociadoAC</servlet-name>
+		<url-pattern>/Associados/Documento/Download</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ContaImpressaoAC</servlet-name>

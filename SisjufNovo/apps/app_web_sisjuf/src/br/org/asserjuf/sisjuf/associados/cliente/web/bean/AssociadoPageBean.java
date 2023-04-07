@@ -3,6 +3,9 @@ package br.org.asserjuf.sisjuf.associados.cliente.web.bean;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.ConjugeVO;
 import br.org.asserjuf.sisjuf.associados.DependenteVO;
+import br.org.asserjuf.sisjuf.associados.DocumentoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.EmailVO;
 import br.org.asserjuf.sisjuf.associados.FilhoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
@@ -163,8 +167,13 @@ public class AssociadoPageBean  extends BasePageBean{
 	private VinculacaoPlanoFiltroAssembler 	vinculacaoFiltro;
 
 	private Collection<VinculacaoPlanoVO> 	vinculacoes;
-
+	
 	private VinculacaoPlanoVO 				vinculacao;
+	
+	private Collection<DocumentoAssociadoVO> 	documentos;
+	
+	private DocumentoAssociadoVO 				documento;
+	
 	
 	private transient ConvenioDelegate		convenioDelegate;
 	
@@ -221,6 +230,9 @@ public class AssociadoPageBean  extends BasePageBean{
 			 this.vinculacao.setPlano(new PlanoConvenioVO());
 			 this.vinculacao.getPlano().setConvenio(new ConvenioVO());
 			 this.vinculacao.setAssociado(new AssociadoVO());
+			 
+			 this.documento = new DocumentoAssociadoVO();
+			 this.documento.setAssociado(new AssociadoVO());
 			 
 			 historicoVinculacoes = new ArrayList<VinculadoPlanoAssembler>();
 			 historicoVinculacaoFiltro = new VinculadoPlanoAssembler();
@@ -396,6 +408,87 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
+	public static byte[] readFileToByteArray(File file) throws IOException {
+        return Files.readAllBytes(file.toPath());
+    }
+	
+	public String salvarDocumento() {
+		
+		// neste momento ano haverah logica de atualizacao (update), somente insercao.
+		
+		if (data.isEmpty()) {
+			
+			SmartAppException appEx = new SmartAppException("Selecione o arquivo desejado.");
+			
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}
+		
+		try {
+			//documento.setFileData(((UploadItem)data.get(0)).getData());
+			//System.out.println(">>>>>>>>>>>>>> " + (((UploadItem)data.get(0)).getData()==null?"getData eh NULO!":"getData nao nulo"));
+			HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+			documento.setFileData(readFileToByteArray(new File((String)sessao.getAttribute("FILE_PATH"))));
+			
+			
+			
+			documento.setNomeDoArquivo(((UploadItem)data.get(0)).getFileName());
+			delegate.insertDocumentoAssociado(documento);
+			FacesMessage msgs = new FacesMessage("Registro Atualizado com sucesso.");
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			
+			data.clear();
+			
+			return getSucesso();
+			
+		} catch (SmartEnvException envEx) {
+			
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", envEx);
+			
+			data.clear();
+			
+			return "falha";
+			
+
+			
+		} catch (SmartAppException appEx) {
+
+			
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			
+			data.clear();
+			
+			return "falha";
+			
+		} catch (IOException e) {
+			
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", e);
+			
+			data.clear();
+			
+			return "falha";
+			
+		}
+		
+
+	}
+	
+	
 	public String salvarVinculacao(){
 		try {
 			if (this.vinculacao.getCodigo() != null && this.vinculacao.getCodigo().intValue() > 0){
@@ -448,6 +541,9 @@ public class AssociadoPageBean  extends BasePageBean{
 			OutroBeneficiavelVO outroBeneficiavel = new OutroBeneficiavelVO();
 			outroBeneficiavel.setAssociado(associado);
 			associado.setBeneficiarios(delegate.findOutrosBeneficiaveisByAssociado(outroBeneficiavel));
+			
+			
+			
 			return getSucesso();
 		}catch(SmartAppException appEx){
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
@@ -1708,6 +1804,11 @@ public class AssociadoPageBean  extends BasePageBean{
 		LOG.debug("OLHA AI O BENEFICIARIO " + beneficiario.getAssociado().getCodigo());
 	}
 	
+	public void prepararNovoDocumentoAssociado(){
+		this.documento = new DocumentoAssociadoVO();
+		this.documento.setAssociado(associado);
+	}
+	
 	public void prepararNovaVinculacao(){
 		this.vinculacao = new VinculacaoPlanoVO();
 		this.vinculacao.setAssociado(associado);
@@ -1762,6 +1863,50 @@ public class AssociadoPageBean  extends BasePageBean{
 	public void setVinculacoes(Collection<VinculacaoPlanoVO> vinculacoes) {
 		this.vinculacoes = vinculacoes;
 	}
+	
+	public Collection<DocumentoAssociadoVO> getDocumentos() throws SmartEnvException, SmartAppException {
+		
+		Collection<DocumentoAssociadoVO> documentos = null;
+		
+		try{
+			if (associado != null && associado.getCodigo() != null){
+				
+				documentos = delegate.findDocumentosByAssociado(associado);
+				
+				
+			}
+			
+			
+			for(DocumentoAssociadoVO doc : documentos) {
+				System.out.println("=^.^= MIAU =^.^= MIAU =^.^=");
+				System.out.println(doc.getDataDocumento());
+				System.out.println(doc.getDataCriacao());
+			}
+			
+		}catch (Exception e) {
+			tratarExcecao(e);
+		}	
+		
+		return documentos;
+		
+		/*
+		DocumentoAssociadoVO doc1 = new DocumentoAssociadoVO();
+		doc1.setNome("Ficha de cadastro");
+		DocumentoAssociadoVO doc2 = new DocumentoAssociadoVO();
+		doc2.setNome("Recibo de IRPF");
+		
+		ArrayList<DocumentoAssociadoVO> docs = new ArrayList<DocumentoAssociadoVO>();
+		docs.add(doc1);
+		docs.add(doc2);
+		
+		return docs;
+		*/	
+	}
+
+	public void setDocumentos(Collection<DocumentoAssociadoVO> documentos) {
+		this.documentos = documentos;
+	}
+	
 
 	public Collection<PlanoConvenioVO> getPlanos() {
 		return planos;
@@ -1777,6 +1922,14 @@ public class AssociadoPageBean  extends BasePageBean{
 
 	public void setVinculacao(VinculacaoPlanoVO vinculacao) {
 		this.vinculacao = vinculacao;
+	}
+	
+	public DocumentoAssociadoVO getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(DocumentoAssociadoVO documento) {
+		this.documento = documento;
 	}
 
 	public Collection<OutroBeneficiavelVO> getBeneficiarios() {

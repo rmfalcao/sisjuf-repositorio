@@ -43,7 +43,8 @@
 		<property name="parentescoRN"><ref bean="parentescoRN"/></property>
 		<property name="tipoEventoRN"><ref bean="tipoEventoRN"/></property>
 		<property name="outrosBeneficiaveisRN"><ref bean="outrosBeneficiaveisRN"/></property>
-		<property name="vinculacaoPlanoRN"><ref bean="vinculacaoPlanoRN"/></property>		
+		<property name="vinculacaoPlanoRN"><ref bean="vinculacaoPlanoRN"/></property>
+		<property name="documentosAssociadoRN"><ref bean="documentosAssociadoRN"/></property>		
 	</bean>
 
 	<bean id="entidadesComunsBean" class="br.org.asserjuf.sisjuf.entidadesComuns.facade.EntidadesComunsFacade">
@@ -106,6 +107,10 @@
 	<bean id="vinculacaoPlanoRN" class="br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoRN">
 		<property name="vinculacaoPlanoDAO"><ref bean="vinculacaoPlanoDAO"/></property>
 	</bean>	
+	
+	<bean id="documentosAssociadoRN" class="br.org.asserjuf.sisjuf.associados.DocumentosAssociadoRN">
+		<property name="documentosAssociadoDAO"><ref bean="documentosAssociadoDAO"/></property>
+	</bean>
 	
 	<bean id="planoConvenioRN" class="br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioRN">
 		<property name="planoConvenioDAO"><ref bean="planoConvenioDAO"/></property>
@@ -251,6 +256,10 @@
 	<bean id="vinculacaoPlanoDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.VinculacaoPlanoDAO">
 		<property name="dataSource"><ref bean="dataSource"/></property>
 	</bean>	
+	
+	<bean id="documentosAssociadoDAO" class="br.org.asserjuf.sisjuf.associados.dados.DocumentosAssociadoDAO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
 	
 	<bean id="planoConvenioDAO" class="br.org.asserjuf.sisjuf.associados.convenio.dados.PlanoConvenioDAO">
 		<property name="dataSource"><ref bean="dataSource"/></property>
