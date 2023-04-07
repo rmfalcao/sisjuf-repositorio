@@ -1,5 +1,7 @@
 package br.org.asserjuf.sisjuf.associados.dados;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -30,8 +32,8 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 	public DocumentoAssociadoVO insert(DocumentoAssociadoVO vo) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO DOCUMENTOS_ASSOCIADO ( SEQ_DOCUMENTO, SEQ_ASSOCIADO, NOM_DOCUMENTO, DAT_DOCUMENTO, NOM_ARQUIVO,  SEQ_USUARIO_CRIACAO) "); 
-		sql.append("VALUES(?,?,?,?,?,?)");
+		sql.append("INSERT INTO DOCUMENTOS_ASSOCIADO ( SEQ_DOCUMENTO, SEQ_ASSOCIADO, NOM_DOCUMENTO, DAT_DOCUMENTO, NOM_ARQUIVO,  SEQ_USUARIO_CRIACAO, BLOB_ARQUIVO) "); 
+		sql.append("VALUES(?,?,?,?,?,?,?)");
 		// TODO falta o BLOB
 		
 		SmartConnection 		sConn 	= null;
@@ -45,6 +47,8 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 			vo.setCodigo(new Integer(getSequence("SEQ_DOCUMENTO").intValue()));
 						
 			sStmt.setParameters(vo, new String[]{"codigo", "associado.codigo","nome","dataDocumento","nomeDoArquivo","associado.codigo"});
+			InputStream inputStream = new ByteArrayInputStream(vo.getFileData());
+			sStmt.getMyPreparedStatement().setBinaryStream(7, inputStream, vo.getFileData().length);
 						
 			sStmt.getMyPreparedStatement().execute();
 			

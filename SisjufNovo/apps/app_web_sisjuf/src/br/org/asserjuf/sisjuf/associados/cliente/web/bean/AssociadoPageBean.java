@@ -3,6 +3,9 @@ package br.org.asserjuf.sisjuf.associados.cliente.web.bean;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -405,6 +408,9 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
+	public static byte[] readFileToByteArray(File file) throws IOException {
+        return Files.readAllBytes(file.toPath());
+    }
 	
 	public String salvarDocumento() {
 		
@@ -422,6 +428,12 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 		
 		try {
+			//documento.setFileData(((UploadItem)data.get(0)).getData());
+			//System.out.println(">>>>>>>>>>>>>> " + (((UploadItem)data.get(0)).getData()==null?"getData eh NULO!":"getData nao nulo"));
+			HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+			documento.setFileData(readFileToByteArray(new File((String)sessao.getAttribute("FILE_PATH"))));
+			
+			
 			
 			documento.setNomeDoArquivo(((UploadItem)data.get(0)).getFileName());
 			delegate.insertDocumentoAssociado(documento);
@@ -459,7 +471,20 @@ public class AssociadoPageBean  extends BasePageBean{
 			
 			return "falha";
 			
+		} catch (IOException e) {
+			
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", e);
+			
+			data.clear();
+			
+			return "falha";
+			
 		}
+		
 
 	}
 	
