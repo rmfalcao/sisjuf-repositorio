@@ -13,7 +13,7 @@
 		
 		
 		//if (document.getElementById('planoConvenioPesquisa:planoPesquisaForm:CodConvenio').value != ''){
-		Richfaces.showModalPanel('panelDocumentosAssociado',{width:600, top:220 });
+		Richfaces.showModalPanel('panelDocumentosAssociado',{width:600, top:200 });
 	}
 
 	function novoDocumento(){
@@ -34,7 +34,7 @@
 		<a4j:keepAlive beanName="AssociadoBean" />
 		<t:div id="div_associadodocumentosPesquisa" styleClass="conteudo">&nbsp;
 			<h2>Lista de Documentos</h2>
-			<a4j:commandButton oncomplete="openModalDocumentoAssociado();" action="#{AssociadoBean.prepararNovoDocumentoAssociado}" reRender="documentoAssociadoFormMiolo" styleClass="botao_novo" 
+			<a4j:commandButton oncomplete="openModalDocumentoAssociado();" action="#{AssociadoBean.prepararNovoDocumentoAssociado}" reRender="documentosAssociadoFormMiolo" styleClass="botao_novo" 
 		    	value="novo" onclick="if (document.getElementById('associadoForm:codigo').value == ''){ novoDocumento(); return false;}"/>
 	
 			<t:messages id="msgs" showDetail="true" showSummary="false"
@@ -53,7 +53,7 @@
 						<h:outputText value="#{properties['lb_nome']}" />
 					</f:facet>
 					<a4j:commandLink action="#{AssociadoBean.baixarDocumentoAssociado}" oncomplete="openModalDocumentoAssociado();" 
-				    	reRender="documentoAssociadoFormMiolo" value="#{documentos.nome}" immediate="true">
+				    	reRender="documentosAssociadoFormMiolo" value="#{documentos.nome}" immediate="true">
 	 				</a4j:commandLink>
 				</t:column>
 				<t:column width="9">

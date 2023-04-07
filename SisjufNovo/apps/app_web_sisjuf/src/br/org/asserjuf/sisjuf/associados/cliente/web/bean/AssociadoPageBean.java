@@ -228,6 +228,9 @@ public class AssociadoPageBean  extends BasePageBean{
 			 this.vinculacao.getPlano().setConvenio(new ConvenioVO());
 			 this.vinculacao.setAssociado(new AssociadoVO());
 			 
+			 this.documento = new DocumentoAssociadoVO();
+			 this.documento.setAssociado(new AssociadoVO());
+			 
 			 historicoVinculacoes = new ArrayList<VinculadoPlanoAssembler>();
 			 historicoVinculacaoFiltro = new VinculadoPlanoAssembler();
 			 historicoVinculacaoFiltro.setAssociado(associado);
@@ -401,6 +404,65 @@ public class AssociadoPageBean  extends BasePageBean{
 			return "falha";
 		}
 	}
+	
+	
+	public String salvarDocumento() {
+		
+		// neste momento ano haverah logica de atualizacao (update), somente insercao.
+		
+		if (data.isEmpty()) {
+			
+			SmartAppException appEx = new SmartAppException("Selecione o arquivo desejado.");
+			
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}
+		
+		try {
+			
+			documento.setNomeDoArquivo(((UploadItem)data.get(0)).getFileName());
+			delegate.insertDocumentoAssociado(documento);
+			FacesMessage msgs = new FacesMessage("Registro Atualizado com sucesso.");
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			
+			data.clear();
+			
+			return getSucesso();
+			
+		} catch (SmartEnvException envEx) {
+			
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", envEx);
+			
+			data.clear();
+			
+			return "falha";
+			
+
+			
+		} catch (SmartAppException appEx) {
+
+			
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			
+			data.clear();
+			
+			return "falha";
+			
+		}
+
+	}
+	
 	
 	public String salvarVinculacao(){
 		try {
@@ -1691,7 +1753,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public void prepararNovoDocumentoAssociado(){
 		this.documento = new DocumentoAssociadoVO();
-		this.vinculacao.setAssociado(associado);
+		this.documento.setAssociado(associado);
 	}
 	
 	public void prepararNovaVinculacao(){

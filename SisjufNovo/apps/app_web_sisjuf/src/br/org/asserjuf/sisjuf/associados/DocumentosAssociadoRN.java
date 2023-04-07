@@ -27,11 +27,31 @@ public class DocumentosAssociadoRN {
 	
 	
 	public DocumentoAssociadoVO insert(DocumentoAssociadoVO vo) throws SmartEnvException, SmartAppException {
+		
+		validarCamposObrigatorios(vo);
+		
 		return documentosAssociadoDAO.insert(vo);
 	}		
 	
 	
 	
+	private void validarCamposObrigatorios(DocumentoAssociadoVO vo) throws SmartAppException {
+		if (vo.getNomeDoArquivo() == null || "".equals(vo.getNomeDoArquivo())) {
+			throw new SmartAppException("Nome do arquivo não encontrado.");
+		}
+		
+		if (vo.getDataDocumento() == null) {
+			throw new SmartAppException("Informe a data do documento.");
+		}
+		
+		if (vo.getNome() == null || "".equals(vo.getNome())) {
+			throw new SmartAppException("Informe o nome do documento.");
+		}
+		
+		
+	}
+
+
 	public DocumentoAssociadoVO findByPrimaryKey(DocumentoAssociadoVO vo) throws SmartEnvException, SmartAppException {
 		return documentosAssociadoDAO.findByPrimaryKey(vo);		
 	}	

@@ -31,7 +31,7 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("INSERT INTO DOCUMENTOS_ASSOCIADO ( SEQ_DOCUMENTO, SEQ_ASSOCIADO, NOM_DOCUMENTO, DAT_DOCUMENTO, NOM_ARQUIVO,  SEQ_USUARIO_CRIACAO) "); 
-		sql.append("VALUES(?,?,?,?,?,?,?)");
+		sql.append("VALUES(?,?,?,?,?,?)");
 		// TODO falta o BLOB
 		
 		SmartConnection 		sConn 	= null;

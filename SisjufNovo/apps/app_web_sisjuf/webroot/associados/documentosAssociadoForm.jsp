@@ -9,11 +9,15 @@
 
 <script type="text/javascript">
 
-	function closeVinculacaoModal(){
+	function closeDocumentosModal(){
 		Richfaces.hideModalPanel('panelDocumentosAssociado');
 	}
 
 	function validarCamposObrigatorios(){
+		return confirm('Submeter?');
+	}
+		
+	function xxxxxx(){	
 		var nome = document.getElementById('planoConvenioForm:nome').value;
 		if (nome == null || nome =='' ){
 			alert('Favor preencher o campo nome.' );
@@ -29,7 +33,7 @@
 	}
 </script>
 
-<rich:modalPanel id="panelDocumentosAssociado" width="620" height="410">
+<rich:modalPanel id="panelDocumentosAssociado" width="620" height="450">
 
 	<f:facet name="header">
 		<h:panelGroup><h:outputText value="Upload de Documento de Associado"></h:outputText></h:panelGroup>
@@ -81,19 +85,19 @@
 				</tbody>
 			</table>
 			<br />
-			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{AssociadoBean.salvarVinculacao}"  reRender="div_associadovinculacaoPesquisa" 
-				oncomplete="closeVinculacaoModal();" onclick="#{rich:component('confirmation')}.show();return false" />
-			<h:inputHidden id="VAssociado" value="#{AssociadoBean.vinculacao.associado.codigo}"/>
+			<a4j:commandButton id="salvar" styleClass="botao_salvar" action="#{AssociadoBean.salvarDocumento}"  reRender="div_associadodocumentosPesquisa" 
+				oncomplete="closeDocumentosModal();" onclick="#{rich:component('confirmation_doc')}.show();return false" />
+			<h:inputHidden id="VAssociado" value="#{AssociadoBean.documento.associado.codigo}"/>
 		</t:div>
-		<rich:modalPanel id="confirmation" width="250" height="150">
+		<rich:modalPanel id="confirmation_doc" width="250" height="150">
 			   <f:facet name="header">Confirmação</f:facet>
 			   <h:panelGrid>
 			      <h:panelGrid columns="1">
 				 	<h:outputText value="Deseja confirmar a ação?" style="FONT-SIZE: large;" />
 			      </h:panelGrid>
 			      <h:panelGroup>
-			      		<a4j:commandButton  value="Salvar" action="#{AssociadoBean.salvarVinculacao}"  reRender="div_associadovinculacaoPesquisa" oncomplete="#{rich:component('confirmation')}.hide();closeVinculacaoModal();"/>
-			            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation')}.hide();return false" />
+			      		<a4j:commandButton  value="Salvar" action="#{AssociadoBean.salvarDocumento}"  reRender="div_associadodocumentosPesquisa" oncomplete="#{rich:component('confirmation_doc')}.hide();closeDocumentosModal();"/>
+			            <a4j:commandButton  value="Cancelar" onclick="#{rich:component('confirmation_doc')}.hide();return false" />
 				  </h:panelGroup>
 			   </h:panelGrid>
 			</rich:modalPanel>
