@@ -62,8 +62,41 @@ public class ExtratoImpressaoAC extends FrameworkServlet {
 		
 		request.setAttribute("nomeUsuario", usuarioVO.getNome());
 		request.setAttribute("nomeDiretor", extratoAssembler.getDiretorFinanceiroVO()==null?"":extratoAssembler.getDiretorFinanceiroVO().getNome());
+		request.setAttribute("descricaoCompletaConta", getDescricaoCompletaConta(extratoAssembler));
 
 		request.getRequestDispatcher("/financeiro/extratoPrint.jsp").forward(request, response);
+	}
+
+	private String getDescricaoCompletaConta(ExtratoAssembler extratoAssembler) {
+		
+		StringBuffer descricaoCompletaConta = new StringBuffer();
+		
+		try {
+		
+			
+			if ("S".equals(extratoAssembler.getContaBanco().getFlgContaCaixa())) {
+				descricaoCompletaConta.append(extratoAssembler.getContaBanco().getNome());
+			} else {
+				descricaoCompletaConta.append(extratoAssembler.getContaBanco().getBancoVO().getSigla())
+				.append(" - Agência: ")
+				.append(extratoAssembler.getContaBanco().getNumAgencia());
+
+				if (extratoAssembler.getContaBanco().getDigAgencia() != null && !"".equals(extratoAssembler.getContaBanco().getDigAgencia().trim())) {
+					descricaoCompletaConta.append("-").append(extratoAssembler.getContaBanco().getDigAgencia());
+				}
+				
+				descricaoCompletaConta.append(", ")
+				.append(extratoAssembler.getContaBanco().getTipoContaVO().getDescricao()).append(": ")
+				.append(extratoAssembler.getContaBanco().getNumConta()).append("-").append(extratoAssembler.getContaBanco().getDigConta())
+				;		
+			}
+			
+		
+		} catch (NullPointerException e) {
+			descricaoCompletaConta.append("(Não foi possível identificar a conta. Contate o administrador do SISJUF)");
+		}
+		
+		return descricaoCompletaConta.toString();
 	}
 
 	protected void initFrameworkServlet() throws ServletException, BeansException {

@@ -242,6 +242,7 @@ public class ContaRN {
 		saldoAssembler.setContaVO(assembler.getContaVO()); 
 		saldoAssembler.setData(assembler.getDataInicial());
 		
+		extratoAssembler.setContaBanco(this.findByPrimaryKey(assembler.getContaVO()));
 		extratoAssembler.setSaldoInicial(contaDAO.obterSaldo(saldoAssembler).getSaldo());
 		
 		extratoAssembler.setBaixaLancamento(contaDAO.obterLancamentos(assembler));

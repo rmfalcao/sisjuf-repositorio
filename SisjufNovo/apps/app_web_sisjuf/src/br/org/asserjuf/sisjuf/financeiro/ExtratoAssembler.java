@@ -10,6 +10,20 @@ import java.util.Collection;
  */
 public class ExtratoAssembler {
 
+	
+	/**
+	 * Conta do extrato
+	 */
+	private ContaBancoVO		contaBanco;
+	
+	public ContaBancoVO getContaBanco() {
+		return contaBanco;
+	}
+
+	public void setContaBanco(ContaBancoVO contaBanco) {
+		this.contaBanco = contaBanco;
+	}
+
 	/**
 	 * Saldo da conta no início do período do extrato.
 	 */

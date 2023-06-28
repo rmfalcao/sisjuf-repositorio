@@ -16,11 +16,15 @@
 			<span>
 				<h1>Impressão de extrato</h1>
 				<!-- Esses dados são vocês que irão determinar o que será exibido -->
+				<b>Conta: ${descricaoCompletaConta}</b>
+				<br />
 				Data de impressão: <fmt:formatDate value="${now}" pattern="dd/MM/yyyy"/>
 				<br />
 				Operador: ${nomeUsuario}
 				<br />
 				Diretoria financeira: ${nomeDiretor}
+				
+				
 			</span>
 		</div>
 		<table class="tabela_extrato" cellpadding="1" cellspacing="1">
