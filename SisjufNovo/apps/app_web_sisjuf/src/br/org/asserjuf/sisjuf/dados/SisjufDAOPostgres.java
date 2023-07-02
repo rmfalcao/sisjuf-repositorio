@@ -67,11 +67,7 @@ public abstract class SisjufDAOPostgres extends JdbcDaoSupport {
 	 */
 	public Connection getConn() throws SmartEnvException {
 		
-		/*
-		 * A versão final desta classe só deve ter a linha abaixo
-		 * descomentada, o try catch que segue é somente por causa
-		 * do JUnit
-		 * */
+
 		
 		try {
 			return this.getDataSource().getConnection();
@@ -80,28 +76,7 @@ public abstract class SisjufDAOPostgres extends JdbcDaoSupport {
 		}
 		
 		
-		// Comentar tudo abaixo
-		
-		/*
-		    //String connectionURLThin  = "jdbc:postgresql://10.0.0.11:5432/bd_asserjuf";
-			String connectionURLThin  	= "jdbc:postgresql://localhost:5432/bd_asserjuf";
-			
-			//String userID             = "admin_asserjuf";
-			String userID			  	= "postgres";
-			
-			//String userPassword       = "asserjuf123";
-			String userPassword			= "elefante10";
-		   
-		    try {
-			    
-			    DriverManager.registerDriver(new org.postgresql.Driver());
-	            return DriverManager.getConnection(connectionURLThin, userID, userPassword);
-		    
-		    } catch (SQLException ex) {
-		    	throw new SmartEnvException(ex);
-		    }
-		  
-		    */
+
 		
 	}
 
