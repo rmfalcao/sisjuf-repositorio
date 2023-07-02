@@ -2,6 +2,12 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>	
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+	</bean>
+
+
 	<bean id="convenioDelegate" class="br.org.asserjuf.sisjuf.associados.convenio.cliente.ConvenioDelegate">
 		<property name="convenioBean"><ref bean="convenioBean"/></property>
 		<property name="entidadesComunsBean"><ref bean="entidadesComunsBean"/></property>		
@@ -409,26 +415,11 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		
-		
-		<!-- DESENV 
-		<property name="url" value="jdbc:postgresql://localhost:5433/sisjuf" />
-		<property name="username" value="postgres" />
-		<property name="password" value="sa102101" /> -->
-
-		<!-- <property name="url" value="jdbc:postgresql://localhost:5432/sisjuf" /> -->
-		
-		<!--
-		<property name="url" value="jdbc:postgresql://localhost:5432/sisjuf_homol" />
-		<property name="username" value="postgres" />
-		<property name="password" value="123" />
-		-->
-	
-		<!--  PROD -->
-
 		 
 		<property name="url" value="jdbc:postgresql://localhost:5432/juriwebsisjuf" />
-		<property name="username" value="juriwebsisjuf2" />
-		<property name="password" value="gkug976f"/>
+		<property name="username" value="${userDBSisjuf}" />
+		<property name="password" value="${pwdDBSisjuf}"/>
+		
 		
 		
 		
