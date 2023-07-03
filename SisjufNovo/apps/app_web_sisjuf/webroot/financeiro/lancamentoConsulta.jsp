@@ -15,7 +15,7 @@
 		<head>
 			<title>SISJUF - Sistema ASSERJUF</title>
 			<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-			<link href="<c:url value="/nucleo/style/sisjuf.css"/>" type="text/css" rel="stylesheet" />
+			<link href="<c:url value="/nucleo/style/sisjuf.css?v=2"/>" type="text/css" rel="stylesheet" />
 			<link rel="Shortcut Icon" type="image/png" href="<c:url value="/nucleo/images/icone.png"/>">
 			<script src="<c:url value="/nucleo/js/sisjuf.js" />" type="text/javascript"></script>
 			<script>
@@ -290,6 +290,16 @@
 									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
 								</t:commandLink>
 							</t:column>
+
+							<t:column width="20">
+								<f:facet name="header">
+								
+								</f:facet>
+								<t:commandLink action="#{LancamentoBean.editar}" title="#{properties['lb_alterar']}" immediate="true" id="editar" 
+									onclick="setAcao(document.forms[1], 'Edita_Lancamento')" styleClass="botao_editar">
+									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
+								</t:commandLink>
+							</t:column>
 							
 							<t:column width="20">
 								<f:facet name="header">
@@ -300,6 +310,8 @@
 									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
 								</t:commandLink>
 							</t:column>
+							
+
 							
 							<!-- t:column>
 								< t : panelGroup>

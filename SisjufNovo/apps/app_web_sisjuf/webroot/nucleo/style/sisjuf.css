@@ -279,18 +279,17 @@ margin-top:5px;
 
 /* --------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------ BOTOES LISTA ------- */
-/*
+
 .botao_editar span{visibility:hidden;}
 .botao_editar{
 display:block;
 width:15px;
 height:15px;
 background:url(../images/botao_editar.gif) no-repeat;
-float:left;
 font-size:1px;
-margin-left:1px;
+text-decoration:none;
 }
-*/
+
 .botao_excluir span{visibility:hidden;}
 .botao_excluir{
 display:block;
@@ -390,7 +389,7 @@ padding-left:25px;
 }
 
 
-/* *************************** Mudanças de Fernando *************************** */
+/* *************************** Mudanï¿½as de Fernando *************************** */
 
 .baseTabela{
 	background-color:#CCCCCC;
