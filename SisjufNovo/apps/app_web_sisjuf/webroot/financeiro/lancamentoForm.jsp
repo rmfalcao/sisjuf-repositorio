@@ -103,7 +103,14 @@
 				<h:form id="LancamentoForm">
 					<div id="miolo">
 						<h1>Módulo Financeiro</h1>
-						<h2>Efetuar Lançamento</h2>
+						<c:choose>
+							<c:when test="${empty LancamentoBean.lancamento.codigo}">
+								<h2>Efetuar Lançamento</h2>
+							</c:when>
+							<c:otherwise>
+								<h2>Alterar Lançamento</h2>
+							</c:otherwise>
+						</c:choose>
 						<t:messages id="msgs" showDetail="true" showSummary="false" errorClass="textoMsgErro" infoClass="textoMsgInfo"/>
 						<table class="tab_cadastro" cellpadding="2" cellspacing="1">
 							<thead>
@@ -224,7 +231,10 @@
 						<br />
 						<t:commandLink action="#{LancamentoBean.salvar}" title="#{properties['lb_salvar']}" id="salvar" styleClass="botao_salvar"
 							onclick="setAcao(document.forms[0], 'Salva_Lancamento');">
+							
 							<h:outputText value="#{properties['lb_salvar']}" />
+							
+							
 						</t:commandLink>
 						
 					</div>

@@ -798,6 +798,18 @@
 		</navigation-case>
 		
 		<navigation-case>
+			<from-action>#{LancamentoBean.detalhar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/financeiro/lancamentoForm.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{LancamentoBean.detalhar}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/financeiro/lancamentoConsulta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
 			<from-action>#{LancamentoBean.baixar}</from-action>
 			<from-outcome>sucesso</from-outcome>
 			<to-view-id>/financeiro/baixarForm.jsp</to-view-id>

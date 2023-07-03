@@ -295,8 +295,8 @@
 								<f:facet name="header">
 								
 								</f:facet>
-								<t:commandLink action="#{LancamentoBean.editar}" title="#{properties['lb_alterar']}" immediate="true" id="editar" 
-									onclick="setAcao(document.forms[1], 'Edita_Lancamento')" styleClass="botao_editar">
+								<t:commandLink action="#{LancamentoBean.detalhar}" title="#{properties['lb_alterar']}" immediate="true" id="detalhar" 
+									onclick="setAcao(document.forms[1], 'Detalha_Lancamento')" styleClass="botao_editar">
 									<t:updateActionListener property="#{LancamentoBean.lancamento.codigo}" value="#{lancamentos.codigo}" />
 								</t:commandLink>
 							</t:column>
