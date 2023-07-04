@@ -392,6 +392,7 @@ public class LancamentoPageBean extends BasePageBean {
 			delegate.estornarLancamento(lancamento);
 			
 			return this.salvar();
+			
 		}catch(SmartAppException appEx){
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
 			FacesContext facesContext =  FacesContext.getCurrentInstance();

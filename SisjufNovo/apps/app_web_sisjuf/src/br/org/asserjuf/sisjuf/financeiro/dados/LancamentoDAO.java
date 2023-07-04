@@ -408,7 +408,7 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 							.append("bl.seq_forma_pagamento,bl.des_banco_cheque_baixa_lancamento,bl.num_agencia_cheque_baixa_lancamento,bl.dig_agencia_cheque_baixa_lancamento,bl.num_conta_cheque_baixa_lancamento,bl.dig_conta_cheque_baixa_lancamento,bl.num_cheque_baixa_lancamento  ")
 							.append("from lancamento l ")
 							.append(" LEFT JOIN baixa_lancamento bl on l.seq_lancamento = bl.seq_lancamento ")
-							.append(" where l.seq_lancamento = ?");
+							.append(" where l.seq_lancamento = ? ");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;

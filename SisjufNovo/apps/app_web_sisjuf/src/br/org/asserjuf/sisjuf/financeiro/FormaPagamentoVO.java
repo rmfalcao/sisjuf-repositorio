@@ -26,6 +26,7 @@ public class FormaPagamentoVO  implements Serializable {
 	
 	public FormaPagamentoVO(Integer codigo) {
 		this.codigo = codigo;
+		
 	}
 
 	/**
