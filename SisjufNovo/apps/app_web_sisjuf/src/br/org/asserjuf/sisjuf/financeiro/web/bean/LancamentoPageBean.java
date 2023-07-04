@@ -362,6 +362,13 @@ public class LancamentoPageBean extends BasePageBean {
 			}
 			setLancamento(lancamentoASerDetalhado);
 			
+			
+			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("detalhaLancamento", true);
+			
+			FacesMessage msgs = new FacesMessage("ATENÇÃO: você está na tela de alteração de lançamento. Ao clicar em Salvar, o lançamento original será estornado e um novo lançamento será efetuado com os novos dados informados.");
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+						
+			
 			return getSucesso();
 			
 		}catch(SmartAppException appEx){

@@ -104,7 +104,7 @@
 					<div id="miolo">
 						<h1>Módulo Financeiro</h1>
 						<c:choose>
-							<c:when test="${empty LancamentoBean.lancamento.codigo}">
+							<c:when test="${empty detalhaLancamento}">
 								<h2>Efetuar Lançamento</h2>
 							</c:when>
 							<c:otherwise>
@@ -231,7 +231,7 @@
 						<br />
 						
 						<c:choose>
-							<c:when test="${empty LancamentoBean.lancamento.codigo}">
+							<c:when test="${empty detalhaLancamento}"> 
 								<t:commandLink action="#{LancamentoBean.salvar}" title="#{properties['lb_salvar']}" id="salvar" styleClass="botao_salvar"
 									onclick="setAcao(document.forms[0], 'Salva_Lancamento');">
 							
