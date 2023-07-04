@@ -355,9 +355,13 @@ public class LancamentoPageBean extends BasePageBean {
 	public String detalhar() {
 		
 		try {
-			setLancamento(delegate.findLancamentoByPrimaryKey(lancamento));
-			FacesMessage msgs = new FacesMessage("ATENÇÃO: Nesta tela você poderá alterar o lançamento. Ao clicar em Salvar, o lançamento original será estornado e um novo lançamento será criado.");
-			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			
+			LancamentoVO lancamentoASerDetalhado = delegate.findLancamentoByPrimaryKey(lancamento);
+			if (lancamentoASerDetalhado.getValor()<0) {
+				lancamentoASerDetalhado.setValor(lancamentoASerDetalhado.getValor()*-1); // na interface nao aparece o sinal do valor do lancamento; a regra de negocio cuida de setar o sinal a depender do tipo de operacao.
+			}
+			setLancamento(lancamentoASerDetalhado);
+			
 			return getSucesso();
 			
 		}catch(SmartAppException appEx){
@@ -383,15 +387,42 @@ public class LancamentoPageBean extends BasePageBean {
 	}
 	
 	
+	public String alterar() {
+		try{
+			delegate.estornarLancamento(lancamento);
+			
+			return this.salvar();
+		}catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", envEx);
+			return "falha";
+		}catch(Exception e){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			LOG.error("Error ", e);
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
+		}
+	}
+	
 	/**
-	 * Exclui um lanï¿½amento.
-	 * @return Mensagem pï¿½s-operaï¿½ï¿½o.
+	 * Exclui um lancamento.
+	 * @return Mensagem pos operacao
 	 */
 	public String remover(){
 		try{
 			delegate.estornarLancamento(lancamento);
 			this.consultar();
-			FacesMessage msgs = new FacesMessage("Lanï¿½amento estornado.");
+			FacesMessage msgs = new FacesMessage("Lançamento estornado.");
 			FacesContext.getCurrentInstance().addMessage(null, msgs);
 			return getSucesso();
 		}catch(SmartAppException appEx){

@@ -229,13 +229,27 @@
 						</table>
 						
 						<br />
-						<t:commandLink action="#{LancamentoBean.salvar}" title="#{properties['lb_salvar']}" id="salvar" styleClass="botao_salvar"
-							onclick="setAcao(document.forms[0], 'Salva_Lancamento');">
+						
+						<c:choose>
+							<c:when test="${empty LancamentoBean.lancamento.codigo}">
+								<t:commandLink action="#{LancamentoBean.salvar}" title="#{properties['lb_salvar']}" id="salvar" styleClass="botao_salvar"
+									onclick="setAcao(document.forms[0], 'Salva_Lancamento');">
 							
-							<h:outputText value="#{properties['lb_salvar']}" />
+									<h:outputText value="#{properties['lb_salvar']}" />
+
+								</t:commandLink>
+							</c:when>
+							<c:otherwise>
+								<t:commandLink action="#{LancamentoBean.alterar}" title="#{properties['lb_alterar']}" id="alterar" styleClass="botao_salvar"
+									onclick="setAcao(document.forms[0], 'Altera_Lancamento');">
 							
-							
-						</t:commandLink>
+									<h:outputText value="#{properties['lb_alterar']}" />
+
+								</t:commandLink>
+							</c:otherwise>
+						</c:choose>
+						
+
 						
 					</div>
 					<input type="hidden" name="acao" value=""/>

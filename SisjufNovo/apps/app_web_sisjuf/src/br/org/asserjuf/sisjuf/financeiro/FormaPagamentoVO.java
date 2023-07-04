@@ -20,6 +20,14 @@ public class FormaPagamentoVO  implements Serializable {
 	private String	nome;
 
 	
+	public FormaPagamentoVO() {
+		
+	}
+	
+	public FormaPagamentoVO(Integer codigo) {
+		this.codigo = codigo;
+	}
+
 	/**
 	 * Obtém o valor do código da forma de pagamento.
 	 * @return Código da forma de lançamento.

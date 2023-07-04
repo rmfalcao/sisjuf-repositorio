@@ -11,6 +11,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.BaixaLancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.ContaVO;
+import br.org.asserjuf.sisjuf.financeiro.FormaPagamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoFiltroAssembler;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoItemFaturaVO;
@@ -402,9 +403,12 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 	 */
 	public LancamentoVO findByPrimaryKey(LancamentoVO vo) throws SmartEnvException {
 		 
-		StringBuffer sql = new StringBuffer("select seq_lancamento, seq_conta, seq_origem_lancamento, seq_tipo_lancamento, ")
-							.append("seq_tipo_operacao, dat_previsao_lancamento, val_lancamento, des_lancamento, dat_efetivacao_lancamento ")
-							.append("from lancamento where seq_lancamento = ?");
+		StringBuffer sql = new StringBuffer("select l.seq_lancamento, l.seq_conta, l.seq_origem_lancamento, l.seq_tipo_lancamento, ")
+							.append("l.seq_tipo_operacao, l.dat_previsao_lancamento, l.val_lancamento, l.des_lancamento, l.dat_efetivacao_lancamento, ")
+							.append("bl.seq_forma_pagamento,bl.des_banco_cheque_baixa_lancamento,bl.num_agencia_cheque_baixa_lancamento,bl.dig_agencia_cheque_baixa_lancamento,bl.num_conta_cheque_baixa_lancamento,bl.dig_conta_cheque_baixa_lancamento,bl.num_cheque_baixa_lancamento  ")
+							.append("from lancamento l ")
+							.append(" LEFT JOIN baixa_lancamento bl on l.seq_lancamento = bl.seq_lancamento ")
+							.append(" where l.seq_lancamento = ?");
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -432,6 +436,15 @@ public class LancamentoDAO extends SisjufDAOPostgres {
 				lancamentoVO.setValor(sRs.getDouble(7));
 				lancamentoVO.setDescricao(sRs.getString(8));
 				lancamentoVO.setDataEfetivacao(sRs.getDate(9));
+				
+				lancamentoVO.setFormaPagamentoVO(new FormaPagamentoVO(sRs.getInteger(10)));
+				lancamentoVO.setBancoCheque(sRs.getString(11));
+				lancamentoVO.setAgenciaCheque(sRs.getString(12));
+				lancamentoVO.setDigitoAgenciaCheque(sRs.getString(13));
+				lancamentoVO.setContaCheque(sRs.getString(14));
+				lancamentoVO.setDigitoContaCheque(sRs.getString(15));
+				lancamentoVO.setNumeroCheque(sRs.getString(16));
+				
 								
 				return lancamentoVO;
 
