@@ -253,22 +253,12 @@
 							
 							<t:column width="90">
 								<f:facet name="header">
-									<h:outputText value="#{properties['lb_lancado']}" />
+									<h:outputText value="#{properties['lb_valor_reais']}" />
 								</f:facet>
 								<h:outputText value="#{lancamentos.valor}" converter="DoubleConverter" styleClass="#{lancamentos.valor < 0 ? 'valor_negativo' : ''}"/>
 								<f:facet name="footer">
 					            	<h:outputText value="#{LancamentoBean.totalLancado}" converter="DoubleConverter" />
 						        </f:facet>
-							</t:column>
-							
-							<t:column width="70">
-								<f:facet name="header">
-									<h:outputText value="#{properties['lb_pago']}" />
-								</f:facet>
-								<h:outputText value="#{lancamentos.valorPago}" converter="DoubleConverter" styleClass="#{lancamentos.valorPago < 0 ? 'valor_negativo' : ''}"/>
-								<f:facet name="footer">
-						            <h:outputText value="#{LancamentoBean.totalPago}" converter="DoubleConverter" />
-					            </f:facet>
 							</t:column>
 							
 							

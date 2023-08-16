@@ -27,7 +27,7 @@ public class TipoOperacaoDAO extends SisjufDAOPostgres {
 	public Collection findAll() throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer("SELECT SEQ_TIPO_OPERACAO, NOM_TIPO_OPERACAO, SIG_TIPO_OPERACAO, ");
-		sql.append("FLG_PREVISAO_TIPO_OPERACAO, FLG_DEBITO_TIPO_OPERACAO FROM TIPO_OPERACAO ORDER BY NOM_TIPO_OPERACAO ");
+		sql.append("FLG_PREVISAO_TIPO_OPERACAO, FLG_DEBITO_TIPO_OPERACAO FROM TIPO_OPERACAO WHERE FLG_ATIVO = 1 ORDER BY NOM_TIPO_OPERACAO ");
 		
 		SmartConnection 				sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
