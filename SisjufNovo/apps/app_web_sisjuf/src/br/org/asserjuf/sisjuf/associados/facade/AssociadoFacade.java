@@ -156,7 +156,10 @@ public class AssociadoFacade {
 	}	
 	
 	
-	
+	public void removeDocumento(DocumentoAssociadoVO documento) throws SmartEnvException {
+		documentosAssociadoRN.remover(documento);
+		
+	}
 	
 	
 	
@@ -193,6 +196,8 @@ public class AssociadoFacade {
 	public void setOutrosBeneficiaveisRN(OutrosBeneficiaveisRN outrosBeneficiaveisRN) {
 		this.outrosBeneficiaveisRN = outrosBeneficiaveisRN;
 	}
+
+
 	
 	
 }

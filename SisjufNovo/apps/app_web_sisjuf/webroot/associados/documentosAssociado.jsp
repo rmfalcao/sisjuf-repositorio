@@ -76,6 +76,18 @@
 					</f:facet>
 					<h:outputText value="#{documentos.dataCriacao}" />
 				</t:column>
+				<t:column width="2">
+					<f:facet name="header">
+					
+					</f:facet>
+					<t:commandLink action="#{AssociadoBean.removerDocumento}" title="#{properties['lb_remover']}" immediate="true" id="remover" 
+						onclick="setAcao(document.forms[1], 'Remove_Documento')" styleClass="botao_excluir">
+						<t:updateActionListener property="#{AssociadoBean.documento.codigo}" value="#{documentos.codigo}" />
+					</t:commandLink>
+				</t:column>
+				
+
+				
 	
 			</t:dataTable>
 		</t:div>

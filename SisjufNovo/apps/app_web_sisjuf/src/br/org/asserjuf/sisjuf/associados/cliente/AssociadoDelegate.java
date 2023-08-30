@@ -152,5 +152,10 @@ public class AssociadoDelegate  {
 	public Collection<DocumentoAssociadoVO> findDocumentosByAssociado(AssociadoVO vo) throws SmartEnvException, SmartAppException {
 		return associadoBean.findDocumentosByAssociado(vo);
 	}
+
+	public void removeDocumento(DocumentoAssociadoVO documento) throws SmartEnvException {
+		associadoBean.removeDocumento(documento);
+		
+	}
 	
 }

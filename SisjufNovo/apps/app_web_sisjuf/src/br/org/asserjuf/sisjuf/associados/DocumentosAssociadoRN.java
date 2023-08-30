@@ -61,6 +61,12 @@ public class DocumentosAssociadoRN {
 	
 	public Collection<DocumentoAssociadoVO> findDocumentosByAssociado(AssociadoVO vo) throws SmartEnvException, SmartAppException {
 		return documentosAssociadoDAO.findDocumentosByAssociado(vo);
+	}
+
+
+	public void remover(DocumentoAssociadoVO documento) throws SmartEnvException {
+		documentosAssociadoDAO.remover(documento);
+		
 	}		
 	
 }

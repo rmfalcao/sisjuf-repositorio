@@ -154,6 +154,32 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 			sStmt.close();
 			sConn.close();
 		}
+	}
+
+	public void remover(DocumentoAssociadoVO documento) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer();
+
+		sql.append("DELETE from documentos_associado ") 
+				.append(" where seq_documento = ? ");
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		
+		try {
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));					
+			  
+			sStmt.setParameters(documento, new String[] {"codigo"});
+			sStmt.getMyPreparedStatement().execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SmartEnvException(e);
+		} finally {
+			sStmt.close();
+			sConn.close();
+		}
+		
 	}	
 	
 		

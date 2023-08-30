@@ -412,6 +412,26 @@ public class AssociadoPageBean  extends BasePageBean{
         return Files.readAllBytes(file.toPath());
     }
 	
+	public String removerDocumento() {
+		
+		try {
+			delegate.removeDocumento(this.documento);
+		} catch (SmartEnvException e) {
+			
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", e);
+			
+			data.clear();
+			
+			return "falha";
+		}
+		
+		return getSucesso();
+	}
+	
 	public String salvarDocumento() {
 		
 		// neste momento ano haverah logica de atualizacao (update), somente insercao.
