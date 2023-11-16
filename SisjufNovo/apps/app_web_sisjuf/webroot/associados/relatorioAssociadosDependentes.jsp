@@ -41,29 +41,23 @@
 					<h:form id="relatorioAssociadosDependentes">
 						<t:saveState value="#{AssociadoBean.relatorioAssociadosDependentes}" />
 						<t:dataTable id="data" var="relatorio" value="#{AssociadoBean.relatorioAssociadosDependentes}" cellspacing="1" cellpadding="2" width="100%" 
-							styleClass="tab_lista_maior" preserveDataModel="false">		
-								<t:column width="140">
+							styleClass="tab_lista" preserveDataModel="false">		
+								<t:column width="70">
 									<f:facet name="header">
 										<h:outputText value="#{properties['lb_faixa_etaria']}" />
 									</f:facet>
 									<h:outputText value="#{relatorio.faixaEtaria}" />
-									<f:facet name="footer">
-										<t:panelGroup>
-											<t:commandLink onclick="setAcao(document.forms[0], 'Imprime_RelatorioAssociadosDependentes');" action="#{AssociadoBean.printRelatorioAssociadosDependentes}" title="#{properties['lb_carregar']}" immediate="true" id="print"  styleClass="botao_imprimir" 
-												target="print">
-											</t:commandLink>
-										</t:panelGroup>
-							        </f:facet>
+									
 								</t:column>
 					
-								<t:column width="230">
+								<t:column width="118">
 									<f:facet name="header">
 										<h:outputText value="#{properties['lb_qtd_associados']}" />
 									</f:facet>
 									<h:outputText value="#{relatorio.quantidadeAssociados}" />
 								</t:column>
 								
-								<t:column width="230">
+								<t:column width="118">
 									<f:facet name="header">
 										<h:outputText value="#{properties['lb_qtd_dependentes']}" />
 									</f:facet>
