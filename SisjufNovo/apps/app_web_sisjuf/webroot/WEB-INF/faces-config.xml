@@ -515,6 +515,8 @@
 		</navigation-case>
 	</navigation-rule>
 	
+
+	
 	<navigation-rule>
 		<description>Navegação de Associado Email.</description>
 		<from-view-id>/associados/associadoPesquisa.jsp</from-view-id>
@@ -540,6 +542,17 @@
 			<from-action>#{AssociadoBean.printAniversariantes}</from-action>
 			<from-outcome>falha</from-outcome>
 			<to-view-id>/associados/associadoAniversariantesPrint.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Relatorio de Associados e Dependentes.</description>
+		<from-view-id>/associados/relatorioAssociadosDependentes.jsp</from-view-id>
+			
+		<navigation-case>
+			<from-action>#{AssociadoBean.carregarRelatorioAssociadosDependentes}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/associados/relatorioAssociadosDependentes.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -743,7 +756,11 @@
 		</navigation-case>		
 		
 		
-	</navigation-rule>	
+	</navigation-rule>
+	
+	
+
+		
 	
 	<!--Associado-->
 	<!--ASSOCIADO-->
@@ -1691,6 +1708,10 @@
 			<to-view-id>/associados/convenio/gerarFaturas.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	
+	
 <!--BENEFICIARIO-->
 
 

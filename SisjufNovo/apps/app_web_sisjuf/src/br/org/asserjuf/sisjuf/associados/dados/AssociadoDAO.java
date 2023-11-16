@@ -14,6 +14,7 @@ import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
@@ -1024,6 +1025,91 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		
 
 		
+	}
+
+
+	public Collection<RelatorioAssociadosDependentesVO> findRelatorioAssociadosDependentes() throws SmartEnvException {
+		StringBuffer sql = new StringBuffer(" SELECT COALESCE(titular.faixa_etaria, depend.FAIXA_ETARIA) as faixa_etaria, coalesce(TITULAR.qtde_de_associados, 0) as qtd_associados, coalesce(DEPEND.QTDE_DE_DEPENDENTES,0) as qtd_dependentes FROM ( ") 
+				.append("SELECT ") 
+				.append("  CASE ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) <= 18 THEN '0-18' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 19 AND 24 THEN '19-24' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 25 AND 28 THEN '25-28' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 29 AND 33 THEN '29-33' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 34 AND 38 THEN '34-38' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 39 AND 43 THEN '39-43' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 44 AND 48 THEN '44-48' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 49 AND 53 THEN '49-53' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, a.dat_nascimento_associado)) BETWEEN 54 AND 58 THEN '54-58' ") 
+				.append("    ELSE '59+' ") 
+				.append("  END AS faixa_etaria, ") 
+				.append("  COUNT(a.*) as qtde_de_associados ") 
+				.append("FROM ") 
+				.append("  vw_associado a  ") 
+				.append("WHERE ") 
+				.append(" a.dat_exclusao_associado is null ") 
+				.append(" and ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') )  ") 
+				.append("GROUP BY  faixa_etaria ") 
+				.append(") TITULAR FULL JOIN  ") 
+				.append("    ( ") 
+				.append("SELECT ") 
+				.append("  CASE ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) <= 18 THEN '0-18' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 19 AND 24 THEN '19-24' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 25 AND 28 THEN '25-28' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 29 AND 33 THEN '29-33' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 34 AND 38 THEN '34-38' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 39 AND 43 THEN '39-43' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 44 AND 48 THEN '44-48' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 49 AND 53 THEN '49-53' ") 
+				.append("    WHEN DATE_PART('year', AGE(CURRENT_DATE, d.dat_nascimento_dependente)) BETWEEN 54 AND 58 THEN '54-58' ") 
+				.append("    ELSE '59+' ") 
+				.append("  END AS faixa_etaria, ") 
+				.append("  COUNT(d.*) as qtde_de_dependentes ") 
+				.append("FROM ") 
+				.append("  vw_dependente d join vw_associado a using (seq_associado) ") 
+				.append("WHERE ") 
+				.append(" a.dat_exclusao_associado is null ") 
+				.append(" and ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') )  ") 
+				.append("GROUP BY  faixa_etaria )  ") 
+				.append("DEPEND ON TITULAR.FAIXA_ETARIA = DEPEND.FAIXA_ETARIA ");
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		try {
+		
+		sConn 	= new SmartConnection(this.getConn());
+		sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+		sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+		
+		ArrayList<RelatorioAssociadosDependentesVO> retorno = new ArrayList<RelatorioAssociadosDependentesVO>(); 
+		
+		while (sRs.next()) {
+		
+			RelatorioAssociadosDependentesVO relatorio = new RelatorioAssociadosDependentesVO();
+		
+			relatorio.setFaixaEtaria(sRs.getString(1));
+			relatorio.setQuantidadeAssociados(sRs.getInteger(2));
+			relatorio.setQuantidadeDependentes(sRs.getInteger(3));
+			
+			retorno.add(relatorio);
+		
+		}
+		
+		return retorno;
+		
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		
+		} finally {
+			
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+			
+		}
 	}
 	
 

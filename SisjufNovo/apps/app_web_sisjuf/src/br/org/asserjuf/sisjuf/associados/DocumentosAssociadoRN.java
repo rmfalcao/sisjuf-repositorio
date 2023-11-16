@@ -33,6 +33,7 @@ public class DocumentosAssociadoRN {
 		return documentosAssociadoDAO.insert(vo);
 	}		
 	
+
 	
 	
 	private void validarCamposObrigatorios(DocumentoAssociadoVO vo) throws SmartAppException {

@@ -562,4 +562,9 @@ public class AssociadoRN {
 	public void setConjugeRN(ConjugeRN conjugeRN) {
 		this.conjugeRN = conjugeRN;
 	}
+
+	public Collection<RelatorioAssociadosDependentesVO> findRelatorioAssociadosDependentes() throws SmartEnvException {
+		
+		return associadoDAO.findRelatorioAssociadosDependentes();
+	}
 }

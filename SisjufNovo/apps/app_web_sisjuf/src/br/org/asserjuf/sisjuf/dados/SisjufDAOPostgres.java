@@ -19,6 +19,7 @@ import br.com.falc.smartFW.persistence.SmartResultSet;
  */
 public abstract class SisjufDAOPostgres extends JdbcDaoSupport {
 	 
+	
 
 	/**
 	 * 

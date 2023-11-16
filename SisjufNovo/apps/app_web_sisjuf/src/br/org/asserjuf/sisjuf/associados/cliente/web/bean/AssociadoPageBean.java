@@ -43,6 +43,7 @@ import br.org.asserjuf.sisjuf.associados.ParentescoVO;
 import br.org.asserjuf.sisjuf.associados.PessoaVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.ProfissaoVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.SetorVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
 import br.org.asserjuf.sisjuf.associados.cliente.AssociadoDelegate;
@@ -125,6 +126,8 @@ public class AssociadoPageBean  extends BasePageBean{
 	private transient UtilDelegate utilDelegate;
 	
 	private Collection<AssociadoVO> associadosAniversariantes;
+	
+	private Collection<RelatorioAssociadosDependentesVO> relatorioAssociadosDependentes;
 
 	private Collection<AssociadoImportacaoNucreVO> associadosFaltantes;
 	
@@ -771,6 +774,25 @@ public class AssociadoPageBean  extends BasePageBean{
 		return getSucesso();
 	}
 	
+	
+	public String carregarRelatorioAssociadosDependentes(){
+		if (associadosAniversariantes != null && associadosAniversariantes.size() > 0){
+			for (AssociadoVO associado : associadosAniversariantes){
+				LOG.debug("associado.getEmail() " + associado.getEmail());
+				if (associado.getEmail() != null){
+					if (!"".equals(emails)){
+						emails += ";" + associado.getEmail();
+					}else{
+						emails += associado.getEmail();
+					}
+				}
+			}
+		}
+		LOG.debug("EMAILS " + emails);
+		return getSucesso();
+	}
+	
+	
 	public String printAniversariantes(){
 		try {
 			LOG.debug("associadosAniversariantes " + associadosAniversariantes);
@@ -893,6 +915,8 @@ public class AssociadoPageBean  extends BasePageBean{
 		this.associados = associados;
 	}
 	
+	
+
 	public Collection getAssociadosAniversariantes(){
 		try {
 			associadosAniversariantes = delegate.findProximosAniversariantes() ;
@@ -900,6 +924,17 @@ public class AssociadoPageBean  extends BasePageBean{
 			tratarExcecao(e);
 		}
 		return associadosAniversariantes;
+	}
+	
+	public Collection getRelatorioAssociadosDependentes(){
+		try {
+			relatorioAssociadosDependentes = delegate.findRelatorioAssociadosDependentes() ;
+			
+			
+		} catch (Exception e) {
+			tratarExcecao(e);
+		}
+		return relatorioAssociadosDependentes;
 	}
 
 	public void setAssociadosAniversariantes(Collection associadosAniversariantes) {

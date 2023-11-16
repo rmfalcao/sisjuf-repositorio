@@ -26,6 +26,7 @@ public class DocumentosAssociadoDAO extends SisjufDAOPostgres {
 
 	
 	
+	
 	/**
 	 * Insere uma um documento de um associado. Tabelas: DOCUMENTOS_ASSOCIADO
 	 * @param vo Instância da classe DocumentoAssociadoVO com os valores do registro a ser inserido.

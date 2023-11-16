@@ -19,6 +19,7 @@ import br.org.asserjuf.sisjuf.associados.HistoricoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.ParentescoRN;
 import br.org.asserjuf.sisjuf.associados.ParentescoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoRN;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
@@ -37,6 +38,7 @@ public class AssociadoFacade {
 	private VinculacaoPlanoRN		vinculacaoPlanoRN;	
 	private OutrosBeneficiaveisRN	outrosBeneficiaveisRN;
 	private DocumentosAssociadoRN	documentosAssociadoRN;
+	
 	
 	public Collection<AssociadoVO> findAssociadoByFilter(AssociadoFiltroAssembler assembler) throws SmartEnvException, SmartAppException {
 		return associadoRN.findByFilter(assembler);
@@ -195,6 +197,11 @@ public class AssociadoFacade {
 
 	public void setOutrosBeneficiaveisRN(OutrosBeneficiaveisRN outrosBeneficiaveisRN) {
 		this.outrosBeneficiaveisRN = outrosBeneficiaveisRN;
+	}
+
+	public Collection<RelatorioAssociadosDependentesVO> findRelatorioAssociadosDependentes() throws SmartEnvException {
+		
+		return associadoRN.findRelatorioAssociadosDependentes();
 	}
 
 

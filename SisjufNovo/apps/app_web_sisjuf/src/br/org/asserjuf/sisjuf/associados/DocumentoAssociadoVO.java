@@ -15,6 +15,7 @@ public class DocumentoAssociadoVO extends SmartVO {
 	private Date	dataDocumento;
 	private AssociadoVO	associado;
 	private byte[]	fileData;
+
 	
 	private UsuarioVO usuario;
 	

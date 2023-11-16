@@ -16,6 +16,7 @@ import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.ParentescoVO;
 import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
@@ -27,6 +28,7 @@ public class AssociadoDelegate  {
 	protected static transient Logger LOG = Logger.getLogger(AssociadoDelegate.class);
 
 	AssociadoFacade associadoBean;
+
 	
 	public void setAssociadoBean(AssociadoFacade associadoBean) {
 		this.associadoBean = associadoBean;
@@ -156,6 +158,11 @@ public class AssociadoDelegate  {
 	public void removeDocumento(DocumentoAssociadoVO documento) throws SmartEnvException {
 		associadoBean.removeDocumento(documento);
 		
+	}
+
+	public Collection<RelatorioAssociadosDependentesVO> findRelatorioAssociadosDependentes() throws SmartEnvException {
+		
+		return associadoBean.findRelatorioAssociadosDependentes();
 	}
 	
 }
