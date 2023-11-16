@@ -36,7 +36,7 @@
 		
 				<div id="miolo">
 					<h1>Módulo Associados</h1>
-					<h2>Relatório de Associados e Dependentes</h2>
+					<h2>Relatório de Associados e Dependentes por Faixa Etária</h2>
 					
 					<h:form id="relatorioAssociadosDependentes">
 						<t:saveState value="#{AssociadoBean.relatorioAssociadosDependentes}" />
