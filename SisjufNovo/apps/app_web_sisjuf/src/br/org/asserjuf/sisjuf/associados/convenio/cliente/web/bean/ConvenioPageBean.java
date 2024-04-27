@@ -225,7 +225,12 @@ public class ConvenioPageBean extends BasePageBean {
 	private void carregarUltimasFaturas() {
 		FaturaVO fatura = new FaturaVO();
 		fatura.setConvenio(this.convenio);
-		this.ultimasFaturas = this.delegate.findUltimasFaturas(fatura);
+		try {
+			this.ultimasFaturas = this.delegate.findUltimasFaturas(fatura);
+		} catch (SmartEnvException e) {
+			LOG.error("Error ", e);
+			e.printStackTrace();
+		}
 	}
 	
 	public String consultar(){

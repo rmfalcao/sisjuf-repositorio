@@ -245,9 +245,9 @@ public class ConvenioDelegate {
 		this.entidadesComunsBean = entidadesComunsBean;
 	}
 
-	public Collection<FaturaVO> findUltimasFaturas(FaturaVO fatura) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<FaturaVO> findUltimasFaturas(FaturaVO fatura) throws SmartEnvException {
+
+		return convenioBean.findFaturaByConvenio(fatura.getConvenio());
 	}
 
 	public Collection<VinculacaoPlanoVO> findVinculadosPlanoByAssociado(VinculacaoPlanoVO vo) throws SmartEnvException, SmartAppException {

@@ -39,7 +39,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append(" SELECT SEQ_FATURA, DAT_FATURA, VAL_FATURA FROM ( ")
+		sql.append(" SELECT SEQ_FATURA, DAT_FATURA, VAL_FATURA, DAT_VENCIMENTO_FATURA FROM ( ")
 			.append(" SELECT 	F.SEQ_FATURA, ")
 			.append(" F.DAT_FATURA, ")
 			.append(" F.VAL_FATURA, ")

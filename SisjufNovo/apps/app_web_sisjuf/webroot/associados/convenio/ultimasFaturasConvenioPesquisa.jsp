@@ -17,9 +17,9 @@
 		<t:messages id="msgs" showDetail="true" showSummary="false" errorClass="textoMsgErro" 
 			infoClass="textoMsgInfo"/>
 
-		<t:dataTable id="planos" var="planos" value="#{ConvenioBean.ultimasFaturas}"
+		<t:dataTable id="planos" var="ultimaFatura" value="#{ConvenioBean.ultimasFaturas}"
 			cellspacing="1" cellpadding="2" width="100%" styleClass="tab_lista" 
-			preserveDataModel="true" rowId="#{ultimasFaturas.codigo}">
+			preserveDataModel="true" rowId="#{ultimaFatura.codigo}">
 
 			<f:facet name="footer">
 				<h:outputLink value="javascript:void(0);" onclick="imprimir();"
@@ -27,11 +27,26 @@
 				</h:outputLink>
 			</f:facet>
 
+			
+			<t:column width="10%">
+				<f:facet name="header">
+					<h:outputText value="#{properties['lb_data']}" />
+				</f:facet>
+				<h:outputText value="#{ultimaFatura.data}" />
+			</t:column>
+
 			<t:column width="10%">
 				<f:facet name="header">
 					<h:outputText value="#{properties['lb_valor']}" />
 				</f:facet>
-				<h:outputText value="#{ultimasFaturas.valor}" converter="DoubleConverter" />
+				<h:outputText value="#{ultimaFatura.valorFatura}" converter="DoubleConverter" />
+			</t:column>
+			
+			<t:column width="10%">
+				<f:facet name="header">
+					<h:outputText value="#{properties['lb_dataVencimento']}" />
+				</f:facet>
+				<h:outputText value="#{ultimaFatura.dataVencimento}" />
 			</t:column>
 
 		</t:dataTable></t:div>
