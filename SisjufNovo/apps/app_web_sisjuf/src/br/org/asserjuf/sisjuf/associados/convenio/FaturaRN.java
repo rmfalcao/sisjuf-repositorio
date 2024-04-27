@@ -131,10 +131,10 @@ public class FaturaRN {
 			this.faturaDAO.insert(item);
 		}
 		
-		// 1) um lan�amento a debitar da conta da ASSERJUF para o conv�nio em quest�o
+		// 1) um lancamento a debitar da conta da ASSERJUF para o convenio em questao
 		debitarContaAsserjuf(fatura);
 		
-		// 2) "n" lan�amentos a creditar dos associados na conta da ASSERJUF
+		// 2) "n" lancamentos a creditar dos associados na conta da ASSERJUF
 		creditarContaAsserjuf(fatura);
 		
 		return fatura;
