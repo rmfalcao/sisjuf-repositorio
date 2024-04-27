@@ -164,7 +164,7 @@ public class FaturaRN {
 		
 		lancamentoFatura.setValor(fatura.getValorFatura());
 		
-		// TODO verificar: data de previsï¿½o estï¿½ igual ï¿½ data de vencimento, pode ser?
+		// TODO verificar: data de previsao está igual aa data de vencimento, pode ser?
 		lancamentoFatura.setDataPrevisao(fatura.getDataVencimento());
 		
 		
@@ -184,7 +184,7 @@ public class FaturaRN {
 
 	private void debitarContaAsserjuf(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
-		// Criar objeto com dados do lanï¿½amento a debitar.
+		// Criar objeto com dados do lancaamento a debitar.
 		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_DEBITAR");
 		
 		// Invocar rn
