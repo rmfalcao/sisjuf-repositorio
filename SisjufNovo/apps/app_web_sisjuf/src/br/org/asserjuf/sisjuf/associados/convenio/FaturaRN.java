@@ -194,29 +194,29 @@ public class FaturaRN {
 	protected void testaRegrasItemFatura(ItemFaturaVO item) throws SmartAppException {
 		
 		if (item == null) {
-			throw new SmartAppException("Pelo menos um item da fatura n√£o foi identificado.");
+			throw new SmartAppException("Pelo menos um item da fatura n„o foi identificado.");
 		}
 		
 		if (item.getNumero() == null) {
-			throw new SmartAppException("Todos os itens da fatura devem ter numera√ß√£o.");
+			throw new SmartAppException("Todos os itens da fatura devem ter numeraÁ„o.");
 		}
 		
 		if (item.getValor() == null || item.getValor().longValue() == 0) {
-			throw new SmartAppException("O item n√∫mero " + item.getNumero() + " est√° vazio ou igual a zero.");
+			throw new SmartAppException("O item n˙mero " + item.getNumero() + " est· vazio ou igual a zero.");
 		}
 		
 		if (item.getVinculacao()==null || item.getVinculacao().getCodigo()==null) {
-			throw new SmartAppException("O associado n√£o foi identificado no item n√∫mero " + item.getNumero() + " da fatura.");
+			throw new SmartAppException("O associado n„o foi identificado no item n˙mero " + item.getNumero() + " da fatura.");
 		}
 		
 		item.getVinculacao().setBeneficiario(item.getBeneficiario());
 		
 		if (item.getVinculacao().getBeneficiario() == null || item.getVinculacao().getBeneficiario().getCodigo() == null) {
-			throw new SmartAppException("O benefici√°rio n√£o foi identificado no item n√∫mero " + item.getNumero() + " da fatura.");
+			throw new SmartAppException("O benefici·rio n„o foi identificado no item n˙mero " + item.getNumero() + " da fatura.");
 		}
 		
 		if (item.getVinculacao().getBeneficiario().getTitular() == null || item.getVinculacao().getBeneficiario().getTitular().getCodigo() == null) {
-			throw new SmartAppException("O titular do benefici√°rio n√£o foi encontrado no item n√∫mero " + item.getNumero() + " da fatura.");
+			throw new SmartAppException("O titular do benefici·rio n„o foi encontrado no item n˙mero " + item.getNumero() + " da fatura.");
 		}
 	}
 
