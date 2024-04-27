@@ -12,8 +12,8 @@ public class FaturaFixaRN extends FaturaRNAb {
 
 	public  FaturaVO gerarFaturaPrevia(FaturaVO fatura) throws SmartEnvException, SmartAppException {
 		
-		// montar objeto de filtro. Este objeto, no que diz respeito às datas, 
-		//  terá implementações específicas a depender de como o convenio tratar os periodos de associação. 
+		// montar objeto de filtro. Este objeto, no que diz respeito aas datas, 
+		//  terah implementacoes especificas a depender de como o convenio tratar os periodos de associacao. 
 		
 		FaturaPreviaFiltroAssembler filtro =	montaFiltroFaturaPrevia(fatura);
 		
@@ -39,13 +39,13 @@ public class FaturaFixaRN extends FaturaRNAb {
 		
 		/*
 		 * 
-		 * O objetivo deste método � setar duas datas do objeto "filtro" que s�o espec�ficas para a Vitalmed:
+		 * O objetivo deste metodo � setar duas datas do objeto "filtro" que sao especificas para a Vitalmed:
 		 * 
 		 * dataInicioApuracaoAssociados e dataFimApuracaoAssociados
 		 * 
 		 */
 		
-		// para efeito de testes, ser� considerada a data de inicio da fatura e a data de fechamento da fatura.
+		// para efeito de testes, sera considerada a data de inicio da fatura e a data de fechamento da fatura.
 		
 		setDatasFatura(filtro.getFatura());
 		
