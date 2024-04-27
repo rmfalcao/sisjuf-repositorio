@@ -224,7 +224,7 @@ public class FaturaRN {
 		
 
 		if (fatura.getCodigo() != null) {
-			throw new SmartAppException("Fatura j√° gerada: c√≥digo " + fatura.getCodigo());
+			throw new SmartAppException("Fatura j· gerada: cÛdigo " + fatura.getCodigo());
 		}
 		
 		fatura.setConvenio(this.convenioRN.findByPrimaryKey(fatura.getConvenio()));
