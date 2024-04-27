@@ -3,6 +3,8 @@ package br.org.asserjuf.sisjuf.associados.convenio;
 import java.util.Collection;
 import java.util.Date;
 
+import com.vortice.seguranca.vo.UsuarioVO;
+
 import br.com.falc.smartFW.SmartVO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
 import br.org.asserjuf.sisjuf.financeiro.ContaVO;
@@ -37,6 +39,19 @@ public class FaturaVO extends SmartVO {
 	private Integer						mes;
 	private Integer						ano;
 	
+	private UsuarioVO 					usuario;
+	
+	
+	
+	
+	public UsuarioVO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioVO usuario) {
+		this.usuario = usuario;
+	}
+
 	public Date getDataVencimento() {
 		return dataVencimento;
 	}
@@ -87,7 +102,7 @@ public class FaturaVO extends SmartVO {
 			if (statusPago.equals("S")) {
 				return "paga";
 			} else if (statusPago.equals("N")) {
-				return "n√£o paga";
+				return "n„o paga";
 			}
 		}
 		
@@ -108,7 +123,7 @@ public class FaturaVO extends SmartVO {
 			if (statusRecebido.equals("S")) {
 				return "recebida";
 			} else if (statusRecebido.equals("N")) {
-				return "n√£o recebida";
+				return "n„o recebida";
 			}
 		}
 		

@@ -15,6 +15,7 @@ import org.apache.pdfbox.io.IOUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.vortice.seguranca.vo.UsuarioVO;
 import com.vortice.view.BasePageBean;
 
 import br.com.falc.smartFW.exception.SmartAppException;
@@ -70,9 +71,14 @@ public class FaturaPageBean extends BasePageBean {
 	private static final transient Logger LOG = Logger.getLogger(FaturaPageBean.class);
 	
 	private ItemFaturaVO					itemFatura;
+	private UsuarioVO						usuarioLogado;
 	
 	public FaturaPageBean()
 	{
+		
+
+		usuarioLogado = (UsuarioVO)this.getHttpSession().getAttribute("usuario");
+		
 		faturaFiltro = new FaturaFiltroAssembler();
 		faturaFiltro.setConvenio(new ConvenioVO());
 		faturaFiltro.setStatus(new StatusFaturaVO());
@@ -83,6 +89,8 @@ public class FaturaPageBean extends BasePageBean {
 		fatura.setContaCredito(new ContaVO());
 		fatura.setContaDebito(new ContaVO());
 		fatura.setItens(new ArrayList<ItemFaturaVO>());
+		
+		fatura.setUsuario(usuarioLogado);
 		
 		lancamento = new LancamentoVO();
 		

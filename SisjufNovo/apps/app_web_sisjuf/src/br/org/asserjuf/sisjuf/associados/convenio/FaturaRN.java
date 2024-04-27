@@ -176,6 +176,7 @@ public class FaturaRN {
 		
 		// Criar objeto com dados do lan�amento a debitar.
 		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_CREDITAR");
+		lancamentoFatura.setUsuario(fatura.getUsuario());
 		
 		// Invocar rn
 		lancamentoFatura	= (LancamentoFaturaVO) lancamentoFaturaRN.efetuarLancamento(lancamentoFatura);
@@ -186,6 +187,8 @@ public class FaturaRN {
 		
 		// Criar objeto com dados do lancaamento a debitar.
 		LancamentoFaturaVO lancamentoFatura	= preparaLancamento(fatura, "TP_OPERACAO_A_DEBITAR");
+		lancamentoFatura.setUsuario(fatura.getUsuario());
+		
 		
 		// Invocar rn
 		lancamentoFatura	= (LancamentoFaturaVO) lancamentoFaturaRN.efetuarLancamento(lancamentoFatura);
