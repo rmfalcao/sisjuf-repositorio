@@ -105,6 +105,7 @@ public class FaturaRN {
 	public FaturaVO gerar(FaturaVO fatura)  throws SmartEnvException, SmartAppException {
 		
 		
+		
 		// testar regras de fatura
 		testaRegrasFatura(fatura);
 		
