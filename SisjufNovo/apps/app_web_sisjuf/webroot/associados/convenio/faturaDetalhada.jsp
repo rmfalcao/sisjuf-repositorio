@@ -78,19 +78,15 @@
 										<h:outputText value="#{FaturaBean.fatura.dataFinalFormatada}" />
 									</td>
 								</tr>
-								<tr>
-									<th>Data Vencimento:</th>
-									<td colspan="3">
-										<h:outputText value="#{FaturaBean.fatura.dataVencimento}" />
-									</td>
-								</tr>
+								
 								<tr>
 									<th>Status Fatura:</th>
 									<td colspan="3">
 										<h:outputText value="#{FaturaBean.fatura.status.nome}" /> 
-										(<h:outputText value="#{FaturaBean.fatura.descricaoStatusPago}" /> | <h:outputText value="#{FaturaBean.fatura.descricaoStatusRecebido}" />)
 									</td>
 								</tr>
+								
+								
 								<tr>
 									<th>Valor Fatura:</th>
 									<td colspan="3">
