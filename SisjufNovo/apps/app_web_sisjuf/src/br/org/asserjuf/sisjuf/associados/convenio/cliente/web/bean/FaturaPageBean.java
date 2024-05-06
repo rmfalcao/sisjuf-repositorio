@@ -102,9 +102,9 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public String carregar(){
 		try {
-			System.out.println("VEIO CARREGAR!!!");
+			//System.out.println("VEIO CARREGAR!!!");
 			fatura = delegate.findByPrimaryKey(fatura);
-			System.out.println("FATURA CONVENIO " + fatura.getConvenio().getNomeFantasia());
+			//System.out.println("FATURA CONVENIO " + fatura.getConvenio().getNomeFantasia() + ", data inicial: " + fatura.getDataInicial());
 			return getSucesso();
 		}catch(SmartEnvException envEx){
 			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";

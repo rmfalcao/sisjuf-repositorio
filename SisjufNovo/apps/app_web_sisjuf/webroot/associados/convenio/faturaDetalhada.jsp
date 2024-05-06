@@ -72,10 +72,10 @@
 								<tr>
 									<th>Data Inicio / Fim:</th>
 									<td>
-										<h:outputText value="#{FaturaBean.fatura.dataInicial}" />
+										<h:outputText value="#{FaturaBean.fatura.dataInicialFormatada}" />
 									</td>
 									<td colspan="2">
-										<h:outputText value="#{FaturaBean.fatura.dataFinal}" />
+										<h:outputText value="#{FaturaBean.fatura.dataFinalFormatada}" />
 									</td>
 								</tr>
 								<tr>

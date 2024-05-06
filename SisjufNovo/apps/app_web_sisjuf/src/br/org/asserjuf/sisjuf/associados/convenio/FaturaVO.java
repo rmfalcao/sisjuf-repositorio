@@ -1,5 +1,6 @@
 package br.org.asserjuf.sisjuf.associados.convenio;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -214,4 +215,27 @@ public class FaturaVO extends SmartVO {
 	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
+	
+	public String getDataInicialFormatada() {
+		
+		if (dataInicial != null) {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			return formatter.format(dataInicial);
+		
+		}
+		return "";
+		
+	}
+	
+	public String getDataFinalFormatada() {
+		
+		if (dataFinal != null) {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			return formatter.format(dataFinal);
+		
+		}
+		return "";
+		
+	}
+	
 }
