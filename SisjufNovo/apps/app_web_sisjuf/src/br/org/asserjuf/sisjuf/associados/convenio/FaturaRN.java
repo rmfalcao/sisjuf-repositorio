@@ -262,19 +262,11 @@ public class FaturaRN {
 
 	protected void validarCamposObrigatoriosFatura(FaturaVO fatura) throws SmartAppException {
 		if (fatura == null) {
-			throw new SmartAppException("Fatura nÃ£o identificada.");
+			throw new SmartAppException("Fatura não identificada.");
 		}
 		
 		if (fatura.getConvenio() == null || fatura.getConvenio().getCodigo() == null) {
-			throw new SmartAppException("VocÃª deve informar qual nÃºmero do convÃªnio.");
-		}
-		
-		if (fatura.getContaCredito() == null || fatura.getContaCredito().getCodigo() == null) {
-			throw new SmartAppException("A conta ASSERJUF para crÃ©dito deve ser informada.");
-		}
-		
-		if (fatura.getContaDebito() == null || fatura.getContaDebito().getCodigo() == null) {
-			throw new SmartAppException("A conta ASSERJUF para dÃ©bito deve ser informada.");
+			throw new SmartAppException("Você deve informar qual número do convênio.");
 		}
 		
 		if (fatura.getDataInicial() == null) {

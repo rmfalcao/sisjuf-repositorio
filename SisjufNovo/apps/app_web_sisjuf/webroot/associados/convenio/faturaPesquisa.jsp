@@ -119,10 +119,9 @@
 									<rich:columnGroup>
 									<rich:column><h:outputText value="Codigo Fatura" /></rich:column>
 									<rich:column><h:outputText value="Convênio" /></rich:column>
-									<rich:column><h:outputText value="Vencimento" /></rich:column>
+									<rich:column><h:outputText value="Data Início" /></rich:column>
+									<rich:column><h:outputText value="Data Fim" /></rich:column>
 									<rich:column><h:outputText value="Valor" /></rich:column>
-									<rich:column><h:outputText value="Paga" /></rich:column>
-									<rich:column><h:outputText value="Recebida" /></rich:column>
 									<rich:column><h:outputText value="Status" /></rich:column>
 									<!-- rich : column><h:outputText value="" />< / rich :c olumn-->
 									</rich:columnGroup>
@@ -145,20 +144,17 @@
 								</rich:column>
 								
 								<rich:column style="width:30%">
-									<h:outputText value="#{itens.dataVencimento}"/>
+									<h:outputText value="#{itens.dataInicialFormatada}"/>
+								</rich:column>
+								
+								<rich:column style="width:30%">
+									<h:outputText value="#{itens.dataFinalFormatada}"/>
 								</rich:column>
 								
 								<rich:column style="width:10%">
 									<h:outputText value="#{itens.valorFatura}" converter="DoubleConverter"/>
 								</rich:column>
 								
-								<rich:column style="width:30%">
-									<h:outputText value="#{itens.pago ? 'Sim' : 'Não'}"/>
-								</rich:column>
-								
-								<rich:column style="width:30%">
-									<h:outputText value="#{itens.recebido  ? 'Sim' : 'Não'}"/>
-								</rich:column>
 								
 								<rich:column style="width:30%">
 									<h:outputText value="#{itens.status.nome}"/>

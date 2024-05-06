@@ -127,46 +127,10 @@
 											enableManualInput="true" oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
 									</td>
 								</tr>
-								<tr>
-									<th>Data Vencimento</th>
-									<td width="230" colspan="3">
-										<rich:calendar id="dataVencimento" popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-											cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-											value="#{FaturaBean.fatura.dataVencimento}" inputClass="inputCalendar" 
-											enableManualInput="true" oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
-									</td>
-								</tr>
+								
 							</tbody>
 							
-							<thead>
-								<tr>
-									<th>Informações Financeiras</th>
-									<th colspan="3"></th>
-								</tr>
-							</thead>
 							
-							<tbody>
-								<tr>
-									<th>Conta Debito:</th>
-									<td colspan="3">
-										<h:selectOneMenu id="contaDebito" value="#{FaturaBean.fatura.contaDebito.codigo}" tabindex="1">
-											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<t:selectItems id="sel_contasBebitos" value="#{FaturaBean.allContas}" var="contaDebito" itemLabel="#{contaDebito.nome}" 
-												itemValue="#{contaDebito.codigo}"/>
-										</h:selectOneMenu>
-									</td>
-								</tr>
-								<tr>
-									<th>Conta Credito:</th>
-									<td colspan="3">
-										<h:selectOneMenu id="contaCredito" value="#{FaturaBean.fatura.contaCredito.codigo}" tabindex="1">
-											<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
-											<t:selectItems id="sel_contasCreditos" value="#{FaturaBean.allContas}" var="contaCredito" itemLabel="#{contaCredito.nome}" 
-												itemValue="#{contaCredito.codigo}"/>
-										</h:selectOneMenu>
-									</td>
-								</tr>
-							</tbody>
 						</table>
 						<a4j:commandButton title="#{properties['lb_ItensFatura']}" action="#{FaturaBean.prepararNovoItemFatura}" 
 							styleClass="botao_novo" value="itensFatura" reRender="itemFaturaFormMiolo" oncomplete="openItemFaturaModal();"/><br/><br/>
