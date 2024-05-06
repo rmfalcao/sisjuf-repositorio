@@ -23,7 +23,7 @@ import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 
 /**
  * Classe de acesso ao banco de dados da entidade "Fatura" do Sisjuf
- * @author Rodrigo Falc�o
+ * @author Rodrigo Falcao
  *
  */
 public class FaturaDAO extends SisjufDAOPostgres {
@@ -31,8 +31,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	//private static transient Logger	LOG = Logger.getLogger(FaturaDAO.class);
 	
 	/**
-	 * Obt�m todos as faturas de um determinado conv�nio.
-	 * @return Cole��o de ConvenioVO (objeto que representa a entidade "Convenio")
+	 * Obtem todos as faturas de um determinado convenio.
+	 * @return Colecao de ConvenioVO (objeto que representa a entidade "Convenio")
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByConvenio(ConvenioVO convenio) throws SmartEnvException {
@@ -105,8 +105,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obt�m todos as faturas por filtro.
-	 * @return Cole��o de FaturaVO (objeto que representa a entidade "Fatura")
+	 * Obtem todos as faturas por filtro.
+	 * @return Colecao de FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
 	public Collection<FaturaVO> findByFilter(FaturaFiltroAssembler fatura) throws SmartEnvException {
@@ -180,7 +180,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	}
 	
 	/**
-	 * Obt�m fatura por chave prim�ria.
+	 * Obtem fatura por chave primaria.
 	 * @return FaturaVO (objeto que representa a entidade "Fatura")
 	 * @throws SmartEnvException
 	 */
@@ -273,7 +273,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	
 	/**
 	 * Atualiza o status de uma fatura no banco de dados. Tabelas: FATURA
-	 * @param fatura Inst�ncia da classe FaturaVO com os valores do registro a ser inserido.
+	 * @param fatura Instancia da classe FaturaVO com os valores do registro a ser inserido.
 	 * @throws SmartEnvException
 	 */
 	public void updateStatus(FaturaVO fatura) throws SmartEnvException {

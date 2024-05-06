@@ -132,11 +132,19 @@ public class FaturaRN {
 			this.faturaDAO.insert(item);
 		}
 		
+
+		// REALIZACAO DE LANCAMENTOS FUTUROS RETIRADA EM 06.05.2024 A PEDIDO DA ASSERJUF:
+		
+		/*
+			 
 		// 1) um lancamento a debitar da conta da ASSERJUF para o convenio em questao
 		debitarContaAsserjuf(fatura);
-		
 		// 2) "n" lancamentos a creditar dos associados na conta da ASSERJUF
 		creditarContaAsserjuf(fatura);
+		 	
+		*/
+		
+
 		
 		return fatura;
 	}

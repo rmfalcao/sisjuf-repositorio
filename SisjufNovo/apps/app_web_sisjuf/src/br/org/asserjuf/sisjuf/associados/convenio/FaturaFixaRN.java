@@ -61,12 +61,12 @@ public class FaturaFixaRN extends FaturaRNAb {
 		
 		inserirFaturaArquivo(faturaArquivo);
 		
-		// obter relat�rio dos registros inconsistentes
+		// obter relatorio dos registros inconsistentes
 		
 		Collection<ItemFaturaInconsistenteVO> itensInconsistentes	= this.faturaDAO.findItensInconsistentesByFatura(faturaArquivo);
 				
-		// verificar relat�rio obtido, se for vazio, validar a fatura.
-		// caso contr�rio, 
+		// verificar relatorio obtido, se for vazio, validar a fatura.
+		// caso contrario, 
 		
 		if (itensInconsistentes != null && itensInconsistentes.size() != 0) {
 			faturaArquivo.setItensInconsistentes(itensInconsistentes);
@@ -74,7 +74,7 @@ public class FaturaFixaRN extends FaturaRNAb {
 		}
 		 
 		
-		// se chegou aqui, n�o houve inconsist�ncias.
+		// se chegou aqui, nao houve inconsistencias.
 		
 		// atualizar status da fatura para "validada"
 		faturaArquivo.setStatus(new StatusFaturaVO());
