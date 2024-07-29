@@ -193,11 +193,11 @@
 						   </h:form>
 						</rich:modalPanel>
 						
-						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="450"><!--  minHeight="100"  -->
+						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="450" style="max-height: 600px; overflow: auto;"><!--  minHeight="100"  -->
 							<h:form>
 								<f:facet name="header">Itens Inconsistentes</f:facet>
 								
-								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" style="width:650px" rows="5"  reRender="ds">
+								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" style="width:650px"   reRender="ds">
 									<f:facet name="header">
 										<rich:columnGroup>
 										<rich:column><h:outputText value="Matrícula" /></rich:column>
