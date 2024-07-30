@@ -133,7 +133,7 @@ public class FaturaFixaRN extends FaturaRNAb {
 				// insere:
 				this.faturaDAO.insertItemArquivo(item);
 			}
-			System.out.println("TESTE");
+
 		}
 		
 	}

@@ -4,12 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.log4j.Logger;
+
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
+import br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.ConvenioPageBean;
 
 public class ParserFileVitalmed extends ParserFileAb{
+	
+	private static final transient Logger LOG = Logger.getLogger(ParserFileVitalmed.class);
 	
 	public ParserFileVitalmed(byte[] contentFile) throws IOException {
 		super(contentFile);
@@ -23,7 +29,7 @@ public class ParserFileVitalmed extends ParserFileAb{
 		List<ItemFaturaVO> listaItens = new ArrayList<ItemFaturaVO>();
 		for(int i = 0;i<linhasArquivo.length;i++){
         	String linha = linhasArquivo[i].trim();
-        	if(linha.startsWith("9")){
+        	if(linha.startsWith("9")){ //9 indica que é uma linha com um número de matricula na Vitalmed.
         		String linhaModificada = linha.replaceAll("  ","@").trim();
         		linhaModificada = linhaModificada.replaceAll("@@","#").trim();
         		linhaModificada = linhaModificada.replaceAll(" ","").trim();
@@ -31,6 +37,7 @@ public class ParserFileVitalmed extends ParserFileAb{
         		linhaModificada = linhaModificada.replaceAll("@"," ").trim();
         		linhaModificada = linhaModificada.replaceAll("##","#").trim();
         		linhaModificada = linhaModificada.replaceAll("##","#").trim();
+        		linhaModificada = linhaModificada.replaceAll("##","#").trim(); // adicionado pois em caso de nomes muito curtos, ainda restavam ocorrências de ##.
         		
 	        	String[] conteudoLinha = linhaModificada.split("#");
 	        	ItemFaturaVO associado = createAssociado(linha,conteudoLinha);
@@ -45,10 +52,17 @@ public class ParserFileVitalmed extends ParserFileAb{
 		itemFatura.setVinculacao(new VinculacaoPlanoVO());
 		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
 		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(conteudoLinha[0].trim());
+		
+		if (itemFatura.getVinculacao().getCodigoBeneficiarioPlano().equals("9006541514")) {
+			LOG.info("LAZARO SOUZA AGORA");
+		}
+		
+		
 		try{
 			itemFatura.getVinculacao().getBeneficiario().setNome(conteudoLinha[1].trim());
 			itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(conteudoLinha[2].trim().equals("T") ? "T" : "D");
 			itemFatura.setValor(new Double(conteudoLinha[4].trim().replaceAll(",", "\\.")));
+			
 		}catch(Exception ex){
 			if(ex instanceof ArrayIndexOutOfBoundsException){
 				if(conteudoLinha.length == 4){
