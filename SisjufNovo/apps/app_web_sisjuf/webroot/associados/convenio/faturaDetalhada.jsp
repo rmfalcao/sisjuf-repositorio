@@ -178,7 +178,7 @@
 										<tr>
 											<th>Procurar arquivo:</th>
 											<td>
-												<rich:fileUpload id="arquivo" maxFilesQuantity="1" styleClass="teste" immediateUpload="true" 
+												<rich:fileUpload id="arquivo" maxFilesQuantity="2" styleClass="teste" immediateUpload="true" 
 												fileUploadListener="#{FaturaBean.upload}" uploadData="#{FaturaBean.data}" />
 											</td>
 										</tr>

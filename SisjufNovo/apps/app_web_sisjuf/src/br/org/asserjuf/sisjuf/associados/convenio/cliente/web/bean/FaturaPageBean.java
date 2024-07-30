@@ -56,7 +56,7 @@ public class FaturaPageBean extends BasePageBean {
 	
 	private List 			data = new ArrayList();
 	
-	private String			strPath;
+	private ArrayList<String>			strPath = new ArrayList();
 	
 	private static final transient SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -294,7 +294,7 @@ public class FaturaPageBean extends BasePageBean {
 			UploadItem uploadItem = ue.getUploadItem();
 			if (uploadItem.getFile().exists()){
 				conteudoArquivoFatura = IOUtils.toByteArray(new FileInputStream(uploadItem.getFile()));
-				strPath = uploadItem.getFile().getAbsolutePath();
+				strPath.add(uploadItem.getFile().getAbsolutePath());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -303,21 +303,26 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public String validarFatura(){
 		try {
-			if (strPath != null){
+			if (strPath != null && strPath.size() > 0){
 				if(StringUtils.isNotEmpty(tipoArquivoFatura)){
 					FaturaArquivoVO faturaArquivo = new FaturaArquivoVO();
 					faturaArquivo.setCodigo(fatura.getCodigo());
 					List<ItemFaturaVO> itens = new ArrayList<ItemFaturaVO>();
-					if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
-						//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
-						ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(strPath);
-						itens.addAll(parserFileVitalmed.parserContentFileToIntensFaturasList());
-					}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
-						ParserFilePromedica parserFilePromedica = new ParserFilePromedica(strPath);
-						itens.addAll(parserFilePromedica.parserContentFileToIntensFaturasList());
-					}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
-						ParserFileOdontosystem parserFileOdontosystem = new ParserFileOdontosystem(strPath);
-						itens.addAll(parserFileOdontosystem.parserContentFileToIntensFaturasList());
+					
+					for (String path : strPath) {
+					
+						if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
+							//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
+							ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(path);
+							itens.addAll(parserFileVitalmed.parserContentFileToIntensFaturasList());
+						}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
+							ParserFilePromedica parserFilePromedica = new ParserFilePromedica(path);
+							itens.addAll(parserFilePromedica.parserContentFileToIntensFaturasList());
+						}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
+							ParserFileOdontosystem parserFileOdontosystem = new ParserFileOdontosystem(path);
+							itens.addAll(parserFileOdontosystem.parserContentFileToIntensFaturasList());
+						}
+					
 					}
 					faturaArquivo.setItens(itens);
 					
