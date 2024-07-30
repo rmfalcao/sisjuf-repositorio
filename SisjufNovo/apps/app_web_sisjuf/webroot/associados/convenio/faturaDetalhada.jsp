@@ -201,25 +201,30 @@
 									<f:facet name="header">
 										<rich:columnGroup>
 										<rich:column><h:outputText value="Matrícula" /></rich:column>
-										<rich:column><h:outputText value="Nome" /></rich:column>
+										<rich:column><h:outputText value="Beneficiário" /></rich:column>
+										<rich:column><h:outputText value="Titular" /></rich:column>
 										<rich:column><h:outputText value="Valor" /></rich:column>
 										<rich:column><h:outputText value="Crítica" /></rich:column>
 										</rich:columnGroup>
 									</f:facet>
 									
-									<rich:column style="width:15%">
+									<rich:column style="width:10%">
 										<h:outputText value="#{itens.vinculacao.codigoBeneficiarioPlano}" />
 									</rich:column>
 									
-									<rich:column style="width:40%">
+									<rich:column style="width:35%">
 										<h:outputText value="#{itens.vinculacao.beneficiario.nome}" />
 									</rich:column>
 									
-									<rich:column style="width:30%">
+									<rich:column style="width:35%">
+										<h:outputText value="#{itens.vinculacao.associado.nome}" />
+									</rich:column>
+									
+									<rich:column style="width:5%">
 										<h:outputText value="#{itens.valor }" converter="DoubleConverter"/>
 									</rich:column>
 									
-									<rich:column style="width:10%">
+									<rich:column style="width:15%">
 										<h:outputText value="#{itens.tipoInconsistencia}" />
 									</rich:column>
 									<f:facet name="footer">
