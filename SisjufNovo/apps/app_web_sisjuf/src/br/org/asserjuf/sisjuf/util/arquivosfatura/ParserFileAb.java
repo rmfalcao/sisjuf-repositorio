@@ -21,7 +21,7 @@ public abstract class ParserFileAb implements ParserFile {
 	
 	public List<ItemFaturaVO> parserContentFileToIntensFaturasList() throws Exception {
 		List<ItemFaturaVO> listaItensFaturas = new ArrayList<ItemFaturaVO>();
-		for(int paginaCorrente=0;paginaCorrente<parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
+		for(int paginaCorrente=0;paginaCorrente <= parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
 			String[] linhasPaginaArquivo = parserPdfToStringArray.parserPdfContentToStringArraySpecificPage(paginaCorrente,paginaCorrente);
 			if(linhasPaginaArquivo.length > 1){
 				List<ItemFaturaVO> listaItensFaturasPagina = parserContentFileToItensFaturasList(linhasPaginaArquivo);

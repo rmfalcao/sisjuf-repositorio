@@ -4,18 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.log4j.Logger;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
-import br.org.asserjuf.sisjuf.associados.convenio.cliente.web.bean.ConvenioPageBean;
 
 public class ParserFileVitalmed extends ParserFileAb{
 	
-	private static final transient Logger LOG = Logger.getLogger(ParserFileVitalmed.class);
+	private static String prefixoNaFaturaDoCodigoBeneficiarioVitalmedSSA = "9 0 0 6 5"; // com espacos porque no PDF da fatura há espacos.
+	private static String prefixoNaFaturaDoCodigoBeneficiarioVitalmedFeiraDeSantana = "7"; 
 	
 	public ParserFileVitalmed(byte[] contentFile) throws IOException {
 		super(contentFile);
@@ -29,7 +27,7 @@ public class ParserFileVitalmed extends ParserFileAb{
 		List<ItemFaturaVO> listaItens = new ArrayList<ItemFaturaVO>();
 		for(int i = 0;i<linhasArquivo.length;i++){
         	String linha = linhasArquivo[i].trim();
-        	if(linha.startsWith("9")){ //9 indica que é uma linha com um número de matricula na Vitalmed.
+        	if(linha.startsWith(prefixoNaFaturaDoCodigoBeneficiarioVitalmedSSA) || linha.startsWith(prefixoNaFaturaDoCodigoBeneficiarioVitalmedFeiraDeSantana)) { //9 indica que é uma linha com um número de matricula na Vitalmed.
         		String linhaModificada = linha.replaceAll("  ","@").trim();
         		linhaModificada = linhaModificada.replaceAll("@@","#").trim();
         		linhaModificada = linhaModificada.replaceAll(" ","").trim();
@@ -52,11 +50,7 @@ public class ParserFileVitalmed extends ParserFileAb{
 		itemFatura.setVinculacao(new VinculacaoPlanoVO());
 		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
 		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(conteudoLinha[0].trim());
-		
-		if (itemFatura.getVinculacao().getCodigoBeneficiarioPlano().equals("9006541514")) {
-			LOG.info("LAZARO SOUZA AGORA");
-		}
-		
+
 		
 		try{
 			itemFatura.getVinculacao().getBeneficiario().setNome(conteudoLinha[1].trim());
