@@ -158,7 +158,7 @@
 						   <h:panelGrid columns="1">
 						   		<a4j:status>
 					                <f:facet name="start">
-					                    <h:graphicImage  value="/nucleo/images/ajax_process.gif"/>
+					                    <h:graphicImage  value="/nucleo/images/loading-green.gif"/>
 					                </f:facet>
 					            </a4j:status>
 							    <table class="tab_cadastro" style="width:100%;height:100%;border-style: solid;">
@@ -193,17 +193,18 @@
 						   </h:form>
 						</rich:modalPanel>
 						
-						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="450" style="max-height: 600px; overflow: auto;"><!--  minHeight="100"  -->
+						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="650" style="max-height: 600px; overflow: auto;"><!--  minHeight="100"  -->
 							<h:form>
 								<f:facet name="header">Itens Inconsistentes</f:facet>
-								
+																
 								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" style="width:650px"   reRender="ds">
 									<f:facet name="header">
 										<rich:columnGroup>
 										<rich:column><h:outputText value="Matrícula" /></rich:column>
 										<rich:column><h:outputText value="Beneficiário" /></rich:column>
 										<rich:column><h:outputText value="Titular" /></rich:column>
-										<rich:column><h:outputText value="Valor" /></rich:column>
+										<rich:column><h:outputText value="Valor SISJUF" /></rich:column>
+										<rich:column><h:outputText value="Valor Fatura" /></rich:column>
 										<rich:column><h:outputText value="Crítica" /></rich:column>
 										</rich:columnGroup>
 									</f:facet>
@@ -222,9 +223,13 @@
 									
 									<rich:column style="width:5%">
 										<h:outputText value="#{itens.valor }" converter="DoubleConverter"/>
+									</rich:column>									
+									
+									<rich:column style="width:5%">
+										<h:outputText value="#{itens.valorArquivo }" converter="DoubleConverter"/>
 									</rich:column>
 									
-									<rich:column style="width:15%">
+									<rich:column style="width:10%">
 										<h:outputText value="#{itens.tipoInconsistencia}" />
 									</rich:column>
 									<f:facet name="footer">
