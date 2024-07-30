@@ -305,6 +305,7 @@ public class FaturaPageBean extends BasePageBean {
 		try {
 			if (strPath != null && strPath.size() > 0){
 				if(StringUtils.isNotEmpty(tipoArquivoFatura)){
+					
 					FaturaArquivoVO faturaArquivo = new FaturaArquivoVO();
 					faturaArquivo.setCodigo(fatura.getCodigo());
 					List<ItemFaturaVO> itens = new ArrayList<ItemFaturaVO>();
