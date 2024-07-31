@@ -144,6 +144,7 @@
 	<bean id="historicoAssociadoRN" class="br.org.asserjuf.sisjuf.associados.HistoricoAssociadoRN">
 		<property name="historicoAssociadoDAO"><ref bean="historicoAssociadoDAO"/></property>
 		<property name="dataRN"><ref bean="dataRN"/></property>
+		<property name="vinculacaoPlanoRN"><ref bean="vinculacaoPlanoRN"/></property>
 	</bean>
 
 	<bean id="parentescoRN" class="br.org.asserjuf.sisjuf.associados.ParentescoRN">

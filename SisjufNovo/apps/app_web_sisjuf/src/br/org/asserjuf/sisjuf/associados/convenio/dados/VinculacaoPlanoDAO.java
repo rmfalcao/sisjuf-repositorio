@@ -7,6 +7,7 @@ import br.com.falc.smartFW.exception.SmartEnvException;
 import br.com.falc.smartFW.persistence.SmartConnection;
 import br.com.falc.smartFW.persistence.SmartPreparedStatement;
 import br.com.falc.smartFW.persistence.SmartResultSet;
+import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculadoPlanoAssembler;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
@@ -473,6 +474,31 @@ public Collection<VinculadoPlanoAssembler> findHistoricoVinculadosPlanoByFilter(
 			sStmt.close();
 			sConn.close();
 		}
+	}
+
+
+	public void removeAllByAssociado(AssociadoVO associado) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer("update vinculacao_plano set dat_desvinculacao = current_timestamp where seq_associado =  ? ");
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setParameters(associado, new String[]{"codigo"});			
+						
+			sStmt.getMyPreparedStatement().execute();			
+				
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+			sStmt.close();
+			sConn.close();
+		}
+		
 	}		
 	
 }

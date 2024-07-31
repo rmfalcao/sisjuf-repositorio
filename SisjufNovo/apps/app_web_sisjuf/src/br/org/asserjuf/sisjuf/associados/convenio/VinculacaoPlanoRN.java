@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.VinculacaoPlanoDAO;
 
 /**
@@ -133,6 +134,15 @@ public class VinculacaoPlanoRN {
 
 	public void setVinculacaoPlanoDAO(VinculacaoPlanoDAO vinculacaoPlanoDAO) {
 		this.vinculacaoPlanoDAO = vinculacaoPlanoDAO;
+	}
+
+	public void removeAllByAssociado(AssociadoVO associado) throws SmartAppException, SmartEnvException {
+		if (associado == null || associado.getCodigo() == null) {
+			throw new SmartAppException("O associado não foi identificado");
+		}
+		
+		vinculacaoPlanoDAO.removeAllByAssociado(associado);
+		
 	}		
 	
 }

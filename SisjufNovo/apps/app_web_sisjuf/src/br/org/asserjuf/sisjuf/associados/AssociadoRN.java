@@ -5,6 +5,7 @@ import java.util.Date;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoRN;
 import br.org.asserjuf.sisjuf.associados.dados.AssociadoDAO;
 import br.org.asserjuf.sisjuf.financeiro.FormaPagamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
@@ -562,6 +563,8 @@ public class AssociadoRN {
 	public void setConjugeRN(ConjugeRN conjugeRN) {
 		this.conjugeRN = conjugeRN;
 	}
+
+
 
 	public Collection<RelatorioAssociadosDependentesVO> findRelatorioAssociadosDependentes() throws SmartEnvException {
 		
