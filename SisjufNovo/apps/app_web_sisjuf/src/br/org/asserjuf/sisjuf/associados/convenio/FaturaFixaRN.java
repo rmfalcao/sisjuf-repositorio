@@ -87,6 +87,10 @@ public class FaturaFixaRN extends FaturaRNAb {
 		return faturaArquivo;
 		
 	}
+	
+	public Collection<ItemFaturaInconsistenteVO> findRelatorioInconsistenciasByCodigo(FaturaArquivoVO faturaArquivo) throws SmartEnvException {
+		return this.faturaDAO.findRelatorioInconsistenciasByCodigo(faturaArquivo);
+	}
 
 	private void inserirFaturaArquivo(FaturaVO faturaArquivo) throws SmartEnvException, SmartAppException {
 

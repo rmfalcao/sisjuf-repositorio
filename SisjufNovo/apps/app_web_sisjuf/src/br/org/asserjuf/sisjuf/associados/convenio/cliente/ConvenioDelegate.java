@@ -14,6 +14,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaArquivoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaInconsistenteVO;
 import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.dados.StatusFaturaVO;
@@ -294,6 +295,10 @@ public class ConvenioDelegate {
 	
 	public FaturaArquivoVO validarFatura(FaturaArquivoVO faturaArquivo) throws SmartEnvException, SmartAppException {
 		return convenioBean.validarFatura(faturaArquivo);
+	}
+	
+	public Collection<ItemFaturaInconsistenteVO> findRelatorioInconsistenciasByCodigo(FaturaArquivoVO faturaArquivo) throws SmartEnvException {
+		return convenioBean.findRelatorioInconsistenciasByCodigo(faturaArquivo);
 	}
 	
 	public void updateStatus(FaturaVO fatura) throws SmartEnvException, SmartAppException {

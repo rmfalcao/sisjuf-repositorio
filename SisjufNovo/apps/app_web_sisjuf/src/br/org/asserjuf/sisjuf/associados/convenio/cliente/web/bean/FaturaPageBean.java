@@ -26,6 +26,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaArquivoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.convenio.FaturaVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaInconsistenteVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.PlanoConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
@@ -53,6 +54,8 @@ public class FaturaPageBean extends BasePageBean {
 	private LancamentoVO				lancamento;
 	
 	private FaturaArquivoVO 			faturaProcessda;
+	
+	private Collection<ItemFaturaInconsistenteVO> relatorioItensInconsistentes;
 	
 	private List 			data = new ArrayList();
 	
@@ -434,6 +437,15 @@ public class FaturaPageBean extends BasePageBean {
 	
 	public String print(){
 		return consulta();
+	}
+	
+	public String printInconsistencias(){
+		try {
+			// relatorioItensInconsistentes = delegate.findRelatorioInconsistenciasByCodigo(faturaProcessda);
+			return "imprimir";
+		} catch (Exception e) {
+			return tratarExcecao(e);
+		}
 	}
 
 	public Collection<ConvenioVO> getAllConvenios(){

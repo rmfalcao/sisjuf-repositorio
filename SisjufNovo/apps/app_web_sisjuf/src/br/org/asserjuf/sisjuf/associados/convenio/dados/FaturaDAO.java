@@ -540,6 +540,46 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			sConn.close();
 		}
 	}
+	
+	public Collection<ItemFaturaInconsistenteVO> findRelatorioInconsistenciasByCodigo(FaturaArquivoVO faturaArquivo) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" SELECT 	SEQ_FATURA, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, NOM_TITULAR, VAL_ITEM_FATURA, VAL_ITEM_FATURA_ARQUIVO, TIPO_INCONSISTENCIA ")
+			.append(" FROM 	RELATORIO_INCONSISTENCIAS")
+			.append(" WHERE 	SEQ_RELATORIO_INCONSISTENCIAS = ? ")
+			.append(" ORDER BY NOM_TITULAR, NOM_BENEFICIARIO, CODIGO_BENEFICIARIO_PLANO ");	
+		
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			
+			sStmt.setParameters(faturaArquivo, new String[] {"codigoRelatorioInconsistencias"});
+			
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			return sRs.getJavaBeans(ItemFaturaInconsistenteVO.class, new String[]{	
+																			"fatura.codigo",
+																			"vinculacao.codigoBeneficiarioPlano",
+																			"vinculacao.beneficiario.nome",
+																			"vinculacao.associado.nome",
+																			"valor",
+																			"valorArquivo",
+																			"tipoInconsistencia"
+																	});									
+																	
+			
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+		}
+	}
 
 	public void insertFaturaArquivo(FaturaVO faturaArquivo) throws SmartEnvException {
 		StringBuffer sql = new StringBuffer(" INSERT INTO FATURA_ARQUIVO (seq_fatura_arquivo, val_fatura_arquivo) VALUES (?, ?) ");

@@ -289,6 +289,8 @@
 			<from-outcome>sucesso</from-outcome>
 			<to-view-id>/associados/convenio/faturaPrint.jsp</to-view-id>
 		</navigation-case>
+		
+
 			
 		<navigation-case>
 			<from-action>#{FaturaBean.print}</from-action>
@@ -300,6 +302,19 @@
 			<from-outcome>realizarLancamentoADebitar</from-outcome>
 			<to-view-id>/financeiro/lancamentoForm.jsp</to-view-id>
 		</navigation-case>
+	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Navegação de Fatura Detalhada</description>
+		<from-view-id>/associados/convenio/faturaDetalhada.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{FaturaBean.printInconsistencias}</from-action>
+			<from-outcome>imprimir</from-outcome>
+			<to-view-id>/associados/convenio/inconsistenciasPrint.jsp</to-view-id>
+		</navigation-case>
+	
 	</navigation-rule>
 	
 	<navigation-rule>

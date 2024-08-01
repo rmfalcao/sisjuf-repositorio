@@ -26,6 +26,13 @@
 					window.open(url,name,features);
 					return true;
 				}
+				
+				function setAcao(form, acao){
+
+					form.acao.value = acao;
+					
+				}
+				
 			</script>
 		</head>
 		<body>
@@ -107,6 +114,7 @@
 							 <br/><br/>
 						&nbsp;
 						<h:outputLink value="javascript:void(0);" onclick="imprimir();" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" />
+						
 						&nbsp;
 						
 						<t:div id="div_faturas" styleClass="conteudo">
@@ -194,10 +202,18 @@
 						</rich:modalPanel>
 						
 						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="650" style="max-height: 600px; overflow: auto;"><!--  minHeight="100"  -->
-							<h:form>
-								<table border=0><tr><td>
-								Itens Inconsistentes</td><td><h:outputLink value="javascript:void(0);" onclick="alert('#{FaturaBean.faturaProcessda.codigoRelatorioInconsistencias}');" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" />
-								</td></tr></table>
+							<h:form id="formInconsistencias">
+								<table border=0><tr>
+								<td>
+								Itens Inconsistentes</td>
+								<td>
+								
+								<t:commandLink onclick="setAcao(document.forms['formInconsistencias'], 'Imprime_Inconsistencias');" action="#{FaturaBean.printInconsistencias}" title="#{properties['lb_imprimir']}" immediate="true" id="printInconsistencias"  styleClass="botao_imprimir" target="print"></t:commandLink>
+								</td>
+								<td>
+								<a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" styleClass="botao_x"/>
+								</td>
+								</tr></table>
 							        
 																
 								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" style="width:650px"   reRender="ds">
@@ -241,8 +257,9 @@
 								</rich:dataTable>
 								
 								<h:panelGroup>
-						            <a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" />
+						            <a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" styleClass="botao_x"/>
 							  	</h:panelGroup>
+							  	<input type="hidden" name="acao"/>
 						   </h:form>
 						</rich:modalPanel>
 					<br /><br /><br /><br /><br /><br /><hr>

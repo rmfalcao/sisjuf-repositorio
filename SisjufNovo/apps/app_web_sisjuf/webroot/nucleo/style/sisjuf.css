@@ -225,6 +225,15 @@ background:url(../images/botao_novo.gif) no-repeat;
 float:left;
 font-size:1px;
 }
+.botao_x span{visibility:hidden;}
+.botao_x{
+display:block;
+width:15px;
+height:15px;
+background:url(../images/botao_x.gif) no-repeat;
+float:left;
+font-size:1px;
+}
 .botao_salvar span{visibility:hidden;}
 .botao_salvar{
 display:block;
