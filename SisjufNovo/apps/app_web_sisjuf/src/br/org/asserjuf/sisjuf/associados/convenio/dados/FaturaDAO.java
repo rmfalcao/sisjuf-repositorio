@@ -397,7 +397,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" VP.DAT_VINCULACAO, ")
 			.append(" VP.DAT_DESVINCULACAO, ")
 			.append(" VP.SEQ_VINCULACAO, ")
-			.append(" B.SEQ_BENEFICIARIO ")
+			.append(" B.SEQ_BENEFICIARIO, ")
+			.append(" VP.CODIGO_BENEFICIARIO_PLANO ")
 			.append(" FROM 	VW_ASSOCIADO A,  ")
 			.append(" VINCULACAO_PLANO VP, ")
 			.append(" VW_BENEFICIARIO B, ")
@@ -410,7 +411,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" AND	VP.DAT_DESVINCULACAO IS NULL ")
 			.append(" AND	C.SEQ_CONVENIO = ? ")
 			.append(" AND	VP.DAT_VINCULACAO <= ? ")
-			.append(" AND	(VP. DAT_DESVINCULACAO IS NULL OR VP.DAT_DESVINCULACAO >= ?) ");	
+			.append(" AND	(VP. DAT_DESVINCULACAO IS NULL OR VP.DAT_DESVINCULACAO >= ?) ")
+			.append(" ORDER BY A.NOM_ASSOCIADO, B.NOM_BENEFICIARIO");	
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -451,7 +453,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 																		"vinculacao.dataVinculacao",
 																		"vinculacao.dataDesVinculacao", 
 																		"vinculacao.codigo",
-																		"beneficiario.codigo"});
+																		"beneficiario.codigo",
+																		"vinculacao.codigoBeneficiarioPlano"});
 			
 		} catch (SQLException e) {
 			throw new SmartEnvException(e);
@@ -470,7 +473,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	public Collection<ItemFaturaInconsistenteVO> findItensInconsistentesByFatura(FaturaVO fatura) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
-		// INSERT INTO RELATORIO_INCONSISTENCIAS (SEQ_RELATORIO_INCONSISTENCIAS, SEQ_FATURA, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, NOM_TITULAR, VAL_ITEM_FATURA, VAL_ITEM_FATURA_ARQUIVO, TIPO INCONSISTENCIA)
+
 		sql.append(" SELECT 	F.SEQ_FATURA, VP.CODIGO_BENEFICIARIO_PLANO, B.NOM_BENEFICIARIO, B.NOM_TITULAR, IF.VAL_ITEM_FATURA, null as VAL_ITEM_FATURA_ARQUIVO, 'N√ÉO ENCONTRADO NO ARQUIVO DO CONV NIO' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
@@ -724,7 +727,8 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" VP.SEQ_ASSOCIADO AS SEQ_TITULAR, ")
 			.append(" B.NOM_TITULAR, ")
 			.append(" VP.SEQ_PLANO, ")
-			.append(" P.NOM_PLANO ")
+			.append(" P.NOM_PLANO, ")
+			.append(" VP.CODIGO_BENEFICIARIO_PLANO ")
 			.append(" FROM 	ITEM_FATURA IF, ")
 			.append(" VINCULACAO_PLANO VP, ")
 			.append(" VW_BENEFICIARIO B, ")
@@ -734,7 +738,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			.append(" AND	VP.SEQ_ASSOCIADO = B.SEQ_ASSOCIADO ")
 			.append(" AND	VP.SEQ_PLANO = P.SEQ_PLANO ")
 			.append(" AND	IF.SEQ_FATURA = ? ")
-			.append(" ORDER BY B.NOM_BENEFICIARIO ");	
+			.append(" ORDER BY B.NOM_TITULAR, B.NOM_BENEFICIARIO ");	
 
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
@@ -749,7 +753,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 			
 			return sRs.getJavaBeans(ItemFaturaVO.class, new String[]{	"codigo","vinculacao.codigo","fatura.codigo","valor","numero","beneficiario.codigo","beneficiario.nome",
-																		"beneficiario.titular.codigo","beneficiario.titular.nome","vinculacao.plano.codigo","vinculacao.plano.nome"
+																		"beneficiario.titular.codigo","beneficiario.titular.nome","vinculacao.plano.codigo","vinculacao.plano.nome", "vinculacao.codigoBeneficiarioPlano"
 																	});									
 																	
 			

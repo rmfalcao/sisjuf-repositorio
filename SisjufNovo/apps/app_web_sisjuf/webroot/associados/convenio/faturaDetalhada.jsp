@@ -122,7 +122,7 @@
 							<rich:dataTable value="#{FaturaBean.fatura.itens}" var="itens" border="0" id="itensFatura" width="100%">
 								<f:facet name="header">
 									<rich:columnGroup>
-									<rich:column><h:outputText value="Número" /></rich:column>
+									<rich:column><h:outputText value="Matrícula" /></rich:column>
 									<rich:column><h:outputText value="Beneficiário" /></rich:column>
 									<rich:column><h:outputText value="Titular" /></rich:column>
 									<rich:column><h:outputText value="Valor" /></rich:column>
@@ -130,7 +130,7 @@
 								</f:facet>
 								
 								<rich:column style="width:15%">
-									<h:outputText value="#{itens.numero}" />
+									<h:outputText value="#{itens.vinculacao.codigoBeneficiarioPlano}" />
 								</rich:column>
 								
 								<rich:column style="width:40%">
