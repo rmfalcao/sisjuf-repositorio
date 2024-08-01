@@ -470,7 +470,7 @@ public class FaturaDAO extends SisjufDAOPostgres {
 	public Collection<ItemFaturaInconsistenteVO> findItensInconsistentesByFatura(FaturaVO fatura) throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer();
-		
+		// INSERT INTO RELATORIO_INCONSISTENCIAS (SEQ_RELATORIO_INCONSISTENCIAS, SEQ_FATURA, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, NOM_TITULAR, VAL_ITEM_FATURA, VAL_ITEM_FATURA_ARQUIVO, TIPO INCONSISTENCIA)
 		sql.append(" SELECT 	F.SEQ_FATURA, VP.CODIGO_BENEFICIARIO_PLANO, B.NOM_BENEFICIARIO, B.NOM_TITULAR, IF.VAL_ITEM_FATURA, null as VAL_ITEM_FATURA_ARQUIVO, 'N√ÉO ENCONTRADO NO ARQUIVO DO CONV NIO' AS TIPO_INCONSISTENCIA ")
 			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
 			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
@@ -720,6 +720,71 @@ public class FaturaDAO extends SisjufDAOPostgres {
 			sStmt.close();
 			sConn.close();
 		}
+	}
+
+	public FaturaArquivoVO salvarRelatorioInconsistencias(FaturaArquivoVO faturaArquivo) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" INSERT INTO RELATORIO_INCONSISTENCIAS (SEQ_RELATORIO_INCONSISTENCIAS, DAT_RELATORIO_INCONSISTENCIAS, SEQ_FATURA, CODIGO_BENEFICIARIO_PLANO, NOM_BENEFICIARIO, NOM_TITULAR, VAL_ITEM_FATURA, VAL_ITEM_FATURA_ARQUIVO, TIPO_INCONSISTENCIA) ")
+			.append(" SELECT 	?, CURRENT_TIMESTAMP, F.SEQ_FATURA, VP.CODIGO_BENEFICIARIO_PLANO, B.NOM_BENEFICIARIO, B.NOM_TITULAR, IF.VAL_ITEM_FATURA, null as VAL_ITEM_FATURA_ARQUIVO, 'N√ÉO ENCONTRADO NO ARQUIVO DO CONV NIO' AS TIPO_INCONSISTENCIA ")
+			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
+			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
+			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
+			.append(" AND	VP.SEQ_PESSOA = B.SEQ_BENEFICIARIO ")
+			.append(" AND	VP.CODIGO_BENEFICIARIO_PLANO NOT IN ( ")
+			.append(" SELECT 	IFA.CODIGO_BENEFICIARIO_PLANO ")
+			.append(" FROM 	ITEM_FATURA_ARQUIVO IFA, FATURA_ARQUIVO FA ")
+			.append(" WHERE 	IFA.SEQ_FATURA_ARQUIVO = FA.SEQ_FATURA_ARQUIVO ")
+			.append(" AND     IFA.CODIGO_BENEFICIARIO_PLANO = VP.CODIGO_BENEFICIARIO_PLANO ")
+			.append(" AND	FA.SEQ_FATURA_ARQUIVO = F.SEQ_FATURA AND FA.seq_fatura_arquivo=?")
+			.append(" ) ")
+			.append(" AND 	F.SEQ_FATURA = ? ")
+			.append(" UNION ALL ")
+			.append(" SELECT 	?, CURRENT_TIMESTAMP, FA.SEQ_FATURA_ARQUIVO, IFA.CODIGO_BENEFICIARIO_PLANO, IFA.NOM_BENEFICIARIO, '(nao identificado)' as NOM_TITULAR, null as VAL_ITEM_FATURA, IFA.VAL_ITEM_FATURA_ARQUIVO, 'N√ÉO ENCONTRADO NO CADASTRO ASSERJUF' AS TIPO_INCONSISTENCIA ")
+			.append(" FROM	FATURA_ARQUIVO FA, ITEM_FATURA_ARQUIVO IFA ")
+			.append(" WHERE 	FA.SEQ_FATURA_ARQUIVO = IFA.SEQ_FATURA_ARQUIVO ")
+			.append(" AND	IFA.CODIGO_BENEFICIARIO_PLANO NOT IN ( ")
+			.append(" SELECT 	VP.CODIGO_BENEFICIARIO_PLANO ")
+			.append(" FROM 	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B ")
+			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
+			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
+			.append(" AND	VP.SEQ_PESSOA = B.SEQ_BENEFICIARIO ")
+			.append(" AND	F.seq_fatura=?")
+			.append(" ) ")
+			.append(" AND FA.SEQ_FATURA_ARQUIVO = ? ")
+			.append(" UNION ALL ")
+			.append(" SELECT ?, CURRENT_TIMESTAMP, 	F.SEQ_FATURA, VP.CODIGO_BENEFICIARIO_PLANO, B.NOM_BENEFICIARIO, B.NOM_TITULAR, IF.VAL_ITEM_FATURA, IFA.VAL_ITEM_FATURA_ARQUIVO, 'VALOR N√O BATE' AS TIPO_INCONSISTENCIA ")
+			.append(" FROM	FATURA F, ITEM_FATURA IF, VINCULACAO_PLANO VP, VW_BENEFICIARIO B, ITEM_FATURA_ARQUIVO IFA ")
+			.append(" WHERE 	F.SEQ_FATURA = IF.SEQ_FATURA ")
+			.append(" AND	IF.SEQ_VINCULACAO = VP.SEQ_VINCULACAO ")
+			.append(" AND	VP.SEQ_PESSOA = B.SEQ_BENEFICIARIO ")
+			.append(" AND	IFA.SEQ_FATURA_ARQUIVO = F.SEQ_FATURA ")
+			.append(" AND	IFA.CODIGO_BENEFICIARIO_PLANO = VP.CODIGO_BENEFICIARIO_PLANO  ")
+			.append(" AND	IFA.VAL_ITEM_FATURA_ARQUIVO <> IF.VAL_ITEM_FATURA ")
+			.append(" AND 	F.SEQ_FATURA = ? ")
+			.append(" ORDER BY NOM_TITULAR, NOM_BENEFICIARIO, CODIGO_BENEFICIARIO_PLANO ");	
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+
+		try {
+
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+
+			faturaArquivo.setCodigoRelatorioInconsistencias(new Integer(getSequence("SEQ_RELATORIO_INCONSISTENCIAS").intValue()));
+
+			sStmt.setParameters(faturaArquivo, new String[]{"codigoRelatorioInconsistencias", "codigo", "codigo", "codigoRelatorioInconsistencias", "codigo", "codigo", "codigoRelatorioInconsistencias", "codigo"});
+
+			sStmt.getMyPreparedStatement().execute();
+
+			return faturaArquivo;
+
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		}finally {
+			sStmt.close();
+			sConn.close();
+		}
+		
 	}
 	
 }

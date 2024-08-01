@@ -195,7 +195,10 @@
 						
 						<rich:modalPanel id="modalItensInconsit" autosized="true" minWidth="650" style="max-height: 600px; overflow: auto;"><!--  minHeight="100"  -->
 							<h:form>
-								<f:facet name="header">Itens Inconsistentes</f:facet>
+								<table border=0><tr><td>
+								Itens Inconsistentes</td><td><h:outputLink value="javascript:void(0);" onclick="alert('#{FaturaBean.faturaProcessda.codigoRelatorioInconsistencias}');" styleClass="botao_imprimir" title="#{properties['lb_imprimir']}" />
+								</td></tr></table>
+							        
 																
 								<rich:dataTable value="#{FaturaBean.faturaProcessda.itensInconsistentes}" var="itens" border="0" id="itensFaturaInc" style="width:650px"   reRender="ds">
 									<f:facet name="header">

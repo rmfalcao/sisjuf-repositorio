@@ -70,6 +70,7 @@ public class FaturaFixaRN extends FaturaRNAb {
 		
 		if (itensInconsistentes != null && itensInconsistentes.size() != 0) {
 			faturaArquivo.setItensInconsistentes(itensInconsistentes);
+			faturaArquivo = faturaDAO.salvarRelatorioInconsistencias(faturaArquivo);
 			return faturaArquivo;
 		}
 		 
