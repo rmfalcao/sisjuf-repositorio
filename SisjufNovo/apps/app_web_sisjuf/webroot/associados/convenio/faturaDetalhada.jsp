@@ -211,7 +211,7 @@
 								<t:commandLink onclick="setAcao(document.forms['formInconsistencias'], 'Imprime_Inconsistencias');" action="#{FaturaBean.printInconsistencias}" title="#{properties['lb_imprimir']}" immediate="true" id="printInconsistencias"  styleClass="botao_imprimir" target="print"></t:commandLink>
 								</td>
 								<td>
-								<a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" styleClass="botao_x"/>
+								<a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" />
 								</td>
 								</tr></table>
 							        
@@ -257,7 +257,7 @@
 								</rich:dataTable>
 								
 								<h:panelGroup>
-						            <a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" styleClass="botao_x"/>
+						            <a4j:commandButton  value="Fechar" onclick="#{rich:component('modalItensInconsit')}.hide();return false" />
 							  	</h:panelGroup>
 							  	<input type="hidden" name="acao"/>
 						   </h:form>
