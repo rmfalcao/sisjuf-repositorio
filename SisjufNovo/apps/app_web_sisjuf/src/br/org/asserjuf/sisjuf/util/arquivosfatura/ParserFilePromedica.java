@@ -35,7 +35,7 @@ public class ParserFilePromedica extends ParserFileAb{
         		try {
         			itemFatura.getVinculacao().getBeneficiario().setCodigo(new Integer(linha));
 				} catch (NumberFormatException e) {
-					throw new SmartAppException("O arquivo está com a formatação errada. Verifique se está validando o arquivo correto e tente novamente. Caso continue apresentando problemas, entre em contato com o convênio");
+					throw new SmartAppException("O arquivo esta com a formatacao errada. Verifique se esta validando o arquivo correto e tente novamente. Caso continue apresentando problemas, entre em contato com o convenio.");
 				}
         		listaIntensFaturas.add(itemFatura);
         	}else{
