@@ -31,5 +31,13 @@
 	<classpathentry kind="lib" path="lib/tomahawk-1.1.6.jar"/>
 	<classpathentry kind="lib" path="lib/vortice.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-app-1.8.9.jar"/>
+	<classpathentry kind="lib" path="lib/poi-5.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-5.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-5.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.18.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.27.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.17.0.jar"/>
 	<classpathentry kind="output" path="apps/app_web_sisjuf/webroot/WEB-INF/classes"/>
 </classpath>

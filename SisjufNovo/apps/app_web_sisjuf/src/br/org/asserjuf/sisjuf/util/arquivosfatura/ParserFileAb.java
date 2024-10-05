@@ -7,7 +7,7 @@ import java.util.List;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 
 
-public abstract class ParserFileAb implements ParserFile {
+public abstract class ParserFileAb implements ParserPdfFile {
 	
 	private ParserPdfToStringArray parserPdfToStringArray;
 	

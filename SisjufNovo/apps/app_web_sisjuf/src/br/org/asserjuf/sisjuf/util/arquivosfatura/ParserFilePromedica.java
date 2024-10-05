@@ -2,79 +2,51 @@
 package br.org.asserjuf.sisjuf.util.arquivosfatura;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.poi.ss.usermodel.Row;
 
-import br.com.falc.smartFW.exception.SmartAppException;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
-import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 
-public class ParserFilePromedica extends ParserFileAb{
+
+public class ParserFilePromedica extends ParserXlsFileAb {
 	
-	private static final int INICIO_UTIL_ARQUIVO = 10;
+	private static final int INICIO_UTIL_ARQUIVO = 3;
 	
-	public ParserFilePromedica(byte[] contentFile) throws IOException {
-		super(contentFile);
-	}
 	
 	public ParserFilePromedica(String contentFile) throws IOException {
-		super(contentFile);
+		super(contentFile);		
 	}
 
-	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasArquivo) throws SmartAppException{
-		List<ItemFaturaVO> listaIntensFaturas = new ArrayList<ItemFaturaVO>();
-    	for(int i = INICIO_UTIL_ARQUIVO;i<linhasArquivo.length;i++){
-        	String linha = linhasArquivo[i].trim();
-        	System.out.println(linha);
-        	if(linha.matches("[0-9]{6}")) {
-        		ItemFaturaVO itemFatura = new ItemFaturaVO();
-        		itemFatura.setVinculacao(new VinculacaoPlanoVO());
-        		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
-        		try {
-        			itemFatura.getVinculacao().getBeneficiario().setCodigo(new Integer(linha));
-				} catch (NumberFormatException e) {
-					throw new SmartAppException("O arquivo esta com a formatacao errada. Verifique se esta validando o arquivo correto e tente novamente. Caso continue apresentando problemas, entre em contato com o convenio.");
-				}
-        		listaIntensFaturas.add(itemFatura);
-        	}else{
-        		break;
-        	}
-        }
-    	
-    	int quantidadeRegistros = listaIntensFaturas.size();
+
+	@Override
+	protected int getNumLinhaInicialComConteudo() {
+		return INICIO_UTIL_ARQUIVO;
+	}
+
+	@Override
+	protected ItemFaturaVO parseRow(Row row) {
+				
+		ItemFaturaVO itemFatura = new ItemFaturaVO();
+		itemFatura.setVinculacao(new VinculacaoPlanoVO());
+		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
+		itemFatura.getVinculacao().getBeneficiario().setNome(row.getCell(0).getStringCellValue().trim());
+		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(row.getCell(1).getStringCellValue().trim());
+
+		// getCell(2) eh a data de nascimento; irrelevante para a importacao.
 		
-		for(int indiceAtual=0;indiceAtual < listaIntensFaturas.size();indiceAtual++){
-			ItemFaturaVO itemFatura = listaIntensFaturas.get(indiceAtual);
-	    	int indicePonteiroArquivo = indiceAtual+quantidadeRegistros+INICIO_UTIL_ARQUIVO;
-	    	String linha = linhasArquivo[indicePonteiroArquivo].trim();
-//	    	associado.setDepartamento(linha);
-//	    	
-	    	indicePonteiroArquivo = calcularNovaPosicao(indicePonteiroArquivo, 1, quantidadeRegistros);
-	    	linha = linhasArquivo[indicePonteiroArquivo].trim();
-//	    	associado.setDataNascimento(linha);
-//	    	
-	    	indicePonteiroArquivo = calcularNovaPosicao(indicePonteiroArquivo, 1, quantidadeRegistros);
-	    	linha = linhasArquivo[indicePonteiroArquivo].trim();
-//	    	associado.setSexo(linha);
-//	    	
-	    	indicePonteiroArquivo = calcularNovaPosicao(indicePonteiroArquivo, 1, quantidadeRegistros);
-	    	linha = linhasArquivo[indicePonteiroArquivo].trim();
-	    	itemFatura.getVinculacao().getBeneficiario().setNome(linha);
-//	    	
-//	    	indicePonteiroArquivo = calcularNovaPosicao(indicePonteiroArquivo, 2, quantidadeRegistros);
-//	    	linha = linhasArquivo[indicePonteiroArquivo].trim();
-//	    	associado.setDataAdesao(linha);
-		}
-		return listaIntensFaturas;
-	}
-	
-	private static int calcularNovaPosicao(int valorAtualPonteiro,int quantidadeSaltos,int quantidadeRegistros){
-		if(quantidadeSaltos>0){
-			valorAtualPonteiro = valorAtualPonteiro + (quantidadeRegistros*quantidadeSaltos);
-		}
-		return valorAtualPonteiro;
+		itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(row.getCell(3).getStringCellValue().trim().equals("TITULAR") ? "T" : "D");
+		
+		itemFatura.setValor(row.getCell(4).getNumericCellValue());
+		
+		/*
+        item.setId((int) row.getCell(0).getNumericCellValue());
+        item.setDescription(row.getCell(1).getStringCellValue());
+        */
+        return itemFatura;
 	}
 
+
+	
+	
 }
