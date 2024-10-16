@@ -146,11 +146,11 @@ public class FaturaFixaRN extends FaturaRNAb {
 	private void testaRegrasItemFaturaArquivo(ItemFaturaVO item) throws SmartAppException {
 
 		if (item == null) {
-			throw new SmartAppException("Pelo menos um item da fatura do arquivo não foi identificado.");
+			throw new SmartAppException("Pelo menos um item da fatura do arquivo nao foi identificado.");
 		}
 		
 		if (item.getVinculacao() == null || item.getVinculacao().getBeneficiario() == null) {
-			throw new SmartAppException("Beneficiário não encontrado em item de fatura do arquivo.");
+			throw new SmartAppException("Beneficiario nao encontrado em item de fatura do arquivo.");
 		}
 		/*
 		if (item.getVinculacao().getBeneficiario().getCpf() == null) {
@@ -158,11 +158,11 @@ public class FaturaFixaRN extends FaturaRNAb {
 		}
 		*/
 		if (item.getVinculacao().getCodigoBeneficiarioPlano()==null || "".equals(item.getVinculacao().getCodigoBeneficiarioPlano())) {
-			throw new SmartAppException("Codigo do beneficiario no plano de um item de fatura do arquivo não encontrado.");
+			throw new SmartAppException("Codigo do beneficiario no plano de um item de fatura do arquivo nao encontrado.");
 		}
 		
 		if (item.getValor() == null) {
-			throw new SmartAppException("Valor de um item de fatura do arquivo não encontrado.");
+			throw new SmartAppException("Valor de um item de fatura do arquivo nao encontrado.");
 		}
 		
 	}
