@@ -35,9 +35,6 @@ public class ParserFileOdontosystem extends ParserXlsFileAb {
 		itemFatura.getVinculacao().getBeneficiario().setNome(row.getCell(2).getStringCellValue().trim());
 		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(new Integer((int)row.getCell(0).getNumericCellValue()).toString());
 		
-
-		// getCell(2) eh a data de nascimento; irrelevante para a importacao.
-		
 		//itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(row.getCell(3).getStringCellValue().trim().equals("TITULAR") ? "T" : "D");
 		//itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario("nao identificado");
 		
