@@ -329,6 +329,7 @@ public class FaturaPageBean extends BasePageBean {
 						} else if(tipoArquivoFatura.equalsIgnoreCase("SERVDONTO")){
 							ParserFileServdonto parserFileServdonto = new ParserFileServdonto(path);
 							itens.addAll(parserFileServdonto.parserContentFileToIntensFaturasList());
+							
 						}
 					
 					}

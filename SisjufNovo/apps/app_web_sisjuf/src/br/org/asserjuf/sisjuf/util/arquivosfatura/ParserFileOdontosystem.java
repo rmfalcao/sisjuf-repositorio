@@ -9,6 +9,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 
 public class ParserFileOdontosystem extends ParserXlsFileAb {
 	
+	
 	private static final int INICIO_UTIL_ARQUIVO = 1;
 	
 	

@@ -8,8 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public abstract class ParserXlsFileAb extends ParserExcelFileAb{
 	
-	
-	
+		
 	public ParserXlsFileAb(String path) {
 		super(path);
 		

@@ -23,7 +23,7 @@ public abstract class ParserExcelFileAb implements ParserFile {
 	public List<ItemFaturaVO> parserContentFileToIntensFaturasList() throws Exception {
 		 
 
-		// 
+		
 		FileInputStream fis = new FileInputStream(this.path);
         Workbook workbook = getWorkbook(fis);
         

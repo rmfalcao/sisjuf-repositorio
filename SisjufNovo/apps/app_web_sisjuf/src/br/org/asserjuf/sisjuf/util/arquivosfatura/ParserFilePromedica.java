@@ -12,8 +12,7 @@ import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 public class ParserFilePromedica extends ParserXlsFileAb {
 	
 	private static final int INICIO_UTIL_ARQUIVO = 3;
-	
-	
+		
 	public ParserFilePromedica(String contentFile) throws IOException {
 		super(contentFile);		
 	}

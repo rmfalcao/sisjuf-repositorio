@@ -9,7 +9,6 @@ import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 
 public class ParserFileServdonto extends ParserXlsFileAb {
 	
-
 	
 	private static final int INICIO_UTIL_ARQUIVO = 16;
 	
