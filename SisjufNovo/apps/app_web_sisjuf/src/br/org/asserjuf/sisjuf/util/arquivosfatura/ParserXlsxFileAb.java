@@ -3,20 +3,20 @@ package br.org.asserjuf.sisjuf.util.arquivosfatura;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public abstract class ParserXlsFileAb extends ParserExcelFileAb{
+public abstract class ParserXlsxFileAb extends ParserExcelFileAb{
 	
 	
 	
-	public ParserXlsFileAb(String path) {
+	public ParserXlsxFileAb(String path) {
 		super(path);
 		
 	}
 
 	protected Workbook getWorkbook(FileInputStream fis) throws IOException {
-		return new HSSFWorkbook(fis);
+		return new XSSFWorkbook(fis);
 	};
 
 }
