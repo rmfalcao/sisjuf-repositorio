@@ -178,6 +178,7 @@
 													<f:selectItem itemLabel="VitalMed"	itemValue="VITALMED" />
 													<f:selectItem itemLabel="Promédica" itemValue="PROMEDICA"/>
 													<f:selectItem itemLabel="Odontosystem" itemValue="ODONTOSYSTEM"/>
+													<f:selectItem itemLabel="Servdonto" itemValue="SERVDONTO"/>
 												</h:selectOneMenu>
 											</td>
 										</tr>

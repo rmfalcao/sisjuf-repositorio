@@ -38,6 +38,7 @@ import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileOdontosystem;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFilePromedica;
+import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileServdonto;
 import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileVitalmed;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
@@ -315,16 +316,19 @@ public class FaturaPageBean extends BasePageBean {
 					
 					for (String path : strPath) {
 					
-						if(tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
+						if (tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
 							//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
 							ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(path);
 							itens.addAll(parserFileVitalmed.parserContentFileToIntensFaturasList());
-						}else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
+						} else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
 							ParserFilePromedica parserFilePromedica = new ParserFilePromedica(path);
 							itens.addAll(parserFilePromedica.parserContentFileToIntensFaturasList());
-						}else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
+						} else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
 							ParserFileOdontosystem parserFileOdontosystem = new ParserFileOdontosystem(path);
 							itens.addAll(parserFileOdontosystem.parserContentFileToIntensFaturasList());
+						} else if(tipoArquivoFatura.equalsIgnoreCase("SERVDONTO")){
+							ParserFileServdonto parserFileServdonto = new ParserFileServdonto(path);
+							itens.addAll(parserFileServdonto.parserContentFileToIntensFaturasList());
 						}
 					
 					}
