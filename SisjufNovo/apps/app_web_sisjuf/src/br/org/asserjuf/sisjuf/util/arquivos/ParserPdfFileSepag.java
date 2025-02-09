@@ -15,4 +15,10 @@ public class ParserPdfFileSepag extends ParserPdfFileAb {
 		return null;
 	}
 
+	@Override
+	protected List initiateList() {
+		// TODO alterar para returnar objeto do arquivo SEPAG
+		return null;
+	}
+
 }

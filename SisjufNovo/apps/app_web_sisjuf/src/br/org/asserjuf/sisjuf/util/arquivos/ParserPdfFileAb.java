@@ -16,7 +16,7 @@ public abstract class ParserPdfFileAb extends ParserFileAb {
 
 	public List parse() throws Exception {
 		ParserPdfToStringArray parserPdfToStringArray = new ParserPdfToStringArray(path);
-		List lista = new ArrayList();
+		List lista = initiateList();
 		for(int paginaCorrente=0;paginaCorrente <= parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
 			String[] linhasPaginaArquivo = parserPdfToStringArray.parserPdfContentToStringArraySpecificPage(paginaCorrente,paginaCorrente);
 			if(linhasPaginaArquivo.length > 1){
@@ -27,6 +27,8 @@ public abstract class ParserPdfFileAb extends ParserFileAb {
 		return lista;
 		
 	}
+
+	protected abstract List initiateList();
 
 	protected abstract List createItemFromLines(String[] linhasPaginaArquivo) throws Exception;
 
