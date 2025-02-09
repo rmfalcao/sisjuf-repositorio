@@ -1,4 +1,4 @@
-package br.org.asserjuf.sisjuf.util.arquivosfatura;
+package br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura;
 
 import java.io.FileInputStream;
 import java.io.IOException;

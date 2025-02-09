@@ -1,10 +1,10 @@
-package br.org.asserjuf.sisjuf.util.arquivosfatura;
+package br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura;
 
 import java.util.List;
 
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 
-public interface ParserPdfFile extends ParserFile {
+public interface ParserPdfFile {
 
 	public List<ItemFaturaVO> parserContentFileToItensFaturasList(String[] linhasPaginaArquivo) throws Exception;
 

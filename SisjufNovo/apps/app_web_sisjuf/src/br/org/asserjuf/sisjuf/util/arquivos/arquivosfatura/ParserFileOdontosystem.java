@@ -1,5 +1,4 @@
-
-package br.org.asserjuf.sisjuf.util.arquivosfatura;
+package br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura;
 
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Row;
@@ -8,12 +7,13 @@ import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 
-
-public class ParserFilePromedica extends ParserXlsFileAb {
+public class ParserFileOdontosystem extends ParserXlsFileAb {
 	
-	private static final int INICIO_UTIL_ARQUIVO = 3;
-		
-	public ParserFilePromedica(String contentFile) throws IOException {
+	
+	private static final int INICIO_UTIL_ARQUIVO = 1;
+	
+	
+	public ParserFileOdontosystem(String contentFile) throws IOException {
 		super(contentFile);		
 	}
 
@@ -26,15 +26,18 @@ public class ParserFilePromedica extends ParserXlsFileAb {
 	@Override
 	protected ItemFaturaVO parseRow(Row row) {
 				
+		if (row.getCell(3).getStringCellValue().toUpperCase().equals("CADASTRO")) {
+			return null;
+		}
+		
 		ItemFaturaVO itemFatura = new ItemFaturaVO();
 		itemFatura.setVinculacao(new VinculacaoPlanoVO());
 		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
-		itemFatura.getVinculacao().getBeneficiario().setNome(row.getCell(0).getStringCellValue().trim());
-		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(row.getCell(1).getStringCellValue().trim());
-
-		// getCell(2) eh a data de nascimento; irrelevante para a importacao.
+		itemFatura.getVinculacao().getBeneficiario().setNome(row.getCell(2).getStringCellValue().trim());
+		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(new Integer((int)row.getCell(0).getNumericCellValue()).toString());
 		
-		itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(row.getCell(3).getStringCellValue().trim().equals("TITULAR") ? "T" : "D");
+		//itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(row.getCell(3).getStringCellValue().trim().equals("TITULAR") ? "T" : "D");
+		//itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario("nao identificado");
 		
 		itemFatura.setValor(row.getCell(4).getNumericCellValue());
 		
@@ -45,7 +48,5 @@ public class ParserFilePromedica extends ParserXlsFileAb {
         return itemFatura;
 	}
 
-
-	
 	
 }

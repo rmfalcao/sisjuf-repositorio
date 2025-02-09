@@ -1,4 +1,4 @@
-package br.org.asserjuf.sisjuf.util.arquivosfatura;
+package br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura;
 
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Row;
@@ -7,13 +7,13 @@ import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 
-public class ParserFileOdontosystem extends ParserXlsFileAb {
+public class ParserFileServdonto extends ParserXlsFileAb {
 	
 	
-	private static final int INICIO_UTIL_ARQUIVO = 1;
+	private static final int INICIO_UTIL_ARQUIVO = 16;
 	
 	
-	public ParserFileOdontosystem(String contentFile) throws IOException {
+	public ParserFileServdonto(String contentFile) throws IOException {
 		super(contentFile);		
 	}
 
@@ -25,16 +25,21 @@ public class ParserFileOdontosystem extends ParserXlsFileAb {
 
 	@Override
 	protected ItemFaturaVO parseRow(Row row) {
+		
+		//se celula está vazia ou comeca com um número, nao é uma linha com item da fatura.
 				
-		if (row.getCell(3).getStringCellValue().toUpperCase().equals("CADASTRO")) {
+		if (isEmpty(row.getCell(0).getStringCellValue()) || startsWithNumber(row.getCell(0).getStringCellValue()) || row.getCell(0).getStringCellValue().equals("ASSERJUF - FUNC")) {
 			return null;
 		}
+		
+		// se chegou até aqui, é uma linha com um item da fatura.
 		
 		ItemFaturaVO itemFatura = new ItemFaturaVO();
 		itemFatura.setVinculacao(new VinculacaoPlanoVO());
 		itemFatura.getVinculacao().setBeneficiario(new BeneficiarioVO());
-		itemFatura.getVinculacao().getBeneficiario().setNome(row.getCell(2).getStringCellValue().trim());
-		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(new Integer((int)row.getCell(0).getNumericCellValue()).toString());
+		itemFatura.getVinculacao().getBeneficiario().setNome(row.getCell(0).getStringCellValue().trim());
+		itemFatura.getVinculacao().setCodigoBeneficiarioPlano(row.getCell(1).getStringCellValue().trim());
+		
 		
 		//itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario(row.getCell(3).getStringCellValue().trim().equals("TITULAR") ? "T" : "D");
 		//itemFatura.getVinculacao().getBeneficiario().setTipoBeneficiario("nao identificado");
@@ -46,6 +51,16 @@ public class ParserFileOdontosystem extends ParserXlsFileAb {
         item.setDescription(row.getCell(1).getStringCellValue());
         */
         return itemFatura;
+	}
+
+
+	private boolean startsWithNumber(String stringCellValue) {
+		return Character.isDigit(stringCellValue.charAt(0));
+	}
+
+
+	private boolean isEmpty(String stringCellValue) {
+		return (stringCellValue == null || "".equals(stringCellValue));
 	}
 
 	

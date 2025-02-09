@@ -1,4 +1,4 @@
-package br.org.asserjuf.sisjuf.util.arquivosfatura;
+package br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura;
 
 
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 
-public abstract class ParserExcelFileAb implements ParserFile {
+public abstract class ParserExcelFileAb implements IParserFaturaFile {
 	
 	private String path;
 	

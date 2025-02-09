@@ -36,10 +36,10 @@ import br.org.asserjuf.sisjuf.financeiro.ContaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
-import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileOdontosystem;
-import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFilePromedica;
-import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileServdonto;
-import br.org.asserjuf.sisjuf.util.arquivosfatura.ParserFileVitalmed;
+import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileOdontosystem;
+import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFilePromedica;
+import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileServdonto;
+import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileVitalmed;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 public class FaturaPageBean extends BasePageBean {
