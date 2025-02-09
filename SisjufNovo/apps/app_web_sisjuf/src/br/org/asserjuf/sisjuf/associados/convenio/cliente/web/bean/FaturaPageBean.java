@@ -37,11 +37,9 @@ import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
 import br.org.asserjuf.sisjuf.util.arquivos.ParserOdontosystem;
-import br.org.asserjuf.sisjuf.util.arquivos.ParserPdfFaturaFileVitamed;
-import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileOdontosystem;
-import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFilePromedica;
-import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileServdonto;
-import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileVitalmed;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserPromedica;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserServdonto;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserVitamed;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 public class FaturaPageBean extends BasePageBean {
@@ -320,17 +318,17 @@ public class FaturaPageBean extends BasePageBean {
 					
 						if (tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
 							//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
-							ParserPdfFaturaFileVitamed parserFileVitalmed = new ParserPdfFaturaFileVitamed(path);
+							ParserVitamed parserFileVitalmed = new ParserVitamed(path);
 							itens.addAll(parserFileVitalmed.parse());
 						} else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
-							ParserFilePromedica parserFilePromedica = new ParserFilePromedica(path);
-							itens.addAll(parserFilePromedica.parserContentFileToIntensFaturasList());
+							ParserPromedica parserFilePromedica = new ParserPromedica(path);
+							itens.addAll(parserFilePromedica.parse());
 						} else if(tipoArquivoFatura.equalsIgnoreCase("ODONTOSYSTEM")){
 							ParserOdontosystem parserFileOdontosystem = new ParserOdontosystem(path);
 							itens.addAll(parserFileOdontosystem.parse());
 						} else if(tipoArquivoFatura.equalsIgnoreCase("SERVDONTO")){
-							ParserFileServdonto parserFileServdonto = new ParserFileServdonto(path);
-							itens.addAll(parserFileServdonto.parserContentFileToIntensFaturasList());
+							ParserServdonto parserFileServdonto = new ParserServdonto(path);
+							itens.addAll(parserFileServdonto.parse());
 							
 						}
 					

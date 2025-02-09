@@ -8,11 +8,11 @@ import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 
-public class ParserPdfFaturaFileVitamed extends ParserPdfFaturaFileAb {
+public class ParserVitamed extends ParserPdfFaturaFileAb {
 	private static String prefixoNaFaturaDoCodigoBeneficiarioVitalmedSSA = "9 0 0 6 5"; // com espacos porque no PDF da fatura há espacos.
 	private static String prefixoNaFaturaDoCodigoBeneficiarioVitalmedFeiraDeSantana = "7"; 
 	
-	public ParserPdfFaturaFileVitamed(String path) {
+	public ParserVitamed(String path) {
 		super(path);
 		// TODO Auto-generated constructor stub
 	}
