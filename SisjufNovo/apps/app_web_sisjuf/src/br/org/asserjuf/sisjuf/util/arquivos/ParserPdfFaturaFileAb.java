@@ -11,6 +11,7 @@ public abstract class ParserPdfFaturaFileAb extends ParserPdfFileAb {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	@Override
 	protected abstract List<ItemFaturaVO> createItemFromLines(String[] linhasPaginaArquivo) throws Exception ;
 

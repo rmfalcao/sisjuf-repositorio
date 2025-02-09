@@ -14,13 +14,13 @@ public abstract class ParserPdfFileAb extends ParserFileAb {
 		
 	}
 
-	public <T> List<T> parse() throws Exception {
+	public List parse() throws Exception {
 		ParserPdfToStringArray parserPdfToStringArray = new ParserPdfToStringArray(path);
-		List<T> lista = new ArrayList<T>();
+		List lista = new ArrayList();
 		for(int paginaCorrente=0;paginaCorrente <= parserPdfToStringArray.getNumeroPaginas();paginaCorrente++){
 			String[] linhasPaginaArquivo = parserPdfToStringArray.parserPdfContentToStringArraySpecificPage(paginaCorrente,paginaCorrente);
 			if(linhasPaginaArquivo.length > 1){
-				List<T> listaPagina = createItemFromLines(linhasPaginaArquivo);
+				List listaPagina = createItemFromLines(linhasPaginaArquivo);
 				lista.addAll(listaPagina);
 			}
 		}
@@ -28,6 +28,6 @@ public abstract class ParserPdfFileAb extends ParserFileAb {
 		
 	}
 
-	protected abstract <T> List<T> createItemFromLines(String[] linhasPaginaArquivo) throws Exception;
+	protected abstract List createItemFromLines(String[] linhasPaginaArquivo) throws Exception;
 
 }

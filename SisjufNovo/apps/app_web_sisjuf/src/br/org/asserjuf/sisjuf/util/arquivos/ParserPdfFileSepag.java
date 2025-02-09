@@ -10,7 +10,7 @@ public class ParserPdfFileSepag extends ParserPdfFileAb {
 	}
 
 	@Override
-	protected <T> List<T> createItemFromLines(String[] linhasPaginaArquivo) throws Exception {
+	protected List createItemFromLines(String[] linhasPaginaArquivo) throws Exception {
 		// TODO trocar retorno generico por classe representando SEPAG
 		return null;
 	}

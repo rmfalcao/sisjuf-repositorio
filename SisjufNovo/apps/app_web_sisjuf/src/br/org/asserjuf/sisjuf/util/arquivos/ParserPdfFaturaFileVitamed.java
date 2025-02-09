@@ -16,7 +16,7 @@ public class ParserPdfFaturaFileVitamed extends ParserPdfFaturaFileAb {
 		super(path);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	protected List<ItemFaturaVO> createItemFromLines(String[] linhasArquivo) throws Exception {
 		List<ItemFaturaVO> listaItens = new ArrayList<ItemFaturaVO>();

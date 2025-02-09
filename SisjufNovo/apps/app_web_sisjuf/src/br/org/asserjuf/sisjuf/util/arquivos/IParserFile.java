@@ -6,6 +6,6 @@ import java.util.List;
 public interface IParserFile {
 	
 	
-	public abstract <T> List<T> parse() throws IOException, Exception;
+	public abstract List<?> parse() throws IOException, Exception;
 	
 }

@@ -10,7 +10,7 @@ public class ParserExcelFileAb extends ParserFileAb {
 		// TODO Auto-generated constructor stub
 	}
 
-	public <T> List<T> parse() throws IOException, Exception {
+	public List parse() throws IOException, Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

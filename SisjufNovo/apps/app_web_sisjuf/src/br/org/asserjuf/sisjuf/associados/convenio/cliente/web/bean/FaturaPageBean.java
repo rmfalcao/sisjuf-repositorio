@@ -36,6 +36,7 @@ import br.org.asserjuf.sisjuf.financeiro.ContaVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.ParametroVO;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserPdfFaturaFileVitamed;
 import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileOdontosystem;
 import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFilePromedica;
 import br.org.asserjuf.sisjuf.util.arquivos.arquivosfatura.ParserFileServdonto;
@@ -318,8 +319,8 @@ public class FaturaPageBean extends BasePageBean {
 					
 						if (tipoArquivoFatura.equalsIgnoreCase("VITALMED")){
 							//ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(conteudoArquivoFatura);
-							ParserFileVitalmed parserFileVitalmed = new ParserFileVitalmed(path);
-							itens.addAll(parserFileVitalmed.parserContentFileToIntensFaturasList());
+							ParserPdfFaturaFileVitamed parserFileVitalmed = new ParserPdfFaturaFileVitamed(path);
+							itens.addAll(parserFileVitalmed.parse());
 						} else if(tipoArquivoFatura.equalsIgnoreCase("PROMEDICA")){
 							ParserFilePromedica parserFilePromedica = new ParserFilePromedica(path);
 							itens.addAll(parserFilePromedica.parserContentFileToIntensFaturasList());
