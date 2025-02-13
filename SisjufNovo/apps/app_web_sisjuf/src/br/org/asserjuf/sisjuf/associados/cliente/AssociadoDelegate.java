@@ -1,6 +1,7 @@
 package br.org.asserjuf.sisjuf.associados.cliente;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -14,8 +15,9 @@ import br.org.asserjuf.sisjuf.associados.DocumentoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.EmailVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoFiltroAssembler;
+import br.org.asserjuf.sisjuf.associados.InconsistenciaNucreVO;
 import br.org.asserjuf.sisjuf.associados.ParentescoVO;
-import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.ItemPlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
@@ -74,7 +76,7 @@ public class AssociadoDelegate  {
 		associadoBean.insertValorSocioUsuario(valor);
 	}
 	
-	public Collection<AssociadoImportacaoNucreVO> importPlanilhaNucre(Collection<PlanilhaNucreVO> planilha)  throws SmartEnvException, SmartAppException {
+	public Collection<AssociadoImportacaoNucreVO> importPlanilhaNucre(Collection<ItemPlanilhaNucreVO> planilha)  throws SmartEnvException, SmartAppException {
 		return associadoBean.importPlanilhaNucre(planilha);
 	}
 	
@@ -164,5 +166,11 @@ public class AssociadoDelegate  {
 		
 		return associadoBean.findRelatorioAssociadosDependentes();
 	}
-	
+
+	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
+		
+		return associadoBean.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+	}
+
+
 }

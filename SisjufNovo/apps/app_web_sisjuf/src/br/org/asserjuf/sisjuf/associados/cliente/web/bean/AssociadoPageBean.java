@@ -2,6 +2,7 @@ package br.org.asserjuf.sisjuf.associados.cliente.web.bean;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,7 @@ import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
+import org.apache.pdfbox.io.IOUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -38,10 +40,11 @@ import br.org.asserjuf.sisjuf.associados.EmailVO;
 import br.org.asserjuf.sisjuf.associados.FilhoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoAssociadoVO;
 import br.org.asserjuf.sisjuf.associados.HistoricoFiltroAssembler;
+import br.org.asserjuf.sisjuf.associados.InconsistenciaNucreVO;
 import br.org.asserjuf.sisjuf.associados.OrgaoVO;
 import br.org.asserjuf.sisjuf.associados.ParentescoVO;
 import br.org.asserjuf.sisjuf.associados.PessoaVO;
-import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.ItemPlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.ProfissaoVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.SetorVO;
@@ -61,6 +64,7 @@ import br.org.asserjuf.sisjuf.entidadesComuns.cliente.EntidadesComunsDelegate;
 import br.org.asserjuf.sisjuf.financeiro.BancoVO;
 import br.org.asserjuf.sisjuf.financeiro.ContaAssociadoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserSepag;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 import com.vortice.seguranca.vo.UsuarioVO;
@@ -185,8 +189,15 @@ public class AssociadoPageBean  extends BasePageBean{
 	private Collection<VinculadoPlanoAssembler> historicoVinculacoes;
 	private VinculadoPlanoAssembler historicoVinculacaoFiltro;
 	
+
+	private byte[] conteudoArquivoNucre;
+
+	private ArrayList<String>			strPath = new ArrayList();
+	
+	private List<InconsistenciaNucreVO> inconsistenciasNucre;
+	
 	/**
-	 * Data que ser� feita a importa��o do nucre
+	 * Data que serah feita a importacao do nucre
 	 */
 	private Date dataImportacao;
 	
@@ -250,18 +261,71 @@ public class AssociadoPageBean  extends BasePageBean{
 		 }
 	}
 
+	/*
 	public void upload(UploadEvent e) { 
 		UploadItem uploadItem = e.getUploadItem();	
 		HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 		sessao.setAttribute("FILE_PATH", uploadItem.getFile().getPath());
 		data.add(uploadItem);
 	} 
+	*/
+	
+	public void upload(UploadEvent ue) { 
+		try {
+			UploadItem uploadItem = ue.getUploadItem();
+			if (uploadItem.getFile().exists()){
+				conteudoArquivoNucre = IOUtils.toByteArray(new FileInputStream(uploadItem.getFile()));
+				strPath.add(uploadItem.getFile().getAbsolutePath());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	} 
+	
+	public String importarArquivo() {
+		try {
+			if (strPath != null && strPath.size() > 0){
+				
+				List<ItemPlanilhaNucreVO> relatorioNucre = new ArrayList<ItemPlanilhaNucreVO>();
+				
+				for (String path : strPath) {
+					ParserSepag parserSepag = new ParserSepag(path);
+					relatorioNucre.addAll(parserSepag.parse());
+				}
+				
+				// retornar relatorio de inconsistencias NUCRE
+				inconsistenciasNucre = delegate.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+				
+			}
+			
+			return getSucesso();
+			
+		} catch(SmartAppException appEx){
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			LOG.error("Error ", appEx);
+			return "falha";
+		}catch(SmartEnvException envEx){
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext facesContext =  FacesContext.getCurrentInstance();
+			facesContext.addMessage(null, msgs);
+			return "falha";
+		}catch(Exception e){
+			e.printStackTrace();
+			String msgErr = "Ocorreu um erro inesperado, contate o seu administrador.";
+			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErr, msgErr);
+			FacesContext.getCurrentInstance().addMessage(null, msgs);
+			return "falha";
+		}
+	}
 	
 	/**
 	 * Vai importar o arquivo do nucre e gerar uma lista de associados.
-	 * @return
+	 * @deprecated
 	 */
-	public String importarArquivo(){
+	public String importarArquivoOld(){
 		try {
 			HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 //			BufferedReader in = new BufferedReader(new FileReader(((UploadItem)data.get(0)).getFile()));
@@ -269,7 +333,7 @@ public class AssociadoPageBean  extends BasePageBean{
 			BufferedReader in = new BufferedReader(new FileReader((new File((String)sessao.getAttribute("FILE_PATH")))));
 			String str = "";
 			boolean continua = false;
-			Collection<PlanilhaNucreVO> planilhas = new ArrayList<PlanilhaNucreVO>();
+			Collection<ItemPlanilhaNucreVO> planilhas = new ArrayList<ItemPlanilhaNucreVO>();
 			while ((str = in.readLine()) != null){
 				if (!continua)
 					if (str.indexOf("(MENSALIDADE)") > 0) continua = true;
@@ -284,7 +348,7 @@ public class AssociadoPageBean  extends BasePageBean{
 						{
 							if (!"".equals(strArray[2]))
 							{
-								PlanilhaNucreVO planilha = new PlanilhaNucreVO();
+								ItemPlanilhaNucreVO planilha = new ItemPlanilhaNucreVO();
 								String matricula = strArray[2];
 								
 								if (matricula.indexOf("\"") >= 0)

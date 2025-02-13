@@ -4,7 +4,7 @@ import java.util.Date;
 
 import br.com.falc.smartFW.SmartVO;
 
-public class PlanilhaNucreVO extends SmartVO {
+public class ItemPlanilhaNucreVO extends SmartVO {
 
 	private AssociadoVO associado;
 	private Float		valorDebitado;
@@ -12,6 +12,17 @@ public class PlanilhaNucreVO extends SmartVO {
 	private Float		valorLiquido;
 	private Date		data;
 	
+	private Long		codigoPlanilha;
+	
+	
+	
+
+	public Long getCodigoPlanilha() {
+		return codigoPlanilha;
+	}
+	public void setCodigoPlanilha(Long codigoPlanilha) {
+		this.codigoPlanilha = codigoPlanilha;
+	}
 	public AssociadoVO getAssociado() {
 		return associado;
 	}

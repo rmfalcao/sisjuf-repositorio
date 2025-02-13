@@ -2,10 +2,10 @@ package br.org.asserjuf.sisjuf.associados;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
-import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoRN;
 import br.org.asserjuf.sisjuf.associados.dados.AssociadoDAO;
 import br.org.asserjuf.sisjuf.financeiro.FormaPagamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
@@ -26,7 +26,7 @@ public class AssociadoRN {
 	private ConjugeRN				conjugeRN;
 	
 	
-	public Collection<AssociadoImportacaoNucreVO> importPlanilhaNucre(Collection<PlanilhaNucreVO> planilha) throws SmartEnvException, SmartAppException {
+	public Collection<AssociadoImportacaoNucreVO> importPlanilhaNucre(Collection<ItemPlanilhaNucreVO> planilha) throws SmartEnvException, SmartAppException {
 		
 		Integer operacaoCredito 				= new Integer(parametroRN.findByPrimaryKey(new ParametroVO("TP_OPERACAO_CREDITO")).getValorTextual());
 		Integer formaPagamentoDebitoAutomatico 	= new Integer(parametroRN.findByPrimaryKey(new ParametroVO("FORMA_PAGTO_DEBITO_AUT")).getValorTextual());
@@ -45,7 +45,7 @@ public class AssociadoRN {
 		
 		Date dataImportacao = new Date(); 
 		
-		for (PlanilhaNucreVO vo : planilha) {
+		for (ItemPlanilhaNucreVO vo : planilha) {
 			dataImportacao = vo.getData();
 			break;
 		}
@@ -569,5 +569,57 @@ public class AssociadoRN {
 	public Collection<RelatorioAssociadosDependentesVO> findRelatorioAssociadosDependentes() throws SmartEnvException {
 		
 		return associadoDAO.findRelatorioAssociadosDependentes();
+	}
+
+	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
+		
+		
+		//  gravar arquivo nucre no banco, retornar codigo gerado do arquivo nucre
+		Long codigoNovaPlanilhaNucre = associadoDAO.getSequence("SEQ_PLANILHA_NUCRE");
+		for (ItemPlanilhaNucreVO itemNucre : relatorioNucre) {
+			itemNucre.setCodigoPlanilha(codigoNovaPlanilhaNucre);
+			
+			validaItemPlanilhaNucre(itemNucre);
+			
+			insert(itemNucre);
+		}
+		//  pesquisar inconsistencias em relacao a socios contribuintes passando codigo gerado do arquivo nucre.
+		//      (no banco de dados, comparar registros de contribuintes com o arquivo nucre, 
+		//       para gerar relatorio de diferencias.)
+		
+		return associadoDAO.findRelatorioInconsistenciasNUCRE(codigoNovaPlanilhaNucre);
+		
+		
+		
+	}
+
+	private void insert(ItemPlanilhaNucreVO itemNucre) throws SmartEnvException {
+		associadoDAO.insertItemPlanilhaNucre(itemNucre);
+		
+	}
+
+	private void validaItemPlanilhaNucre(ItemPlanilhaNucreVO itemNucre) throws SmartAppException {
+		// no momento essa validacao so olha os associados (cpfs),
+		// pois a unica rubrica que estah sendo verificada na importacao 
+		// eh a rubrica de mensalidades. Se outra rubrica for verificada, 
+		// serah necessario revisar o metodo, jah que outros campos alem 
+		// do cpf podem ser necessarios para outras rubricas.
+		
+		if (itemNucre == null ) {
+			throw new SmartAppException("Item de importacao NUCRE está vazio.");
+		}
+		
+		if (itemNucre.getCodigoPlanilha() == null) {
+			throw new SmartAppException("O código interno de importação do arquivo NUCRE nao foi encontrado. Contate o administrador do sistema");
+		}
+		
+		if (itemNucre.getAssociado() == null) {
+			throw new SmartAppException("Associado não encontrado na planilha NUCRE.");
+		}
+		
+		if (itemNucre.getAssociado().getCpf() == null) {
+			throw new SmartAppException("CPF do associado não foi emncontrado.");
+		}
+		
 	}
 }

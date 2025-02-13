@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import br.com.falc.smartFW.exception.SmartEnvException;
 import br.com.falc.smartFW.persistence.SmartConnection;
@@ -13,11 +14,13 @@ import br.org.asserjuf.sisjuf.associados.AssociadoAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoFiltroAssembler;
 import br.org.asserjuf.sisjuf.associados.AssociadoImportacaoNucreVO;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
-import br.org.asserjuf.sisjuf.associados.PlanilhaNucreVO;
+import br.org.asserjuf.sisjuf.associados.InconsistenciaNucreVO;
+import br.org.asserjuf.sisjuf.associados.ItemPlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaInconsistenteVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
 
@@ -771,13 +774,13 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		
 	}
 	
-	public Collection<AssociadoImportacaoNucreVO> findFaltantes (Collection<PlanilhaNucreVO> planilha) throws SmartEnvException {
+	public Collection<AssociadoImportacaoNucreVO> findFaltantes (Collection<ItemPlanilhaNucreVO> planilha) throws SmartEnvException {
 		
 		StringBuffer sqlTemp = new StringBuffer(" SELECT NUM_MATRICULA_JUSTICA_ASSOCIADO as matricula, 'arquivo' as falta FROM VW_ASSOCIADO ") 
 		.append(" WHERE dat_exclusao_associado is null and NUM_MATRICULA_JUSTICA_ASSOCIADO NOT IN ( SELECT MATRICULA FROM( ");
 		
 		
-		for (PlanilhaNucreVO vo : planilha) {
+		for (ItemPlanilhaNucreVO vo : planilha) {
 		
 			
 			sqlTemp	.append(" select ").append(vo.getAssociado().getMatriculaJustica()).append(" as matricula ")
@@ -795,7 +798,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		.append(" union ")
 		.append(" SELECT MATRICULA, 'cadastro' as falta FROM ( ");
 		
-		for (PlanilhaNucreVO vo : planilha) {
+		for (ItemPlanilhaNucreVO vo : planilha) {
 		
 			sqlTemp	.append(" select ").append(vo.getAssociado().getMatriculaJustica()).append(" as matricula ")
 					.append(" union all ");
@@ -839,7 +842,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 	}
 	
 	
-	public Collection<LancamentoAssociadoVO> findIntercessaoLancamentosBase (Collection<PlanilhaNucreVO> planilha) throws SmartEnvException {
+	public Collection<LancamentoAssociadoVO> findIntercessaoLancamentosBase (Collection<ItemPlanilhaNucreVO> planilha) throws SmartEnvException {
 		
 		//String 	sqlAux1 				= "";
 		//String sqlAux2 = "";
@@ -857,7 +860,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 										.append(" 		(	");
 		
 		
-										for (PlanilhaNucreVO vo : planilha) {
+										for (ItemPlanilhaNucreVO vo : planilha) {
 			
 											if (naoPegouDataAinda) {
 												dataImportacao		= vo.getData();
@@ -941,7 +944,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 										.append(" 		(	");
 		
 		
-										for (PlanilhaNucreVO vo : planilha) {
+										for (ItemPlanilhaNucreVO vo : planilha) {
 			
 																						
 											sqlTemp.append(" select ").append(vo.getAssociado().getMatriculaJustica()).append(" as matricula, ").append(vo.getCustoConsignacao()).append(" AS CUSTO_CONSIGNACAO, ").append(vo.getValorDebitado()).append(" AS VALOR_DEBITADO ")
@@ -1110,6 +1113,82 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 			sConn.close();
 			
 		}
+	}
+
+
+	public List<InconsistenciaNucreVO> findRelatorioInconsistenciasNUCRE(Long codigoNovaPlanilhaNucre) throws SmartEnvException {
+
+		
+		StringBuffer sql = new StringBuffer("select TEMP_TABLE.cpf, TEMP_TABLE.nome, TEMP_TABLE.tipo_inconsistencia from ( ") 
+				.append(" SELECT NUCRE.NUM_CPF_ASSOCIADO, NUCRE.NOM_ASSOCIADO, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
+				.append(" FROM ITEM_PLANILHA_NUCRE NUCRE ")
+				.append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
+				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND A.STS_CATEGORIA_ASSOCIADO = 'C') ")
+				.append(" UNION ALL ")
+				.append(" SELECT A.NUM_CPF_ASSOCIADO, A.NOM_ASSOCIADO, 'NAO ENCONTRADO NO ARQUIVO SEPAG' as TIPO_INCONSISTENCIA ")
+				.append(" FROM VW_ASSOCIADO A ")
+				.append(" WHERE NOT EXISTS (SELECT 1 FROM ITEM_PLANILHA_NUCRE NUCRE WHERE NUCRE.NUM_CPF_ASSOCIADO=A.NUM_CPF_ASSOCIADO AND NUCRE.SEQ_PLANILHA_NUCRE = ?) ")
+				.append(" ) as TEMP_TABLE order by TEMP_TABLE.tipo_inconsistencia, TEMP_TABLE.nome, TEMP_TABLE.cpf ");
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		try {
+		
+		sConn 	= new SmartConnection(this.getConn());
+		sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+		
+		
+		sStmt.setLong(0, codigoNovaPlanilhaNucre);
+		sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+		
+		return (List<InconsistenciaNucreVO>) sRs.getJavaBeans(InconsistenciaNucreVO.class, new String[]{	
+																		"cpf",
+																		"nome",
+																		"tipoInconsistencia"
+																});						
+		
+		} catch (SQLException e) {
+		throw new SmartEnvException(e);
+		
+		} finally {
+		
+		sRs.close();
+		sStmt.close();
+		sConn.close();
+		
+		}
+	}
+
+
+	public void insertItemPlanilhaNucre(ItemPlanilhaNucreVO itemNucre) throws SmartEnvException {
+		StringBuffer sql = new StringBuffer(" insert into ITEM_PLANILHA_NUCRE ")
+				.append(" (SEQ_PLANILHA_NUCRE, SEQ_ITEM_PLANILHA_NUCRE, NUM_CPF_ASSOCIADO, NOM_ASSOCIADO, DAT_IMPORTACAO) ")
+				.append(" VALUES (?, nextval('SEQ_ITEM_PLANILHA_NUCRE', ?, ?, current_timestamp) ");
+
+				SmartConnection 		sConn 	= null;
+				SmartPreparedStatement 	sStmt 	= null;
+						
+				try {
+				
+					sConn 	= new SmartConnection(this.getConn());
+					sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+					
+					sStmt.setParameters(itemNucre, new String[]{"codigoPlanilha", "associado.cpf", "associado.nome"});
+					
+					sStmt.getMyPreparedStatement().execute();
+					
+				
+				} catch (SQLException e) {
+					throw new SmartEnvException(e);
+
+				} finally {
+
+					sStmt.close();
+					sConn.close();
+
+				}
+		
 	}
 	
 
