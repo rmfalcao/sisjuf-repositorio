@@ -1119,16 +1119,16 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 	public List<InconsistenciaNucreVO> findRelatorioInconsistenciasNUCRE(Long codigoNovaPlanilhaNucre) throws SmartEnvException {
 
 		
-		StringBuffer sql = new StringBuffer("select TEMP_TABLE.cpf, TEMP_TABLE.nome, TEMP_TABLE.tipo_inconsistencia from ( ") 
-				.append(" SELECT NUCRE.NUM_CPF_ASSOCIADO, NUCRE.NOM_ASSOCIADO, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
+		StringBuffer sql = new StringBuffer("select cpf, nome, tipo_inconsistencia from ( ") 
+				.append(" SELECT NUCRE.NUM_CPF_ASSOCIADO as cpf, NUCRE.NOM_ASSOCIADO as nome, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
 				.append(" FROM ITEM_PLANILHA_NUCRE NUCRE ")
 				.append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
 				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND A.STS_CATEGORIA_ASSOCIADO = 'C') ")
 				.append(" UNION ALL ")
-				.append(" SELECT A.NUM_CPF_ASSOCIADO, A.NOM_ASSOCIADO, 'NAO ENCONTRADO NO ARQUIVO SEPAG' as TIPO_INCONSISTENCIA ")
+				.append(" SELECT A.NUM_CPF_ASSOCIADO as cpf, A.NOM_ASSOCIADO as nome, 'NAO ENCONTRADO NO ARQUIVO SEPAG' as TIPO_INCONSISTENCIA ")
 				.append(" FROM VW_ASSOCIADO A ")
 				.append(" WHERE NOT EXISTS (SELECT 1 FROM ITEM_PLANILHA_NUCRE NUCRE WHERE NUCRE.NUM_CPF_ASSOCIADO=A.NUM_CPF_ASSOCIADO AND NUCRE.SEQ_PLANILHA_NUCRE = ?) ")
-				.append(" ) as TEMP_TABLE order by TEMP_TABLE.tipo_inconsistencia, TEMP_TABLE.nome, TEMP_TABLE.cpf ");
+				.append(" ) as TEMP_TABLE order by tipo_inconsistencia, nome, cpf ");
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 		SmartResultSet			sRs		= null;
@@ -1139,7 +1139,8 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 		
 		
-		sStmt.setLong(0, codigoNovaPlanilhaNucre);
+		sStmt.setLong(1, codigoNovaPlanilhaNucre);
+		sStmt.setLong(2, codigoNovaPlanilhaNucre);
 		sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 		
 		return (List<InconsistenciaNucreVO>) sRs.getJavaBeans(InconsistenciaNucreVO.class, new String[]{	
@@ -1164,7 +1165,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 	public void insertItemPlanilhaNucre(ItemPlanilhaNucreVO itemNucre) throws SmartEnvException {
 		StringBuffer sql = new StringBuffer(" insert into ITEM_PLANILHA_NUCRE ")
 				.append(" (SEQ_PLANILHA_NUCRE, SEQ_ITEM_PLANILHA_NUCRE, NUM_CPF_ASSOCIADO, NOM_ASSOCIADO, DAT_IMPORTACAO) ")
-				.append(" VALUES (?, nextval('SEQ_ITEM_PLANILHA_NUCRE', ?, ?, current_timestamp) ");
+				.append(" VALUES (?, nextval('SEQ_ITEM_PLANILHA_NUCRE'), ?, ?, current_timestamp) ");
 
 				SmartConnection 		sConn 	= null;
 				SmartPreparedStatement 	sStmt 	= null;

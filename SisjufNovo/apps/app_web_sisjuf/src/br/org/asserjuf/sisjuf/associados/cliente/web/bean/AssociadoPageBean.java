@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -190,6 +189,10 @@ public class AssociadoPageBean  extends BasePageBean{
 	private VinculadoPlanoAssembler historicoVinculacaoFiltro;
 	
 
+	private List 			dataArquivoNucre = new ArrayList();
+
+
+
 	private byte[] conteudoArquivoNucre;
 
 	private ArrayList<String>			strPath = new ArrayList();
@@ -261,21 +264,23 @@ public class AssociadoPageBean  extends BasePageBean{
 		 }
 	}
 
-	/*
+	
 	public void upload(UploadEvent e) { 
 		UploadItem uploadItem = e.getUploadItem();	
 		HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 		sessao.setAttribute("FILE_PATH", uploadItem.getFile().getPath());
 		data.add(uploadItem);
 	} 
-	*/
 	
-	public void upload(UploadEvent ue) { 
+	
+	public void uploadNucre(UploadEvent ue) { 
 		try {
 			UploadItem uploadItem = ue.getUploadItem();
 			if (uploadItem.getFile().exists()){
 				conteudoArquivoNucre = IOUtils.toByteArray(new FileInputStream(uploadItem.getFile()));
-				strPath.add(uploadItem.getFile().getAbsolutePath());
+				//strPath.add(uploadItem.getFile().getAbsolutePath());
+				HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+				sessao.setAttribute("FILE_PATH", uploadItem.getFile().getPath());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -284,6 +289,10 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	public String importarArquivo() {
 		try {
+			
+			HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+			strPath.add((String)sessao.getAttribute("FILE_PATH"));
+			
 			if (strPath != null && strPath.size() > 0){
 				
 				List<ItemPlanilhaNucreVO> relatorioNucre = new ArrayList<ItemPlanilhaNucreVO>();
@@ -2046,6 +2055,15 @@ public class AssociadoPageBean  extends BasePageBean{
 		this.documento = documento;
 	}
 
+	
+	public List getDataArquivoNucre() {
+		return dataArquivoNucre;
+	}
+
+	public void setDataArquivoNucre(List dataArquivoNucre) {
+		this.dataArquivoNucre = dataArquivoNucre;
+	}
+	
 	public Collection<OutroBeneficiavelVO> getBeneficiarios() {
 		try{
 			if (associado != null && associado.getCodigo() != null){
