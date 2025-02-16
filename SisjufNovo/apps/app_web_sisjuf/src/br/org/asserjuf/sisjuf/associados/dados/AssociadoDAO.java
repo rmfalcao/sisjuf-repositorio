@@ -1118,9 +1118,13 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 
 	public List<InconsistenciaNucreVO> findRelatorioInconsistenciasNUCRE(Long codigoNovaPlanilhaNucre) throws SmartEnvException {
 
+		/*
+		 * select DISTINCT porque a planilha SEPAG/NUCRE vem com numeros de matriculas duplicadas. Mas a duplicacao nao faz diferenca para esse relatorio.
+		 * Para este relatorio, basta saber que certo CPF estar na planilha, independente se aparece uma ou mais vezes.
+		 */
 		
 		StringBuffer sql = new StringBuffer("select cpf, nome, tipo_inconsistencia from ( ") 
-				.append(" SELECT NUCRE.NUM_CPF_ASSOCIADO as cpf, NUCRE.NOM_ASSOCIADO as nome, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
+				.append(" SELECT distinct NUCRE.NUM_CPF_ASSOCIADO as cpf, coalesce(NUCRE.NOM_ASSOCIADO, '(nome não identificado)') as nome, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
 				.append(" FROM ITEM_PLANILHA_NUCRE NUCRE ")
 				.append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
 				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND A.STS_CATEGORIA_ASSOCIADO = 'C') ")

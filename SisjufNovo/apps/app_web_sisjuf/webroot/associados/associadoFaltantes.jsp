@@ -36,34 +36,45 @@
 		
 				<div id="miolo">
 					<h1>Módulo Associados</h1>
-					<h2>Relatório de faltantes</h2>
+					<h2>Resultado da validação NUCRE/SEPAG</h2>
 					<br>
-					<p>Os lançamentos referentes aos registros abaixo não puderam ser realizados. Favor conferir o arquivo e/ou o cadastro de associados.</p>
-					<p>A importação destes registros falhou porque alguns asociados enviados no arquivo estão ausentes no cadastro (base de dados do SISJUF) e/ou alguns associados existentes no cadastro estão ausentes no arquivo importado.</p>
-					<p>Confira abaixo:</p>
 					
-					<h:form id="associadoaFaltantes">
-						<t:saveState value="#{AssociadoBean.associadosFaltantes}" />
-						<t:saveState value="#{AssociadoBean.associado}" />
-						<t:dataTable id="data" var="associados" value="#{AssociadoBean.associadosFaltantes}" cellspacing="1" cellpadding="2"  styleClass="tab_lista_maior" preserveDataModel="false">		
-								<t:column width="140">
+					<c:choose>
+					    <c:when test="${empty AssociadoBean.inconsistenciasNucre}">
+					        <p>TUDO CERTO! Nenhuma inconsistência encontrada.</p>
+					    </c:when>
+					    <c:otherwise>
+					   		<p>Seguem as inconsistências entre o arquivo NUCRE/SEPAG e o cadastro de sócios do SISJUF:</p>
+					        <t:dataTable id="data" var="inconsistencia" value="#{AssociadoBean.inconsistenciasNucre}" cellspacing="1" cellpadding="2"  styleClass="tab_lista_maior" preserveDataModel="false">		
+								<t:column width="70">
 									<f:facet name="header">
-										<h:outputText value="Matrícula na Justiça" />
+										<h:outputText value="CPF" />
 									</f:facet>
-									<h:outputText value="#{associados.matriculaJustica}" />
+									<h:outputText value="#{inconsistencia.cpf}" />
 									
 								</t:column>
 										
-								<t:column width="230">
+								<t:column width="150">
 									<f:facet name="header">
-										<h:outputText value="Ausência" />
+										<h:outputText value="Nome" />
 									</f:facet>
-										<h:outputText value="#{associados.falta}" />
+										<h:outputText value="#{inconsistencia.nome}" />
+								</t:column>
+								
+								<t:column width="150">
+									<f:facet name="header">
+										<h:outputText value="Tipo de inconsistência" />
+									</f:facet>
+										<h:outputText value="#{inconsistencia.tipoInconsistencia}" />
 								</t:column>
 								
 							</t:dataTable>
-							<input type="hidden" name="acao" value=""/>
-						</h:form>
+					    </c:otherwise>
+					</c:choose>
+					
+				
+					
+					
 				</div>
 			</div>
 		</body>

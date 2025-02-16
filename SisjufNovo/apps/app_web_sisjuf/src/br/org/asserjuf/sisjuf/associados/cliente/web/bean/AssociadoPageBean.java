@@ -199,6 +199,8 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	private List<InconsistenciaNucreVO> inconsistenciasNucre;
 	
+
+
 	/**
 	 * Data que serah feita a importacao do nucre
 	 */
@@ -2102,6 +2104,15 @@ public class AssociadoPageBean  extends BasePageBean{
 	public void setHistoricoVinculacaoFiltro(
 			VinculadoPlanoAssembler historicoVinculacaoFiltro) {
 		this.historicoVinculacaoFiltro = historicoVinculacaoFiltro;
+	}
+	
+	public List<InconsistenciaNucreVO> getInconsistenciasNucre() {
+		return inconsistenciasNucre;
+	}
+
+
+	public void setInconsistenciasNucre(List<InconsistenciaNucreVO> inconsistenciasNucre) {
+		this.inconsistenciasNucre = inconsistenciasNucre;
 	}
 	
 }

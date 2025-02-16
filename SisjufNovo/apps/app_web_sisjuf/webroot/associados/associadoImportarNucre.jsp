@@ -37,6 +37,11 @@
 						<h1>Módulo Associados</h1>
 						<h2>Importar Planilha NUCRE</h2>
 						<h:messages id="msgs" showDetail="true" showSummary="false" errorClass="textoMsgErro" infoClass="textoMsgInfo"/>
+						<a4j:status id="statusLoading">
+			                <f:facet name="start">
+			                    <h:graphicImage  value="/nucleo/images/loading-green.gif"/>
+			                </f:facet>
+			            </a4j:status>
 						<table class="tab_cadastro" cellpadding="2" cellspacing="1">
 							<thead>
 								<tr>
@@ -52,21 +57,14 @@
 											fileUploadListener="#{AssociadoBean.uploadNucre}" uploadData="#{AssociadoBean.dataArquivoNucre}" />
 									</td>
 								</tr>
-								<tr>
-									<th><t:outputLabel value="#{properties['lb_dataImportacao']}"/>:</th>
-									<td>
-										<rich:calendar popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-											cellWidth="24px" cellHeight="22px" style="width:200px" disabled="false" locale="en/US"
-											value="#{AssociadoBean.dataImportacao}" inputClass="inputCalendar" enableManualInput="true"
-											oninputblur="checkDate(this)" oninputkeypress="return maskDate(this,event);"/>
-									</td>
-								</tr>
+
 							</tbody>
 						</table>
-						<t:commandLink action="#{AssociadoBean.importarArquivo}" title="#{properties['lb_importar']}" id="salvar" 
-							styleClass="botao_importar" onmousedown="return $('arquivo').component.beforeSubmit()" >
-							<h:outputText value="#{properties['lb_salvar']}" />
-						</t:commandLink>
+						<a4j:commandLink action="#{AssociadoBean.importarArquivo}" title="#{properties['lb_importar']}" id="importar" styleClass="botao_importar" reRender="statusLoading" onmousedown="return $('arquivo').component.beforeSubmit()">
+    <!-- Você pode adicionar um texto ou uma imagem aqui -->
+</a4j:commandLink>
+
+
 						<t:inputHidden id="acao" value="Importar_Arquivo"/>
 					</div>
 				</h:form>
