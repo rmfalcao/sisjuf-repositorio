@@ -583,6 +583,7 @@ public class AssociadoRN {
 			
 			insert(itemNucre);
 		}
+		
 		//  pesquisar inconsistencias em relacao a socios contribuintes passando codigo gerado do arquivo nucre.
 		//      (no banco de dados, comparar registros de contribuintes com o arquivo nucre, 
 		//       para gerar relatorio de diferencias.)

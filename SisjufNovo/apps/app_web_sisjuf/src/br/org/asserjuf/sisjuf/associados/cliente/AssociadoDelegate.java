@@ -170,6 +170,7 @@ public class AssociadoDelegate  {
 	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
 		
 		return associadoBean.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+		
 	}
 
 

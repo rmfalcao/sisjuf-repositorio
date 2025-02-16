@@ -1137,6 +1137,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		SmartPreparedStatement 	sStmt 	= null;
 		SmartResultSet			sRs		= null;
 		
+		
 		try {
 		
 		sConn 	= new SmartConnection(this.getConn());

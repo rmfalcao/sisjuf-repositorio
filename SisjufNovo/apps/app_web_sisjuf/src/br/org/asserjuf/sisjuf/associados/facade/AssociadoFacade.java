@@ -209,6 +209,7 @@ public class AssociadoFacade {
 	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
 		
 		return associadoRN.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+		
 	}
 
 
