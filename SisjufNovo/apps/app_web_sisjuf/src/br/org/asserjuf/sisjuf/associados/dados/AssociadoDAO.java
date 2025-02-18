@@ -1127,11 +1127,11 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 				.append(" SELECT distinct NUCRE.NUM_CPF_ASSOCIADO as cpf, coalesce(NUCRE.NOM_ASSOCIADO, '(nome não identificado)') as nome, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
 				.append(" FROM ITEM_PLANILHA_NUCRE NUCRE ")
 				.append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
-				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND A.STS_CATEGORIA_ASSOCIADO = 'C' AND DAT_EXCLUSAO_ASSOCIADO IS NULL) ")
+				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND A.STS_CATEGORIA_ASSOCIADO = 'C' AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') )) ")
 				.append(" UNION ALL ")
 				.append(" SELECT A.NUM_CPF_ASSOCIADO as cpf, A.NOM_ASSOCIADO as nome, 'NAO ENCONTRADO NO ARQUIVO SEPAG' as TIPO_INCONSISTENCIA ")
 				.append(" FROM VW_ASSOCIADO A ")
-				.append(" WHERE  A.STS_CATEGORIA_ASSOCIADO = 'C' AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND NOT EXISTS (SELECT 1 FROM ITEM_PLANILHA_NUCRE NUCRE WHERE NUCRE.NUM_CPF_ASSOCIADO=A.NUM_CPF_ASSOCIADO AND NUCRE.SEQ_PLANILHA_NUCRE = ?) ")
+				.append(" WHERE  A.STS_CATEGORIA_ASSOCIADO = 'C' AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') ) AND NOT EXISTS (SELECT 1 FROM ITEM_PLANILHA_NUCRE NUCRE WHERE NUCRE.NUM_CPF_ASSOCIADO=A.NUM_CPF_ASSOCIADO AND NUCRE.SEQ_PLANILHA_NUCRE = ?) ")
 				.append(" ) as TEMP_TABLE order by tipo_inconsistencia, nome, cpf ");
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
