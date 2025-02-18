@@ -53,7 +53,7 @@
 								<tr>
 									<th>Procurar arquivo:</th>
 									<td>
-										<rich:fileUpload id="arquivo" maxFilesQuantity="1" styleClass="teste" immediateUpload="true" 
+										<rich:fileUpload id="arquivo" maxFilesQuantity="3" styleClass="teste" immediateUpload="true" 
 											fileUploadListener="#{AssociadoBean.uploadNucre}" uploadData="#{AssociadoBean.dataArquivoNucre}" />
 									</td>
 								</tr>

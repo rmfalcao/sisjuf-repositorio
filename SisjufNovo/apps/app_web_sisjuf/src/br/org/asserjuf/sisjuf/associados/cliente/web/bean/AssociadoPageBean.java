@@ -282,7 +282,12 @@ public class AssociadoPageBean  extends BasePageBean{
 				conteudoArquivoNucre = IOUtils.toByteArray(new FileInputStream(uploadItem.getFile()));
 				//strPath.add(uploadItem.getFile().getAbsolutePath());
 				HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-				sessao.setAttribute("FILE_PATH", uploadItem.getFile().getPath());
+				List<String> strPathNucre = (List<String>)sessao.getAttribute("FILE_PATH_NUCRE");
+				if (strPathNucre == null) {
+					strPathNucre = new ArrayList<String>();
+				}
+				strPathNucre.add(uploadItem.getFile().getPath());
+				sessao.setAttribute("FILE_PATH_NUCRE", strPathNucre);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,7 +298,7 @@ public class AssociadoPageBean  extends BasePageBean{
 		try {
 			
 			HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-			strPath.add((String)sessao.getAttribute("FILE_PATH"));
+			strPath.addAll((List<String>)sessao.getAttribute("FILE_PATH_NUCRE"));
 			
 			if (strPath != null && strPath.size() > 0){
 				
@@ -307,7 +312,12 @@ public class AssociadoPageBean  extends BasePageBean{
 				// retornar relatorio de inconsistencias NUCRE
 				inconsistenciasNucre = delegate.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
 				
+				// limpar sessao para futuras importacoes:
+				sessao.setAttribute("FILE_PATH_NUCRE", null);
+				
 			}
+			
+			
 			
 			return getSucesso();
 			
