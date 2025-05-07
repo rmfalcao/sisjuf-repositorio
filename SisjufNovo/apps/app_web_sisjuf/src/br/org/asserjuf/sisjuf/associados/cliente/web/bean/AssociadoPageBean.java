@@ -1048,7 +1048,10 @@ public class AssociadoPageBean  extends BasePageBean{
 		if (associadosAniversariantes == null || associadosAniversariantes.size() == 0) {
 			try {
 				associadosAniversariantes = delegate.findProximosAniversariantes();
-			} catch (SmartEnvException | SmartAppException e) {
+			} catch (SmartAppException e) {
+				
+				e.printStackTrace();
+			} catch (SmartEnvException e) {
 				
 				e.printStackTrace();
 			}
