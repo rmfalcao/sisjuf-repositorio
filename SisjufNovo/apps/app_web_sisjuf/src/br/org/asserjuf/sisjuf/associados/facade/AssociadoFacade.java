@@ -86,6 +86,10 @@ public class AssociadoFacade {
 		return associadoRN.importPlanilhaNucre(planilha);
 	}
 	
+	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException, SmartAppException {
+		return associadoRN.listarAniversariantesPorMes(mesAniversariante);
+	}
+	
 	public Collection<AssociadoVO> findProximosAniversariantes()  throws SmartEnvException, SmartAppException {
 		return associadoRN.findProximosAniversariantes();
 	}

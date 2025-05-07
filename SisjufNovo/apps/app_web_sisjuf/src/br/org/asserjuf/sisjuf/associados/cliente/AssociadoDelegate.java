@@ -80,6 +80,10 @@ public class AssociadoDelegate  {
 		return associadoBean.importPlanilhaNucre(planilha);
 	}
 	
+	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException, SmartAppException {
+		return associadoBean.listarAniversariantesPorMes(mesAniversariante);
+	}
+	
 	public Collection<AssociadoVO> findProximosAniversariantes()  throws SmartEnvException, SmartAppException {
 		return associadoBean.findProximosAniversariantes();
 	}

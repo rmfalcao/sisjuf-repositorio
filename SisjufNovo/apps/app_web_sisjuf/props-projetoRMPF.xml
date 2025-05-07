@@ -26,8 +26,8 @@
 	
 	<!-- property name="server.deploy.dir"	value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-9.0.37/webapps" />
 	<property name="server.cache"		value="/Users/rodrigofalcao/desenvolvimento/sisjuf/servidor/apache-tomcat-9.0.37/work/Catalina" / -->
-	<property name="server.deploy.dir"	value="C:\Users\falcao\falcao-files\_pessoal\sisjuf\development\apache-tomcat-9.0.37\webapps" />
-	<property name="server.cache"		value="C:\Users\falcao\falcao-files\_pessoal\sisjuf\development\apache-tomcat-9.0.37\work\Catalina" />
+	<property name="server.deploy.dir"	value="C:\Users\falcao\falcao-files\_falcao_temp_apagar\apache-tomcat-9.0.70\webapps" />
+	<property name="server.cache"		value="C:\Users\falcao\falcao-files\_falcao_temp_apagar\apache-tomcat-9.0.70\work\Catalina" />
 	
 	<!--property name="classPath"		value="${SISJUF_HOME}/lib/"/ -->
 	

@@ -199,6 +199,13 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	private List<InconsistenciaNucreVO> inconsistenciasNucre;
 	
+	private Short mesAniversariante;
+	
+
+
+	public void setMesAniversariante(Short mesAniversariante) {
+		this.mesAniversariante = mesAniversariante;
+	}
 
 
 	/**
@@ -1000,16 +1007,32 @@ public class AssociadoPageBean  extends BasePageBean{
 		this.associados = associados;
 	}
 	
-	
+	public String listarAniversariantesPorMes() {
+		try {
+			if (mesAniversariante == null || mesAniversariante == 0) {
+				associadosAniversariantes = delegate.findProximosAniversariantes();
+			} else {
+				associadosAniversariantes = delegate.listarAniversariantesPorMes(mesAniversariante) ;
+			}
+		} catch (Exception e) {
+			return tratarExcecao(e);
+			
+		}
+		return getSucesso();
+	}
 
+	/*
 	public Collection getAssociadosAniversariantes(){
 		try {
+
 			associadosAniversariantes = delegate.findProximosAniversariantes() ;
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}
 		return associadosAniversariantes;
 	}
+	*/
+	
 	
 	public Collection getRelatorioAssociadosDependentes(){
 		try {
@@ -1021,6 +1044,19 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 		return relatorioAssociadosDependentes;
 	}
+
+	public Collection<AssociadoVO> getAssociadosAniversariantes() {
+		if (associadosAniversariantes == null || associadosAniversariantes.size() == 0) {
+			try {
+				associadosAniversariantes = delegate.findProximosAniversariantes();
+			} catch (SmartEnvException | SmartAppException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		return associadosAniversariantes;
+	}
+
 
 	public void setAssociadosAniversariantes(Collection associadosAniversariantes) {
 		this.associadosAniversariantes = associadosAniversariantes;

@@ -15,6 +15,9 @@
 			<link href="<c:url value="/nucleo/style/sisjuf.css"/>" type="text/css"	rel="stylesheet" />
 			<link rel="Shortcut Icon" type="image/png" href="<c:url value="/nucleo/images/icone.png"/>">
 			<script>
+				
+
+				
 				function setAcao(form, acao){
 					form.acao.value = acao;
 				}
@@ -38,7 +41,122 @@
 					<h1>Módulo Associados</h1>
 					<h2>Aniversariantes</h2>
 					
+
 					<h:form id="associadoResultado">
+						
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" title="#{properties['lb_carregar']}" immediate="true" id="carregarProximos" 
+							onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+							
+							<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="0" />
+							
+						<h:outputText value="Próximos" />
+					</t:commandLink>
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" title="#{properties['lb_carregar']}" immediate="true" id="carregarJaneiro" 
+							onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+							
+							<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="1" />
+							
+						<h:outputText value="JAN" />
+					</t:commandLink>
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarFevereiro" 
+								onclick="setAcao( document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="2" />
+								<h:outputText value="FEV" />
+					</t:commandLink>
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarMarco" 
+								onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="3" />
+								<h:outputText value="MAR" />
+					</t:commandLink>
+														
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarAbril" 
+								onclick="setAcao( document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="4" />
+								<h:outputText value="ABR" />
+					</t:commandLink>
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarMaio" 
+								onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="5" />
+								<h:outputText value="MAI" />
+					</t:commandLink>
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarJunho" 
+								onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="6" />
+								<h:outputText value="JUN" />
+					</t:commandLink>
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarJulho" 
+								onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="7" />
+								<h:outputText value="JUL" />
+					</t:commandLink>
+					
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarAgosto" 
+								onclick="setAcao( document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="8" />
+								<h:outputText value="AGO" />
+					</t:commandLink>
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarSetembro" 
+								onclick="setAcao(document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="9" />
+								<h:outputText value="SET" />
+					</t:commandLink>
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarOutubro" 
+								onclick="setAcao( document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="10" />
+								<h:outputText value="OUT" />
+					</t:commandLink>
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarNovembro" 
+								onclick="setAcao( document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="11" />
+								<h:outputText value="NOV" />
+					</t:commandLink>
+					
+
+					|
+					<t:commandLink action="#{AssociadoBean.listarAniversariantesPorMes}" 					title="#{properties['lb_carregar']}" immediate="true" id="carregarDezembro" 
+								onclick="setAcao( document.forms[0], 'Carrega_Aniversariantes');">
+
+								<t:updateActionListener property="#{AssociadoBean.mesAniversariante}" value="12" />
+								<h:outputText value="DEZ" />
+					</t:commandLink>													
+														
+														 
+
 						<t:saveState value="#{AssociadoBean.associadosAniversariantes}" />
 						<t:saveState value="#{AssociadoBean.associado}" />
 						<t:dataTable id="data" var="associados" value="#{AssociadoBean.associadosAniversariantes}" cellspacing="1" cellpadding="2" width="100%" 
@@ -85,6 +203,7 @@
 								</t:column>
 							</t:dataTable>
 							<input type="hidden" name="acao" value="Carrega_Aniversariantes"/>
+							<input type="hidden" name="mes" value=""/>
 						</h:form>
 				</div>
 			</div>

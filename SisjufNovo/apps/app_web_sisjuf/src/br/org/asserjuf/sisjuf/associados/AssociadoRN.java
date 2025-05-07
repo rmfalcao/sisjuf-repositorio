@@ -517,6 +517,11 @@ public class AssociadoRN {
 		return associadoDAO.findByFilter(assembler);
 	}
 	
+	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException, SmartAppException {
+		
+		return associadoDAO.listarAniversariantesPorMes(mesAniversariante);
+	}
+	
 	public Collection<AssociadoVO> findProximosAniversariantes() throws SmartEnvException, SmartAppException {
 		
 		return associadoDAO.findProximosAniversariantes();

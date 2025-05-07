@@ -26,6 +26,61 @@ import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
 
 public class AssociadoDAO extends SisjufDAOPostgres {
 
+
+	
+	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException {
+		
+		
+		StringBuffer sql = new StringBuffer("select a.seq_associado, a.nom_associado, a.dat_nascimento_associado, proximo_aniversario(a.dat_nascimento_associado), ") 
+		.append(" (proximo_aniversario(a.dat_nascimento_associado) - a.dat_nascimento_associado)/365 as num_idade_associado ") 
+		.append(" from vw_associado a  ")
+		.append(" where dat_exclusao_associado is null  ")
+		.append(" and ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO')) ") 
+		.append(" and date_part('month',a.dat_nascimento_associado) = ? ")
+		.append(" order by proximo_aniversario(a.dat_nascimento_associado) ");
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		try {
+		
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+			sStmt.setShort(1, mesAniversariante);
+			sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			ArrayList<AssociadoVO> retorno = new ArrayList<AssociadoVO>(); 
+			
+			while (sRs.next()) {
+
+				AssociadoVO associado = new AssociadoVO();
+
+				associado.setCodigo(sRs.getInteger(1));
+				associado.setNome(sRs.getString(2));
+				associado.setDataNascimento(sRs.getDate(3));
+				associado.setProximoAniversario(sRs.getDate(4));
+				associado.setIdade(sRs.getShort(5));
+
+				retorno.add(associado);
+
+			}
+			
+			return retorno;
+		
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+
+		} finally {
+
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+
+		}
+		
+	}
+	
 	public Collection<AssociadoVO> findProximosAniversariantes() throws SmartEnvException {
 		
 		StringBuffer sql = new StringBuffer("select a.seq_associado, a.nom_associado, a.dat_nascimento_associado, proximo_aniversario(a.dat_nascimento_associado), ")
