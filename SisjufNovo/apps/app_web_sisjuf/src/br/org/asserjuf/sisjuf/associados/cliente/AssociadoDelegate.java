@@ -82,6 +82,7 @@ public class AssociadoDelegate  {
 	
 	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException, SmartAppException {
 		return associadoBean.listarAniversariantesPorMes(mesAniversariante);
+		
 	}
 	
 	public Collection<AssociadoVO> findProximosAniversariantes()  throws SmartEnvException, SmartAppException {

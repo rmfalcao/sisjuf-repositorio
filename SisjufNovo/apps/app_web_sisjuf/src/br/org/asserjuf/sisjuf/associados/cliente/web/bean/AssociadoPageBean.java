@@ -1037,8 +1037,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	public Collection getRelatorioAssociadosDependentes(){
 		try {
 			relatorioAssociadosDependentes = delegate.findRelatorioAssociadosDependentes() ;
-			
-			
+						
 		} catch (Exception e) {
 			tratarExcecao(e);
 		}

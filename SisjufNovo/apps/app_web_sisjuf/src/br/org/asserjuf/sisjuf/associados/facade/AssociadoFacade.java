@@ -88,6 +88,7 @@ public class AssociadoFacade {
 	
 	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException, SmartAppException {
 		return associadoRN.listarAniversariantesPorMes(mesAniversariante);
+		
 	}
 	
 	public Collection<AssociadoVO> findProximosAniversariantes()  throws SmartEnvException, SmartAppException {

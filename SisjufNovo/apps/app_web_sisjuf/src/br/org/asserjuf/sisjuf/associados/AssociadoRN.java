@@ -518,7 +518,6 @@ public class AssociadoRN {
 	}
 	
 	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException, SmartAppException {
-		
 		return associadoDAO.listarAniversariantesPorMes(mesAniversariante);
 	}
 	

@@ -29,8 +29,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 
 	
 	public Collection<AssociadoVO> listarAniversariantesPorMes(Short mesAniversariante) throws SmartEnvException {
-		
-		
+				
 		StringBuffer sql = new StringBuffer("select a.seq_associado, a.nom_associado, a.dat_nascimento_associado, proximo_aniversario(a.dat_nascimento_associado), ") 
 		.append(" (proximo_aniversario(a.dat_nascimento_associado) - a.dat_nascimento_associado)/365 as num_idade_associado ") 
 		.append(" from vw_associado a  ")
