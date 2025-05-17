@@ -1,5 +1,5 @@
 function carregarPagina(){
-	if (document.getElementById('statusCategoria').value == "C"){
+	if (document.getElementById('statusCategoria').value == "C" || document.getElementById('statusCategoria').value == "O"){
 		document.getElementById('contribuinteCpf').disabled = true;
 	}else if (document.getElementById('statusCategoria').value == "U"){
 		document.forms[1].contribuinteCpf.readonly= false;
@@ -193,7 +193,7 @@ function carregaAssociado(associado){
 }
 
 function setStatusCategoria(){
-	if (document.forms[1].statusCategoria.value == "C"){
+	if (document.forms[1].statusCategoria.value == "C" || document.forms[1].statusCategoria.value == "O"){
 		document.forms[1].contribuinteCpf.value = "";
 		document.forms[1].contribuinteCpf.disabled = true;
 		document.forms[1].contribuinteCodigo.value = "";

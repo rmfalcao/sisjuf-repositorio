@@ -32,7 +32,23 @@ public class CarteirinhaImpressaoAC extends FrameworkServlet {
 		associado = associadoDelegate.findAssociadoByPrimaryKey(associado);
 		
 		request.setAttribute("associado", associado);
-		request.setAttribute("categoria", associado.getStatusCategoria().equals("C")?"S√≥cio Contribuinte":"S√≥cio Usu√°rio");
+		String strStatusCategoria = null;
+		
+		if (associado.getStatusCategoria().equals("C")) {
+		
+			strStatusCategoria = "SÛcio Contribuinte";
+			
+		} else if (associado.getStatusCategoria().equals("O")) {
+			
+			strStatusCategoria = "SÛcio Conveniado";
+			
+		} else {
+			
+			strStatusCategoria = "SÛcio Usu·rio";
+			
+		}
+		
+		request.setAttribute("categoria", strStatusCategoria);
 
 		request.getRequestDispatcher("/associados/carteirinhaPrint.jsp").forward(request, response);
 	}

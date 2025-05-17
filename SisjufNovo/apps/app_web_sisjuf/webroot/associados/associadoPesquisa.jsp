@@ -365,6 +365,7 @@
 										<f:selectItem itemLabel="#{properties['lb_selecione']}" itemValue=""/>
 										<f:selectItem itemLabel="#{properties['lb_socioContribuinte']}" itemValue="C"/>
 										<f:selectItem itemLabel="#{properties['lb_socioUsuario']}" itemValue="U"/>
+										<f:selectItem itemLabel="#{properties['lb_socioConveniado']}" itemValue="O"/>
 									</h:selectOneMenu>
 								</td>
 								<th>Recebe Jornal:</th>
