@@ -43,5 +43,5 @@ jobs:
           /root/apache-tomcat-9.0.70/bin/shutdown.sh
           mv /root/apache-tomcat-9.0.70/webapps/sisjuf.war /root/oldfiles/sisjuf.war-$(date "+%Y.%m.%d-%H.%M.%S")
           rm -rf /root/apache-tomcat-9.0.70/webapps/sisjuf*
-          mv /root/latest/home/workspace/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war /root/apache-tomcat-9.0.70/webapps/sisjuf.war
+          mv /root/latest/home/runner/work/sisjuf-repositorio/sisjuf-repositorio/SisjufNovo/apps/app_web_sisjuf/deploy/sisjuf.war /root/apache-tomcat-9.0.70/webapps/sisjuf.war             
           /root/apache-tomcat-9.0.70/bin/startup.sh
