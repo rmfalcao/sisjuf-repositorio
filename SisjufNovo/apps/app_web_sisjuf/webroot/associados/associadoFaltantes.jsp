@@ -63,6 +63,13 @@
 								
 								<t:column width="150">
 									<f:facet name="header">
+										<h:outputText value="Nome" />
+									</f:facet>
+										<h:outputText value="#{inconsistencia.categoriaAssociado}" />
+								</t:column>
+								
+								<t:column width="150">
+									<f:facet name="header">
 										<h:outputText value="Tipo de inconsistência" />
 									</f:facet>
 										<h:outputText value="#{inconsistencia.tipoInconsistencia}" />

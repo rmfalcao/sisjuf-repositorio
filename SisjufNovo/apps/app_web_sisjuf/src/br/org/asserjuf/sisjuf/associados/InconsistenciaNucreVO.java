@@ -6,7 +6,16 @@ public class InconsistenciaNucreVO extends SmartVO {
 
 	private Long cpf;
 	private String nome;
+	private String categoriaAssociado;
 	private String tipoInconsistencia;
+	
+	
+	public String getCategoriaAssociado() {
+		return categoriaAssociado;
+	}
+	public void setCategoriaAssociado(String categoriaAssociado) {
+		this.categoriaAssociado = categoriaAssociado;
+	}
 	public Long getCpf() {
 		return cpf;
 	}
