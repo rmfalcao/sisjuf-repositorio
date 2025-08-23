@@ -6,10 +6,9 @@ import java.util.List;
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
 import br.org.asserjuf.sisjuf.associados.ItemPlanilhaNucreVO;
 
-public class ParserSepag extends ParserPdfFileAb {
+public abstract class ParserSepag extends ParserPdfFileAb {
 
 	private static final int _LINHA_RUBRICA_ = 10; // linhas comecam a contar do 0
-	private static final String _TEXTO_LINHA_RUBRICA_MENSALIDADE_ = "522059Rubrica: ASSERJUF - MENSALIDADE-";
 	private static final String _TEXTO_LINHA_ANTES_DOS_CPFS_ = "Nome do Servidor"; 
 	
 	private static final String _INICIO_TEXTO_LINHA_DEPOIS_DOS_CPFS_ = "C.P.F. Cons"; // o texto completo é C.P.F. ConsignaçãoSeq
@@ -17,6 +16,8 @@ public class ParserSepag extends ParserPdfFileAb {
 		super(path);
 		
 	}
+	
+	protected abstract String getRubrica();
 
 	@Override
 	protected ArrayList<ItemPlanilhaNucreVO> initiateList() {
@@ -31,7 +32,7 @@ public class ParserSepag extends ParserPdfFileAb {
 		boolean paginaTemRubricaMensalidade = false;
 		List<ItemPlanilhaNucreVO> lista = new ArrayList<ItemPlanilhaNucreVO>();
 		
-		if (linhasPaginaArquivo[_LINHA_RUBRICA_].trim().equals(_TEXTO_LINHA_RUBRICA_MENSALIDADE_)) {
+		if (linhasPaginaArquivo[_LINHA_RUBRICA_].trim().equals(getRubrica())) {
 					
 			for (int i = _LINHA_RUBRICA_+1; i < linhasPaginaArquivo.length; i++) {
 			

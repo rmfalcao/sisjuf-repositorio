@@ -64,6 +64,7 @@ import br.org.asserjuf.sisjuf.financeiro.BancoVO;
 import br.org.asserjuf.sisjuf.financeiro.ContaAssociadoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.arquivos.ParserSepag;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserSepagMensalidade;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 import com.vortice.seguranca.vo.UsuarioVO;
@@ -312,7 +313,17 @@ public class AssociadoPageBean  extends BasePageBean{
 				List<ItemPlanilhaNucreVO> relatorioNucre = new ArrayList<ItemPlanilhaNucreVO>();
 				
 				for (String path : strPath) {
-					ParserSepag parserSepag = new ParserSepag(path);
+					ParserSepag parserSepag = null;
+					
+					if (true) { // TODO eh pra testar qual opcao de validacao SEPAG foi informada pelo usuario.
+					// rubrica MENSALIDADE
+						parserSepag = new ParserSepagMensalidade(path);
+					} else if (false) {
+					// rubrica VITALMED
+					// TODO
+						parserSepag = new ParserSepagMensalidade(path);
+					}
+					
 					relatorioNucre.addAll(parserSepag.parse());
 				}
 				
