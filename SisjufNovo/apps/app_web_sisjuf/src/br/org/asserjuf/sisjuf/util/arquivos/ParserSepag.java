@@ -29,8 +29,10 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 	protected List<ItemPlanilhaNucreVO> createItemFromLines(String[] linhasPaginaArquivo) throws Exception {
 		
 		boolean temCPFnaLinha = false;
+		boolean temConsignacaoNaLinha = false;
 		boolean paginaTemRubricaMensalidade = false;
-		List<ItemPlanilhaNucreVO> lista = new ArrayList<ItemPlanilhaNucreVO>();
+		ArrayList<String> cpfs = new ArrayList<String>();
+		ArrayList<Float> valoresConsignados = new ArrayList<Float>();
 		
 		if (linhasPaginaArquivo[_LINHA_RUBRICA_].trim().equals(getRubrica())) {
 					
@@ -49,11 +51,19 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 						}
 					} else {
 						if (!linha.trim().startsWith(_INICIO_TEXTO_LINHA_DEPOIS_DOS_CPFS_)) {
-							lista.add(createItemPlanilhaFromLine(linha));
+							cpfs.add(linha.trim());
 						} else {
+							// acabaram os cpfs. pegar os valores consignados.
+							for (int j = i + cpfs.size()+1; j < i+(2*cpfs.size())+1; j++) {
+								linha = linhasPaginaArquivo[j];
+								valoresConsignados.add(new Float(linha.trim().replace(",", ".")));
+							}
+						
 							break;
-						}
-						}
+						} 
+												
+						
+					}
 					
 				}
 	
@@ -61,15 +71,30 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 		
 		}
 		
+		
 
-		return lista;
+		return createListaItensPlanilhaNucre(cpfs, valoresConsignados);
 	}
 
-	private ItemPlanilhaNucreVO createItemPlanilhaFromLine(String linha) {
-		ItemPlanilhaNucreVO item= new ItemPlanilhaNucreVO();
-		item.setAssociado(new AssociadoVO());
-		item.getAssociado().setCpf(new Long(linha.trim()));
-		return item;
+
+	private List<ItemPlanilhaNucreVO> createListaItensPlanilhaNucre(ArrayList<String> cpfs, 
+			ArrayList<Float> valoresConsignados) {
+
+		List<ItemPlanilhaNucreVO> lista = new ArrayList<ItemPlanilhaNucreVO>();
+		
+		for (int i = 0; i < cpfs.size(); i++) {
+			String cpf = cpfs.get(i);
+			Float valor = valoresConsignados.get(i);
+			
+			ItemPlanilhaNucreVO item= new ItemPlanilhaNucreVO();
+			item.setAssociado(new AssociadoVO());
+			item.getAssociado().setCpf(new Long(cpf));
+			item.setValorDebitado(valor);
+			
+			lista.add(item);
+		}
+		
+		return lista;
 	}
 
 }
