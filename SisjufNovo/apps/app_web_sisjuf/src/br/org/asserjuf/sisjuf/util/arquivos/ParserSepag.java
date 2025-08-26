@@ -1,6 +1,7 @@
 package br.org.asserjuf.sisjuf.util.arquivos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.org.asserjuf.sisjuf.associados.AssociadoVO;
@@ -17,7 +18,7 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 		
 	}
 	
-	protected abstract String getRubrica();
+	protected abstract String[] getRubricas();
 
 	@Override
 	protected ArrayList<ItemPlanilhaNucreVO> initiateList() {
@@ -34,7 +35,9 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 		ArrayList<String> cpfs = new ArrayList<String>();
 		ArrayList<Float> valoresConsignados = new ArrayList<Float>();
 		
-		if (linhasPaginaArquivo[_LINHA_RUBRICA_].trim().equals(getRubrica())) {
+		System.out.println("Linha rubrica: >" + linhasPaginaArquivo[_LINHA_RUBRICA_].trim() + "<");
+		
+		if (paginaContemRubrica(linhasPaginaArquivo)) {
 					
 			for (int i = _LINHA_RUBRICA_+1; i < linhasPaginaArquivo.length; i++) {
 			
@@ -76,6 +79,15 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 		return createListaItensPlanilhaNucre(cpfs, valoresConsignados);
 	}
 
+
+	private boolean paginaContemRubrica(String[] linhasPaginaArquivo) {
+		
+		return Arrays.stream(getRubricas())
+                .anyMatch(s -> s.equals(linhasPaginaArquivo[_LINHA_RUBRICA_].trim()));
+		
+		
+		
+	}
 
 	private List<ItemPlanilhaNucreVO> createListaItensPlanilhaNucre(ArrayList<String> cpfs, 
 			ArrayList<Float> valoresConsignados) {

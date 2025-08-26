@@ -21,7 +21,7 @@
 	</fileset>
 	
 	<target name="compilar" description="compile the source " depends="cria.diretorios">
-		<javac source="1.7" srcdir="${source.dir}" destdir="${classes.dir}" classpathref="classPath" 
+		<javac source="1.8" srcdir="${source.dir}" destdir="${classes.dir}" classpathref="classPath" 
 			debug="on" optimize="true" encoding="ISO-8859-1"/>
 	
 		<copy todir="${classes.dir}" verbose="true">

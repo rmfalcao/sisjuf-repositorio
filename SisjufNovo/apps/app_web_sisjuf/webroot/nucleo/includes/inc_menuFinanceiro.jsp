@@ -143,7 +143,7 @@ function MM_changeProp(objName,x,theProp,theValue) { //v6.0
 			<div><a class="submenu" href="<c:url value="/associados/associadoEventos.jsf"/>">Histórico de Eventos</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/associadoAtualizaValor.jsf"/>">Valor de Sócio Usuário</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/associadoAniversariantes.jsf"/>">Próximos Aniversariantes</a></div>
-			<div><a class="submenu" href="<c:url value="/associados/associadoImportarNucre.jsf"/>">Importar arquivo NUCRE</a></div>
+			<div><a class="submenu" href="<c:url value="/associados/associadoImportarNucre.jsf"/>">Importar arquivo SEPAG</a></div>
 			<div><a class="submenu" href="<c:url value="/associados/relatorioAssociadosDependentes.jsf"/>">Relatório de associados</a></div>
 		</div>
 		<!-- CONVÊNIO -->

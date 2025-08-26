@@ -7,10 +7,10 @@ public class ParserSepagMensalidade extends ParserSepag {
 		
 	}
 
-	private static final String _TEXTO_LINHA_RUBRICA_MENSALIDADE_ = "522059Rubrica: ASSERJUF - MENSALIDADE-";
+	private static final String[] _TEXTO_LINHA_RUBRICA_MENSALIDADE_ = {"522059Rubrica: ASSERJUF - MENSALIDADE-"};
 
 	@Override
-	protected String getRubrica() {
+	protected String[] getRubricas() {
 		// TODO Auto-generated method stub
 		return _TEXTO_LINHA_RUBRICA_MENSALIDADE_;
 	}

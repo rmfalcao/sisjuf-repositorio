@@ -35,7 +35,7 @@
 				<h:form>
 					<div id="miolo">
 						<h1>Módulo Associados</h1>
-						<h2>Importar Planilha NUCRE</h2>
+						<h2>Importar Planilha SEPAG</h2>
 						<h:messages id="msgs" showDetail="true" showSummary="false" errorClass="textoMsgErro" infoClass="textoMsgInfo"/>
 						<a4j:status id="statusLoading">
 			                <f:facet name="start">
@@ -48,9 +48,21 @@
 									<th width="190">Importar Arquivo</th>
 									<th width="400"></th>
 								</tr>
-							</thead>
+										
 							<tbody>
-								<tr>
+									<tr>
+										<th width="190">Rubrica(s)</th>
+										<td width="400">
+											<h:selectOneMenu id="mes" value="#{AssociadoBean.tipoValidacaoSepag}" tabindex="2">
+												<f:selectItem itemLabel="522059 - MENSALIDADE"	itemValue="MENSALIDADE" />
+												<f:selectItem itemLabel="522174 - VITALMED"	itemValue="VITALMED" />
+												<f:selectItem itemLabel="525079 - PROMEDICA, 525111 - PROMEDICA ULTRA EXTRA e 525113 - PROMEDICA ESPECIAL" itemValue="PROMEDICA"/>
+												<f:selectItem itemLabel="522175 - ODONTOSYSTEM e 522176 - ODONTOSYSTEM/OURO" itemValue="ODONTOSYSTEM"/>
+												<f:selectItem itemLabel="525161 - SERVIDONTO" itemValue="SERVDONTO"/>
+											</h:selectOneMenu>
+										</td>
+									</tr>
+									<tr>
 									<th>Procurar arquivo:</th>
 									<td>
 										<rich:fileUpload id="arquivo" maxFilesQuantity="3" styleClass="teste" immediateUpload="true" 

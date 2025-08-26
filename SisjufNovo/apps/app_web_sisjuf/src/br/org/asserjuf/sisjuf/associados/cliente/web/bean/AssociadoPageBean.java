@@ -65,6 +65,10 @@ import br.org.asserjuf.sisjuf.financeiro.ContaAssociadoVO;
 import br.org.asserjuf.sisjuf.financeiro.web.cliente.FinanceiroDelegate;
 import br.org.asserjuf.sisjuf.util.arquivos.ParserSepag;
 import br.org.asserjuf.sisjuf.util.arquivos.ParserSepagMensalidade;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserSepagOdontosystem;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserSepagPromedica;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserSepagServdonto;
+import br.org.asserjuf.sisjuf.util.arquivos.ParserSepagVitalmed;
 import br.org.asserjuf.sisjuf.util.web.UtilDelegate;
 
 import com.vortice.seguranca.vo.UsuarioVO;
@@ -214,6 +218,19 @@ public class AssociadoPageBean  extends BasePageBean{
 	 */
 	private Date dataImportacao;
 	
+	
+	private String tipoValidacaoSepag;
+	
+	public void setTipoValidacaoSepag(String tipoValidacaoSepag) {
+		this.tipoValidacaoSepag = tipoValidacaoSepag;
+	}
+	
+	
+
+	public String getTipoValidacaoSepag() {
+		return tipoValidacaoSepag;
+	}
+
 
 	private UsuarioVO usuarioLogado;
 	
@@ -315,13 +332,24 @@ public class AssociadoPageBean  extends BasePageBean{
 				for (String path : strPath) {
 					ParserSepag parserSepag = null;
 					
-					if (true) { // TODO eh pra testar qual opcao de validacao SEPAG foi informada pelo usuario.
+					if ("MENSALIDADE".equals(this.tipoValidacaoSepag)) { // TODO eh pra testar qual opcao de validacao SEPAG foi informada pelo usuario.
 					// rubrica MENSALIDADE
 						parserSepag = new ParserSepagMensalidade(path);
-					} else if (false) {
+					} else if ("VITALMED".equals(this.tipoValidacaoSepag)) {
 					// rubrica VITALMED
 					// TODO
-						parserSepag = new ParserSepagMensalidade(path);
+						parserSepag = new ParserSepagVitalmed(path);
+					} else if ("ODONTOSYSTEM".equals(this.tipoValidacaoSepag)) {
+
+						parserSepag = new ParserSepagOdontosystem(path);
+					} else if ("PROMEDICA".equals(this.tipoValidacaoSepag)) {
+
+						parserSepag = new ParserSepagPromedica(path);
+					} else if ("SERVDONTO".equals(this.tipoValidacaoSepag)) {
+
+						parserSepag = new ParserSepagServdonto(path);
+					} else {
+						throw new SmartAppException("Favor selecionar uma rubrica.");
 					}
 					
 					relatorioNucre.addAll(parserSepag.parse());
