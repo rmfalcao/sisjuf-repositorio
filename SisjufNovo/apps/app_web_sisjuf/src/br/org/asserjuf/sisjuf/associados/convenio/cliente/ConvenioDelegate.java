@@ -313,4 +313,8 @@ public class ConvenioDelegate {
 		return convenioBean.findRelatorioIR(filtro);
 	}
 	
+	public Collection<ConvenioVO> findRubricas() throws SmartEnvException {
+		return convenioBean.findRubricas();
+	}
+	
 }

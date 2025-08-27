@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.falc.smartFW.exception.SmartAppException;
 import br.com.falc.smartFW.exception.SmartEnvException;
+import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.dados.AssociadoDAO;
 import br.org.asserjuf.sisjuf.financeiro.FormaPagamentoVO;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
@@ -575,7 +576,7 @@ public class AssociadoRN {
 		return associadoDAO.findRelatorioAssociadosDependentes();
 	}
 
-	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
+	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre, ConvenioVO convenio) throws SmartEnvException, SmartAppException {
 		
 		
 		//  gravar arquivo nucre no banco, retornar codigo gerado do arquivo nucre
@@ -592,7 +593,15 @@ public class AssociadoRN {
 		//      (no banco de dados, comparar registros de contribuintes com o arquivo nucre, 
 		//       para gerar relatorio de diferencias.)
 		
-		return associadoDAO.findRelatorioInconsistenciasNUCRE(codigoNovaPlanilhaNucre);
+		if (convenio == null || convenio.getCodigo() == null) {
+			// validacao rubrica mensalidade
+			return associadoDAO.findRelatorioInconsistenciasNUCRE(codigoNovaPlanilhaNucre);
+			
+		} else {
+			// validacao rubricas de convenios
+			return associadoDAO.findRelatorioInconsistenciasNUCREByConvenio(codigoNovaPlanilhaNucre, convenio);
+			
+		}
 		
 		
 		
@@ -604,11 +613,6 @@ public class AssociadoRN {
 	}
 
 	private void validaItemPlanilhaNucre(ItemPlanilhaNucreVO itemNucre) throws SmartAppException {
-		// no momento essa validacao so olha os associados (cpfs),
-		// pois a unica rubrica que estah sendo verificada na importacao 
-		// eh a rubrica de mensalidades. Se outra rubrica for verificada, 
-		// serah necessario revisar o metodo, jah que outros campos alem 
-		// do cpf podem ser necessarios para outras rubricas.
 		
 		if (itemNucre == null ) {
 			throw new SmartAppException("Item de importacao NUCRE está vazio.");
@@ -624,6 +628,10 @@ public class AssociadoRN {
 		
 		if (itemNucre.getAssociado().getCpf() == null) {
 			throw new SmartAppException("CPF do associado não foi emncontrado.");
+		}
+		
+		if (itemNucre.getValorDebitado() == null) {
+			throw new SmartAppException("O valor consignado não foi emncontrado.");
 		}
 		
 	}

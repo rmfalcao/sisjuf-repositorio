@@ -20,6 +20,7 @@ import br.org.asserjuf.sisjuf.associados.ParentescoVO;
 import br.org.asserjuf.sisjuf.associados.ItemPlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoVO;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculadoPlanoAssembler;
@@ -172,9 +173,9 @@ public class AssociadoDelegate  {
 		return associadoBean.findRelatorioAssociadosDependentes();
 	}
 
-	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
+	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre, ConvenioVO convenio) throws SmartEnvException, SmartAppException {
 		
-		return associadoBean.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+		return associadoBean.gerarRelatorioInconsistenciasNUCRE(relatorioNucre, convenio);
 		
 	}
 

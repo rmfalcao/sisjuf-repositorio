@@ -563,4 +563,43 @@ public class ConvenioDAO extends SisjufDAOPostgres {
 			sConn.close();
 		}
 	}	
+	
+	
+	public Collection<ConvenioVO> findRubricas() throws SmartEnvException {
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT   ");
+		sql.append(" C.SEQ_CONVENIO,  "); 
+		sql.append(" C.DES_RUBRICAS_ARQUIVO_SEPAG  ");
+		sql.append(" FROM ");
+		sql.append(" CONVENIO C ");
+		sql.append(" WHERE  ");
+		sql.append(" C.DES_RUBRICAS_ARQUIVO_SEPAG is not null  ");
+		sql.append(" ORDER BY C.DES_RUBRICAS_ARQUIVO_SEPAG ");
+
+		
+
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		try {
+			sConn 	= new SmartConnection(this.getConn());
+			sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));					
+
+						
+			sRs = new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+			
+			return (Collection<ConvenioVO>) sRs.getJavaBeans(ConvenioVO.class, new String[]{
+				"codigo", 
+				"rubricas"});
+		} catch (SQLException e) {
+			throw new SmartEnvException(e);
+		} finally {
+			sRs.close();
+			sStmt.close();
+			sConn.close();
+		}
+	}	
+	
 }

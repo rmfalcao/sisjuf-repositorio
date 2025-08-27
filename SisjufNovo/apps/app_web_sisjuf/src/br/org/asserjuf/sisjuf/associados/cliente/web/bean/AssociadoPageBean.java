@@ -221,6 +221,7 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	private String tipoValidacaoSepag;
 	
+	
 	public void setTipoValidacaoSepag(String tipoValidacaoSepag) {
 		this.tipoValidacaoSepag = tipoValidacaoSepag;
 	}
@@ -325,6 +326,21 @@ public class AssociadoPageBean  extends BasePageBean{
 			HttpSession sessao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 			strPath.addAll((List<String>)sessao.getAttribute("FILE_PATH_NUCRE"));
 			
+			boolean isValidacaoMensalidade = false;
+			ConvenioVO convenio = new ConvenioVO();
+			
+			
+			if ("".equals(this.tipoValidacaoSepag)) { 
+				isValidacaoMensalidade = true;
+			
+			} else {
+				convenio.setCodigo(Integer.valueOf(tipoValidacaoSepag));
+				convenio = convenioDelegate.findConvenioByPrimaryKey(convenio);
+			}
+			
+			
+			
+			
 			if (strPath != null && strPath.size() > 0){
 				
 				List<ItemPlanilhaNucreVO> relatorioNucre = new ArrayList<ItemPlanilhaNucreVO>();
@@ -332,31 +348,38 @@ public class AssociadoPageBean  extends BasePageBean{
 				for (String path : strPath) {
 					ParserSepag parserSepag = null;
 					
-					if ("MENSALIDADE".equals(this.tipoValidacaoSepag)) { // TODO eh pra testar qual opcao de validacao SEPAG foi informada pelo usuario.
-					// rubrica MENSALIDADE
+					if (isValidacaoMensalidade) { 
+						// rubrica MENSALIDADE
 						parserSepag = new ParserSepagMensalidade(path);
-					} else if ("VITALMED".equals(this.tipoValidacaoSepag)) {
-					// rubrica VITALMED
-					// TODO
-						parserSepag = new ParserSepagVitalmed(path);
-					} else if ("ODONTOSYSTEM".equals(this.tipoValidacaoSepag)) {
-
-						parserSepag = new ParserSepagOdontosystem(path);
-					} else if ("PROMEDICA".equals(this.tipoValidacaoSepag)) {
-
-						parserSepag = new ParserSepagPromedica(path);
-					} else if ("SERVDONTO".equals(this.tipoValidacaoSepag)) {
-
-						parserSepag = new ParserSepagServdonto(path);
+						
 					} else {
-						throw new SmartAppException("Favor selecionar uma rubrica.");
+						
+
+						if ("VITALMED".equals(convenio.getNomeFantasia())) {
+							// rubrica VITALMED
+							parserSepag = new ParserSepagVitalmed(path);
+
+						} else if ("ODONTOSYSTEM".equals(convenio.getNomeFantasia())) {
+							// rubrica ODONTOSYSTEM
+							parserSepag = new ParserSepagOdontosystem(path);
+						} else if ("PROMEDICA".equals(convenio.getNomeFantasia())) {
+							// rubrica PROMEDICA
+							parserSepag = new ParserSepagPromedica(path);
+						} else if ("SERVDONTO".equals(convenio.getNomeFantasia())) {
+							// rubrica SERVDONTO
+							parserSepag = new ParserSepagServdonto(path);
+						} else {
+							throw new SmartAppException("Favor selecionar uma rubrica.");
+						}
+						
+					
 					}
 					
 					relatorioNucre.addAll(parserSepag.parse());
-				}
 				
-				// retornar relatorio de inconsistencias NUCRE
-				inconsistenciasNucre = delegate.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+				}
+
+				inconsistenciasNucre = delegate.gerarRelatorioInconsistenciasNUCRE(relatorioNucre, convenio);
 				
 				// limpar sessao para futuras importacoes:
 				sessao.setAttribute("FILE_PATH_NUCRE", null);
@@ -497,6 +520,26 @@ public class AssociadoPageBean  extends BasePageBean{
 		}
 	}
 	
+		
+	public List<SelectItem> getRubricasSepag() {
+        List<SelectItem> options = new ArrayList<>();
+        options.add(new SelectItem("", "522059 - MENSALIDADE"));
+
+        try {
+			for (ConvenioVO convenio : convenioDelegate.findRubricas()) {
+			    options.add(new SelectItem(convenio.getCodigo(), convenio.getRubricas()));
+			}
+		} catch (SmartEnvException e) {
+			
+			e.printStackTrace();
+		}
+        
+        return options;
+               
+	}
+	
+
+
 	public String salvar(){
 		try {
 			List<DependenteVO> dependentes = carregaDependentes();

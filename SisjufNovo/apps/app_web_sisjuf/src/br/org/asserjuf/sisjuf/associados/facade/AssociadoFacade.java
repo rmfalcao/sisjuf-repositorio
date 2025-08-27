@@ -24,6 +24,7 @@ import br.org.asserjuf.sisjuf.associados.ItemPlanilhaNucreVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.TipoEventoRN;
 import br.org.asserjuf.sisjuf.associados.TipoEventoVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutroBeneficiavelVO;
 import br.org.asserjuf.sisjuf.associados.convenio.OutrosBeneficiaveisRN;
 import br.org.asserjuf.sisjuf.associados.convenio.VinculacaoPlanoRN;
@@ -211,9 +212,9 @@ public class AssociadoFacade {
 		return associadoRN.findRelatorioAssociadosDependentes();
 	}
 
-	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre) throws SmartEnvException, SmartAppException {
+	public List<InconsistenciaNucreVO> gerarRelatorioInconsistenciasNUCRE(List<ItemPlanilhaNucreVO> relatorioNucre, ConvenioVO convenio) throws SmartEnvException, SmartAppException {
 		
-		return associadoRN.gerarRelatorioInconsistenciasNUCRE(relatorioNucre);
+		return associadoRN.gerarRelatorioInconsistenciasNUCRE(relatorioNucre, convenio);
 		
 	}
 

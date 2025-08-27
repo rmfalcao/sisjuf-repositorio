@@ -53,12 +53,9 @@
 									<tr>
 										<th width="190">Rubrica(s)</th>
 										<td width="400">
-											<h:selectOneMenu id="mes" value="#{AssociadoBean.tipoValidacaoSepag}" tabindex="2">
-												<f:selectItem itemLabel="522059 - MENSALIDADE"	itemValue="MENSALIDADE" />
-												<f:selectItem itemLabel="522174 - VITALMED"	itemValue="VITALMED" />
-												<f:selectItem itemLabel="525079 - PROMEDICA, 525111 - PROMEDICA ULTRA EXTRA e 525113 - PROMEDICA ESPECIAL" itemValue="PROMEDICA"/>
-												<f:selectItem itemLabel="522175 - ODONTOSYSTEM e 522176 - ODONTOSYSTEM/OURO" itemValue="ODONTOSYSTEM"/>
-												<f:selectItem itemLabel="525161 - SERVIDONTO" itemValue="SERVDONTO"/>
+											<h:selectOneMenu id="sel_rubricas" value="#{AssociadoBean.tipoValidacaoSepag}" tabindex="2">
+											
+												<f:selectItems value="#{AssociadoBean.rubricasSepag}"  />
 											</h:selectOneMenu>
 										</td>
 									</tr>

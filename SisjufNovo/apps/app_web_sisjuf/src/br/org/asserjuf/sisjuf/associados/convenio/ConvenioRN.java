@@ -188,6 +188,9 @@ public class ConvenioRN {
 		}			
 	}
 	
-	
+
+	public Collection<ConvenioVO> findRubricas() throws SmartEnvException {
+		return convenioDAO.findRubricas();
+	}
 
 }

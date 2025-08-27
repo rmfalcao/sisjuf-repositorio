@@ -44,6 +44,10 @@ public class ConvenioVO extends SmartVO {
 
 	private List<BeneficiarioVO> beneficiarios;
 	
+	private String				rubricas;
+	
+	
+	
 	
 	
 	public String getStatusGeraArquivoFatura() {
@@ -284,5 +288,13 @@ public class ConvenioVO extends SmartVO {
 
 	public List<BeneficiarioVO> getBeneficiarios() {
 		return beneficiarios;
+	}
+
+	public String getRubricas() {
+		return rubricas;
+	}
+
+	public void setRubricas(String rubricas) {
+		this.rubricas = rubricas;
 	}
 }

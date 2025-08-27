@@ -20,6 +20,7 @@ import br.org.asserjuf.sisjuf.associados.RelatorioAssociadosDependentesVO;
 import br.org.asserjuf.sisjuf.associados.RelatorioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioIRVO;
 import br.org.asserjuf.sisjuf.associados.convenio.BeneficiarioVO;
+import br.org.asserjuf.sisjuf.associados.convenio.ConvenioVO;
 import br.org.asserjuf.sisjuf.associados.convenio.ItemFaturaInconsistenteVO;
 import br.org.asserjuf.sisjuf.dados.SisjufDAOPostgres;
 import br.org.asserjuf.sisjuf.financeiro.LancamentoAssociadoVO;
@@ -1222,12 +1223,58 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		
 		}
 	}
+	
+	public List<InconsistenciaNucreVO> findRelatorioInconsistenciasNUCREByConvenio(Long codigoNovaPlanilhaNucre, ConvenioVO convenio) throws SmartEnvException {
+		
+		StringBuffer sql = new StringBuffer("select cpf, nome, categoria_associado, tipo_inconsistencia from ( ") 
+				.append(" SELECT distinct NUCRE.NUM_CPF_ASSOCIADO as cpf, coalesce(NUCRE.NOM_ASSOCIADO, '(nome não identificado)') as nome, '(supostamente contribuinte)' as categoria_associado, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
+				.append(" FROM ITEM_PLANILHA_NUCRE NUCRE ")
+				.append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
+				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND (A.STS_CATEGORIA_ASSOCIADO = 'C' OR  A.STS_CATEGORIA_ASSOCIADO = 'O') AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') )) ")
+				.append(" UNION ALL ")
+				.append(" SELECT A.NUM_CPF_ASSOCIADO as cpf, A.NOM_ASSOCIADO as nome, CASE  WHEN A.STS_CATEGORIA_ASSOCIADO='C' THEN 'CONTRIBUINTE' WHEN A.STS_CATEGORIA_ASSOCIADO='O' THEN 'CONVENIADO' END AS categoria_associado  , 'NAO ENCONTRADO NO ARQUIVO SEPAG' as TIPO_INCONSISTENCIA ")
+				.append(" FROM VW_ASSOCIADO A ")
+				.append(" WHERE  (A.STS_CATEGORIA_ASSOCIADO = 'C' OR  A.STS_CATEGORIA_ASSOCIADO = 'O') AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') ) AND NOT EXISTS (SELECT 1 FROM ITEM_PLANILHA_NUCRE NUCRE WHERE NUCRE.NUM_CPF_ASSOCIADO=A.NUM_CPF_ASSOCIADO AND NUCRE.SEQ_PLANILHA_NUCRE = ?) ")
+				.append(" ) as TEMP_TABLE order by tipo_inconsistencia, nome, cpf ");
+		SmartConnection 		sConn 	= null;
+		SmartPreparedStatement 	sStmt 	= null;
+		SmartResultSet			sRs		= null;
+		
+		
+		try {
+		
+		sConn 	= new SmartConnection(this.getConn());
+		sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
+		
+		
+		sStmt.setLong(1, codigoNovaPlanilhaNucre);
+		sStmt.setLong(2, codigoNovaPlanilhaNucre);
+		sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
+		
+		return (List<InconsistenciaNucreVO>) sRs.getJavaBeans(InconsistenciaNucreVO.class, new String[]{	
+																		"cpf",
+																		"nome",
+																		"categoriaAssociado",
+																		"tipoInconsistencia"
+																});						
+		
+		} catch (SQLException e) {
+		throw new SmartEnvException(e);
+		
+		} finally {
+		
+		sRs.close();
+		sStmt.close();
+		sConn.close();
+		
+		}
+	}
 
 
 	public void insertItemPlanilhaNucre(ItemPlanilhaNucreVO itemNucre) throws SmartEnvException {
 		StringBuffer sql = new StringBuffer(" insert into ITEM_PLANILHA_NUCRE ")
-				.append(" (SEQ_PLANILHA_NUCRE, SEQ_ITEM_PLANILHA_NUCRE, NUM_CPF_ASSOCIADO, NOM_ASSOCIADO, DAT_IMPORTACAO) ")
-				.append(" VALUES (?, nextval('SEQ_ITEM_PLANILHA_NUCRE'), ?, ?, current_timestamp) ");
+				.append(" (SEQ_PLANILHA_NUCRE, SEQ_ITEM_PLANILHA_NUCRE, NUM_CPF_ASSOCIADO, NOM_ASSOCIADO, VAL_DEBITO_CONSIGNADO, DAT_IMPORTACAO) ")
+				.append(" VALUES (?, nextval('SEQ_ITEM_PLANILHA_NUCRE'), ?, ?, ?, current_timestamp) ");
 
 				SmartConnection 		sConn 	= null;
 				SmartPreparedStatement 	sStmt 	= null;
@@ -1237,7 +1284,7 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 					sConn 	= new SmartConnection(this.getConn());
 					sStmt 	= new SmartPreparedStatement(sConn.prepareStatement(sql.toString()));
 					
-					sStmt.setParameters(itemNucre, new String[]{"codigoPlanilha", "associado.cpf", "associado.nome"});
+					sStmt.setParameters(itemNucre, new String[]{"codigoPlanilha", "associado.cpf", "associado.nome", "valorDebitado"});
 					
 					sStmt.getMyPreparedStatement().execute();
 					

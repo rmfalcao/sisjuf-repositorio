@@ -418,4 +418,8 @@ public class ConvenioFacade {
 	public RelatorioIRVO findRelatorioIR(RelatorioIRVO filtro) throws SmartEnvException, SmartAppException {
 		return beneficiarioRN.findRelatorioIR(filtro);
 	}
+	
+	public Collection<ConvenioVO> findRubricas() throws SmartEnvException {
+		return convenioRN.findRubricas();
+	}
 }
