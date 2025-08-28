@@ -65,7 +65,7 @@
 									<f:facet name="header">
 										<h:outputText value="Valor consignado" />
 									</f:facet>
-										<h:outputText value="#{inconsistencia.valorConsignado}" />
+										<h:outputText value="#{inconsistencia.valorConsignado}" converter="DoubleConverter"  />
 								</t:column>
 								
 								
@@ -73,7 +73,7 @@
 									<f:facet name="header">
 										<h:outputText value="Valor no SISJUF" />
 									</f:facet>
-										<h:outputText value="#{inconsistencia.valorPrevisto}" />
+										<h:outputText value="#{inconsistencia.valorPrevisto}" converter="DoubleConverter"  />
 								</t:column>
 								
 								<t:column width="150">
