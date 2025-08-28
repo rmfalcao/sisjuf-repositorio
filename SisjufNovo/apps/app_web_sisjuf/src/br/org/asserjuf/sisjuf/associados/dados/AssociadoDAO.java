@@ -1226,16 +1226,87 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 	
 	public List<InconsistenciaNucreVO> findRelatorioInconsistenciasNUCREByConvenio(Long codigoNovaPlanilhaNucre, ConvenioVO convenio) throws SmartEnvException {
 		
-		StringBuffer sql = new StringBuffer("select cpf, nome, categoria_associado, tipo_inconsistencia from ( ") 
-				.append(" SELECT distinct NUCRE.NUM_CPF_ASSOCIADO as cpf, coalesce(NUCRE.NOM_ASSOCIADO, '(nome não identificado)') as nome, '(supostamente contribuinte)' as categoria_associado, 'NAO ENCONTRADO NO CADASTRO SISJUF' as TIPO_INCONSISTENCIA ")
-				.append(" FROM ITEM_PLANILHA_NUCRE NUCRE ")
-				.append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
-				.append(" AND NOT EXISTS (SELECT 1  FROM VW_ASSOCIADO A WHERE A.num_cpf_associado = NUCRE.NUM_CPF_ASSOCIADO AND (A.STS_CATEGORIA_ASSOCIADO = 'C' OR  A.STS_CATEGORIA_ASSOCIADO = 'O') AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') )) ")
-				.append(" UNION ALL ")
-				.append(" SELECT A.NUM_CPF_ASSOCIADO as cpf, A.NOM_ASSOCIADO as nome, CASE  WHEN A.STS_CATEGORIA_ASSOCIADO='C' THEN 'CONTRIBUINTE' WHEN A.STS_CATEGORIA_ASSOCIADO='O' THEN 'CONVENIADO' END AS categoria_associado  , 'NAO ENCONTRADO NO ARQUIVO SEPAG' as TIPO_INCONSISTENCIA ")
-				.append(" FROM VW_ASSOCIADO A ")
-				.append(" WHERE  (A.STS_CATEGORIA_ASSOCIADO = 'C' OR  A.STS_CATEGORIA_ASSOCIADO = 'O') AND DAT_EXCLUSAO_ASSOCIADO IS NULL AND ((select h2.seq_tipo_evento from historico_evento_associado h2 	where h2.seq_associado = a.seq_associado	order by h2.seq_historico_evento_associado desc limit 1) <>  (select int2(str_val_parametro) from parametros where nom_parametro = 'TP_EVT_CANCELAMENTO') ) AND NOT EXISTS (SELECT 1 FROM ITEM_PLANILHA_NUCRE NUCRE WHERE NUCRE.NUM_CPF_ASSOCIADO=A.NUM_CPF_ASSOCIADO AND NUCRE.SEQ_PLANILHA_NUCRE = ?) ")
-				.append(" ) as TEMP_TABLE order by tipo_inconsistencia, nome, cpf ");
+	
+		StringBuffer sql = new StringBuffer(" select pn.cpf, base_sisjuf.nom_associado, pn.consignado, base_sisjuf.soma_valor as previsto_sisjuf, 'VALORES NAO BATEM' as TIPO_INCONSISTENCIA from ( ")
+				  		  .append(" SELECT 	NUCRE.NUM_CPF_ASSOCIADO as cpf, ") 
+						  .append(" 		coalesce(NUCRE.NOM_ASSOCIADO, '(nome não identificado)') as nome, ") 
+						  .append(" 		'(supostamente contribuinte)' as categoria_associado, SUM(VAL_DEBITO_CONSIGNADO) AS CONSIGNADO		 ")
+						  .append(" FROM ITEM_PLANILHA_NUCRE		NUCRE ")
+						  .append(" WHERE SEQ_PLANILHA_NUCRE = ? ")
+						  .append(" GROUP BY CPF, NOME ")
+						  .append(" 	) pn, ")
+						  .append(" 	(SELECT 	 ")  
+						  .append(" 			  A.NOM_ASSOCIADO,   ")
+						  .append(" 			  A.NUM_CPF_ASSOCIADO ,   ")
+						  .append(" 			  sum(P.VAL_PLANO) as SOMA_VALOR   ")
+						  .append(" 			  FROM 	VW_ASSOCIADO A,    ")
+						  .append(" 			  VINCULACAO_PLANO VP,   ")
+						  .append(" 			  VW_BENEFICIARIO B,   ")
+						  .append(" 			  CONVENIO C,   ")
+						  .append(" 			  PLANO_CONVENIO P   ")
+						  .append(" 			  WHERE 	A.SEQ_ASSOCIADO = VP.SEQ_ASSOCIADO   ")
+						  .append(" 			  AND	VP.SEQ_PESSOA 	= B.SEQ_BENEFICIARIO  ") 
+						  .append(" 			  AND 	VP.SEQ_PLANO 	= P.SEQ_PLANO   ")
+						  .append(" 			  AND 	P.SEQ_CONVENIO 	= C.SEQ_CONVENIO   ")
+						  .append(" 			  AND	VP.DAT_DESVINCULACAO IS NULL   ")
+						  .append(" 			  AND	C.SEQ_CONVENIO = ?   ")
+						  .append(" 			  AND	VP.DAT_VINCULACAO <= current_date   ")
+						  .append(" 			  AND	(VP. DAT_DESVINCULACAO IS NULL OR VP.DAT_DESVINCULACAO >= current_date)   ")
+						  .append(" 			  group by a.nom_associado, a.num_cpf_associado) base_sisjuf ")
+						  .append(" where pn.cpf = base_sisjuf.num_cpf_associado ")
+						  .append(" and pn.consignado <> base_sisjuf.soma_valor ")
+						  .append(" union all ")
+						  .append(" select pn.cpf, pn.nome, pn.consignado, null as previsto_sisjuf, 'NAO ENCONTRADO NO SISJUF' as tipo_inconsistencia from ( ")
+						  .append(" 	SELECT 	NUCRE.NUM_CPF_ASSOCIADO as cpf,  ")
+						  .append(" 		coalesce(NUCRE.NOM_ASSOCIADO, '(nome não identificado)') as nome,  ")
+						  .append(" 		'(supostamente contribuinte)' as categoria_associado ")
+						  .append(" 	, SUM(VAL_DEBITO_CONSIGNADO) AS CONSIGNADO	 ")	
+						  .append(" FROM ITEM_PLANILHA_NUCRE		NUCRE ")
+						  .append(" WHERE NUCRE.SEQ_PLANILHA_NUCRE = ? ")
+						  .append(" 	and not exists ( ")
+						  .append(" 	SELECT 	  1  ")
+						  .append(" 			  FROM 	VW_ASSOCIADO A,   ") 
+						  .append(" 			  VINCULACAO_PLANO VP,   ")
+						  .append(" 			  VW_BENEFICIARIO B,   ")
+						  .append(" 			  CONVENIO C,   ")
+						  .append(" 			  PLANO_CONVENIO P   ")
+						  .append(" 			  WHERE 	A.NUM_CPF_ASSOCIADO = NUCRE.NUM_CPF_ASSOCIADO ")
+						  .append(" 	          AND A.SEQ_ASSOCIADO = VP.SEQ_ASSOCIADO   ")
+						  .append(" 			  AND	VP.SEQ_PESSOA 	= B.SEQ_BENEFICIARIO  ") 
+						  .append(" 			  AND 	VP.SEQ_PLANO 	= P.SEQ_PLANO   ")
+						  .append(" 			  AND 	P.SEQ_CONVENIO 	= C.SEQ_CONVENIO  ") 
+						  .append(" 			  AND	VP.DAT_DESVINCULACAO IS NULL   ")
+						  .append(" 			  AND	C.SEQ_CONVENIO = ?   ")
+						  .append(" 			  AND	VP.DAT_VINCULACAO <= current_date ")  
+						  .append(" 			  AND	(VP. DAT_DESVINCULACAO IS NULL OR VP.DAT_DESVINCULACAO >= current_date)  ")
+						  .append(" 	) ")
+						  .append(" GROUP BY CPF, NOME ")
+						  .append(" ) pn ")
+						  .append(" union all ")
+						  .append(" SELECT 	 base_sisjuf.cpf, base_sisjuf.nome,   null as consignado, soma_valor as previsto_sisjuf, 'NAO ENCONTRADO NO ARQUIVO SEPAG' as tipo_inconsistencia from ( ")
+						  .append(" 	select	  A.NOM_ASSOCIADO as nome,   ")
+						  .append(" 			  A.NUM_CPF_ASSOCIADO as cpf, ")
+						  .append(" 			  sum(P.VAL_PLANO) as SOMA_VALOR ")			  
+						  .append(" 			  FROM 	VW_ASSOCIADO A,    ")
+						  .append(" 			  VINCULACAO_PLANO VP,   ")
+						  .append(" 			  VW_BENEFICIARIO B,   ")
+						  .append(" 			  CONVENIO C,   ")
+						  .append(" 			  PLANO_CONVENIO P   ")
+						  .append(" 			  WHERE 	A.SEQ_ASSOCIADO = VP.SEQ_ASSOCIADO  ") 
+						  .append(" 			  AND	VP.SEQ_PESSOA 	= B.SEQ_BENEFICIARIO   ")
+						  .append(" 			  AND 	VP.SEQ_PLANO 	= P.SEQ_PLANO   ")
+						  .append(" 			  AND 	P.SEQ_CONVENIO 	= C.SEQ_CONVENIO  ") 
+						  .append(" 			  AND	VP.DAT_DESVINCULACAO IS NULL   ")
+						  .append(" 			  AND	C.SEQ_CONVENIO = ?   ")
+						  .append(" 			  AND	VP.DAT_VINCULACAO <= current_date   ")
+						  .append(" 			  AND	(VP. DAT_DESVINCULACAO IS NULL OR VP.DAT_DESVINCULACAO >= current_date)   ")
+						  .append(" 			  group by a.nom_associado, a.num_cpf_associado ")
+						  .append(" ) base_sisjuf ")
+						  .append(" where base_sisjuf.cpf not in ( ")
+						  .append(" SELECT 	NUCRE.NUM_CPF_ASSOCIADO 	 ")	
+						  .append(" FROM ITEM_PLANILHA_NUCRE		NUCRE ")
+						  .append(" WHERE SEQ_PLANILHA_NUCRE = ? ")
+						  .append(" ) ");
 		SmartConnection 		sConn 	= null;
 		SmartPreparedStatement 	sStmt 	= null;
 		SmartResultSet			sRs		= null;
@@ -1248,24 +1319,30 @@ public class AssociadoDAO extends SisjufDAOPostgres {
 		
 		
 		sStmt.setLong(1, codigoNovaPlanilhaNucre);
-		sStmt.setLong(2, codigoNovaPlanilhaNucre);
+		sStmt.setInteger(2, convenio.getCodigo());
+		sStmt.setLong(3, codigoNovaPlanilhaNucre);
+		sStmt.setInteger(4, convenio.getCodigo());
+		sStmt.setInteger(5, convenio.getCodigo());
+		sStmt.setLong(6, codigoNovaPlanilhaNucre);
+		
 		sRs 	= new SmartResultSet(sStmt.getMyPreparedStatement().executeQuery());
 		
 		return (List<InconsistenciaNucreVO>) sRs.getJavaBeans(InconsistenciaNucreVO.class, new String[]{	
 																		"cpf",
 																		"nome",
-																		"categoriaAssociado",
+																		"valorConsignado",
+																		"valorPrevisto",
 																		"tipoInconsistencia"
 																});						
 		
 		} catch (SQLException e) {
-		throw new SmartEnvException(e);
+			throw new SmartEnvException(e);
 		
 		} finally {
 		
-		sRs.close();
-		sStmt.close();
-		sConn.close();
+			sRs.close();
+			sStmt.close();
+			sConn.close();
 		
 		}
 	}

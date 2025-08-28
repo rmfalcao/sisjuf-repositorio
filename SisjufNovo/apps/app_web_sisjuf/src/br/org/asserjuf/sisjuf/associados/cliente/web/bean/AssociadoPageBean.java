@@ -221,6 +221,10 @@ public class AssociadoPageBean  extends BasePageBean{
 	
 	private String tipoValidacaoSepag;
 	
+	private String rubricas;
+	
+	
+	
 	
 	public void setTipoValidacaoSepag(String tipoValidacaoSepag) {
 		this.tipoValidacaoSepag = tipoValidacaoSepag;
@@ -332,10 +336,12 @@ public class AssociadoPageBean  extends BasePageBean{
 			
 			if ("".equals(this.tipoValidacaoSepag)) { 
 				isValidacaoMensalidade = true;
+				this.rubricas = "MENSALIDADE";
 			
 			} else {
 				convenio.setCodigo(Integer.valueOf(tipoValidacaoSepag));
 				convenio = convenioDelegate.findConvenioByPrimaryKey(convenio);
+				this.rubricas = convenio.getNomeFantasia();
 			}
 			
 			
@@ -387,8 +393,11 @@ public class AssociadoPageBean  extends BasePageBean{
 			}
 			
 			
-			
-			return getSucesso();
+			if (isValidacaoMensalidade) {
+				return getSucesso();	
+			} else {
+				return "sucessoConvenio"; // este retorno esta no faces-config indicando a pagina para onde a navegacao seguira
+			}
 			
 		} catch(SmartAppException appEx){
 			FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, appEx.getMensagem(), appEx.getMensagem());
@@ -2243,6 +2252,18 @@ public class AssociadoPageBean  extends BasePageBean{
 
 	public void setInconsistenciasNucre(List<InconsistenciaNucreVO> inconsistenciasNucre) {
 		this.inconsistenciasNucre = inconsistenciasNucre;
+	}
+
+
+
+	public String getRubricas() {
+		return rubricas;
+	}
+
+
+
+	public void setRubricas(String rubricas) {
+		this.rubricas = rubricas;
 	}
 	
 }

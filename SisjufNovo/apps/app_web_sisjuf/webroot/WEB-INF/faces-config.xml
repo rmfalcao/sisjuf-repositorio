@@ -477,6 +477,12 @@
 			<from-outcome>sucesso</from-outcome>
 			<to-view-id>/associados/associadoFaltantes.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{AssociadoBean.importarArquivo}</from-action>
+			<from-outcome>sucessoConvenio</from-outcome>
+			<to-view-id>/associados/inconsistenciasSepagRubricas.jsp</to-view-id>
+		</navigation-case>
 			
 		<navigation-case>
 			<from-action>#{AssociadoBean.importarArquivo}</from-action>

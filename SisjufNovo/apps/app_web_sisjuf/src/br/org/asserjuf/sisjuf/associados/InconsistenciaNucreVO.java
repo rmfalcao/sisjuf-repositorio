@@ -7,6 +7,8 @@ public class InconsistenciaNucreVO extends SmartVO {
 	private Long cpf;
 	private String nome;
 	private String categoriaAssociado;
+	private Float valorConsignado;
+	private Float valorPrevisto;
 	private String tipoInconsistencia;
 	
 	
@@ -33,6 +35,18 @@ public class InconsistenciaNucreVO extends SmartVO {
 	}
 	public void setTipoInconsistencia(String tipoInconsistencia) {
 		this.tipoInconsistencia = tipoInconsistencia;
+	}
+	public Float getValorConsignado() {
+		return valorConsignado;
+	}
+	public void setValorConsignado(Float valorConsignado) {
+		this.valorConsignado = valorConsignado;
+	}
+	public Float getValorPrevisto() {
+		return valorPrevisto;
+	}
+	public void setValorPrevisto(Float valorPrevisto) {
+		this.valorPrevisto = valorPrevisto;
 	}
 	
 	

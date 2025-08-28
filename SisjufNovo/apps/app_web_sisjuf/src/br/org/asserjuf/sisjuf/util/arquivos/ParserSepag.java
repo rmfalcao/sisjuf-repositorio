@@ -43,7 +43,6 @@ public abstract class ParserSepag extends ParserPdfFileAb {
 			
 				String linha = linhasPaginaArquivo[i];
 				
-				System.out.println(i + ": " + linha);
 				
 				if (linha != null) {
 

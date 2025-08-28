@@ -36,7 +36,7 @@
 		
 				<div id="miolo">
 					<h1>Módulo Associados</h1>
-					<h2>Resultado da validação SEPAG - RUBRICA MENSALIDADE</h2>
+					<h2>Resultado da validação SEPAG - RUBRICA(S) "<h:outputText value="#{AssociadoBean.rubricas}" />"</h2>
 					<br>
 					
 					<c:choose>
@@ -44,7 +44,7 @@
 					        <p>TUDO CERTO! Nenhuma inconsistência encontrada.</p>
 					    </c:when>
 					    <c:otherwise>
-					   		<p>Seguem as inconsistências entre o arquivo NUCRE/SEPAG e o cadastro de sócios do SISJUF:</p>
+					   		<p>Seguem as inconsistências entre o arquivo SEPAG e o cadastro de sócios do SISJUF:</p>
 					        <t:dataTable id="data" var="inconsistencia" value="#{AssociadoBean.inconsistenciasNucre}" cellspacing="1" cellpadding="2"  styleClass="tab_lista_maior" preserveDataModel="false">		
 								<t:column width="70">
 									<f:facet name="header">
@@ -63,9 +63,17 @@
 								
 								<t:column width="150">
 									<f:facet name="header">
-										<h:outputText value="Nome" />
+										<h:outputText value="Valor consignado" />
 									</f:facet>
-										<h:outputText value="#{inconsistencia.categoriaAssociado}" />
+										<h:outputText value="#{inconsistencia.valorConsignado}" />
+								</t:column>
+								
+								
+								<t:column width="150">
+									<f:facet name="header">
+										<h:outputText value="Valor no SISJUF" />
+									</f:facet>
+										<h:outputText value="#{inconsistencia.valorPrevisto}" />
 								</t:column>
 								
 								<t:column width="150">
